@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static android.media.AudioRecord.*;
+import static com.wiseapps.davacon.ActivityNavigator.*;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
@@ -41,7 +42,8 @@ public class ProcessTrackActivity extends Activity {
     private static final int RECORDER_BUFFER_SIZE_IN_BYTES =
             AudioRecord.getMinBufferSize(RECORDER_SAMPLE_RATE_IN_HZ, RECORDER_CHANNEL_CONFIG, RECORDER_AUDIO_FORMAT);
 
-    private Object track;
+    // TODO change to WAVFile
+    private File track;
 
     private TextView textDuration;
     private ImageButton buttonRecord;
@@ -57,7 +59,6 @@ public class ProcessTrackActivity extends Activity {
     private MediaPlayer mPlayer;
     private boolean isPlaying;
 
-    private String fileName;
     private RecordTask mTask;
 
     @Override
@@ -105,6 +106,9 @@ public class ProcessTrackActivity extends Activity {
         if (savedInstanceState != null) {
             isRecording = savedInstanceState.getBoolean(EXTRA_IS_RECORDING, false);
         }
+
+        Bundle bundle = getIntent().getBundleExtra(BUNDLE);
+        track = (File) bundle.getSerializable(EXTRA_TRACK);
     }
 
     private void initWidgets() {
@@ -129,10 +133,10 @@ public class ProcessTrackActivity extends Activity {
         if (mRecorder == null) {
 
             if (startRecording()) {
-            isRecording = true;
+                isRecording = true;
 
-            buttonRecord.setImageDrawable(getResources().
-                    getDrawable(R.drawable.ic_action_stop));
+                buttonRecord.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_action_stop));
             } else {
                 Toast.makeText(this,
                         getResources().getString(R.string.prompt_recording_failed), Toast.LENGTH_SHORT).show();
@@ -152,16 +156,16 @@ public class ProcessTrackActivity extends Activity {
             isPlaying = true;
 
             buttonPlay.setImageDrawable(getResources().
-                    getDrawable(R.drawable.ic_action_stop));
+                    getDrawable(R.drawable.ic_action_pause));
 
-            startPlay();
+            startPlaying();
         } else {
             isPlaying = false;
 
             buttonPlay.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_action_play));
 
-            stopPlay();
+            stopPlaying();
         }
     }
 
@@ -179,8 +183,8 @@ public class ProcessTrackActivity extends Activity {
         if (mRecorder.getState() == STATE_INITIALIZED) {
             mRecorder.startRecording();
 
-        mTask = new RecordTask();
-        mTask.execute();
+            mTask = new RecordTask();
+            mTask.execute();
 
             return true;
         }
@@ -202,11 +206,11 @@ public class ProcessTrackActivity extends Activity {
         }
     }
 
-    private void startPlay() {
+    private void startPlaying() {
         mPlayer = new MediaPlayer();
 
         try {
-            mPlayer.setDataSource(fileName);
+            mPlayer.setDataSource(track.getAbsolutePath());
             mPlayer.prepare();
             mPlayer.start();
         } catch (Exception e) {
@@ -214,7 +218,7 @@ public class ProcessTrackActivity extends Activity {
         }
     }
 
-    private void stopPlay() {
+    private void stopPlaying() {
         mPlayer.release();
         mPlayer = null;
     }
@@ -224,10 +228,8 @@ public class ProcessTrackActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            fileName = FileUtils.getFilename(getApplicationContext());
-
             try {
-                writer = new WAVFileWriter(new File(fileName));
+                writer = new WAVFileWriter(new File(FileUtils.getFilename(getApplicationContext())));
 
                 byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 
@@ -286,6 +288,8 @@ public class ProcessTrackActivity extends Activity {
                 } catch (IOException e) {
                     LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
                 }
+
+                track = writer.getWav().getFile();
             }
         }
 

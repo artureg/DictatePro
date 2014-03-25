@@ -23,7 +23,7 @@ public class WAVFileWriter {
 
     private int totalNumberOfBytes;
 
-    private boolean prepared, consumed;
+    private boolean consumed;
 
     public WAVFileWriter(File file) throws FileNotFoundException, IOException {
         this.wav = new WAVFile.Builder(file).
@@ -35,7 +35,7 @@ public class WAVFileWriter {
         prepare();
     }
 
-    public void prepare() throws FileNotFoundException, IOException {
+    private void prepare() throws IOException {
         writer = new RandomAccessFile(wav.getFile(), "rw");
 
         // Set file length to 0 to prevent unexpected behavior in case file with the same name already exists
@@ -61,15 +61,9 @@ public class WAVFileWriter {
         writer.writeInt(wav.getSubchunk2Size());    // 0
 
         LoggerFactory.obtainLogger(TAG).d("prepare# writer.length = " + writer.length());
-
-        prepared = true;
     }
 
-    public void write(byte[] data) throws FileNotFoundException, IOException {
-        if (!prepared) {
-            throw new IllegalStateException("WAV file writer not prepared yet!");
-        }
-
+    public void write(byte[] data) throws IOException {
         if (consumed) {
             throw new IllegalStateException("WAV file writer already consumed!");
         }
@@ -93,6 +87,10 @@ public class WAVFileWriter {
         consumed = true;
 
         LoggerFactory.obtainLogger(TAG).
-                d("close# " + String.format("File size is %d", wav.getFile().length()));
+                d("consume# " + String.format("File size is %d", wav.getFile().length()));
+    }
+
+    public WAVFile getWav() {
+        return wav;
     }
 }

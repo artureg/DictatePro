@@ -12,7 +12,9 @@ import com.wiseapps.davacon.ProcessTrackActivity;
  */
 public class ActivityNavigator {
 
-    private static final String BUNDLE = "bundle";
+    public static final String BUNDLE = "bundle";
+
+    public static final String EXTRA_TRACK = "track";
 
     public static void startProcessTrackActivity(Context context) {
         startProcessTrackActivity(context, null);

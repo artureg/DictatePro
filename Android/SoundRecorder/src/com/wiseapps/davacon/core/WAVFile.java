@@ -3,13 +3,14 @@ package com.wiseapps.davacon.core;
 import android.media.AudioFormat;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/24/14
  *         Time: 1:05 PM
  */
-public class WAVFile {
+public class WAVFile implements Serializable {
     private static final String TAG = WAVFile.class.getSimpleName();
 
     private final String mChunkID = "RIFF";

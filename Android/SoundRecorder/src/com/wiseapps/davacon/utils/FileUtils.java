@@ -15,7 +15,11 @@ public class FileUtils {
 
     private static final String APP_PATH = "Android/data/";
 
-    public static String getFilename(Context context) {
+    public static File getRoot(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException();
+        }
+
         File root = new File(Environment.getExternalStorageDirectory(),
                 APP_PATH + context.getApplicationContext().getPackageName());
 
@@ -23,7 +27,15 @@ public class FileUtils {
             root.mkdirs();
         }
 
-        return root.getAbsolutePath() + "/" + System.currentTimeMillis() + ".wav";
+        return root;
+    }
+
+    public static String getFilename(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return getRoot(context).getAbsolutePath() + "/" + System.currentTimeMillis() + ".wav";
     }
 }
 

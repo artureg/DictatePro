@@ -2,11 +2,10 @@
 
 <!-- TODO deletion layout -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:background="@android:color/white"
-                android:clickable="true"
-                android:onClick="processTrack"
+                android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+    <!--android:background="@android:color/white"-->
 
     <TextView
             android:id="@+id/track"
