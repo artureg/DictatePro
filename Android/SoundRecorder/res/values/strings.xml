@@ -8,4 +8,6 @@
     <string name="track_duration">Duration: %1$s</string>
 
     <string name="process_track_duration">%1$s/%2$s</string>
+
+    <string name="prompt_recording_failed">Recording failed</string>
 </resources>

@@ -60,6 +60,8 @@ public class WAVFileWriter {
         writer.writeBytes(wav.getSubchunk2ID());
         writer.writeInt(wav.getSubchunk2Size());    // 0
 
+        LoggerFactory.obtainLogger(TAG).d("prepare# writer.length = " + writer.length());
+
         prepared = true;
     }
 

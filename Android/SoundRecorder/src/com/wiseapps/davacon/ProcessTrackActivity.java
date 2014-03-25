@@ -13,13 +13,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.wiseapps.davacon.core.WAVFileWriter;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static android.media.AudioRecord.*;
@@ -34,11 +34,12 @@ public class ProcessTrackActivity extends Activity {
 
     private static final String EXTRA_IS_RECORDING = "isRecording";
 
-    private static final int RECORDER_SAMPLERATE = 44100;
-    private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_STEREO;
-    private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-    private static final int RECORDER_BUFFER_SIZE =
-            AudioRecord.getMinBufferSize(8000, RECORDER_CHANNELS, AudioFormat.ENCODING_PCM_16BIT);
+    private static final int RECORDER_AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;
+    private static final int RECORDER_SAMPLE_RATE_IN_HZ = 44100;
+    private static final int RECORDER_CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
+    private static final int RECORDER_AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+    private static final int RECORDER_BUFFER_SIZE_IN_BYTES =
+            AudioRecord.getMinBufferSize(RECORDER_SAMPLE_RATE_IN_HZ, RECORDER_CHANNEL_CONFIG, RECORDER_AUDIO_FORMAT);
 
     private Object track;
 
@@ -126,19 +127,23 @@ public class ProcessTrackActivity extends Activity {
 
     public void record(View view) {
         if (mRecorder == null) {
+
+            if (startRecording()) {
             isRecording = true;
 
             buttonRecord.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_action_stop));
-
-            startRecord();
+            } else {
+                Toast.makeText(this,
+                        getResources().getString(R.string.prompt_recording_failed), Toast.LENGTH_SHORT).show();
+            }
         } else {
             isRecording = false;
 
             buttonRecord.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_action_mic));
 
-            stopRecord();
+            stopRecording();
         }
     }
 
@@ -160,19 +165,30 @@ public class ProcessTrackActivity extends Activity {
         }
     }
 
-    private void startRecord() {
-        mRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING, RECORDER_BUFFER_SIZE);
+    private boolean startRecording() {
+        mRecorder = new AudioRecord(RECORDER_AUDIO_SOURCE,
+                RECORDER_SAMPLE_RATE_IN_HZ, RECORDER_CHANNEL_CONFIG, RECORDER_AUDIO_FORMAT, RECORDER_BUFFER_SIZE_IN_BYTES);
+        LoggerFactory.obtainLogger(TAG).d("startRecording# audioSource = " + mRecorder.getAudioSource());
+        LoggerFactory.obtainLogger(TAG).d("startRecording# sampleRateInHz = " + mRecorder.getSampleRate());
+        LoggerFactory.obtainLogger(TAG).d("startRecording# channelConfig = " + mRecorder.getChannelConfiguration());
+        LoggerFactory.obtainLogger(TAG).d("startRecording# audioFormat = " + mRecorder.getAudioFormat());
+        LoggerFactory.obtainLogger(TAG).d("startRecording# bufferSizeInBytes = " + RECORDER_BUFFER_SIZE_IN_BYTES);
+
+        LoggerFactory.obtainLogger(TAG).d("startRecording# mRecorder.getState() = " + mRecorder.getState());
 
         if (mRecorder.getState() == STATE_INITIALIZED) {
             mRecorder.startRecording();
-        }
 
         mTask = new RecordTask();
         mTask.execute();
+
+            return true;
+        }
+
+        return false;
     }
 
-    private void stopRecord() {
+    private void stopRecording() {
         if (mRecorder.getState() == STATE_INITIALIZED) {
             mRecorder.stop();
         }
@@ -213,11 +229,14 @@ public class ProcessTrackActivity extends Activity {
             try {
                 writer = new WAVFileWriter(new File(fileName));
 
-                byte data[] = new byte[RECORDER_BUFFER_SIZE];
+                byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 
                 int read;
                 while(isRecording) {
-                    read = mRecorder.read(data, 0, RECORDER_BUFFER_SIZE);
+                    read = mRecorder.read(data, 0, RECORDER_BUFFER_SIZE_IN_BYTES);
+                    LoggerFactory.obtainLogger(TAG).d("RecordTask.doInBackground# data = " + data.length);
+                    LoggerFactory.obtainLogger(TAG).d("RecordTask.doInBackground# read result = " + read);
+
                     if (read != AudioRecord.ERROR_INVALID_OPERATION) {
                         writer.write(data);
                     }
@@ -228,13 +247,13 @@ public class ProcessTrackActivity extends Activity {
 
 //            FileOutputStream out = null;
 //            try {
-//                byte data[] = new byte[RECORDER_BUFFER_SIZE];
+//                byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 //
 //                out = new FileOutputStream(fileName);
 //
 //                int read;
 //                while(isRecording) {
-//                    read = mRecorder.read(data, 0, RECORDER_BUFFER_SIZE);
+//                    read = mRecorder.read(data, 0, RECORDER_BUFFER_SIZE_IN_BYTES);
 //                    if (read != AudioRecord.ERROR_INVALID_OPERATION) {
 //                        out.write(data);
 //                    }
