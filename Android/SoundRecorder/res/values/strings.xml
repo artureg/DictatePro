@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sound Recorder</string>
+
+    <string name="main_clear_all">Clear All</string>
+    <string name="main_duration">%1$s/%2$s</string>
+
+    <string name="track_duration">Duration: %1$s</string>
+
+    <string name="process_track_duration">%1$s/%2$s</string>
+</resources>
