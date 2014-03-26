@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.wiseapps.davacon.R;
-import com.wiseapps.davacon.core.WAVFile;
+import com.wiseapps.davacon.core.CheapWAV;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ import java.util.List;
  *
  * TODO generalize
  */
-public class TrackAdapter extends ArrayAdapter<WAVFile> {
+public class TrackAdapter extends ArrayAdapter<CheapWAV> {
 
     private final TrackActionsListener listener;
     private final LayoutInflater inflater;
 
-    public TrackAdapter(Context context, List<WAVFile> tracks, TrackActionsListener listener) {
+    public TrackAdapter(Context context, List<CheapWAV> tracks, TrackActionsListener listener) {
         super(context, R.layout.track, tracks);
 
         this.listener = listener;
@@ -33,12 +33,14 @@ public class TrackAdapter extends ArrayAdapter<WAVFile> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(R.layout.track, null);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.track, null);
+        }
 
-        WAVFile wav = getItem(position);
+        CheapWAV wav = getItem(position);
 
         ((TextView) convertView.findViewById(R.id.track)).
-                setText(wav.getFile().getName());
+                setText(wav.file.getName());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

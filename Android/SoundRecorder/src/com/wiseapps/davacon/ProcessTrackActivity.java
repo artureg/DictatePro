@@ -1,10 +1,6 @@
 package com.wiseapps.davacon;
 
-import android.app.Activity;
-import android.media.AudioFormat;
 import android.media.AudioRecord;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,8 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.wiseapps.davacon.core.WAVFileWriter;
+import com.wiseapps.davacon.core.CheapWAV;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
 
@@ -24,40 +21,34 @@ import java.io.IOException;
 
 import static android.media.AudioRecord.*;
 import static com.wiseapps.davacon.ActivityNavigator.*;
+import static com.wiseapps.davacon.core.CheapWAV.*;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/20/14
  *         Time: 9:23 AM
+ *
+ *         TODO what's going on when leaving a screen during recording (see iPhone)
  */
-public class ProcessTrackActivity extends Activity {
+public class ProcessTrackActivity extends PlayingCapableActivity {
     private static final String TAG = ProcessTrackActivity.class.getSimpleName();
 
     private static final String EXTRA_IS_RECORDING = "isRecording";
 
-    private static final int RECORDER_AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;
-    private static final int RECORDER_SAMPLE_RATE_IN_HZ = 44100;
-    private static final int RECORDER_CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
-    private static final int RECORDER_AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
-    private static final int RECORDER_BUFFER_SIZE_IN_BYTES =
-            AudioRecord.getMinBufferSize(RECORDER_SAMPLE_RATE_IN_HZ, RECORDER_CHANNEL_CONFIG, RECORDER_AUDIO_FORMAT);
-
-    // TODO change to WAVFile
-    private File track;
+    private CheapWAV wav;
 
     private TextView textDuration;
     private ImageButton buttonRecord;
     private ImageButton buttonPlay;
     private ProgressBar progressBar;
 
+    private MenuItem menuSplit;
+
     // TODO handle onDestroy with recording (consult iPhone)
     // TODO handle recorder release once the recording is finished
 
     private AudioRecord mRecorder;
     private boolean isRecording;
-
-    private MediaPlayer mPlayer;
-    private boolean isPlaying;
 
     private RecordTask mTask;
 
@@ -75,11 +66,9 @@ public class ProcessTrackActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.process_track, menu);
 
-        if (track != null) {
-            MenuItem menuSplit = menu.findItem(R.id.split);
-            if (menuSplit != null) {
-                menuSplit.setVisible(false);
-            }
+        menuSplit = menu.findItem(R.id.split);
+        if (menuSplit != null) {
+            menuSplit.setVisible(false);
         }
 
         return super.onCreateOptionsMenu(menu);
@@ -89,6 +78,7 @@ public class ProcessTrackActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.split: {
+                new SplitTask().execute();
                 return true;
             }
         }
@@ -108,7 +98,9 @@ public class ProcessTrackActivity extends Activity {
         }
 
         Bundle bundle = getIntent().getBundleExtra(BUNDLE);
-        track = (File) bundle.getSerializable(EXTRA_TRACK);
+        if (bundle != null) {
+            wav = (CheapWAV) bundle.getSerializable(EXTRA_TRACK);
+        }
     }
 
     private void initWidgets() {
@@ -121,10 +113,6 @@ public class ProcessTrackActivity extends Activity {
         }
 
         buttonPlay = (ImageButton) findViewById(R.id.button_play);
-
-        if (track != null) {
-            findViewById(R.id.button_play).setVisibility(View.VISIBLE);
-        }
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
     }
@@ -148,24 +136,6 @@ public class ProcessTrackActivity extends Activity {
                     getDrawable(R.drawable.ic_action_mic));
 
             stopRecording();
-        }
-    }
-
-    public void play(View view) {
-        if (mPlayer == null) {
-            isPlaying = true;
-
-            buttonPlay.setImageDrawable(getResources().
-                    getDrawable(R.drawable.ic_action_pause));
-
-            startPlaying();
-        } else {
-            isPlaying = false;
-
-            buttonPlay.setImageDrawable(getResources().
-                    getDrawable(R.drawable.ic_action_play));
-
-            stopPlaying();
         }
     }
 
@@ -206,30 +176,79 @@ public class ProcessTrackActivity extends Activity {
         }
     }
 
-    private void startPlaying() {
-        mPlayer = new MediaPlayer();
-
-        try {
-            mPlayer.setDataSource(track.getAbsolutePath());
-            mPlayer.prepare();
-            mPlayer.start();
-        } catch (Exception e) {
-            LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
-        }
+    public void play(View view) {
+        doPlay();
     }
 
-    private void stopPlaying() {
-        mPlayer.release();
-        mPlayer = null;
+    @Override
+    void onPlayerPreparedSuccessfully(int duration) {
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        0, DurationUtils.format(duration)));
+
+        buttonPlay.setImageDrawable(getResources().
+                getDrawable(R.drawable.ic_action_play));
+        buttonPlay.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    void onPlayerPreparationFailed() {
+        textDuration.setText("");
+        buttonPlay.setImageDrawable(getResources().
+                getDrawable(R.drawable.ic_action_play));
+        buttonPlay.setVisibility(View.GONE);
+
+        Toast.makeText(this,
+                getResources().getString(R.string.prompt_player_preparation_failed), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    void onPlayerStarted() {
+        super.onPlayerStarted();
+
+        if (menuSplit != null) {
+            menuSplit.setVisible(false);
+        }
+
+        buttonPlay.setImageDrawable(getResources().
+                getDrawable(R.drawable.ic_action_pause));
+    }
+
+    @Override
+    void onPlayerInProgress(int currentPosition, int duration) {
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("onPlayerInProgress# currentPosition = %d, duration = %d", currentPosition, duration));
+
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(currentPosition), DurationUtils.format(duration)));
+    }
+
+    @Override
+    void onPlayerPaused() {
+        super.onPlayerPaused();
+
+        if (menuSplit != null) {
+            menuSplit.setVisible(true);
+        }
+
+        buttonPlay.setImageDrawable(getResources().
+                getDrawable(R.drawable.ic_action_play));
+    }
+
+    @Override
+    CheapWAV getWav() {
+        return wav;
     }
 
     private class RecordTask extends AsyncTask<Void, Void, Void> {
-        private WAVFileWriter writer;
+        private CheapWAV wav;
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                writer = new WAVFileWriter(new File(FileUtils.getFilename(getApplicationContext())));
+                wav = new CheapWAV(new File(FileUtils.getFilename(getApplicationContext())),
+                        RECORDER_AUDIO_FORMAT, RECORDER_CHANNEL_CONFIG, RECORDER_SAMPLE_RATE_IN_HZ);
 
                 byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 
@@ -240,40 +259,12 @@ public class ProcessTrackActivity extends Activity {
                     LoggerFactory.obtainLogger(TAG).d("RecordTask.doInBackground# read result = " + read);
 
                     if (read != AudioRecord.ERROR_INVALID_OPERATION) {
-                        writer.write(data);
+                        wav.write(data);
                     }
                 }
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
             }
-
-//            FileOutputStream out = null;
-//            try {
-//                byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
-//
-//                out = new FileOutputStream(fileName);
-//
-//                int read;
-//                while(isRecording) {
-//                    read = mRecorder.read(data, 0, RECORDER_BUFFER_SIZE_IN_BYTES);
-//                    if (read != AudioRecord.ERROR_INVALID_OPERATION) {
-//                        out.write(data);
-//                    }
-//                }
-//
-//                out.flush();
-//                out.close();
-//            } catch (Exception e) {
-//                LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
-//            } finally {
-//                if (out != null) {
-//                    try {
-//                        out.close();
-//                    } catch (Exception e) {
-//                        LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
-//                    }
-//                }
-//            }
 
             return null;
         }
@@ -282,14 +273,14 @@ public class ProcessTrackActivity extends Activity {
         protected void onCancelled() {
             super.onCancelled();
 
-            if (writer != null) {
+            if (wav != null) {
                 try {
-                    writer.consume();
+                    wav.write(null, true);
                 } catch (IOException e) {
                     LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
                 }
 
-                track = writer.getWav().getFile();
+                ProcessTrackActivity.this.wav = wav;
             }
         }
 
@@ -298,6 +289,33 @@ public class ProcessTrackActivity extends Activity {
             super.onProgressUpdate(values);
 
             // TODO update progress + text duration
+        }
+    }
+
+    private class SplitTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                CheapWAV.split(
+                        ProcessTrackActivity.this, wav, getCurrentPosition());
+                return true;
+            } catch (Exception e) {
+                LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (!result) {
+                Toast.makeText(ProcessTrackActivity.this,
+                        getResources().getString(R.string.prompt_split_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            finish();
         }
     }
 }
