@@ -133,11 +133,39 @@ public class CheapWAV implements Serializable {
         writer.setLength(0);
 
         // Set RIFF-header section
-        writer.writeBytes(mChunkID);
-        writer.writeInt(mChunkSize);    // 0
-        writer.writeBytes(mFormat);
+        setRiffHeader(writer, 0);
+//        writer.writeBytes(mChunkID);
+//        writer.writeInt(mChunkSize);    // 0
+//        writer.writeBytes(mFormat);
 
         // Set fmt-subchunk
+        setFmtChunk(writer);
+//        writer.writeBytes(mSubchunk1ID);
+//        writer.writeInt(Integer.reverseBytes(mSubchunk1Size));
+//        writer.writeShort(Short.reverseBytes(mAudioFormat));
+//        writer.writeShort(Short.reverseBytes(mNumChannels));
+//        writer.writeInt(Integer.reverseBytes(mSampleRate));
+//        writer.writeInt(Integer.reverseBytes(mByteRate));
+//        writer.writeShort(Short.reverseBytes(mBlockAlign));
+//        writer.writeShort(Short.reverseBytes(mBitsPerSample));
+
+        // Set data-subchunk
+        setDataSubchunk(writer, 0);
+//        writer.writeBytes(mSubchunk2ID);
+//        writer.writeInt(mSubchunk2Size);    // 0
+
+        prepared = true;
+
+        LoggerFactory.obtainLogger(TAG).d("prepare# writer.length = " + writer.length());
+    }
+
+    private void setRiffHeader(RandomAccessFile writer, int chunkSize) throws IOException {
+        writer.writeBytes(mChunkID);
+        writer.writeInt(Integer.reverseBytes(chunkSize));
+        writer.writeBytes(mFormat);
+    }
+
+    private void setFmtChunk(RandomAccessFile writer) throws IOException {
         writer.writeBytes(mSubchunk1ID);
         writer.writeInt(Integer.reverseBytes(mSubchunk1Size));
         writer.writeShort(Short.reverseBytes(mAudioFormat));
@@ -146,14 +174,11 @@ public class CheapWAV implements Serializable {
         writer.writeInt(Integer.reverseBytes(mByteRate));
         writer.writeShort(Short.reverseBytes(mBlockAlign));
         writer.writeShort(Short.reverseBytes(mBitsPerSample));
+    }
 
-        // Set data-subchunk
+    private void setDataSubchunk(RandomAccessFile writer, int subchunk2Size) throws IOException {
         writer.writeBytes(mSubchunk2ID);
-        writer.writeInt(mSubchunk2Size);    // 0
-
-        prepared = true;
-
-        LoggerFactory.obtainLogger(TAG).d("prepare# writer.length = " + writer.length());
+        writer.writeInt(Integer.reverseBytes(subchunk2Size));
     }
 
     private void consume() throws IOException {
@@ -173,19 +198,55 @@ public class CheapWAV implements Serializable {
                 d("consume# " + String.format("File size is %d", file.length()));
     }
 
-    public static CheapWAV concat(List<CheapWAV> wavs) {
-        // TODO implement
-        return null;
+    public static CheapWAV concat(Context context, List<CheapWAV> wavs) throws Exception {
+        int d = 0;
+        for (CheapWAV wav : wavs) {
+            wav.read();
+
+            d += wav.data.length;
+        }
+
+        CheapWAV wav = new CheapWAV(new File(FileUtils.getTempFilename(context)),
+                RECORDER_AUDIO_FORMAT, RECORDER_CHANNEL_CONFIG, RECORDER_SAMPLE_RATE_IN_HZ);
+
+        RandomAccessFile writer =
+                new RandomAccessFile(wav.file.getAbsolutePath(), "rw");
+        wav.setRiffHeader(writer, 36 + d);
+        wav.setFmtChunk(writer);
+        wav.setDataSubchunk(writer, d);
+        wav.prepared = true;
+
+        for (CheapWAV w : wavs) {
+            writer.write(w.data);
+//            wav.write(w.data);
+        }
+
+        writer.close();
+        wav.consumed = true;
+
+        return wav;
     }
 
+    // TODO delete initial file
     public static void split(Context context, CheapWAV wav, int duration) throws Exception {
         wav.read();
 
         // TODO real duration
-        int d1 = duration / 2;
-        int d2 = duration - d1;
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("split# initial data.length = %d", wav.data.length));
+        int d1 = wav.data.length / 2;
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("split# d1 = %d", d1));
+
+        int d2 = wav.data.length - d1;
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("split# d2 = %d", d2));
+
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("split# (d1 + d2) = %d", (d1 + d2)));
+
         byte[] data1 = Arrays.copyOfRange(wav.data, 0, d1);
-        byte[] data2 = Arrays.copyOfRange(wav.data, d1, wav.data.length);
+        byte[] data2 = Arrays.copyOfRange(wav.data, d2, wav.data.length - 1);
 
         RandomAccessFile writer =
                 new RandomAccessFile(FileUtils.getFilename(context), "rw");

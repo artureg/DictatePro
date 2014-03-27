@@ -12,4 +12,5 @@
     <string name="prompt_recording_failed">Recording failed</string>
     <string name="prompt_player_preparation_failed">Playing preparation failed</string>
     <string name="prompt_split_failed">Slit failed</string>
+    <string name="prompt_concat_failed">Playing failed</string>
 </resources>

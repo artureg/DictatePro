@@ -44,11 +44,13 @@ abstract class PlayingCapableActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        wav = getWav();
-
-        if (wav != null) {
-            preparePlaying();
-        }
+//        preparePlaying();
+//
+//        wav = getWav();
+//
+//        if (wav != null) {
+//            preparePlaying();
+//        }
     }
 
     @Override
@@ -64,6 +66,10 @@ abstract class PlayingCapableActivity extends Activity {
     }
 
     void doPlay() {
+        if (mPlayer == null) {
+            preparePlaying();
+        }
+
         if (mPlayer.isPlaying()) {
             mPlayer.pause();
 
@@ -77,6 +83,13 @@ abstract class PlayingCapableActivity extends Activity {
     }
 
     private void preparePlaying() {
+        wav = getWav();
+        if (wav == null) {
+            LoggerFactory.obtainLogger(getTag()).
+                    d("preparePlaying# No file to play");
+            return;
+        }
+
         try {
             mPlayer = new StateAwareMediaPlayer();
 

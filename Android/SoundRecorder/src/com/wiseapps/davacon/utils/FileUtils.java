@@ -13,6 +13,8 @@ import java.io.File;
 public class FileUtils {
     private static final String TAG = FileUtils.class.getSimpleName();
 
+    public static final String TMP_SUFFIX = "-tmp";
+
     private static final String APP_PATH = "Android/data/";
 
     public static File getRoot(Context context) {
@@ -31,11 +33,20 @@ public class FileUtils {
     }
 
     public static String getFilename(Context context) {
+        return getFilename(context, false);
+    }
+
+    public static String getTempFilename(Context context) {
+        return getFilename(context, true);
+    }
+
+    private static String getFilename(Context context, boolean temp) {
         if (context == null) {
             throw new IllegalArgumentException();
         }
 
-        return getRoot(context).getAbsolutePath() + "/" + System.currentTimeMillis() + ".wav";
+        return getRoot(context).getAbsolutePath() + "/" + System.currentTimeMillis() +
+                (temp ? TMP_SUFFIX : "") + ".wav";
     }
 }
 
