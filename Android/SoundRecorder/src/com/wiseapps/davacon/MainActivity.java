@@ -42,6 +42,11 @@ public class MainActivity extends PlayingCapableActivity {
 
     private CheapWAV tmp;
 
+    private static enum Mode {
+        VIEW, EDIT
+    }
+    private Mode mode = Mode.VIEW;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +109,14 @@ public class MainActivity extends PlayingCapableActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit: {
-                // TODO implement
+                if (mode == Mode.VIEW) {
+                    mode = Mode.EDIT;
+                } else {
+                    mode = Mode.VIEW;
+                }
+
+                switchMode();
+
                 return true;
             }
             case R.id.add: {
@@ -176,6 +188,7 @@ public class MainActivity extends PlayingCapableActivity {
 
             ((TextView) convertView.findViewById(R.id.track)).
                     setText(wav.file.getName());
+            convertView.findViewById(R.id.action_forward).setVisibility(View.VISIBLE);
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -206,6 +219,87 @@ public class MainActivity extends PlayingCapableActivity {
         buttonClear.setVisibility(View.VISIBLE);
 
         LoggerFactory.obtainLogger(TAG).d("initTracks# finished");
+    }
+
+    private void switchMode() {
+//        resetWidgets();
+
+        if (mode == Mode.VIEW) {
+            if (menuEdit != null) {
+                menuEdit.setIcon(getResources().getDrawable(R.drawable.ic_action_edit));
+            }
+
+            LayoutInflater inflater = getLayoutInflater();
+
+            LinearLayout tracks = (LinearLayout) findViewById(R.id.tracks);
+            tracks.removeAllViews();
+
+            View convertView;
+
+            int count = 0;
+            for (final CheapWAV wav : wavs) {
+                convertView = inflater.inflate(R.layout.track, null);
+
+                ((TextView) convertView.findViewById(R.id.track)).
+                        setText(wav.file.getName());
+
+                convertView.findViewById(R.id.action_forward).setVisibility(View.VISIBLE);
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onDetails(wav);
+                    }
+                });
+
+                ((LinearLayout) findViewById(R.id.tracks)).addView(convertView);
+
+                if (count < wavs.size()) {
+                    tracks.addView(inflater.inflate(R.layout.separator, null));
+                }
+
+                ++count;
+            }
+
+            return;
+        }
+
+        if (mode == Mode.EDIT) {
+            if (menuEdit != null) {
+                menuEdit.setIcon(getResources().getDrawable(R.drawable.ic_action_accept));
+            }
+
+            LayoutInflater inflater = getLayoutInflater();
+
+            LinearLayout tracks = (LinearLayout) findViewById(R.id.tracks);
+            tracks.removeAllViews();
+
+            View convertView;
+
+            int count = 0;
+            for (final CheapWAV wav : wavs) {
+                convertView = inflater.inflate(R.layout.track, null);
+
+                ((TextView) convertView.findViewById(R.id.track)).
+                        setText(wav.file.getName());
+
+                convertView.findViewById(R.id.action_remove).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.action_remove).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onDelete(wav);
+                    }
+                });
+
+                ((LinearLayout) findViewById(R.id.tracks)).addView(convertView);
+
+                if (count < wavs.size()) {
+                    tracks.addView(inflater.inflate(R.layout.separator, null));
+                }
+
+                ++count;
+            }
+        }
     }
 
     public void clearAll(View view) {
@@ -290,7 +384,24 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     public void onDelete(CheapWAV wav) {
-        // TODO implement
+        if (wav.file.delete()) {
+            LoggerFactory.obtainLogger(TAG).
+                    d(String.format("onPostExecute# File %s deleted successully",
+                            wav.file.getAbsolutePath()));
+
+            Toast.makeText(MainActivity.this,
+                    getResources().getString(R.string.prompt_split_failed), Toast.LENGTH_SHORT).show();
+        } else {
+            LoggerFactory.obtainLogger(TAG).
+                    d(String.format("onPostExecute# File %s deletion failed",
+                            wav.file.getAbsolutePath()));
+        }
+
+        mode = Mode.VIEW;
+
+        initData();
+//        initTracks();
+        switchMode();
     }
 
     private class PlayAllTask extends AsyncTask<Void, Void, Boolean> {

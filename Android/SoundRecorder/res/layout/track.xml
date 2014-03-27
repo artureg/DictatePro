@@ -7,17 +7,30 @@
                 android:layout_height="wrap_content">
     <!--android:background="@android:color/white"-->
 
+    <ImageButton
+            android:id="@+id/action_remove"
+            android:src="@drawable/ic_action_remove"
+            android:background="@null"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
     <TextView
             android:id="@+id/track"
             style="@style/TextViewStyle"
             android:paddingLeft="16dp"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/action_remove"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <!--android:text="@string/track_duration"-->
 
     <ImageButton
+            android:id="@+id/action_forward"
             android:src="@drawable/ic_action_forward"
             android:background="@null"
             android:paddingTop="16dp"
@@ -25,5 +38,6 @@
             android:paddingRight="8dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 </RelativeLayout>
