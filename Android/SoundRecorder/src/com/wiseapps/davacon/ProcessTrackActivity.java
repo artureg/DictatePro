@@ -37,14 +37,14 @@ import static com.wiseapps.davacon.core.CheapWAV.*;
 public class ProcessTrackActivity extends PlayingCapableActivity {
     private static final String TAG = ProcessTrackActivity.class.getSimpleName();
 
+    private CheapWAV wav;
+
     private TextView textDuration;
     private ImageButton buttonRecord;
     private ImageButton buttonPlay;
     private ProgressBar progressBar;
 
     private MenuItem menuSplit;
-
-    private CheapWAV wav;
 
     private AudioRecord mRecorder;
     private boolean isRecording;
@@ -179,19 +179,10 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
                         0, DurationUtils.format(duration)));
-
-//        buttonPlay.setImageDrawable(getResources().
-//                getDrawable(R.drawable.ic_action_play));
-//        buttonPlay.setVisibility(View.VISIBLE);
     }
 
     @Override
     void onPlayerPreparationFailed() {
-//        textDuration.setText("");
-//        buttonPlay.setImageDrawable(getResources().
-//                getDrawable(R.drawable.ic_action_play));
-//        buttonPlay.setVisibility(View.GONE);
-
         Toast.makeText(this,
                 getResources().getString(R.string.prompt_player_preparation_failed), Toast.LENGTH_SHORT).show();
     }
@@ -225,6 +216,14 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         if (menuSplit != null) {
             menuSplit.setVisible(true);
         }
+
+        buttonPlay.setImageDrawable(getResources().
+                getDrawable(R.drawable.ic_action_play));
+    }
+
+    @Override
+    void onPlayerCompleted() {
+        super.onPlayerCompleted();
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_play));

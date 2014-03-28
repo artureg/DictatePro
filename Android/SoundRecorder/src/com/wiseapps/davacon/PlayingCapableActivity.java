@@ -111,7 +111,7 @@ abstract class PlayingCapableActivity extends Activity {
                     mPlayer.release();
                     mPlayer = null;
 
-                    mHandler.removeMessages(MSG_PLAYER_IN_PROGRESS);
+                    onPlayerCompleted();
 
                     preparePlaying();
                 }
@@ -148,6 +148,10 @@ abstract class PlayingCapableActivity extends Activity {
     }
 
     void onPlayerPaused() {
+        mHandler.removeMessages(MSG_PLAYER_IN_PROGRESS);
+    }
+
+    void onPlayerCompleted() {
         mHandler.removeMessages(MSG_PLAYER_IN_PROGRESS);
     }
 
