@@ -11,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.wiseapps.davacon.core.CheapWAV;
+import com.wiseapps.davacon.core.SoundFile;
+import com.wiseapps.davacon.core.wav.SoundFileHandler;
+import com.wiseapps.davacon.core.wav.WAVFile;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
@@ -22,12 +24,16 @@ import java.io.IOException;
 
 import static android.media.AudioRecord.*;
 import static com.wiseapps.davacon.ActivityNavigator.*;
-import static com.wiseapps.davacon.core.CheapWAV.*;
+import static com.wiseapps.davacon.core.wav.WAVFile.*;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/20/14
  *         Time: 9:23 AM
+ *
+ *
+ * TODO 1.progress bar 2.re-record the file 3.correct splitting 4. test cases
+ * TODO 5. docs 6. check with Igor's sample file 6.crash tests 7. convertion
  *
  *         TODO what's going on when leaving a screen during recording (see iPhone)
  *
@@ -37,7 +43,7 @@ import static com.wiseapps.davacon.core.CheapWAV.*;
 public class ProcessTrackActivity extends PlayingCapableActivity {
     private static final String TAG = ProcessTrackActivity.class.getSimpleName();
 
-    private CheapWAV wav;
+    private SoundFile wav;
 
     private TextView textDuration;
     private ImageButton buttonRecord;
@@ -88,7 +94,13 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     private void initData() {
         Bundle bundle = getIntent().getBundleExtra(BUNDLE);
         if (bundle != null) {
-            wav = (CheapWAV) bundle.getSerializable(EXTRA_TRACK);
+            File track = (File) bundle.getSerializable(EXTRA_TRACK);
+            try {
+                wav = SoundFile.create(track);
+            } catch (IOException e) {
+                LoggerFactory.obtainLogger(TAG).
+                        e(String.format("initData# Couldn't read %s", track.getAbsolutePath()), e);
+            }
         }
     }
 
@@ -230,7 +242,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     @Override
-    CheapWAV getWav() {
+    SoundFile getWav() {
         return wav;
     }
 
@@ -241,13 +253,12 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     private class RecordTask extends AsyncTask<Void, Void, Void> {
-        private CheapWAV wav;
+        private SoundFile wav;
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                wav = new CheapWAV(new File(FileUtils.getFilename(getApplicationContext())),
-                        RECORDER_AUDIO_FORMAT, RECORDER_CHANNEL_CONFIG, RECORDER_SAMPLE_RATE_IN_HZ);
+                wav = SoundFile.create(new File(FileUtils.getFilename(getApplicationContext())));
 
                 byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 
@@ -274,7 +285,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
 
             if (wav != null) {
                 try {
-                    wav.write(null, true);
+                    wav.consume();
                 } catch (IOException e) {
                     LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
                 }
@@ -299,7 +310,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                CheapWAV.split(
+                SoundFileHandler.split(
                         ProcessTrackActivity.this, wav, getCurrentPosition());
                 return true;
             } catch (Exception e) {
@@ -318,14 +329,14 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
                 return;
             }
 
-            if (wav.file.delete()) {
+            if (wav.getFile().delete()) {
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("onPostExecute# File %s deleted successully",
-                                wav.file.getAbsolutePath()));
+                                wav.getFile().getAbsolutePath()));
             } else {
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("onPostExecute# File %s deletion failed",
-                                wav.file.getAbsolutePath()));
+                                wav.getFile().getAbsolutePath()));
             }
 
             setResult(Activity.RESULT_OK);

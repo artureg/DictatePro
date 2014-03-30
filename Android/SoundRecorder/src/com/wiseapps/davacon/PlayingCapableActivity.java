@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
-import com.wiseapps.davacon.core.CheapWAV;
+import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.logging.LoggerFactory;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ abstract class PlayingCapableActivity extends Activity {
 
     private StateAwareMediaPlayer mPlayer;
 
-    private CheapWAV wav;
+    private SoundFile wav;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -93,7 +93,7 @@ abstract class PlayingCapableActivity extends Activity {
         try {
             mPlayer = new StateAwareMediaPlayer();
 
-            mPlayer.setDataSource(wav.file.getAbsolutePath());
+            mPlayer.setDataSource(wav.getFile().getAbsolutePath());
 
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -163,7 +163,7 @@ abstract class PlayingCapableActivity extends Activity {
         return mPlayer.getCurrentPosition();
     }
 
-    abstract CheapWAV getWav();
+    abstract SoundFile getWav();
 
     private String getTag() {
         return getClass().getSimpleName();

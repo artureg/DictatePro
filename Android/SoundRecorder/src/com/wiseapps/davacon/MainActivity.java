@@ -9,17 +9,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import com.wiseapps.davacon.core.CheapWAV;
+import com.wiseapps.davacon.core.SoundFile;
+import com.wiseapps.davacon.core.wav.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.wiseapps.davacon.ActivityNavigator.*;
-import static com.wiseapps.davacon.core.CheapWAV.*;
 import static com.wiseapps.davacon.utils.FileUtils.*;
 
 /**
@@ -32,9 +33,8 @@ public class MainActivity extends PlayingCapableActivity {
 
     private static final int REQUEST_CODE_PROCESS_TRACK = 0;
 
-    // TODO generalize for further usage (with other file types)
-    private List<CheapWAV> wavs;
-    private CheapWAV tmp;
+    private List<SoundFile> files;
+    private SoundFile tmp;
 
     private LinearLayout trackList;
 
@@ -99,12 +99,6 @@ public class MainActivity extends PlayingCapableActivity {
         menuEdit = menu.findItem(R.id.edit);
         updateMenu();
 
-//        if (wavs == null) {
-//            if (menuEdit != null) {
-//                menuEdit.setVisible(false);
-//            }
-//        }
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -128,7 +122,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     private void initData() {
-        this.wavs = null;
+        this.files = null;
 
         File root = FileUtils.getRoot(this);
 
@@ -137,14 +131,17 @@ public class MainActivity extends PlayingCapableActivity {
             return;
         }
 
-        this.wavs = new ArrayList<CheapWAV>();
+        this.files = new ArrayList<SoundFile>();
         for (File track : tracks) {
             if (track.getName().contains(TMP_SUFFIX)) {
                 continue;
             }
-
-            this.wavs.add(new CheapWAV(track,
-                    RECORDER_AUDIO_FORMAT, RECORDER_CHANNEL_CONFIG, RECORDER_SAMPLE_RATE_IN_HZ));
+            try {
+                this.files.add(SoundFile.create(track));
+            } catch (IOException e) {
+                LoggerFactory.obtainLogger(TAG).
+                        e(String.format("initData# Couldn't read %s", track.getAbsolutePath()), e);
+            }
         }
     }
 
@@ -175,11 +172,11 @@ public class MainActivity extends PlayingCapableActivity {
                 getResources().getDrawable(R.drawable.ic_action_accept));
 
         // set visibility
-        menuEdit.setVisible(wavs != null && !wavs.isEmpty());
+        menuEdit.setVisible(files != null && !files.isEmpty());
     }
 
     private void updateTrackList() {
-        if (wavs == null || wavs.isEmpty()) {
+        if (files == null || files.isEmpty()) {
             trackList.setVisibility(View.GONE);
             return;
         }
@@ -190,11 +187,11 @@ public class MainActivity extends PlayingCapableActivity {
         int count = 0;
 
         View convertView;
-        for (final CheapWAV wav : wavs) {
+        for (final SoundFile wav : files) {
             convertView = inflater.inflate(R.layout.track, null);
 
             ((TextView) convertView.findViewById(R.id.track)).
-                    setText(wav.file.getName());
+                    setText(wav.getFile().getName());
 
             switch(mode) {
                 case VIEW: {
@@ -223,7 +220,7 @@ public class MainActivity extends PlayingCapableActivity {
 
             ((LinearLayout) findViewById(R.id.tracks)).addView(convertView);
 
-            if (count < wavs.size()) {
+            if (count < files.size()) {
                 trackList.addView(inflater.inflate(R.layout.separator, null));
             }
 
@@ -234,7 +231,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     private void updateButtons() {
-        if (wavs != null && !wavs.isEmpty()) {
+        if (files != null && !files.isEmpty()) {
             buttonPlay.setVisibility(View.VISIBLE);
             buttonClear.setVisibility(View.VISIBLE);
         } else {
@@ -303,29 +300,29 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     @Override
-    CheapWAV getWav() {
+    SoundFile getWav() {
         return tmp;
     }
 
-    public void onDetails(CheapWAV wav) {
+    public void onDetails(SoundFile wav) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_TRACK, wav);
+        bundle.putSerializable(EXTRA_TRACK, wav.getFile());
 
         ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK, bundle);
     }
 
-    public void onDelete(CheapWAV wav) {
-        if (wav.file.delete()) {
+    public void onDelete(SoundFile wav) {
+        if (wav.getFile().delete()) {
             LoggerFactory.obtainLogger(TAG).
                     d(String.format("onPostExecute# File %s deleted successully",
-                            wav.file.getAbsolutePath()));
+                            wav.getFile().getAbsolutePath()));
 
             Toast.makeText(MainActivity.this,
                     getResources().getString(R.string.prompt_file_deleted), Toast.LENGTH_SHORT).show();
         } else {
             LoggerFactory.obtainLogger(TAG).
                     d(String.format("onPostExecute# File %s deletion failed",
-                            wav.file.getAbsolutePath()));
+                            wav.getFile().getAbsolutePath()));
         }
 
         mode = Mode.VIEW;
@@ -338,10 +335,9 @@ public class MainActivity extends PlayingCapableActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                tmp = CheapWAV.concat(
-                        MainActivity.this, wavs);
+                tmp = SoundFileHandler.concat(MainActivity.this, files);
                 LoggerFactory.obtainLogger(TAG).
-                        d(String.format("doInBackground# Tmp file %s created successfully", tmp.file.getAbsolutePath()));
+                        d(String.format("doInBackground# Tmp file %s created successfully", tmp.getFile().getAbsolutePath()));
 
                 return true;
             } catch (Exception e) {
