@@ -16,13 +16,9 @@ import java.io.IOException;
  */
 abstract class PlayingCapableActivity extends Activity {
 
-    private static final int MSG_PLAYER_STARTED = 0;
     private static final int MSG_PLAYER_IN_PROGRESS = 1;
-    private static final int MSG_PLAYER_PAUSED = 2;
 
     private StateAwareMediaPlayer mPlayer;
-
-    private SoundFile wav;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -39,19 +35,6 @@ abstract class PlayingCapableActivity extends Activity {
             }
         }
     };
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-//        preparePlaying();
-//
-//        wav = getWav();
-//
-//        if (wav != null) {
-//            preparePlaying();
-//        }
-    }
 
     @Override
     protected void onStop() {
@@ -78,13 +61,13 @@ abstract class PlayingCapableActivity extends Activity {
             mPlayer.seekTo(mPlayer.getCurrentPosition());
             mPlayer.start();
 
-            onPlayerStarted();
+            onPlayerStarted(mPlayer.getDuration());
         }
     }
 
     private void preparePlaying() {
-        wav = getWav();
-        if (wav == null) {
+        SoundFile sf = getSoundFile();
+        if (sf == null) {
             LoggerFactory.obtainLogger(getTag()).
                     d("preparePlaying# No file to play");
             return;
@@ -93,7 +76,7 @@ abstract class PlayingCapableActivity extends Activity {
         try {
             mPlayer = new StateAwareMediaPlayer();
 
-            mPlayer.setDataSource(wav.getFile().getAbsolutePath());
+            mPlayer.setDataSource(sf.getFile().getAbsolutePath());
 
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -140,7 +123,7 @@ abstract class PlayingCapableActivity extends Activity {
     void onPlayerPreparationFailed() {
     }
 
-    void onPlayerStarted() {
+    void onPlayerStarted(int duration) {
         mHandler.sendEmptyMessage(MSG_PLAYER_IN_PROGRESS);
     }
 
@@ -163,7 +146,7 @@ abstract class PlayingCapableActivity extends Activity {
         return mPlayer.getCurrentPosition();
     }
 
-    abstract SoundFile getWav();
+    abstract SoundFile getSoundFile();
 
     private String getTag() {
         return getClass().getSimpleName();

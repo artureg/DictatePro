@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.core.wav.SoundFileHandler;
-import com.wiseapps.davacon.core.wav.WAVFile;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
@@ -43,7 +42,7 @@ import static com.wiseapps.davacon.core.wav.WAVFile.*;
 public class ProcessTrackActivity extends PlayingCapableActivity {
     private static final String TAG = ProcessTrackActivity.class.getSimpleName();
 
-    private SoundFile wav;
+    private SoundFile sf;
 
     private TextView textDuration;
     private ImageButton buttonRecord;
@@ -93,10 +92,15 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
 
     private void initData() {
         Bundle bundle = getIntent().getBundleExtra(BUNDLE);
+
         if (bundle != null) {
             File track = (File) bundle.getSerializable(EXTRA_TRACK);
+            if (track == null) {
+                return;
+            }
+
             try {
-                wav = SoundFile.create(track);
+                sf = SoundFile.create(track);
             } catch (IOException e) {
                 LoggerFactory.obtainLogger(TAG).
                         e(String.format("initData# Couldn't read %s", track.getAbsolutePath()), e);
@@ -114,7 +118,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         }
 
         buttonPlay = (ImageButton) findViewById(R.id.button_play);
-        if (wav != null) {
+        if (sf != null) {
             buttonPlay.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_action_play));
             buttonPlay.setVisibility(View.VISIBLE);
@@ -200,12 +204,17 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerStarted() {
-        super.onPlayerStarted();
+    void onPlayerStarted(int duration) {
+        super.onPlayerStarted(duration);
 
         if (menuSplit != null) {
             menuSplit.setVisible(false);
         }
+
+        textDuration.setVisibility(View.VISIBLE);
+
+        progressBar.setMax(duration);
+        progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_pause));
@@ -215,6 +224,8 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     void onPlayerInProgress(int currentPosition, int duration) {
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("onPlayerInProgress# currentPosition = %d, duration = %d", currentPosition, duration));
+
+        progressBar.setProgress(currentPosition);
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
@@ -237,13 +248,18 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     void onPlayerCompleted() {
         super.onPlayerCompleted();
 
+        textDuration.setText("");
+        textDuration.setVisibility(View.GONE);
+
+        progressBar.setVisibility(View.GONE);
+
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_play));
     }
 
     @Override
-    SoundFile getWav() {
-        return wav;
+    SoundFile getSoundFile() {
+        return sf;
     }
 
     @Override
@@ -252,13 +268,36 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         finish();
     }
 
-    private class RecordTask extends AsyncTask<Void, Void, Void> {
-        private SoundFile wav;
+    private class RecordTask extends AsyncTask<Void, Integer, Void> {
+        private SoundFile sf;
+
+        private static final int MAX = 180;
+
+        private int startMillis= 0,
+                endMillis = MAX * 1000; // 180 seconds
+        private long currentTimeMillis;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            currentTimeMillis = System.currentTimeMillis();
+
+            textDuration.setText(
+                    String.format(getResources().getString(R.string.process_track_duration),
+                            DurationUtils.format(startMillis), DurationUtils.format(endMillis)));
+            textDuration.setVisibility(View.VISIBLE);
+
+            progressBar.setMax(endMillis);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                wav = SoundFile.create(new File(FileUtils.getFilename(getApplicationContext())));
+                // rewrite if exists
+                sf = SoundFile.create(new File(ProcessTrackActivity.this.sf != null ?
+                        ProcessTrackActivity.this.sf.getFile().getAbsolutePath() : FileUtils.getFilename(getApplicationContext())));
 
                 byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES];
 
@@ -269,7 +308,15 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
                     LoggerFactory.obtainLogger(TAG).d("RecordTask.doInBackground# read result = " + read);
 
                     if (read != AudioRecord.ERROR_INVALID_OPERATION) {
-                        wav.write(data);
+                        sf.write(data);
+                    }
+
+                    long currentTimeMillis = System.currentTimeMillis();
+                    if (currentTimeMillis - this.currentTimeMillis > 100) {
+                        startMillis += 100;
+                        this.currentTimeMillis = currentTimeMillis;
+
+                        publishProgress(startMillis);
                     }
                 }
             } catch (Exception e) {
@@ -283,26 +330,34 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         protected void onCancelled() {
             super.onCancelled();
 
-            if (wav != null) {
+            if (sf != null) {
                 try {
-                    wav.consume();
+                    sf.consume();
                 } catch (IOException e) {
                     LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
                 }
 
-                ProcessTrackActivity.this.wav = wav;
+                ProcessTrackActivity.this.sf = sf;
 
                 buttonPlay.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_action_play));
                 buttonPlay.setVisibility(View.VISIBLE);
+
+                textDuration.setText("");
+                textDuration.setVisibility(View.GONE);
+
+                progressBar.setVisibility(View.GONE);
             }
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
+        protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
 
-            // TODO update progress + text duration
+            textDuration.setText(
+                    String.format(getResources().getString(R.string.process_track_duration),
+                            DurationUtils.format(startMillis), DurationUtils.format(endMillis)));
+            progressBar.setProgress(startMillis / 100);
         }
     }
 
@@ -311,7 +366,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         protected Boolean doInBackground(Void... voids) {
             try {
                 SoundFileHandler.split(
-                        ProcessTrackActivity.this, wav, getCurrentPosition());
+                        ProcessTrackActivity.this, sf, getCurrentPosition());
                 return true;
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
@@ -329,14 +384,14 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
                 return;
             }
 
-            if (wav.getFile().delete()) {
+            if (sf.getFile().delete()) {
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("onPostExecute# File %s deleted successully",
-                                wav.getFile().getAbsolutePath()));
+                                sf.getFile().getAbsolutePath()));
             } else {
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("onPostExecute# File %s deletion failed",
-                                wav.getFile().getAbsolutePath()));
+                                sf.getFile().getAbsolutePath()));
             }
 
             setResult(Activity.RESULT_OK);

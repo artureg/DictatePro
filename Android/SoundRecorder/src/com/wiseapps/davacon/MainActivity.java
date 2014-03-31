@@ -33,7 +33,7 @@ public class MainActivity extends PlayingCapableActivity {
 
     private static final int REQUEST_CODE_PROCESS_TRACK = 0;
 
-    private List<SoundFile> files;
+    private List<SoundFile> sfs;
     private SoundFile tmp;
 
     private LinearLayout trackList;
@@ -122,7 +122,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     private void initData() {
-        this.files = null;
+        this.sfs = null;
 
         File root = FileUtils.getRoot(this);
 
@@ -131,13 +131,13 @@ public class MainActivity extends PlayingCapableActivity {
             return;
         }
 
-        this.files = new ArrayList<SoundFile>();
+        this.sfs = new ArrayList<SoundFile>();
         for (File track : tracks) {
             if (track.getName().contains(TMP_SUFFIX)) {
                 continue;
             }
             try {
-                this.files.add(SoundFile.create(track));
+                this.sfs.add(SoundFile.create(track));
             } catch (IOException e) {
                 LoggerFactory.obtainLogger(TAG).
                         e(String.format("initData# Couldn't read %s", track.getAbsolutePath()), e);
@@ -172,11 +172,11 @@ public class MainActivity extends PlayingCapableActivity {
                 getResources().getDrawable(R.drawable.ic_action_accept));
 
         // set visibility
-        menuEdit.setVisible(files != null && !files.isEmpty());
+        menuEdit.setVisible(sfs != null && !sfs.isEmpty());
     }
 
     private void updateTrackList() {
-        if (files == null || files.isEmpty()) {
+        if (sfs == null || sfs.isEmpty()) {
             trackList.setVisibility(View.GONE);
             return;
         }
@@ -187,7 +187,7 @@ public class MainActivity extends PlayingCapableActivity {
         int count = 0;
 
         View convertView;
-        for (final SoundFile wav : files) {
+        for (final SoundFile wav : sfs) {
             convertView = inflater.inflate(R.layout.track, null);
 
             ((TextView) convertView.findViewById(R.id.track)).
@@ -220,7 +220,7 @@ public class MainActivity extends PlayingCapableActivity {
 
             ((LinearLayout) findViewById(R.id.tracks)).addView(convertView);
 
-            if (count < files.size()) {
+            if (count < sfs.size()) {
                 trackList.addView(inflater.inflate(R.layout.separator, null));
             }
 
@@ -231,7 +231,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     private void updateButtons() {
-        if (files != null && !files.isEmpty()) {
+        if (sfs != null && !sfs.isEmpty()) {
             buttonPlay.setVisibility(View.VISIBLE);
             buttonClear.setVisibility(View.VISIBLE);
         } else {
@@ -272,8 +272,8 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerStarted() {
-        super.onPlayerStarted();
+    void onPlayerStarted(int duration) {
+        super.onPlayerStarted(duration);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_pause));
@@ -300,7 +300,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     @Override
-    SoundFile getWav() {
+    SoundFile getSoundFile() {
         return tmp;
     }
 
@@ -335,7 +335,7 @@ public class MainActivity extends PlayingCapableActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                tmp = SoundFileHandler.concat(MainActivity.this, files);
+                tmp = SoundFileHandler.concat(MainActivity.this, sfs);
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("doInBackground# Tmp file %s created successfully", tmp.getFile().getAbsolutePath()));
 

@@ -36,13 +36,15 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
         <!--android:text="@string/process_track_duration"-->
     </RelativeLayout>
 
     <ProgressBar
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_below="@id/layout_buttons"
