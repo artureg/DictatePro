@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sound Recorder</string>
+
+    <string name="main_clear_all">Clear All</string>
+    <string name="main_duration">%1$s / %2$s</string>
+
+    <string name="track_duration">Duration: %1$s</string>
+
+    <string name="process_track_duration">%1$s / %2$s</string>
+
+    <string name="prompt_recording_failed">Recording failed</string>
+    <string name="prompt_player_preparation_failed">Playing preparation failed</string>
+    <string name="prompt_split_failed">Split failed</string>
+    <string name="prompt_concat_failed">Playing failed</string>
+
+    <string name="prompt_file_deleted">File deleted successfully</string>
+</resources>

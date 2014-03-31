@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <RelativeLayout
+            android:id="@+id/layout_buttons"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <ImageButton
+                android:id="@+id/button_record"
+                android:src="@drawable/ic_action_mic"
+                android:background="@null"
+                android:padding="16dp"
+                android:layout_alignParentLeft="true"
+                android:onClick="record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ImageButton
+                android:id="@+id/button_play"
+                android:src="@drawable/ic_action_play"
+                android:background="@null"
+                android:padding="16dp"
+                android:layout_toRightOf="@id/button_record"
+                android:onClick="play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/text_duration"
+                style="@style/TextViewStyle"
+                android:paddingRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        <!--android:text="@string/process_track_duration"-->
+    </RelativeLayout>
+
+    <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@id/layout_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+</RelativeLayout>
