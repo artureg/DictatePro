@@ -67,7 +67,7 @@ public abstract class SoundFile {
 
     public abstract byte[] getData();
 
-   public abstract List<byte[]> getDataParts(SoundFile wav);
+   public abstract List<byte[]> getDataParts(SoundFile wav, int durationPlayed);
 
     public interface Factory {
         public SoundFile create(File file) throws IOException;
