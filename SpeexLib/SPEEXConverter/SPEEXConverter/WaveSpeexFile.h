@@ -55,7 +55,7 @@ public:
     void showInfo();
     
     // Encoding
-    bool encodeWavFile(const char* filePath, int quality = 8);
+    bool encodeWavFile(const char* filePath, short quality = 8);
     bool decodeToWavFile(const char* filePath);
 
 private:
