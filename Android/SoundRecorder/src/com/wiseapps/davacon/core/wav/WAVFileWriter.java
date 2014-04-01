@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
+ * Class to write .wav file.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/30/14
  *         Time: 11:12 AM
@@ -26,6 +28,12 @@ public class WAVFileWriter {
         this.wav = wav;
     }
 
+    /**
+     * Method to write data to .wav file.
+     *
+     * @param data array of bytes to write to file
+     * @throws IOException
+     */
     public void write(byte[] data) throws IOException {
         if (consumed) {
             throw new IllegalStateException("File writer already consumed!");

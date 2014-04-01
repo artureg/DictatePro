@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="davacon" default="help">
+<project name="davacon" default="javadoc">
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
@@ -89,4 +89,38 @@
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml"/>
 
+    <target
+            name="javadoc"
+            description="Generate JavaDoc documentation" >
+
+        <xmlproperty
+                collapseAttributes="true"
+                file="AndroidManifest.xml"
+                prefix="tm" />
+
+        <mkdir dir="${docs.dir}" />
+
+        <javadoc
+                access="private"
+                author="true"
+                classpath="${sdk.dir}/platforms/${target}/android.jar"
+                destdir="${docs.dir}"
+                linkoffline="http://d.android.com/reference ${sdk.dir}/docs/reference"
+                linksource="true"
+                sourcepath="${source.dir}"
+                use="true"
+                version="true" />
+
+        <!--<jar-->
+                <!--basedir="${docs.dir}"-->
+                <!--compress="${jar.compress}"-->
+                <!--jarfile="${bin.dir}/${tm.manifest.package}_${tm.manifest.android:versionName}_javadoc.jar" />-->
+    </target>
+
+    <target
+            name="clean"
+            depends="android_rules.clean" >
+
+        <delete dir="${docs.dir}" />
+    </target>
 </project>

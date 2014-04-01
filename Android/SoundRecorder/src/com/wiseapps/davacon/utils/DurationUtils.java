@@ -1,6 +1,8 @@
 package com.wiseapps.davacon.utils;
 
 /**
+ * Helper class to provide the formatted durations.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/26/14
  *         Time: 6:34 PM

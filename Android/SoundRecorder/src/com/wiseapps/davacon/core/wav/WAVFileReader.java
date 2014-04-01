@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
+ * Class to read .wav file.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/30/14
  *         Time: 11:35 AM
@@ -20,6 +22,9 @@ public class WAVFileReader {
         this.wav = wav;
     }
 
+    /**
+     * Reads .wav file.
+     */
     public void read() {
         FileInputStream stream = null;
 

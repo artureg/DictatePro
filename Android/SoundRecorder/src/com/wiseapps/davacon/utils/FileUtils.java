@@ -6,6 +6,8 @@ import android.os.Environment;
 import java.io.File;
 
 /**
+ * Helper class to provide file related methods.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/23/14
  *         Time: 10:21 AM
@@ -17,6 +19,12 @@ public class FileUtils {
 
     private static final String APP_PATH = "Android/data/";
 
+    /**
+     * Method to return the root of the tracks hierarchy.
+     *
+     * @param context Application context
+     * @return root of the tracks hierarchy
+     */
     public static File getRoot(Context context) {
         if (context == null) {
             throw new IllegalArgumentException();
@@ -32,10 +40,22 @@ public class FileUtils {
         return root;
     }
 
+    /**
+     * Method to return file name.
+     *
+     * @param context Application context
+     * @return Name of the file
+     */
     public static String getFilename(Context context) {
         return getFilename(context, false);
     }
 
+    /**
+     * Method to return temporary file name.
+     *
+     * @param context Application context
+     * @return Name of the file
+     */
     public static String getTempFilename(Context context) {
         return getFilename(context, true);
     }

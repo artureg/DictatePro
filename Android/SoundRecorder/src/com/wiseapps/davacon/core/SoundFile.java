@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * Class representing an abstract file that one can read and write.
+ *
+ * <p>Each concrete file type (say .wav) should overwrite it.</p>
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/30/14
  *         Time: 11:47 AM
@@ -34,6 +38,13 @@ public abstract class SoundFile {
 
     private File file;
 
+    /**
+     * Method to create an object of some derived from the {@link SoundFile} type.
+     *
+     * @param file File from sd-card to create an object of some derived from the {@link SoundFile} type from.
+     * @return object of the {@link SoundFile}
+     * @throws IOException
+     */
     public static SoundFile create(File file) throws IOException {
         String name = file.getName().toLowerCase();
         String[] components = name.split("\\.");
@@ -49,26 +60,68 @@ public abstract class SoundFile {
         return factory.create(file);
     }
 
+    /**
+     * Method to read an object derived from the {@link SoundFile} type.
+     */
     public abstract void read();
 
+    /**
+     * Method to write an object derived from the {@link SoundFile} type.
+     *
+     * @param data array of bytes to write to file
+     * @throws IOException
+     */
     public abstract void write(byte[] data) throws IOException;
 
+    /**
+     * Method to consume an object derived from the {@link SoundFile} type.
+     */
     public abstract void consume() throws IOException;
 
+    /**
+     * Method to return duration.
+     *
+     * @return duration in millis
+     */
     public abstract int getDuration();
 
+    /**
+     * Method to return file from sd-card.
+     *
+     * @return file from sd-card
+     */
     public File getFile() {
         return file;
     }
 
+    /**
+     * Method to set file from sd-card.
+     *
+     * @param file file to set
+     */
     public void setFile(File file) {
         this.file = file;
     }
 
+    /**
+     * Returns file data.
+     *
+     * @return file data
+     */
     public abstract byte[] getData();
 
-   public abstract List<byte[]> getDataParts(SoundFile wav, int durationPlayed);
+    /**
+     * Returns arrays of bytes of both splitted parts.
+     *
+     * @param wav {@link com.wiseapps.davacon.core.SoundFile SoundFile} which data to split
+     * @param durationPlayed duration of the first part in millis
+     * @return arrays of bytes as of both splitted parts
+     */
+    public abstract List<byte[]> getDataParts(SoundFile wav, int durationPlayed);
 
+    /**
+     * Helper interface to handle objects of the derived from {@link com.wiseapps.davacon.core.SoundFile} types.
+     */
     public interface Factory {
         public SoundFile create(File file) throws IOException;
         public String[] getSupportedExtensions();
