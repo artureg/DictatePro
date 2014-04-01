@@ -157,15 +157,18 @@ public class WAVFile extends SoundFile {
     }
 
     @Override
-    public List<byte[]> getDataParts(SoundFile wav) {
-        List<byte[]> parts = new ArrayList<byte[]>(2);
+    public List<byte[]> getDataParts(SoundFile wav, int durationPlayed) {
+        double durationTotal = wav.getDuration();
+
+        double percent = durationTotal / 100;
+        double alreadyPlayed = (double) Math.round(durationPlayed / percent * 100) / 100;
 
         wav.read();
 
-        // TODO real duration
         LoggerFactory.obtainLogger(TAG).
-                d(String.format("split# initial data.length = %d", wav.getData().length));
-        int d1 = wav.getData().length / 2;
+                d(String.format("split# data duration = %d", wav.getData().length));
+
+        int d1 = (int) (wav.getData().length / 100 * alreadyPlayed);
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("split# d1 = %d", d1));
 
@@ -176,8 +179,10 @@ public class WAVFile extends SoundFile {
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("split# (d1 + d2) = %d", (d1 + d2)));
 
+        List<byte[]> parts = new ArrayList<byte[]>(2);
+
         parts.add(0, Arrays.copyOfRange(wav.getData(), 0, d1));
-        parts.add(1, Arrays.copyOfRange(wav.getData(), d2, wav.getData().length - 1));
+        parts.add(1, Arrays.copyOfRange(wav.getData(), d1, wav.getData().length - 1));
 
         return parts;
     }

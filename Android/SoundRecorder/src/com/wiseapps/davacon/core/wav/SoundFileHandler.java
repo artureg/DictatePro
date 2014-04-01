@@ -30,8 +30,8 @@ public class SoundFileHandler {
         return wav;
     }
 
-    public static void split(Context context, SoundFile wav, int duration) throws Exception {
-        List<byte[]> parts = wav.getDataParts(wav);
+    public static void split(Context context, SoundFile wav, int durationPlayed) throws Exception {
+        List<byte[]> parts = wav.getDataParts(wav, durationPlayed);
 
         SoundFile wav1 = SoundFile.create(new File(FileUtils.getFilename(context)));
         wav1.write(parts.get(0));
