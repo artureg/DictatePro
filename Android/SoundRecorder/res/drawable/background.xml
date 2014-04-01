@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright 2013 Pozitron.-->
+<!--All rights reserved.-->
+<!--POZITRON PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.-->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <solid android:color="@android:color/white"/>
+</shape>

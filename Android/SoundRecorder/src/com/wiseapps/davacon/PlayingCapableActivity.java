@@ -25,7 +25,7 @@ abstract class PlayingCapableActivity extends Activity {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case MSG_PLAYER_IN_PROGRESS: {
-                    onPlayerInProgress(mPlayer.getCurrentPosition(), mPlayer.getDuration());
+                    onPlayerInProgress(mPlayer.getCurrentPosition());
 
                     sendMessageDelayed(
                             obtainMessage(MSG_PLAYER_IN_PROGRESS), 100);
@@ -61,7 +61,7 @@ abstract class PlayingCapableActivity extends Activity {
             mPlayer.seekTo(mPlayer.getCurrentPosition());
             mPlayer.start();
 
-            onPlayerStarted(mPlayer.getDuration());
+            onPlayerStarted();
         }
     }
 
@@ -83,7 +83,7 @@ abstract class PlayingCapableActivity extends Activity {
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     // Update the UI correspondently,
                     // i.e. show the play button and the track's duration
-                    onPlayerPreparedSuccessfully(mPlayer.getDuration());
+                    onPlayerPreparedSuccessfully();
 
                 }
             });
@@ -117,17 +117,17 @@ abstract class PlayingCapableActivity extends Activity {
         }
     }
 
-    void onPlayerPreparedSuccessfully(int duration) {
+    void onPlayerPreparedSuccessfully() {
     }
 
     void onPlayerPreparationFailed() {
     }
 
-    void onPlayerStarted(int duration) {
+    void onPlayerStarted() {
         mHandler.sendEmptyMessage(MSG_PLAYER_IN_PROGRESS);
     }
 
-    void onPlayerInProgress(int currentPosition, int duration) {
+    void onPlayerInProgress(int currentPosition) {
     }
 
     void onPlayerPaused() {

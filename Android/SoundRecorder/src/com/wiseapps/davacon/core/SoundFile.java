@@ -55,6 +55,8 @@ public abstract class SoundFile {
 
     public abstract void consume() throws IOException;
 
+    public abstract int getDuration();
+
     public File getFile() {
         return file;
     }
