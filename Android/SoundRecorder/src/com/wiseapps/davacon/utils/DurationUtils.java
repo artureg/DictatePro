@@ -8,6 +8,11 @@ package com.wiseapps.davacon.utils;
 public class DurationUtils {
 
     public static double format(int millis) {
-        return Double.parseDouble((millis / 1000) + "." + String.valueOf((millis % 1000)).substring(0, 1));
+        return format((double) millis);
+    }
+
+    public static double format(double millis) {
+        double seconds = millis / 1000;
+        return (double) Math.round(seconds * 10) / 10;
     }
 }

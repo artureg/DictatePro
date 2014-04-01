@@ -31,7 +31,7 @@ import static com.wiseapps.davacon.core.wav.WAVFile.*;
  *         Time: 9:23 AM
  *
  *
- * TODO 1.progress bar 2.re-record the file 3.correct splitting 4. test cases
+ * TODO 3.correct splitting 4. test cases
  * TODO 5. docs 6. check with Igor's sample file 6.crash tests 7. convertion
  *
  *         TODO what's going on when leaving a screen during recording (see iPhone)
@@ -111,6 +111,11 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     private void initWidgets() {
         textDuration = (TextView) findViewById(R.id.text_duration);
         textDuration.setTypeface(FontUtils.getRobotoRegular(this));
+        if (sf != null) {
+            textDuration.setText(
+                    String.format(getResources().getString(R.string.process_track_duration),
+                            DurationUtils.format(0), DurationUtils.format(sf.getDuration())));
+        }
 
         buttonRecord = (ImageButton) findViewById(R.id.button_record);
         if (isRecording) {
@@ -191,10 +196,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerPreparedSuccessfully(int duration) {
-        textDuration.setText(
-                String.format(getResources().getString(R.string.process_track_duration),
-                        0, DurationUtils.format(duration)));
+    void onPlayerPreparedSuccessfully() {
     }
 
     @Override
@@ -204,16 +206,14 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerStarted(int duration) {
-        super.onPlayerStarted(duration);
+    void onPlayerStarted() {
+        super.onPlayerStarted();
 
         if (menuSplit != null) {
             menuSplit.setVisible(false);
         }
 
-        textDuration.setVisibility(View.VISIBLE);
-
-        progressBar.setMax(duration);
+        progressBar.setMax(sf.getDuration());
         progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
@@ -221,15 +221,12 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerInProgress(int currentPosition, int duration) {
-        LoggerFactory.obtainLogger(TAG).
-                d(String.format("onPlayerInProgress# currentPosition = %d, duration = %d", currentPosition, duration));
-
+    void onPlayerInProgress(int currentPosition) {
         progressBar.setProgress(currentPosition);
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
-                        DurationUtils.format(currentPosition), DurationUtils.format(duration)));
+                        DurationUtils.format(currentPosition), DurationUtils.format(sf.getDuration())));
     }
 
     @Override
@@ -248,8 +245,9 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     void onPlayerCompleted() {
         super.onPlayerCompleted();
 
-        textDuration.setText("");
-        textDuration.setVisibility(View.GONE);
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(0), DurationUtils.format(sf.getDuration())));
 
         progressBar.setVisibility(View.GONE);
 
@@ -271,10 +269,8 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
     private class RecordTask extends AsyncTask<Void, Integer, Void> {
         private SoundFile sf;
 
-        private static final int MAX = 180;
-
-        private int startMillis= 0,
-                endMillis = MAX * 1000; // 180 seconds
+        private double startSeconds = 0,
+                endSeconds = 180;
         private long currentTimeMillis;
 
         @Override
@@ -285,10 +281,10 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
 
             textDuration.setText(
                     String.format(getResources().getString(R.string.process_track_duration),
-                            DurationUtils.format(startMillis), DurationUtils.format(endMillis)));
+                            DurationUtils.format(startSeconds * 1000), DurationUtils.format(endSeconds * 1000)));
             textDuration.setVisibility(View.VISIBLE);
 
-            progressBar.setMax(endMillis);
+            progressBar.setMax((int) endSeconds);
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -313,10 +309,10 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
 
                     long currentTimeMillis = System.currentTimeMillis();
                     if (currentTimeMillis - this.currentTimeMillis > 100) {
-                        startMillis += 100;
+                        startSeconds += 0.1;
                         this.currentTimeMillis = currentTimeMillis;
 
-                        publishProgress(startMillis);
+                        publishProgress((int) startSeconds);
                     }
                 }
             } catch (Exception e) {
@@ -324,6 +320,16 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
             }
 
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            textDuration.setText(
+                    String.format(getResources().getString(R.string.process_track_duration),
+                            DurationUtils.format(startSeconds * 1000), DurationUtils.format(endSeconds * 1000)));
+            progressBar.setProgress((int)startSeconds);
         }
 
         @Override
@@ -335,6 +341,9 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
                     sf.consume();
                 } catch (IOException e) {
                     LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);
+
+                    textDuration.setText("");
+                    textDuration.setVisibility(View.GONE);
                 }
 
                 ProcessTrackActivity.this.sf = sf;
@@ -343,21 +352,12 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
                         getDrawable(R.drawable.ic_action_play));
                 buttonPlay.setVisibility(View.VISIBLE);
 
-                textDuration.setText("");
-                textDuration.setVisibility(View.GONE);
+                textDuration.setText(
+                        String.format(getResources().getString(R.string.process_track_duration),
+                                DurationUtils.format(0), DurationUtils.format(sf.getDuration())));
 
                 progressBar.setVisibility(View.GONE);
             }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-
-            textDuration.setText(
-                    String.format(getResources().getString(R.string.process_track_duration),
-                            DurationUtils.format(startMillis), DurationUtils.format(endMillis)));
-            progressBar.setProgress(startMillis / 100);
         }
     }
 

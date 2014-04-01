@@ -12,6 +12,7 @@ import android.widget.*;
 import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.core.wav.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
 
@@ -35,6 +36,10 @@ public class MainActivity extends PlayingCapableActivity {
 
     private List<SoundFile> sfs;
     private SoundFile tmp;
+
+    private TextView textDuration;
+
+    private ProgressBar progressBar;
 
     private LinearLayout trackList;
 
@@ -146,6 +151,10 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     private void initWidgets() {
+        textDuration = (TextView) findViewById(R.id.duration);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+
         trackList = (LinearLayout) findViewById(R.id.tracks);
 
         buttonPlay = (ImageButton) findViewById(R.id.button_play);
@@ -177,21 +186,29 @@ public class MainActivity extends PlayingCapableActivity {
 
     private void updateTrackList() {
         if (sfs == null || sfs.isEmpty()) {
+            textDuration.setVisibility(View.GONE);
             trackList.setVisibility(View.GONE);
             return;
         }
+
+        double overAllDuration = 0;
 
         LayoutInflater inflater = getLayoutInflater();
         trackList.removeAllViews();
 
         int count = 0;
+        double duration;
 
         View convertView;
-        for (final SoundFile wav : sfs) {
+        for (final SoundFile sf : sfs) {
             convertView = inflater.inflate(R.layout.track, null);
 
+            duration = DurationUtils.format(sf.getDuration());
+            overAllDuration += duration;
+
             ((TextView) convertView.findViewById(R.id.track)).
-                    setText(wav.getFile().getName());
+                    setText(String.format(getResources().getString(R.string.track_duration),
+                            duration));
 
             switch(mode) {
                 case VIEW: {
@@ -199,7 +216,7 @@ public class MainActivity extends PlayingCapableActivity {
                     convertView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            onDetails(wav);
+                            onDetails(sf);
                         }
                     });
 
@@ -210,7 +227,7 @@ public class MainActivity extends PlayingCapableActivity {
                     convertView.findViewById(R.id.action_remove).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            onDelete(wav);
+                            onDelete(sf);
                         }
                     });
 
@@ -228,6 +245,10 @@ public class MainActivity extends PlayingCapableActivity {
         }
 
         trackList.setVisibility(View.VISIBLE);
+
+        textDuration.setText(String.format(getResources().getString(R.string.main_duration),
+                DurationUtils.format(0), overAllDuration));
+        textDuration.setVisibility(View.VISIBLE);
     }
 
     private void updateButtons() {
@@ -262,7 +283,7 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerPreparedSuccessfully(int duration) {
+    void onPlayerPreparedSuccessfully() {
     }
 
     @Override
@@ -272,15 +293,23 @@ public class MainActivity extends PlayingCapableActivity {
     }
 
     @Override
-    void onPlayerStarted(int duration) {
-        super.onPlayerStarted(duration);
+    void onPlayerStarted() {
+        super.onPlayerStarted();
+
+        progressBar.setMax(tmp.getDuration());
+        progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_pause));
     }
 
     @Override
-    void onPlayerInProgress(int currentPosition, int duration) {
+    void onPlayerInProgress(int currentPosition) {
+        progressBar.setProgress(currentPosition);
+
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(currentPosition), DurationUtils.format(tmp.getDuration())));
     }
 
     @Override
@@ -294,6 +323,12 @@ public class MainActivity extends PlayingCapableActivity {
     @Override
     void onPlayerCompleted() {
         super.onPlayerCompleted();
+
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(0), DurationUtils.format(tmp.getDuration())));
+
+        progressBar.setVisibility(View.GONE);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_play));

@@ -72,6 +72,21 @@ public class WAVFile extends SoundFile {
         writer.consume();
     }
 
+    @Override
+    public int getDuration() {
+        // http://social.msdn.microsoft.com/Forums/windows/en-US/5a92be69-3b4e-4d92-b1d2-141ef0a50c91/how-to-calculate-duration-of-wave-file-from-its-size?forum=winforms
+        double length = (double) getFile().length();
+        double sampleRate = (double) this.sampleRate;
+        double numChannels = (double) this.numChannels;
+        double bitsPerSample = (double) getBitsPerSample();
+
+        double duration = (double) Math.round((length / (sampleRate * numChannels * bitsPerSample /8)) * 1000) / 1000 * 1000;
+        LoggerFactory.obtainLogger(TAG).
+                d(String.format("getDuration# calculated duration is %s", duration));
+
+        return (int) duration;
+    }
+
     String getChunkID() {
         return "RIFF";
     }
