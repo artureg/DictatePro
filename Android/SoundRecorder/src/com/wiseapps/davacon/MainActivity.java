@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.wiseapps.davacon.core.SoundFile;
-import com.wiseapps.davacon.core.wav.SoundFileHandler;
+import com.wiseapps.davacon.core.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
@@ -25,6 +25,8 @@ import static com.wiseapps.davacon.ActivityNavigator.*;
 import static com.wiseapps.davacon.utils.FileUtils.*;
 
 /**
+ * Application main activity.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/19/14
  *         Time: 4:49 PM
@@ -48,11 +50,24 @@ public class MainActivity extends PlayingCapableActivity {
 
     private MenuItem menuEdit;
 
+    /**
+     * Mode of the UI - either view or edit.
+     * Default is view.
+     */
     private static enum Mode {
         VIEW, EDIT
     }
     private Mode mode = Mode.VIEW;
 
+    /**
+     * Called when the activity is starting. Here tracks are initialized,
+     * UI initialization takes place.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +78,10 @@ public class MainActivity extends PlayingCapableActivity {
         initWidgets();
     }
 
+    /**
+     * Performs final cleanup before an activity is destroyed.
+     * <p></>Deletes any temporary files if there are any.<p/>
+     */
     @Override
     protected void onDestroy() {
         File[] tracks = FileUtils.getRoot(this).listFiles();
@@ -81,6 +100,25 @@ public class MainActivity extends PlayingCapableActivity {
         super.onDestroy();
     }
 
+    /**
+     * Called when an activity you launched exits, giving you the requestCode
+     * you started it with, the resultCode it returned, and any additional
+     * data from it.  The <var>resultCode</var> will be
+     * {@link #RESULT_CANCELED} if the activity explicitly returned that,
+     * didn't return any result, or crashed during its operation.
+     *
+     * In case of <var>requestCode</var> equal to REQUEST_CODE_PROCESS_TRACK (one is returned from the
+     * {@link com.wiseapps.davacon.ProcessTrackActivity ProcessTrackActivity}) and
+     * <var>resultCode</var> equal to Activity.RESULT_OK, class fields are reinitializaed, UI is updated.
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -97,6 +135,17 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Initialize the contents of the screen's options menu.
+     * Menu items are placed in to <var>menu</var>.
+     *
+     * <p>Depending on existence of already recorded sound files the Edit menu shall
+     * either be shown (tracks exist) or hidden (no tracks recorded).</p>
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed;
+     *         if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -107,6 +156,20 @@ public class MainActivity extends PlayingCapableActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Called whenever an item in the options menu is selected.
+     *
+     * <p>In case Edit menu is called the tracks list is updated
+     * to provide track deletion functionality.<p/>
+     *
+     * <p>In case Add menu is called the user id forwarded to the
+     * {@link com.wiseapps.davacon.ProcessTrackActivity ProcessTrackActivity}
+     * where a track can be recorded.<p/>
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to
+     *         proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -126,6 +189,9 @@ public class MainActivity extends PlayingCapableActivity {
         return false;
     }
 
+    /**
+     * Helper method to initialize tracks list.
+     */
     private void initData() {
         this.sfs = null;
 
@@ -150,6 +216,9 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Helper method to initialize UI.
+     */
     private void initWidgets() {
         textDuration = (TextView) findViewById(R.id.duration);
 
@@ -165,12 +234,18 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Helper method to update UI in case screen's UI mode has been changed.
+     */
     private void updateWidgets() {
         updateMenu();
         updateTrackList();
         updateButtons();
     }
 
+    /**
+     * Helper method to update menu in case screen's UI mode has been changed.
+     */
     private void updateMenu() {
         if (menuEdit == null) {
             return;
@@ -184,6 +259,9 @@ public class MainActivity extends PlayingCapableActivity {
         menuEdit.setVisible(sfs != null && !sfs.isEmpty());
     }
 
+    /**
+     * Helper method to update tracks list in case screen's UI mode has been changed.
+     */
     private void updateTrackList() {
         if (sfs == null || sfs.isEmpty()) {
             textDuration.setVisibility(View.GONE);
@@ -251,6 +329,9 @@ public class MainActivity extends PlayingCapableActivity {
         textDuration.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Helper method to update buttons in case screen's UI mode has been changed.
+     */
     private void updateButtons() {
         if (sfs != null && !sfs.isEmpty()) {
             buttonPlay.setVisibility(View.VISIBLE);
@@ -261,6 +342,11 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Clears the tracks list.
+     *
+     * @param view The clicked view.
+     */
     public void clearAll(View view) {
         File root = FileUtils.getRoot(this);
         File[] tracks = root.listFiles();
@@ -278,20 +364,35 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Plays the tracks list.
+     *
+     * @param view The clicked view.
+     */
     public void playAll(View view) {
         new PlayAllTask().execute();
     }
 
+    /**
+     * Callback method to update the screens data and UI after the media player has been prepared.
+     */
     @Override
     void onPlayerPreparedSuccessfully() {
     }
 
+    /**
+     * Callback method to update the screens data and UI in case an error occured
+     * during the media player preparation.
+     */
     @Override
     void onPlayerPreparationFailed() {
         Toast.makeText(this,
                 getResources().getString(R.string.prompt_player_preparation_failed), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has started.
+     */
     @Override
     void onPlayerStarted() {
         super.onPlayerStarted();
@@ -303,6 +404,9 @@ public class MainActivity extends PlayingCapableActivity {
                 getDrawable(R.drawable.ic_action_pause));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback is in progress.
+     */
     @Override
     void onPlayerInProgress(int currentPosition) {
         progressBar.setProgress(currentPosition);
@@ -312,6 +416,9 @@ public class MainActivity extends PlayingCapableActivity {
                         DurationUtils.format(currentPosition), DurationUtils.format(tmp.getDuration())));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has been paused.
+     */
     @Override
     void onPlayerPaused() {
         super.onPlayerPaused();
@@ -320,6 +427,9 @@ public class MainActivity extends PlayingCapableActivity {
                 getDrawable(R.drawable.ic_action_play));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has completed.
+     */
     @Override
     void onPlayerCompleted() {
         super.onPlayerCompleted();
@@ -334,14 +444,22 @@ public class MainActivity extends PlayingCapableActivity {
                 getDrawable(R.drawable.ic_action_play));
     }
 
+    /**
+     * Callback method to set the track to play.
+     */
     @Override
     SoundFile getSoundFile() {
         return tmp;
     }
 
-    public void onDetails(SoundFile wav) {
+    /**
+     * Shows details of a {@link com.wiseapps.davacon.core.SoundFile SoundFile}.
+     *
+     * @param sf Sound file to show the details of.
+     */
+    public void onDetails(SoundFile sf) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_TRACK, wav.getFile());
+        bundle.putSerializable(EXTRA_TRACK, sf.getFile());
 
         ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK, bundle);
     }
@@ -366,6 +484,9 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Async task to play the tracks in succession.
+     */
     private class PlayAllTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {

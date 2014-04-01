@@ -13,12 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Model of a .wav file.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/26/14
  *         Time: 11:29 AM
- *
- * File is cheap because we don't parse the file explicitly but assume the required format.
- * The .wav file as described here - https://ccrma.stanford.edu/courses/422/projects/WaveFormat
  */
 public class WAVFile extends SoundFile {
     private static final String TAG = WAVFile.class.getSimpleName();
@@ -60,18 +59,35 @@ public class WAVFile extends SoundFile {
         setFile(file);
     }
 
+    /**
+     * Method to read .wav file.
+     */
     public void read() {
         reader.read();
     }
 
+    /**
+     * Method to write data to .wav file.
+     *
+     * @param data array of bytes to write to file
+     * @throws IOException
+     */
     public void write(byte[] data) throws IOException {
         writer.write(data);
     }
 
+    /**
+     * Method to consume a .wav file.
+     */
     public void consume() throws IOException {
         writer.consume();
     }
 
+    /**
+     * Method to return duration.
+     *
+     * @return duration in millis
+     */
     @Override
     public int getDuration() {
         // http://social.msdn.microsoft.com/Forums/windows/en-US/5a92be69-3b4e-4d92-b1d2-141ef0a50c91/how-to-calculate-duration-of-wave-file-from-its-size?forum=winforms
@@ -156,6 +172,13 @@ public class WAVFile extends SoundFile {
         return data;
     }
 
+    /**
+     * Returns arrays of bytes of both splitted parts.
+     *
+     * @param wav .wav file which data to split
+     * @param durationPlayed duration of the first part in millis
+     * @return arrays of bytes as of both splitted parts
+     */
     @Override
     public List<byte[]> getDataParts(SoundFile wav, int durationPlayed) {
         double durationTotal = wav.getDuration();

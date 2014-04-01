@@ -1,15 +1,11 @@
 package com.wiseapps.davacon.logging;
 
 /**
- * Copyright 2013 Pozitron.
- *
- * All rights reserved.
- * POZITRON PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
+ * Class to provide logging capabilities.
  *
  * @author varya.bzhezinskaya@gmail.pozitron
- * Date: 11/13/12
- * Time: 3:59 AM
+ *          Date: 11/13/12
+ *          Time: 3:59 AM
  */
 public interface Logger {
 

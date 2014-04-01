@@ -1,13 +1,10 @@
-package com.wiseapps.davacon.core.wav;
+package com.wiseapps.davacon.core;
 
 import android.content.Context;
-import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.utils.FileUtils;
 
 import java.io.File;
 import java.util.List;
-
-import static com.wiseapps.davacon.core.wav.WAVFile.*;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
@@ -17,6 +14,14 @@ import static com.wiseapps.davacon.core.wav.WAVFile.*;
 public class SoundFileHandler {
     private static final String TAG = SoundFileHandler.class.getSimpleName();
 
+    /**
+     * Concatenates the tracks.
+     *
+     * @param context Context
+     * @param wavs objects of {@link com.wiseapps.davacon.core.SoundFile} type to concatenate
+     * @return the object of {@link com.wiseapps.davacon.core.SoundFile} type with the concatenated contents
+     * @throws Exception
+     */
     public static SoundFile concat(Context context, List<SoundFile> wavs) throws Exception {
         SoundFile wav = SoundFile.create(new File(FileUtils.getTempFilename(context)));
 
@@ -30,6 +35,14 @@ public class SoundFileHandler {
         return wav;
     }
 
+    /**
+     * Splits the track.
+     *
+     * @param context Context
+     * @param wav object of {@link com.wiseapps.davacon.core.SoundFile} to split the contents of
+     * @param durationPlayed duration of the first part in millis
+     * @throws Exception
+     */
     public static void split(Context context, SoundFile wav, int durationPlayed) throws Exception {
         List<byte[]> parts = wav.getDataParts(wav, durationPlayed);
 
