@@ -4,60 +4,66 @@
 <FONT color="green">001</FONT>    package com.wiseapps.davacon.core;<a name="line.1"></a>
 <FONT color="green">002</FONT>    <a name="line.2"></a>
 <FONT color="green">003</FONT>    import android.content.Context;<a name="line.3"></a>
-<FONT color="green">004</FONT>    import com.wiseapps.davacon.utils.FileUtils;<a name="line.4"></a>
-<FONT color="green">005</FONT>    <a name="line.5"></a>
-<FONT color="green">006</FONT>    import java.io.File;<a name="line.6"></a>
-<FONT color="green">007</FONT>    import java.util.List;<a name="line.7"></a>
-<FONT color="green">008</FONT>    <a name="line.8"></a>
-<FONT color="green">009</FONT>    /**<a name="line.9"></a>
-<FONT color="green">010</FONT>     * @author varya.bzhezinskaya@gmail.com<a name="line.10"></a>
-<FONT color="green">011</FONT>     *         Date: 3/30/14<a name="line.11"></a>
-<FONT color="green">012</FONT>     *         Time: 9:47 AM<a name="line.12"></a>
-<FONT color="green">013</FONT>     */<a name="line.13"></a>
-<FONT color="green">014</FONT>    public class SoundFileHandler {<a name="line.14"></a>
-<FONT color="green">015</FONT>        private static final String TAG = SoundFileHandler.class.getSimpleName();<a name="line.15"></a>
-<FONT color="green">016</FONT>    <a name="line.16"></a>
-<FONT color="green">017</FONT>        /**<a name="line.17"></a>
-<FONT color="green">018</FONT>         * Concatenates the tracks.<a name="line.18"></a>
-<FONT color="green">019</FONT>         *<a name="line.19"></a>
-<FONT color="green">020</FONT>         * @param context Context<a name="line.20"></a>
-<FONT color="green">021</FONT>         * @param wavs objects of {@link com.wiseapps.davacon.core.SoundFile} type to concatenate<a name="line.21"></a>
-<FONT color="green">022</FONT>         * @return the object of {@link com.wiseapps.davacon.core.SoundFile} type with the concatenated contents<a name="line.22"></a>
-<FONT color="green">023</FONT>         * @throws Exception<a name="line.23"></a>
-<FONT color="green">024</FONT>         */<a name="line.24"></a>
-<FONT color="green">025</FONT>        public static SoundFile concat(Context context, List&lt;SoundFile&gt; wavs) throws Exception {<a name="line.25"></a>
-<FONT color="green">026</FONT>            SoundFile wav = SoundFile.create(new File(FileUtils.getTempFilename(context)));<a name="line.26"></a>
-<FONT color="green">027</FONT>    <a name="line.27"></a>
-<FONT color="green">028</FONT>            for (SoundFile w : wavs) {<a name="line.28"></a>
-<FONT color="green">029</FONT>                w.read();<a name="line.29"></a>
-<FONT color="green">030</FONT>                wav.write(w.getData());<a name="line.30"></a>
-<FONT color="green">031</FONT>            }<a name="line.31"></a>
-<FONT color="green">032</FONT>    <a name="line.32"></a>
-<FONT color="green">033</FONT>            wav.consume();<a name="line.33"></a>
-<FONT color="green">034</FONT>    <a name="line.34"></a>
-<FONT color="green">035</FONT>            return wav;<a name="line.35"></a>
-<FONT color="green">036</FONT>        }<a name="line.36"></a>
+<FONT color="green">004</FONT>    import com.wiseapps.davacon.speex.SpeexWrapper;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import com.wiseapps.davacon.utils.FileUtils;<a name="line.5"></a>
+<FONT color="green">006</FONT>    <a name="line.6"></a>
+<FONT color="green">007</FONT>    import java.io.File;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import java.util.List;<a name="line.8"></a>
+<FONT color="green">009</FONT>    <a name="line.9"></a>
+<FONT color="green">010</FONT>    /**<a name="line.10"></a>
+<FONT color="green">011</FONT>     * @author varya.bzhezinskaya@gmail.com<a name="line.11"></a>
+<FONT color="green">012</FONT>     *         Date: 3/30/14<a name="line.12"></a>
+<FONT color="green">013</FONT>     *         Time: 9:47 AM<a name="line.13"></a>
+<FONT color="green">014</FONT>     */<a name="line.14"></a>
+<FONT color="green">015</FONT>    public class SoundFileHandler {<a name="line.15"></a>
+<FONT color="green">016</FONT>        private static final String TAG = SoundFileHandler.class.getSimpleName();<a name="line.16"></a>
+<FONT color="green">017</FONT>    <a name="line.17"></a>
+<FONT color="green">018</FONT>        /**<a name="line.18"></a>
+<FONT color="green">019</FONT>         * Concatenates the tracks.<a name="line.19"></a>
+<FONT color="green">020</FONT>         *<a name="line.20"></a>
+<FONT color="green">021</FONT>         * @param context Context<a name="line.21"></a>
+<FONT color="green">022</FONT>         * @param wavs objects of {@link com.wiseapps.davacon.core.SoundFile} type to concatenate<a name="line.22"></a>
+<FONT color="green">023</FONT>         * @return the object of {@link com.wiseapps.davacon.core.SoundFile} type with the concatenated contents<a name="line.23"></a>
+<FONT color="green">024</FONT>         * @throws Exception<a name="line.24"></a>
+<FONT color="green">025</FONT>         */<a name="line.25"></a>
+<FONT color="green">026</FONT>        public static SoundFile concat(Context context, List&lt;SoundFile&gt; wavs) throws Exception {<a name="line.26"></a>
+<FONT color="green">027</FONT>            long currentTimeMillis = System.currentTimeMillis();<a name="line.27"></a>
+<FONT color="green">028</FONT>            SoundFile wav = SoundFile.create(<a name="line.28"></a>
+<FONT color="green">029</FONT>                    new File(FileUtils.getTempFilename(context, String.valueOf(currentTimeMillis))));<a name="line.29"></a>
+<FONT color="green">030</FONT>    <a name="line.30"></a>
+<FONT color="green">031</FONT>            for (SoundFile w : wavs) {<a name="line.31"></a>
+<FONT color="green">032</FONT>                w.read();<a name="line.32"></a>
+<FONT color="green">033</FONT>                wav.write(w.getData());<a name="line.33"></a>
+<FONT color="green">034</FONT>            }<a name="line.34"></a>
+<FONT color="green">035</FONT>    <a name="line.35"></a>
+<FONT color="green">036</FONT>            wav.consume();<a name="line.36"></a>
 <FONT color="green">037</FONT>    <a name="line.37"></a>
-<FONT color="green">038</FONT>        /**<a name="line.38"></a>
-<FONT color="green">039</FONT>         * Splits the track.<a name="line.39"></a>
-<FONT color="green">040</FONT>         *<a name="line.40"></a>
-<FONT color="green">041</FONT>         * @param context Context<a name="line.41"></a>
-<FONT color="green">042</FONT>         * @param wav object of {@link com.wiseapps.davacon.core.SoundFile} to split the contents of<a name="line.42"></a>
-<FONT color="green">043</FONT>         * @param durationPlayed duration of the first part in millis<a name="line.43"></a>
-<FONT color="green">044</FONT>         * @throws Exception<a name="line.44"></a>
-<FONT color="green">045</FONT>         */<a name="line.45"></a>
-<FONT color="green">046</FONT>        public static void split(Context context, SoundFile wav, int durationPlayed) throws Exception {<a name="line.46"></a>
-<FONT color="green">047</FONT>            List&lt;byte[]&gt; parts = wav.getDataParts(wav, durationPlayed);<a name="line.47"></a>
-<FONT color="green">048</FONT>    <a name="line.48"></a>
-<FONT color="green">049</FONT>            SoundFile wav1 = SoundFile.create(new File(FileUtils.getFilename(context)));<a name="line.49"></a>
-<FONT color="green">050</FONT>            wav1.write(parts.get(0));<a name="line.50"></a>
-<FONT color="green">051</FONT>            wav1.consume();<a name="line.51"></a>
-<FONT color="green">052</FONT>    <a name="line.52"></a>
-<FONT color="green">053</FONT>            SoundFile wav2 = SoundFile.create(new File(FileUtils.getFilename(context)));<a name="line.53"></a>
-<FONT color="green">054</FONT>            wav2.write(parts.get(1));<a name="line.54"></a>
-<FONT color="green">055</FONT>            wav2.consume();<a name="line.55"></a>
-<FONT color="green">056</FONT>        }<a name="line.56"></a>
-<FONT color="green">057</FONT>    }<a name="line.57"></a>
+<FONT color="green">038</FONT>            SpeexWrapper.encode(wav.getFile().getAbsolutePath(),<a name="line.38"></a>
+<FONT color="green">039</FONT>                    FileUtils.getSpeexFilename(context, String.valueOf(currentTimeMillis)));<a name="line.39"></a>
+<FONT color="green">040</FONT>    <a name="line.40"></a>
+<FONT color="green">041</FONT>            return wav;<a name="line.41"></a>
+<FONT color="green">042</FONT>        }<a name="line.42"></a>
+<FONT color="green">043</FONT>    <a name="line.43"></a>
+<FONT color="green">044</FONT>        /**<a name="line.44"></a>
+<FONT color="green">045</FONT>         * Splits the track.<a name="line.45"></a>
+<FONT color="green">046</FONT>         *<a name="line.46"></a>
+<FONT color="green">047</FONT>         * @param context Context<a name="line.47"></a>
+<FONT color="green">048</FONT>         * @param wav object of {@link com.wiseapps.davacon.core.SoundFile} to split the contents of<a name="line.48"></a>
+<FONT color="green">049</FONT>         * @param durationPlayed duration of the first part in millis<a name="line.49"></a>
+<FONT color="green">050</FONT>         * @throws Exception<a name="line.50"></a>
+<FONT color="green">051</FONT>         */<a name="line.51"></a>
+<FONT color="green">052</FONT>        public static void split(Context context, SoundFile wav, int durationPlayed) throws Exception {<a name="line.52"></a>
+<FONT color="green">053</FONT>            List&lt;byte[]&gt; parts = wav.getDataParts(wav, durationPlayed);<a name="line.53"></a>
+<FONT color="green">054</FONT>    <a name="line.54"></a>
+<FONT color="green">055</FONT>            SoundFile wav1 = SoundFile.create(new File(FileUtils.getFilename(context)));<a name="line.55"></a>
+<FONT color="green">056</FONT>            wav1.write(parts.get(0));<a name="line.56"></a>
+<FONT color="green">057</FONT>            wav1.consume();<a name="line.57"></a>
+<FONT color="green">058</FONT>    <a name="line.58"></a>
+<FONT color="green">059</FONT>            SoundFile wav2 = SoundFile.create(new File(FileUtils.getFilename(context)));<a name="line.59"></a>
+<FONT color="green">060</FONT>            wav2.write(parts.get(1));<a name="line.60"></a>
+<FONT color="green">061</FONT>            wav2.consume();<a name="line.61"></a>
+<FONT color="green">062</FONT>        }<a name="line.62"></a>
+<FONT color="green">063</FONT>    }<a name="line.63"></a>
 
 
 
