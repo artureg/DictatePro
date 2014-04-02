@@ -12,6 +12,7 @@ import android.widget.*;
 import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.core.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
@@ -181,6 +182,8 @@ public class MainActivity extends PlayingCapableActivity {
                 return true;
             }
             case R.id.add: {
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("onOptionsItemSelected# test jni " + SpeexWrapper.test(2, 3));
                 ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK);
                 return true;
             }

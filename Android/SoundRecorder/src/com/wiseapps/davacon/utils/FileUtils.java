@@ -16,6 +16,7 @@ public class FileUtils {
     private static final String TAG = FileUtils.class.getSimpleName();
 
     public static final String TMP_SUFFIX = "-tmp";
+    public static final String SPEEX_SUFFIX = "-speex";
 
     private static final String APP_PATH = "Android/data/";
 
@@ -47,26 +48,44 @@ public class FileUtils {
      * @return Name of the file
      */
     public static String getFilename(Context context) {
-        return getFilename(context, false);
+        return getFilename(context, String.valueOf(System.currentTimeMillis()));
     }
 
     /**
      * Method to return temporary file name.
      *
      * @param context Application context
+     * @param filename filename to build the resultant name from
      * @return Name of the file
      */
-    public static String getTempFilename(Context context) {
-        return getFilename(context, true);
+    public static String getTempFilename(Context context, String filename) {
+        return getFilename(context, filename + TMP_SUFFIX);
     }
 
-    private static String getFilename(Context context, boolean temp) {
+    /**
+     * Method to return RIFF/SPEEX file name.
+     *
+     * @param context Application context
+     * @param filename filename to build the resultant name from
+     * @return Name of the file
+     */
+    public static String getSpeexFilename(Context context, String filename) {
+        return getFilename(context, filename + SPEEX_SUFFIX);
+    }
+
+    /**
+     * Method to return file name.
+     *
+     * @param context Application context
+     * @param filename filename to build the resultant name from
+     * @return Name of the file
+     */
+    public static String getFilename(Context context, String filename) {
         if (context == null) {
             throw new IllegalArgumentException();
         }
 
-        return getRoot(context).getAbsolutePath() + "/" + System.currentTimeMillis() +
-                (temp ? TMP_SUFFIX : "") + ".wav";
+        return getRoot(context).getAbsolutePath() + "/" + filename + ".wav";
     }
 }
 

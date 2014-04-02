@@ -1,6 +1,7 @@
 package com.wiseapps.davacon.core;
 
 import android.content.Context;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 import com.wiseapps.davacon.utils.FileUtils;
 
 import java.io.File;
@@ -23,7 +24,9 @@ public class SoundFileHandler {
      * @throws Exception
      */
     public static SoundFile concat(Context context, List<SoundFile> wavs) throws Exception {
-        SoundFile wav = SoundFile.create(new File(FileUtils.getTempFilename(context)));
+        long currentTimeMillis = System.currentTimeMillis();
+        SoundFile wav = SoundFile.create(
+                new File(FileUtils.getTempFilename(context, String.valueOf(currentTimeMillis))));
 
         for (SoundFile w : wavs) {
             w.read();
@@ -31,6 +34,9 @@ public class SoundFileHandler {
         }
 
         wav.consume();
+
+        SpeexWrapper.encode(wav.getFile().getAbsolutePath(),
+                FileUtils.getSpeexFilename(context, String.valueOf(currentTimeMillis)));
 
         return wav;
     }
