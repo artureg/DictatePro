@@ -23,8 +23,8 @@ public class WAVFile extends SoundFile {
     private static final String TAG = WAVFile.class.getSimpleName();
 
     public static final int RECORDER_AUDIO_SOURCE = MediaRecorder.AudioSource.MIC;
-    public static final int RECORDER_SAMPLE_RATE_IN_HZ = 44100;
-    public static final int RECORDER_CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
+    public static final int RECORDER_SAMPLE_RATE_IN_HZ = 8000;
+    public static final int RECORDER_CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
     public static final int RECORDER_AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     public static final int RECORDER_BUFFER_SIZE_IN_BYTES =
             AudioRecord.getMinBufferSize(RECORDER_SAMPLE_RATE_IN_HZ, RECORDER_CHANNEL_CONFIG, RECORDER_AUDIO_FORMAT);
@@ -34,11 +34,10 @@ public class WAVFile extends SoundFile {
 
     private short numChannels;
 
-    // TODO set 16
     private int sampleRate;
 
     // 8 bits = 8, 16 bits = 16, etc.
-    // TODO we should set it somehow probably, TODO try with 8
+//    private final short mBitsPerSample = 8;
     private final short mBitsPerSample = 16;
 
     private int subchunk2Size;
