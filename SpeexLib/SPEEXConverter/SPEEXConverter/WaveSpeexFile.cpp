@@ -100,7 +100,7 @@ void WaveSpeexFile::showInfo() {
     WaveFile::showInfo();
 }
 
-bool WaveSpeexFile::encodeWavFile(const char* filePath, int quality) {
+bool WaveSpeexFile::encodeWavFile(const char* filePath, short quality) {
     if (!p_writeFile) {
         p_error = "File is not Opened for Writing";
         return false;
@@ -177,7 +177,7 @@ bool WaveSpeexFile::encodeWavFile(const char* filePath, int quality) {
                 }
             }
             
-            speex_encode_int(state, samples, &bits) ;
+            speex_encode_int(state, (short*)samples, &bits);
         }
         
         int encodedSize = speex_bits_nbytes(&bits);

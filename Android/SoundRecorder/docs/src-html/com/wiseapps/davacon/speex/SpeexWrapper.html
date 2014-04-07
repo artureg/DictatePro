@@ -1,0 +1,108 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package com.wiseapps.davacon.speex;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    /**<a name="line.3"></a>
+<FONT color="green">004</FONT>     * Class provides native methods<a name="line.4"></a>
+<FONT color="green">005</FONT>     *<a name="line.5"></a>
+<FONT color="green">006</FONT>     * @author varya.bzhezinskaya@gmail.com<a name="line.6"></a>
+<FONT color="green">007</FONT>     *         Date: 4/2/14<a name="line.7"></a>
+<FONT color="green">008</FONT>     *         Time: 11:58 AM<a name="line.8"></a>
+<FONT color="green">009</FONT>     */<a name="line.9"></a>
+<FONT color="green">010</FONT>    public class SpeexWrapper {<a name="line.10"></a>
+<FONT color="green">011</FONT>    <a name="line.11"></a>
+<FONT color="green">012</FONT>        static {<a name="line.12"></a>
+<FONT color="green">013</FONT>            System.loadLibrary("SpeexLib");<a name="line.13"></a>
+<FONT color="green">014</FONT>        }<a name="line.14"></a>
+<FONT color="green">015</FONT>    <a name="line.15"></a>
+<FONT color="green">016</FONT>        /**<a name="line.16"></a>
+<FONT color="green">017</FONT>         * Encodes .wav file into RIFF/SPEEX<a name="line.17"></a>
+<FONT color="green">018</FONT>         *<a name="line.18"></a>
+<FONT color="green">019</FONT>         * @param wavFilePathStr name of the source .wav file<a name="line.19"></a>
+<FONT color="green">020</FONT>         * @param compressedFilePathStr name of the dest RIFF/SPEEX file<a name="line.20"></a>
+<FONT color="green">021</FONT>         * @return error code or 0 if success<a name="line.21"></a>
+<FONT color="green">022</FONT>         */<a name="line.22"></a>
+<FONT color="green">023</FONT>        native public static int encode(String wavFilePathStr, String compressedFilePathStr);<a name="line.23"></a>
+<FONT color="green">024</FONT>    <a name="line.24"></a>
+<FONT color="green">025</FONT>        /**<a name="line.25"></a>
+<FONT color="green">026</FONT>         * Decodes RIFF/SPEEX file to .wav<a name="line.26"></a>
+<FONT color="green">027</FONT>         *<a name="line.27"></a>
+<FONT color="green">028</FONT>         * @param compressedFilePathStr name of the source RIFF/SPEEX file<a name="line.28"></a>
+<FONT color="green">029</FONT>         * @param wavFilePathStr name of the dest .wav file<a name="line.29"></a>
+<FONT color="green">030</FONT>         * @return error code or 0 if success<a name="line.30"></a>
+<FONT color="green">031</FONT>         */<a name="line.31"></a>
+<FONT color="green">032</FONT>        native public static int decode(String compressedFilePathStr, String wavFilePathStr);<a name="line.32"></a>
+<FONT color="green">033</FONT>    <a name="line.33"></a>
+<FONT color="green">034</FONT>        /**<a name="line.34"></a>
+<FONT color="green">035</FONT>         * For testing purposes only, adds two digits.<a name="line.35"></a>
+<FONT color="green">036</FONT>         *<a name="line.36"></a>
+<FONT color="green">037</FONT>         * @param a the first digit to add<a name="line.37"></a>
+<FONT color="green">038</FONT>         * @param b the second digit to add<a name="line.38"></a>
+<FONT color="green">039</FONT>         * @return the sum<a name="line.39"></a>
+<FONT color="green">040</FONT>         */<a name="line.40"></a>
+<FONT color="green">041</FONT>        native public static int test(int a, int b);<a name="line.41"></a>
+<FONT color="green">042</FONT>    }<a name="line.42"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

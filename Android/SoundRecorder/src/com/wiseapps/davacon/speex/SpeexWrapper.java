@@ -16,11 +16,20 @@ public class SpeexWrapper {
     /**
      * Encodes .wav file into RIFF/SPEEX
      *
-     * @param wavFilePathStr name of the source file
-     * @param compressedFilePathStr name of the resultant file
+     * @param wavFilePathStr name of the source .wav file
+     * @param compressedFilePathStr name of the dest RIFF/SPEEX file
      * @return error code or 0 if success
      */
     native public static int encode(String wavFilePathStr, String compressedFilePathStr);
+
+    /**
+     * Decodes RIFF/SPEEX file to .wav
+     *
+     * @param compressedFilePathStr name of the source RIFF/SPEEX file
+     * @param wavFilePathStr name of the dest .wav file
+     * @return error code or 0 if success
+     */
+    native public static int decode(String compressedFilePathStr, String wavFilePathStr);
 
     /**
      * For testing purposes only, adds two digits.

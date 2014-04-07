@@ -1,4 +1,4 @@
-package com.wiseapps.davacon;
+/*package com.wiseapps.davacon;
 
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -12,7 +12,7 @@ import android.test.ActivityInstrumentationTestCase2;
  * -e class com.wiseapps.davacon.MainActivityTest \
  * com.wiseapps.davacon.tests/android.test.InstrumentationTestRunner
  */
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+/*public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     public MainActivityTest() {
         super("com.wiseapps.davacon", MainActivity.class);
@@ -26,4 +26,4 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testDeleteRecord() {
     }
-}
+}*/

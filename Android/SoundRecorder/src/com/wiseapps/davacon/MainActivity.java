@@ -40,6 +40,8 @@ public class MainActivity extends PlayingCapableActivity {
     private List<SoundFile> sfs;
     private SoundFile tmp;
 
+    private SoundFile speex, speexTmp1, speexTmp2;
+
     private TextView textDuration;
 
     private ProgressBar progressBar;
@@ -49,7 +51,7 @@ public class MainActivity extends PlayingCapableActivity {
     private ImageButton buttonPlay;
     private Button buttonClear;
 
-    private MenuItem menuEdit;
+    private MenuItem menuEdit, menuOverflow, menuEncode, menuDecode;
 
     /**
      * Mode of the UI - either view or edit.
@@ -152,6 +154,11 @@ public class MainActivity extends PlayingCapableActivity {
         getMenuInflater().inflate(R.menu.main, menu);
 
         menuEdit = menu.findItem(R.id.edit);
+
+        menuOverflow = menu.findItem(R.id.overflow);
+        menuEncode = menu.findItem(R.id.encode);
+        menuDecode = menu.findItem(R.id.decode);
+
         updateMenu();
 
         return super.onCreateOptionsMenu(menu);
@@ -187,6 +194,14 @@ public class MainActivity extends PlayingCapableActivity {
                 ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK);
                 return true;
             }
+            case R.id.encode: {
+                new EncodeTask().execute();
+                return true;
+            }
+            case R.id.decode: {
+                new DecodeTask().execute();
+                return true;
+            }
         }
 
         return false;
@@ -207,7 +222,7 @@ public class MainActivity extends PlayingCapableActivity {
 
         this.sfs = new ArrayList<SoundFile>();
         for (File track : tracks) {
-            if (track.getName().contains(TMP_SUFFIX)) {
+            if (track.getName().contains(TMP_SUFFIX) || track.getName().contains(SPEEX_SUFFIX)) {
                 continue;
             }
             try {
@@ -250,16 +265,18 @@ public class MainActivity extends PlayingCapableActivity {
      * Helper method to update menu in case screen's UI mode has been changed.
      */
     private void updateMenu() {
-        if (menuEdit == null) {
-            return;
+        if (menuEdit != null) {
+            // set icon
+            menuEdit.setIcon(mode == Mode.VIEW ? getResources().getDrawable(R.drawable.ic_action_edit) :
+                    getResources().getDrawable(R.drawable.ic_action_accept));
+
+            // set visibility
+            menuEdit.setVisible(sfs != null && !sfs.isEmpty());
         }
 
-        // set icon
-        menuEdit.setIcon(mode == Mode.VIEW ? getResources().getDrawable(R.drawable.ic_action_edit) :
-                getResources().getDrawable(R.drawable.ic_action_accept));
-
-        // set visibility
-        menuEdit.setVisible(sfs != null && !sfs.isEmpty());
+        if (menuOverflow != null) {
+            menuOverflow.setVisible(sfs != null && !sfs.isEmpty());
+        }
     }
 
     /**
@@ -494,7 +511,8 @@ public class MainActivity extends PlayingCapableActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                tmp = SoundFileHandler.concat(MainActivity.this, sfs);
+                tmp = SoundFileHandler.concat(MainActivity.this, sfs,
+                        FileUtils.getTempFilename(MainActivity.this, String.valueOf(System.currentTimeMillis()) + ".wav"));
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("doInBackground# Tmp file %s created successfully", tmp.getFile().getAbsolutePath()));
 
@@ -517,6 +535,95 @@ public class MainActivity extends PlayingCapableActivity {
             }
 
             doPlay();
+        }
+    }
+
+    private class EncodeTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                long currentTimeMillis = System.currentTimeMillis();
+                speexTmp1 = SoundFileHandler.concat(MainActivity.this, sfs,
+                        FileUtils.getTempFilename(MainActivity.this, String.valueOf(currentTimeMillis) + ".wav"));
+                LoggerFactory.obtainLogger(TAG).
+                        d(String.format("doInBackground# Speex file %s created successfully", speexTmp1.getFile().getAbsolutePath()));
+
+                speex = SoundFile.create(new File(FileUtils.getSpeexFilename(MainActivity.this,
+                        String.valueOf(currentTimeMillis) + ".wav")));
+                int result = SpeexWrapper.encode(speexTmp1.getFile().getAbsolutePath(),
+                        speex.getFile().getAbsolutePath());
+
+                return result == 0;
+            } catch (Exception e) {
+                LoggerFactory.obtainLogger(TAG).
+                        e("Speex file creation failed", e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (!result) {
+                Toast.makeText(MainActivity.this,
+                        getResources().getString(R.string.prompt_file_encoding_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(MainActivity.this,
+                    String.format(getResources().getString(R.string.prompt_file_encoded_successfully),
+                            speex.getFile().getAbsolutePath()),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class DecodeTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                if (speex == null) {
+                    LoggerFactory.obtainLogger(TAG).
+                            d("Initial speex file to decode not found");
+                    return false;
+                }
+
+                String filename = FileUtils.getFilename(MainActivity.this,
+                        FileUtils.getFilenameFromSpeex(speex.getFile().getName()) + "-decoded.wav");
+
+                int result = SpeexWrapper.decode(speex.getFile().getAbsolutePath(), filename);
+                if (result == 0) {
+                    speexTmp2 = SoundFile.create(new File(filename));
+                }
+
+                return result == 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (!result) {
+                if (speex == null) {
+                    Toast.makeText(MainActivity.this,
+                            getResources().getString(R.string.prompt_file_speex_not_found), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(MainActivity.this,
+                        getResources().getString(R.string.prompt_file_decoding_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(MainActivity.this,
+                    String.format(getResources().getString(R.string.prompt_file_decoded_successfully),
+                            speexTmp2.getFile().getAbsolutePath()),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
