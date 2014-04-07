@@ -85,11 +85,13 @@ public class WAVFileReader {
             LoggerFactory.obtainLogger(TAG).d("prepare# incorrect ChunkID");
             return false;
         }
+        wav.setChunkID(new String(data));
 
         // ChunkSize
         int chunkSize = readInt();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# ChunkSize = %s", chunkSize));
+        wav.setChunkSize(chunkSize);
 
         // Format
         data = new byte[4];
@@ -101,6 +103,7 @@ public class WAVFileReader {
             LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Format");
             return false;
         }
+        wav.setFormat(new String(data));
 
         // Subchunk1ID
         data = new byte[4];
@@ -112,43 +115,51 @@ public class WAVFileReader {
             LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Subchunk1ID");
             return false;
         }
+        wav.setSubchunk1ID(new String(data));
 
         // Subchunk1Size
         int subchunk1Size = readInt();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# Subchunk1Size = %s", subchunk1Size));
+        wav.setSubchunk1Size(subchunk1Size);
 
         // AudioFormat
-        int audioFormat = readShort();
+        short audioFormat = readShort();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# AudioFormat = %s", audioFormat));
+        wav.setAudioFormat(audioFormat);
 
         // NumChannels
         short numChannels = readShort();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# NumChannels = %s", numChannels));
+        wav.setNumChannels(numChannels);
 
         // SampleRate
         int sampleRate = readInt();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# SampleRate = %s", sampleRate));
+        wav.setSampleRate(sampleRate);
 
         // ByteRate
         int byteRate = readInt();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# ByteRate = %s", byteRate));
+        wav.setByteRate(byteRate);
 
         // BlockAlign
-        int blockAlign = readShort();
+        short blockAlign = readShort();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# BlockAlign = %s", blockAlign));
+        wav.setBlockAlign(blockAlign);
 
         // BitsPerSample
-        int bitsPerSample = readShort();
+        short bitsPerSample = readShort();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# BitsPerSample = %s", bitsPerSample));
+        wav.setBitsPerSample(bitsPerSample);
 
-        // data header
+        // Subchunk2ID
         data = new byte[4];
         stream.read(data, 0, 4);
         if (data[0] != 'd' ||
@@ -158,18 +169,20 @@ public class WAVFileReader {
             LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Subchunk2ID");
             return false;
         }
+        wav.setSubchunk2ID(new String(data));
 
         // Subchunk2Size
         int subchunk2Size = readInt();
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# Subchunk2Size = %s", subchunk2Size));
+        wav.setSubchunk2Size(subchunk2Size);
 
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# chunkSize - subchunk2Size = %s", (chunkSize - subchunk2Size)));
         LoggerFactory.obtainLogger(TAG).
                 d(String.format("prepare# .wav file length - chunkSize = %s", (length - chunkSize)));
 
-        return (chunkSize - subchunk2Size == 36);
+        return wav.isFormatCorrect();
     }
 
     private short readShort() throws IOException {

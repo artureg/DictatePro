@@ -26,11 +26,7 @@
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* outFile = [NSString stringWithFormat:@"%@/testOut.wav", paths[0]];
         
-//    if (!encodeWavToSpeexACM([wavPath cStringUsingEncoding:NSASCIIStringEncoding], [outFile cStringUsingEncoding:NSASCIIStringEncoding])) {
-//        NSLog(@"false");
-//    }
-    
-    if (!decodeSpeexACMToWavPCM([spxPath cStringUsingEncoding:NSASCIIStringEncoding], [outFile cStringUsingEncoding:NSASCIIStringEncoding])) {
+    if (!encodeWavToSpeexACM([wavPath cStringUsingEncoding:NSASCIIStringEncoding], [outFile cStringUsingEncoding:NSASCIIStringEncoding])) {
         NSLog(@"false");
     }
     

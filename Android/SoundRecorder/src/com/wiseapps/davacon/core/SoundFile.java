@@ -111,6 +111,13 @@ public abstract class SoundFile {
     public abstract byte[] getData();
 
     /**
+     * Checks format of the {@link com.wiseapps.davacon.core.SoundFile SoundFile}.
+     *
+     * @return true if sound file is of correct format
+     */
+    public abstract boolean isFormatCorrect();
+
+    /**
      * Returns arrays of bytes of both splitted parts.
      *
      * @param wav {@link com.wiseapps.davacon.core.SoundFile SoundFile} which data to split

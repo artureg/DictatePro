@@ -11,4 +11,15 @@
             android:icon="@drawable/ic_action_new"
             android:showAsAction="always"
             />
+    <item
+            android:id="@+id/overflow"
+            android:icon="@drawable/ic_action_overflow"
+            android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/encode"
+                  android:title="@string/menu_encode" />
+            <item android:id="@+id/decode"
+                  android:title="@string/menu_decode" />
+        </menu>
+    </item>
 </menu>

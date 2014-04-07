@@ -40,70 +40,70 @@
 <FONT color="green">037</FONT>                    return;<a name="line.37"></a>
 <FONT color="green">038</FONT>                }<a name="line.38"></a>
 <FONT color="green">039</FONT>    <a name="line.39"></a>
-<FONT color="green">040</FONT>    //            // omit the header and both subchunks<a name="line.40"></a>
-<FONT color="green">041</FONT>    //            stream.read(new byte[44], 0, 44);<a name="line.41"></a>
-<FONT color="green">042</FONT>    <a name="line.42"></a>
-<FONT color="green">043</FONT>                int length = (int) wav.getFile().length() - 44;<a name="line.43"></a>
-<FONT color="green">044</FONT>                LoggerFactory.obtainLogger(TAG).<a name="line.44"></a>
-<FONT color="green">045</FONT>                        d(String.format("read# file data length is %d", length));<a name="line.45"></a>
+<FONT color="green">040</FONT>                int length = (int) wav.getFile().length() - 44;<a name="line.40"></a>
+<FONT color="green">041</FONT>                LoggerFactory.obtainLogger(TAG).<a name="line.41"></a>
+<FONT color="green">042</FONT>                        d(String.format("read# file data length is %d", length));<a name="line.42"></a>
+<FONT color="green">043</FONT>    <a name="line.43"></a>
+<FONT color="green">044</FONT>                byte[] data = new byte[length];<a name="line.44"></a>
+<FONT color="green">045</FONT>                stream.read(data, 0, length);<a name="line.45"></a>
 <FONT color="green">046</FONT>    <a name="line.46"></a>
-<FONT color="green">047</FONT>                byte[] data = new byte[length];<a name="line.47"></a>
-<FONT color="green">048</FONT>                stream.read(data, 0, length);<a name="line.48"></a>
-<FONT color="green">049</FONT>    <a name="line.49"></a>
-<FONT color="green">050</FONT>                wav.setData(data);<a name="line.50"></a>
-<FONT color="green">051</FONT>    <a name="line.51"></a>
-<FONT color="green">052</FONT>                LoggerFactory.obtainLogger(TAG).<a name="line.52"></a>
-<FONT color="green">053</FONT>                        d(String.format("read# data lenght is %d", data.length));<a name="line.53"></a>
-<FONT color="green">054</FONT>            } catch (FileNotFoundException e) {<a name="line.54"></a>
-<FONT color="green">055</FONT>                LoggerFactory.obtainLogger(TAG).e(<a name="line.55"></a>
-<FONT color="green">056</FONT>                        String.format("File %s can not be found!", wav.getFile().getAbsolutePath()),<a name="line.56"></a>
-<FONT color="green">057</FONT>                        e);<a name="line.57"></a>
-<FONT color="green">058</FONT>            } catch (IOException e) {<a name="line.58"></a>
-<FONT color="green">059</FONT>                LoggerFactory.obtainLogger(TAG).e(<a name="line.59"></a>
-<FONT color="green">060</FONT>                        String.format("Error while reading %s", wav.getFile().getAbsolutePath()),<a name="line.60"></a>
-<FONT color="green">061</FONT>                        e);<a name="line.61"></a>
-<FONT color="green">062</FONT>            } finally {<a name="line.62"></a>
-<FONT color="green">063</FONT>                if (stream != null) {<a name="line.63"></a>
-<FONT color="green">064</FONT>                    try {<a name="line.64"></a>
-<FONT color="green">065</FONT>                        stream.close();<a name="line.65"></a>
-<FONT color="green">066</FONT>                    } catch (IOException e) {<a name="line.66"></a>
-<FONT color="green">067</FONT>                        LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);<a name="line.67"></a>
-<FONT color="green">068</FONT>                    }<a name="line.68"></a>
-<FONT color="green">069</FONT>                }<a name="line.69"></a>
-<FONT color="green">070</FONT>            }<a name="line.70"></a>
-<FONT color="green">071</FONT>        }<a name="line.71"></a>
-<FONT color="green">072</FONT>    <a name="line.72"></a>
-<FONT color="green">073</FONT>        private boolean prepare()throws IOException {<a name="line.73"></a>
-<FONT color="green">074</FONT>            long length = wav.getFile().length();<a name="line.74"></a>
-<FONT color="green">075</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.75"></a>
-<FONT color="green">076</FONT>                    d(String.format("prepare# .wav file length is %s", length));<a name="line.76"></a>
-<FONT color="green">077</FONT>    <a name="line.77"></a>
-<FONT color="green">078</FONT>            // ChunkID<a name="line.78"></a>
-<FONT color="green">079</FONT>            byte[] data = new byte[4];<a name="line.79"></a>
-<FONT color="green">080</FONT>            stream.read(data, 0, 4);<a name="line.80"></a>
-<FONT color="green">081</FONT>            if (data[0] != 'R' ||<a name="line.81"></a>
-<FONT color="green">082</FONT>                    data[1] != 'I' ||<a name="line.82"></a>
-<FONT color="green">083</FONT>                    data[2] != 'F' ||<a name="line.83"></a>
-<FONT color="green">084</FONT>                    data[3] != 'F') {<a name="line.84"></a>
-<FONT color="green">085</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect ChunkID");<a name="line.85"></a>
-<FONT color="green">086</FONT>                return false;<a name="line.86"></a>
-<FONT color="green">087</FONT>            }<a name="line.87"></a>
-<FONT color="green">088</FONT>    <a name="line.88"></a>
-<FONT color="green">089</FONT>            // ChunkSize<a name="line.89"></a>
-<FONT color="green">090</FONT>            int chunkSize = readInt();<a name="line.90"></a>
-<FONT color="green">091</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.91"></a>
-<FONT color="green">092</FONT>                    d(String.format("prepare# ChunkSize = %s", chunkSize));<a name="line.92"></a>
-<FONT color="green">093</FONT>    <a name="line.93"></a>
-<FONT color="green">094</FONT>            // Format<a name="line.94"></a>
-<FONT color="green">095</FONT>            data = new byte[4];<a name="line.95"></a>
-<FONT color="green">096</FONT>            stream.read(data, 0, 4);<a name="line.96"></a>
-<FONT color="green">097</FONT>            if (data[0] != 'W' ||<a name="line.97"></a>
-<FONT color="green">098</FONT>                    data[1] != 'A' ||<a name="line.98"></a>
-<FONT color="green">099</FONT>                    data[2] != 'V' ||<a name="line.99"></a>
-<FONT color="green">100</FONT>                    data[3] != 'E') {<a name="line.100"></a>
-<FONT color="green">101</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Format");<a name="line.101"></a>
-<FONT color="green">102</FONT>                return false;<a name="line.102"></a>
-<FONT color="green">103</FONT>            }<a name="line.103"></a>
+<FONT color="green">047</FONT>                wav.setData(data);<a name="line.47"></a>
+<FONT color="green">048</FONT>    <a name="line.48"></a>
+<FONT color="green">049</FONT>                LoggerFactory.obtainLogger(TAG).<a name="line.49"></a>
+<FONT color="green">050</FONT>                        d(String.format("read# data lenght is %d", data.length));<a name="line.50"></a>
+<FONT color="green">051</FONT>            } catch (FileNotFoundException e) {<a name="line.51"></a>
+<FONT color="green">052</FONT>                LoggerFactory.obtainLogger(TAG).e(<a name="line.52"></a>
+<FONT color="green">053</FONT>                        String.format("File %s can not be found!", wav.getFile().getAbsolutePath()),<a name="line.53"></a>
+<FONT color="green">054</FONT>                        e);<a name="line.54"></a>
+<FONT color="green">055</FONT>            } catch (IOException e) {<a name="line.55"></a>
+<FONT color="green">056</FONT>                LoggerFactory.obtainLogger(TAG).e(<a name="line.56"></a>
+<FONT color="green">057</FONT>                        String.format("Error while reading %s", wav.getFile().getAbsolutePath()),<a name="line.57"></a>
+<FONT color="green">058</FONT>                        e);<a name="line.58"></a>
+<FONT color="green">059</FONT>            } finally {<a name="line.59"></a>
+<FONT color="green">060</FONT>                if (stream != null) {<a name="line.60"></a>
+<FONT color="green">061</FONT>                    try {<a name="line.61"></a>
+<FONT color="green">062</FONT>                        stream.close();<a name="line.62"></a>
+<FONT color="green">063</FONT>                    } catch (IOException e) {<a name="line.63"></a>
+<FONT color="green">064</FONT>                        LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);<a name="line.64"></a>
+<FONT color="green">065</FONT>                    }<a name="line.65"></a>
+<FONT color="green">066</FONT>                }<a name="line.66"></a>
+<FONT color="green">067</FONT>            }<a name="line.67"></a>
+<FONT color="green">068</FONT>        }<a name="line.68"></a>
+<FONT color="green">069</FONT>    <a name="line.69"></a>
+<FONT color="green">070</FONT>        private boolean prepare()throws IOException {<a name="line.70"></a>
+<FONT color="green">071</FONT>            long length = wav.getFile().length();<a name="line.71"></a>
+<FONT color="green">072</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.72"></a>
+<FONT color="green">073</FONT>                    d(String.format("prepare# .wav file length is %s", length));<a name="line.73"></a>
+<FONT color="green">074</FONT>    <a name="line.74"></a>
+<FONT color="green">075</FONT>            // ChunkID<a name="line.75"></a>
+<FONT color="green">076</FONT>            byte[] data = new byte[4];<a name="line.76"></a>
+<FONT color="green">077</FONT>            stream.read(data, 0, 4);<a name="line.77"></a>
+<FONT color="green">078</FONT>            if (data[0] != 'R' ||<a name="line.78"></a>
+<FONT color="green">079</FONT>                    data[1] != 'I' ||<a name="line.79"></a>
+<FONT color="green">080</FONT>                    data[2] != 'F' ||<a name="line.80"></a>
+<FONT color="green">081</FONT>                    data[3] != 'F') {<a name="line.81"></a>
+<FONT color="green">082</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect ChunkID");<a name="line.82"></a>
+<FONT color="green">083</FONT>                return false;<a name="line.83"></a>
+<FONT color="green">084</FONT>            }<a name="line.84"></a>
+<FONT color="green">085</FONT>            wav.setChunkID(new String(data));<a name="line.85"></a>
+<FONT color="green">086</FONT>    <a name="line.86"></a>
+<FONT color="green">087</FONT>            // ChunkSize<a name="line.87"></a>
+<FONT color="green">088</FONT>            int chunkSize = readInt();<a name="line.88"></a>
+<FONT color="green">089</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.89"></a>
+<FONT color="green">090</FONT>                    d(String.format("prepare# ChunkSize = %s", chunkSize));<a name="line.90"></a>
+<FONT color="green">091</FONT>            wav.setChunkSize(chunkSize);<a name="line.91"></a>
+<FONT color="green">092</FONT>    <a name="line.92"></a>
+<FONT color="green">093</FONT>            // Format<a name="line.93"></a>
+<FONT color="green">094</FONT>            data = new byte[4];<a name="line.94"></a>
+<FONT color="green">095</FONT>            stream.read(data, 0, 4);<a name="line.95"></a>
+<FONT color="green">096</FONT>            if (data[0] != 'W' ||<a name="line.96"></a>
+<FONT color="green">097</FONT>                    data[1] != 'A' ||<a name="line.97"></a>
+<FONT color="green">098</FONT>                    data[2] != 'V' ||<a name="line.98"></a>
+<FONT color="green">099</FONT>                    data[3] != 'E') {<a name="line.99"></a>
+<FONT color="green">100</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Format");<a name="line.100"></a>
+<FONT color="green">101</FONT>                return false;<a name="line.101"></a>
+<FONT color="green">102</FONT>            }<a name="line.102"></a>
+<FONT color="green">103</FONT>            wav.setFormat(new String(data));<a name="line.103"></a>
 <FONT color="green">104</FONT>    <a name="line.104"></a>
 <FONT color="green">105</FONT>            // Subchunk1ID<a name="line.105"></a>
 <FONT color="green">106</FONT>            data = new byte[4];<a name="line.106"></a>
@@ -115,82 +115,92 @@
 <FONT color="green">112</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Subchunk1ID");<a name="line.112"></a>
 <FONT color="green">113</FONT>                return false;<a name="line.113"></a>
 <FONT color="green">114</FONT>            }<a name="line.114"></a>
-<FONT color="green">115</FONT>    <a name="line.115"></a>
-<FONT color="green">116</FONT>            // Subchunk1Size<a name="line.116"></a>
-<FONT color="green">117</FONT>            int subchunk1Size = readInt();<a name="line.117"></a>
-<FONT color="green">118</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.118"></a>
-<FONT color="green">119</FONT>                    d(String.format("prepare# Subchunk1Size = %s", subchunk1Size));<a name="line.119"></a>
-<FONT color="green">120</FONT>    <a name="line.120"></a>
-<FONT color="green">121</FONT>            // AudioFormat<a name="line.121"></a>
-<FONT color="green">122</FONT>            int audioFormat = readShort();<a name="line.122"></a>
-<FONT color="green">123</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.123"></a>
-<FONT color="green">124</FONT>                    d(String.format("prepare# AudioFormat = %s", audioFormat));<a name="line.124"></a>
-<FONT color="green">125</FONT>    <a name="line.125"></a>
-<FONT color="green">126</FONT>            // NumChannels<a name="line.126"></a>
-<FONT color="green">127</FONT>            short numChannels = readShort();<a name="line.127"></a>
-<FONT color="green">128</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.128"></a>
-<FONT color="green">129</FONT>                    d(String.format("prepare# NumChannels = %s", numChannels));<a name="line.129"></a>
-<FONT color="green">130</FONT>    <a name="line.130"></a>
-<FONT color="green">131</FONT>            // SampleRate<a name="line.131"></a>
-<FONT color="green">132</FONT>            int sampleRate = readInt();<a name="line.132"></a>
-<FONT color="green">133</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.133"></a>
-<FONT color="green">134</FONT>                    d(String.format("prepare# SampleRate = %s", sampleRate));<a name="line.134"></a>
-<FONT color="green">135</FONT>    <a name="line.135"></a>
-<FONT color="green">136</FONT>            // ByteRate<a name="line.136"></a>
-<FONT color="green">137</FONT>            int byteRate = readInt();<a name="line.137"></a>
-<FONT color="green">138</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.138"></a>
-<FONT color="green">139</FONT>                    d(String.format("prepare# ByteRate = %s", byteRate));<a name="line.139"></a>
+<FONT color="green">115</FONT>            wav.setSubchunk1ID(new String(data));<a name="line.115"></a>
+<FONT color="green">116</FONT>    <a name="line.116"></a>
+<FONT color="green">117</FONT>            // Subchunk1Size<a name="line.117"></a>
+<FONT color="green">118</FONT>            int subchunk1Size = readInt();<a name="line.118"></a>
+<FONT color="green">119</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.119"></a>
+<FONT color="green">120</FONT>                    d(String.format("prepare# Subchunk1Size = %s", subchunk1Size));<a name="line.120"></a>
+<FONT color="green">121</FONT>            wav.setSubchunk1Size(subchunk1Size);<a name="line.121"></a>
+<FONT color="green">122</FONT>    <a name="line.122"></a>
+<FONT color="green">123</FONT>            // AudioFormat<a name="line.123"></a>
+<FONT color="green">124</FONT>            short audioFormat = readShort();<a name="line.124"></a>
+<FONT color="green">125</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.125"></a>
+<FONT color="green">126</FONT>                    d(String.format("prepare# AudioFormat = %s", audioFormat));<a name="line.126"></a>
+<FONT color="green">127</FONT>            wav.setAudioFormat(audioFormat);<a name="line.127"></a>
+<FONT color="green">128</FONT>    <a name="line.128"></a>
+<FONT color="green">129</FONT>            // NumChannels<a name="line.129"></a>
+<FONT color="green">130</FONT>            short numChannels = readShort();<a name="line.130"></a>
+<FONT color="green">131</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.131"></a>
+<FONT color="green">132</FONT>                    d(String.format("prepare# NumChannels = %s", numChannels));<a name="line.132"></a>
+<FONT color="green">133</FONT>            wav.setNumChannels(numChannels);<a name="line.133"></a>
+<FONT color="green">134</FONT>    <a name="line.134"></a>
+<FONT color="green">135</FONT>            // SampleRate<a name="line.135"></a>
+<FONT color="green">136</FONT>            int sampleRate = readInt();<a name="line.136"></a>
+<FONT color="green">137</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.137"></a>
+<FONT color="green">138</FONT>                    d(String.format("prepare# SampleRate = %s", sampleRate));<a name="line.138"></a>
+<FONT color="green">139</FONT>            wav.setSampleRate(sampleRate);<a name="line.139"></a>
 <FONT color="green">140</FONT>    <a name="line.140"></a>
-<FONT color="green">141</FONT>            // BlockAlign<a name="line.141"></a>
-<FONT color="green">142</FONT>            int blockAlign = readShort();<a name="line.142"></a>
+<FONT color="green">141</FONT>            // ByteRate<a name="line.141"></a>
+<FONT color="green">142</FONT>            int byteRate = readInt();<a name="line.142"></a>
 <FONT color="green">143</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.143"></a>
-<FONT color="green">144</FONT>                    d(String.format("prepare# BlockAlign = %s", blockAlign));<a name="line.144"></a>
-<FONT color="green">145</FONT>    <a name="line.145"></a>
-<FONT color="green">146</FONT>            // BitsPerSample<a name="line.146"></a>
-<FONT color="green">147</FONT>            int bitsPerSample = readShort();<a name="line.147"></a>
-<FONT color="green">148</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.148"></a>
-<FONT color="green">149</FONT>                    d(String.format("prepare# BitsPerSample = %s", bitsPerSample));<a name="line.149"></a>
-<FONT color="green">150</FONT>    <a name="line.150"></a>
-<FONT color="green">151</FONT>            // data header<a name="line.151"></a>
-<FONT color="green">152</FONT>            data = new byte[4];<a name="line.152"></a>
-<FONT color="green">153</FONT>            stream.read(data, 0, 4);<a name="line.153"></a>
-<FONT color="green">154</FONT>            if (data[0] != 'd' ||<a name="line.154"></a>
-<FONT color="green">155</FONT>                    data[1] != 'a' ||<a name="line.155"></a>
-<FONT color="green">156</FONT>                    data[2] != 't' ||<a name="line.156"></a>
-<FONT color="green">157</FONT>                    data[3] != 'a' ) {<a name="line.157"></a>
-<FONT color="green">158</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Subchunk2ID");<a name="line.158"></a>
-<FONT color="green">159</FONT>                return false;<a name="line.159"></a>
-<FONT color="green">160</FONT>            }<a name="line.160"></a>
-<FONT color="green">161</FONT>    <a name="line.161"></a>
-<FONT color="green">162</FONT>            // Subchunk2Size<a name="line.162"></a>
-<FONT color="green">163</FONT>            int subchunk2Size = readInt();<a name="line.163"></a>
-<FONT color="green">164</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.164"></a>
-<FONT color="green">165</FONT>                    d(String.format("prepare# Subchunk2Size = %s", subchunk2Size));<a name="line.165"></a>
-<FONT color="green">166</FONT>    <a name="line.166"></a>
-<FONT color="green">167</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.167"></a>
-<FONT color="green">168</FONT>                    d(String.format("prepare# chunkSize - subchunk2Size = %s", (chunkSize - subchunk2Size)));<a name="line.168"></a>
-<FONT color="green">169</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.169"></a>
-<FONT color="green">170</FONT>                    d(String.format("prepare# .wav file length - chunkSize = %s", (length - chunkSize)));<a name="line.170"></a>
-<FONT color="green">171</FONT>    <a name="line.171"></a>
-<FONT color="green">172</FONT>            return (chunkSize - subchunk2Size == 36);<a name="line.172"></a>
-<FONT color="green">173</FONT>        }<a name="line.173"></a>
-<FONT color="green">174</FONT>    <a name="line.174"></a>
-<FONT color="green">175</FONT>        private short readShort() throws IOException {<a name="line.175"></a>
-<FONT color="green">176</FONT>            byte[] data = new byte[2];<a name="line.176"></a>
-<FONT color="green">177</FONT>            stream.read(data, 0, 2);<a name="line.177"></a>
-<FONT color="green">178</FONT>            return (short)(((0xff &amp; data[1]) &lt;&lt; 8) |<a name="line.178"></a>
-<FONT color="green">179</FONT>                    ((0xff &amp; data[0])));<a name="line.179"></a>
-<FONT color="green">180</FONT>        }<a name="line.180"></a>
+<FONT color="green">144</FONT>                    d(String.format("prepare# ByteRate = %s", byteRate));<a name="line.144"></a>
+<FONT color="green">145</FONT>            wav.setByteRate(byteRate);<a name="line.145"></a>
+<FONT color="green">146</FONT>    <a name="line.146"></a>
+<FONT color="green">147</FONT>            // BlockAlign<a name="line.147"></a>
+<FONT color="green">148</FONT>            short blockAlign = readShort();<a name="line.148"></a>
+<FONT color="green">149</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.149"></a>
+<FONT color="green">150</FONT>                    d(String.format("prepare# BlockAlign = %s", blockAlign));<a name="line.150"></a>
+<FONT color="green">151</FONT>            wav.setBlockAlign(blockAlign);<a name="line.151"></a>
+<FONT color="green">152</FONT>    <a name="line.152"></a>
+<FONT color="green">153</FONT>            // BitsPerSample<a name="line.153"></a>
+<FONT color="green">154</FONT>            short bitsPerSample = readShort();<a name="line.154"></a>
+<FONT color="green">155</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.155"></a>
+<FONT color="green">156</FONT>                    d(String.format("prepare# BitsPerSample = %s", bitsPerSample));<a name="line.156"></a>
+<FONT color="green">157</FONT>            wav.setBitsPerSample(bitsPerSample);<a name="line.157"></a>
+<FONT color="green">158</FONT>    <a name="line.158"></a>
+<FONT color="green">159</FONT>            // Subchunk2ID<a name="line.159"></a>
+<FONT color="green">160</FONT>            data = new byte[4];<a name="line.160"></a>
+<FONT color="green">161</FONT>            stream.read(data, 0, 4);<a name="line.161"></a>
+<FONT color="green">162</FONT>            if (data[0] != 'd' ||<a name="line.162"></a>
+<FONT color="green">163</FONT>                    data[1] != 'a' ||<a name="line.163"></a>
+<FONT color="green">164</FONT>                    data[2] != 't' ||<a name="line.164"></a>
+<FONT color="green">165</FONT>                    data[3] != 'a' ) {<a name="line.165"></a>
+<FONT color="green">166</FONT>                LoggerFactory.obtainLogger(TAG).d("prepare# incorrect Subchunk2ID");<a name="line.166"></a>
+<FONT color="green">167</FONT>                return false;<a name="line.167"></a>
+<FONT color="green">168</FONT>            }<a name="line.168"></a>
+<FONT color="green">169</FONT>            wav.setSubchunk2ID(new String(data));<a name="line.169"></a>
+<FONT color="green">170</FONT>    <a name="line.170"></a>
+<FONT color="green">171</FONT>            // Subchunk2Size<a name="line.171"></a>
+<FONT color="green">172</FONT>            int subchunk2Size = readInt();<a name="line.172"></a>
+<FONT color="green">173</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.173"></a>
+<FONT color="green">174</FONT>                    d(String.format("prepare# Subchunk2Size = %s", subchunk2Size));<a name="line.174"></a>
+<FONT color="green">175</FONT>            wav.setSubchunk2Size(subchunk2Size);<a name="line.175"></a>
+<FONT color="green">176</FONT>    <a name="line.176"></a>
+<FONT color="green">177</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.177"></a>
+<FONT color="green">178</FONT>                    d(String.format("prepare# chunkSize - subchunk2Size = %s", (chunkSize - subchunk2Size)));<a name="line.178"></a>
+<FONT color="green">179</FONT>            LoggerFactory.obtainLogger(TAG).<a name="line.179"></a>
+<FONT color="green">180</FONT>                    d(String.format("prepare# .wav file length - chunkSize = %s", (length - chunkSize)));<a name="line.180"></a>
 <FONT color="green">181</FONT>    <a name="line.181"></a>
-<FONT color="green">182</FONT>        private int readInt() throws IOException {<a name="line.182"></a>
-<FONT color="green">183</FONT>            byte[] data = new byte[4];<a name="line.183"></a>
-<FONT color="green">184</FONT>            stream.read(data, 0, 4);<a name="line.184"></a>
-<FONT color="green">185</FONT>            return ((0xff &amp; data[3]) &lt;&lt; 24) |<a name="line.185"></a>
-<FONT color="green">186</FONT>                    ((0xff &amp; data[2]) &lt;&lt; 16) |<a name="line.186"></a>
-<FONT color="green">187</FONT>                    ((0xff &amp; data[1]) &lt;&lt; 8) |<a name="line.187"></a>
-<FONT color="green">188</FONT>                    ((0xff &amp; data[0]));<a name="line.188"></a>
-<FONT color="green">189</FONT>        }<a name="line.189"></a>
-<FONT color="green">190</FONT>    }<a name="line.190"></a>
+<FONT color="green">182</FONT>            return wav.isFormatCorrect();<a name="line.182"></a>
+<FONT color="green">183</FONT>        }<a name="line.183"></a>
+<FONT color="green">184</FONT>    <a name="line.184"></a>
+<FONT color="green">185</FONT>        private short readShort() throws IOException {<a name="line.185"></a>
+<FONT color="green">186</FONT>            byte[] data = new byte[2];<a name="line.186"></a>
+<FONT color="green">187</FONT>            stream.read(data, 0, 2);<a name="line.187"></a>
+<FONT color="green">188</FONT>            return (short)(((0xff &amp; data[1]) &lt;&lt; 8) |<a name="line.188"></a>
+<FONT color="green">189</FONT>                    ((0xff &amp; data[0])));<a name="line.189"></a>
+<FONT color="green">190</FONT>        }<a name="line.190"></a>
+<FONT color="green">191</FONT>    <a name="line.191"></a>
+<FONT color="green">192</FONT>        private int readInt() throws IOException {<a name="line.192"></a>
+<FONT color="green">193</FONT>            byte[] data = new byte[4];<a name="line.193"></a>
+<FONT color="green">194</FONT>            stream.read(data, 0, 4);<a name="line.194"></a>
+<FONT color="green">195</FONT>            return ((0xff &amp; data[3]) &lt;&lt; 24) |<a name="line.195"></a>
+<FONT color="green">196</FONT>                    ((0xff &amp; data[2]) &lt;&lt; 16) |<a name="line.196"></a>
+<FONT color="green">197</FONT>                    ((0xff &amp; data[1]) &lt;&lt; 8) |<a name="line.197"></a>
+<FONT color="green">198</FONT>                    ((0xff &amp; data[0]));<a name="line.198"></a>
+<FONT color="green">199</FONT>        }<a name="line.199"></a>
+<FONT color="green">200</FONT>    }<a name="line.200"></a>
 
 
 

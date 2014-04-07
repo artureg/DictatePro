@@ -15,4 +15,15 @@
     <string name="prompt_concat_failed">Playing failed</string>
 
     <string name="prompt_file_deleted">File deleted successfully</string>
+
+    <string name="prompt_file_speex_not_found">Initial speex file to decode not found!</string>
+
+    <string name="prompt_file_encoding_failed">File encoding failed!</string>
+    <string name="prompt_file_encoded_successfully">File encoded successfully! Please see %1$s</string>
+
+    <string name="prompt_file_decoding_failed">File decoding failed!</string>
+    <string name="prompt_file_decoded_successfully">File decoded successfully! Please see %1$s</string>
+
+    <string name="menu_encode">Encode</string>
+    <string name="menu_decode">Decode</string>
 </resources>
