@@ -3,15 +3,13 @@ package com.wiseapps.davacon.logging;
 import android.util.Log;
 
 /**
- * Copyright 2013 Pozitron.
+ * Class to provide Android based logging.
  *
- * All rights reserved.
- * POZITRON PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
+ * <p>Makes extensive use of {@link android.util.Log} class.</p>
  *
  * @author varya.bzhezinskaya@gmail.pozitron
- * Date: 11/13/12
- * Time: 4:05 AM
+ *          Date: 11/13/12
+ *          Time: 4:05 AM
  */
 public class AndroidLogger implements Logger {
     private static final String ANB_PREFIX = "ANB_";

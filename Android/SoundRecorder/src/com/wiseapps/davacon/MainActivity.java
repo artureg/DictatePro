@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.wiseapps.davacon.core.SoundFile;
-import com.wiseapps.davacon.core.wav.SoundFileHandler;
+import com.wiseapps.davacon.core.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.SpeexWrapper;
+import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
 
@@ -24,6 +26,8 @@ import static com.wiseapps.davacon.ActivityNavigator.*;
 import static com.wiseapps.davacon.utils.FileUtils.*;
 
 /**
+ * Application main activity.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/19/14
  *         Time: 4:49 PM
@@ -33,21 +37,40 @@ public class MainActivity extends PlayingCapableActivity {
 
     private static final int REQUEST_CODE_PROCESS_TRACK = 0;
 
-    private List<SoundFile> files;
+    private List<SoundFile> sfs;
     private SoundFile tmp;
+
+    private SoundFile speex, speexTmp1, speexTmp2;
+
+    private TextView textDuration;
+
+    private ProgressBar progressBar;
 
     private LinearLayout trackList;
 
     private ImageButton buttonPlay;
     private Button buttonClear;
 
-    private MenuItem menuEdit;
+    private MenuItem menuEdit, menuOverflow, menuEncode, menuDecode;
 
+    /**
+     * Mode of the UI - either view or edit.
+     * Default is view.
+     */
     private static enum Mode {
         VIEW, EDIT
     }
     private Mode mode = Mode.VIEW;
 
+    /**
+     * Called when the activity is starting. Here tracks are initialized,
+     * UI initialization takes place.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +81,10 @@ public class MainActivity extends PlayingCapableActivity {
         initWidgets();
     }
 
+    /**
+     * Performs final cleanup before an activity is destroyed.
+     * <p></>Deletes any temporary files if there are any.<p/>
+     */
     @Override
     protected void onDestroy() {
         File[] tracks = FileUtils.getRoot(this).listFiles();
@@ -76,6 +103,25 @@ public class MainActivity extends PlayingCapableActivity {
         super.onDestroy();
     }
 
+    /**
+     * Called when an activity you launched exits, giving you the requestCode
+     * you started it with, the resultCode it returned, and any additional
+     * data from it.  The <var>resultCode</var> will be
+     * {@link #RESULT_CANCELED} if the activity explicitly returned that,
+     * didn't return any result, or crashed during its operation.
+     *
+     * In case of <var>requestCode</var> equal to REQUEST_CODE_PROCESS_TRACK (one is returned from the
+     * {@link com.wiseapps.davacon.ProcessTrackActivity ProcessTrackActivity}) and
+     * <var>resultCode</var> equal to Activity.RESULT_OK, class fields are reinitializaed, UI is updated.
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -92,16 +138,46 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Initialize the contents of the screen's options menu.
+     * Menu items are placed in to <var>menu</var>.
+     *
+     * <p>Depending on existence of already recorded sound files the Edit menu shall
+     * either be shown (tracks exist) or hidden (no tracks recorded).</p>
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed;
+     *         if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
         menuEdit = menu.findItem(R.id.edit);
+
+        menuOverflow = menu.findItem(R.id.overflow);
+        menuEncode = menu.findItem(R.id.encode);
+        menuDecode = menu.findItem(R.id.decode);
+
         updateMenu();
 
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Called whenever an item in the options menu is selected.
+     *
+     * <p>In case Edit menu is called the tracks list is updated
+     * to provide track deletion functionality.<p/>
+     *
+     * <p>In case Add menu is called the user id forwarded to the
+     * {@link com.wiseapps.davacon.ProcessTrackActivity ProcessTrackActivity}
+     * where a track can be recorded.<p/>
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to
+     *         proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -113,7 +189,17 @@ public class MainActivity extends PlayingCapableActivity {
                 return true;
             }
             case R.id.add: {
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("onOptionsItemSelected# test jni " + SpeexWrapper.test(2, 3));
                 ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK);
+                return true;
+            }
+            case R.id.encode: {
+                new EncodeTask().execute();
+                return true;
+            }
+            case R.id.decode: {
+                new DecodeTask().execute();
                 return true;
             }
         }
@@ -121,8 +207,11 @@ public class MainActivity extends PlayingCapableActivity {
         return false;
     }
 
+    /**
+     * Helper method to initialize tracks list.
+     */
     private void initData() {
-        this.files = null;
+        this.sfs = null;
 
         File root = FileUtils.getRoot(this);
 
@@ -131,13 +220,13 @@ public class MainActivity extends PlayingCapableActivity {
             return;
         }
 
-        this.files = new ArrayList<SoundFile>();
+        this.sfs = new ArrayList<SoundFile>();
         for (File track : tracks) {
-            if (track.getName().contains(TMP_SUFFIX)) {
+            if (track.getName().contains(TMP_SUFFIX) || track.getName().contains(SPEEX_SUFFIX)) {
                 continue;
             }
             try {
-                this.files.add(SoundFile.create(track));
+                this.sfs.add(SoundFile.create(track));
             } catch (IOException e) {
                 LoggerFactory.obtainLogger(TAG).
                         e(String.format("initData# Couldn't read %s", track.getAbsolutePath()), e);
@@ -145,7 +234,14 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Helper method to initialize UI.
+     */
     private void initWidgets() {
+        textDuration = (TextView) findViewById(R.id.duration);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+
         trackList = (LinearLayout) findViewById(R.id.tracks);
 
         buttonPlay = (ImageButton) findViewById(R.id.button_play);
@@ -156,42 +252,61 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Helper method to update UI in case screen's UI mode has been changed.
+     */
     private void updateWidgets() {
         updateMenu();
         updateTrackList();
         updateButtons();
     }
 
+    /**
+     * Helper method to update menu in case screen's UI mode has been changed.
+     */
     private void updateMenu() {
-        if (menuEdit == null) {
-            return;
+        if (menuEdit != null) {
+            // set icon
+            menuEdit.setIcon(mode == Mode.VIEW ? getResources().getDrawable(R.drawable.ic_action_edit) :
+                    getResources().getDrawable(R.drawable.ic_action_accept));
+
+            // set visibility
+            menuEdit.setVisible(sfs != null && !sfs.isEmpty());
         }
 
-        // set icon
-        menuEdit.setIcon(mode == Mode.VIEW ? getResources().getDrawable(R.drawable.ic_action_edit) :
-                getResources().getDrawable(R.drawable.ic_action_accept));
-
-        // set visibility
-        menuEdit.setVisible(files != null && !files.isEmpty());
+        if (menuOverflow != null) {
+            menuOverflow.setVisible(sfs != null && !sfs.isEmpty());
+        }
     }
 
+    /**
+     * Helper method to update tracks list in case screen's UI mode has been changed.
+     */
     private void updateTrackList() {
-        if (files == null || files.isEmpty()) {
+        if (sfs == null || sfs.isEmpty()) {
+            textDuration.setVisibility(View.GONE);
             trackList.setVisibility(View.GONE);
             return;
         }
+
+        double overAllDuration = 0;
 
         LayoutInflater inflater = getLayoutInflater();
         trackList.removeAllViews();
 
         int count = 0;
+        double duration;
 
         View convertView;
-        for (final SoundFile wav : files) {
+        for (final SoundFile sf : sfs) {
             convertView = inflater.inflate(R.layout.track, null);
 
+            duration = DurationUtils.format(sf.getDuration());
+            overAllDuration += duration;
+
             ((TextView) convertView.findViewById(R.id.track)).
-                    setText(wav.getFile().getName());
+                    setText(String.format(getResources().getString(R.string.track_duration),
+                            duration));
 
             switch(mode) {
                 case VIEW: {
@@ -199,7 +314,7 @@ public class MainActivity extends PlayingCapableActivity {
                     convertView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            onDetails(wav);
+                            onDetails(sf);
                         }
                     });
 
@@ -210,7 +325,7 @@ public class MainActivity extends PlayingCapableActivity {
                     convertView.findViewById(R.id.action_remove).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            onDelete(wav);
+                            onDelete(sf);
                         }
                     });
 
@@ -220,7 +335,7 @@ public class MainActivity extends PlayingCapableActivity {
 
             ((LinearLayout) findViewById(R.id.tracks)).addView(convertView);
 
-            if (count < files.size()) {
+            if (count < sfs.size()) {
                 trackList.addView(inflater.inflate(R.layout.separator, null));
             }
 
@@ -228,10 +343,17 @@ public class MainActivity extends PlayingCapableActivity {
         }
 
         trackList.setVisibility(View.VISIBLE);
+
+        textDuration.setText(String.format(getResources().getString(R.string.main_duration),
+                DurationUtils.format(0), overAllDuration));
+        textDuration.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Helper method to update buttons in case screen's UI mode has been changed.
+     */
     private void updateButtons() {
-        if (files != null && !files.isEmpty()) {
+        if (sfs != null && !sfs.isEmpty()) {
             buttonPlay.setVisibility(View.VISIBLE);
             buttonClear.setVisibility(View.VISIBLE);
         } else {
@@ -240,6 +362,11 @@ public class MainActivity extends PlayingCapableActivity {
         }
     }
 
+    /**
+     * Clears the tracks list.
+     *
+     * @param view The clicked view.
+     */
     public void clearAll(View view) {
         File root = FileUtils.getRoot(this);
         File[] tracks = root.listFiles();
@@ -257,32 +384,61 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Plays the tracks list.
+     *
+     * @param view The clicked view.
+     */
     public void playAll(View view) {
         new PlayAllTask().execute();
     }
 
+    /**
+     * Callback method to update the screens data and UI after the media player has been prepared.
+     */
     @Override
-    void onPlayerPreparedSuccessfully(int duration) {
+    void onPlayerPreparedSuccessfully() {
     }
 
+    /**
+     * Callback method to update the screens data and UI in case an error occured
+     * during the media player preparation.
+     */
     @Override
     void onPlayerPreparationFailed() {
         Toast.makeText(this,
                 getResources().getString(R.string.prompt_player_preparation_failed), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has started.
+     */
     @Override
     void onPlayerStarted() {
         super.onPlayerStarted();
+
+        progressBar.setMax(tmp.getDuration());
+        progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_pause));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback is in progress.
+     */
     @Override
-    void onPlayerInProgress(int currentPosition, int duration) {
+    void onPlayerInProgress(int currentPosition) {
+        progressBar.setProgress(currentPosition);
+
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(currentPosition), DurationUtils.format(tmp.getDuration())));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has been paused.
+     */
     @Override
     void onPlayerPaused() {
         super.onPlayerPaused();
@@ -291,22 +447,39 @@ public class MainActivity extends PlayingCapableActivity {
                 getDrawable(R.drawable.ic_action_play));
     }
 
+    /**
+     * Callback method to update the screens data and UI after the track playback has completed.
+     */
     @Override
     void onPlayerCompleted() {
         super.onPlayerCompleted();
+
+        textDuration.setText(
+                String.format(getResources().getString(R.string.process_track_duration),
+                        DurationUtils.format(0), DurationUtils.format(tmp.getDuration())));
+
+        progressBar.setVisibility(View.GONE);
 
         buttonPlay.setImageDrawable(getResources().
                 getDrawable(R.drawable.ic_action_play));
     }
 
+    /**
+     * Callback method to set the track to play.
+     */
     @Override
-    SoundFile getWav() {
+    SoundFile getSoundFile() {
         return tmp;
     }
 
-    public void onDetails(SoundFile wav) {
+    /**
+     * Shows details of a {@link com.wiseapps.davacon.core.SoundFile SoundFile}.
+     *
+     * @param sf Sound file to show the details of.
+     */
+    public void onDetails(SoundFile sf) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_TRACK, wav.getFile());
+        bundle.putSerializable(EXTRA_TRACK, sf.getFile());
 
         ActivityNavigator.startProcessTrackActivityForResult(this, REQUEST_CODE_PROCESS_TRACK, bundle);
     }
@@ -331,11 +504,15 @@ public class MainActivity extends PlayingCapableActivity {
         updateWidgets();
     }
 
+    /**
+     * Async task to play the tracks in succession.
+     */
     private class PlayAllTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                tmp = SoundFileHandler.concat(MainActivity.this, files);
+                tmp = SoundFileHandler.concat(MainActivity.this, sfs,
+                        FileUtils.getTempFilename(MainActivity.this, String.valueOf(System.currentTimeMillis()) + ".wav"));
                 LoggerFactory.obtainLogger(TAG).
                         d(String.format("doInBackground# Tmp file %s created successfully", tmp.getFile().getAbsolutePath()));
 
@@ -358,6 +535,95 @@ public class MainActivity extends PlayingCapableActivity {
             }
 
             doPlay();
+        }
+    }
+
+    private class EncodeTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                long currentTimeMillis = System.currentTimeMillis();
+                speexTmp1 = SoundFileHandler.concat(MainActivity.this, sfs,
+                        FileUtils.getTempFilename(MainActivity.this, String.valueOf(currentTimeMillis) + ".wav"));
+                LoggerFactory.obtainLogger(TAG).
+                        d(String.format("doInBackground# Speex file %s created successfully", speexTmp1.getFile().getAbsolutePath()));
+
+                speex = SoundFile.create(new File(FileUtils.getSpeexFilename(MainActivity.this,
+                        String.valueOf(currentTimeMillis) + ".wav")));
+                int result = SpeexWrapper.encode(speexTmp1.getFile().getAbsolutePath(),
+                        speex.getFile().getAbsolutePath());
+
+                return result == 0;
+            } catch (Exception e) {
+                LoggerFactory.obtainLogger(TAG).
+                        e("Speex file creation failed", e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (!result) {
+                Toast.makeText(MainActivity.this,
+                        getResources().getString(R.string.prompt_file_encoding_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(MainActivity.this,
+                    String.format(getResources().getString(R.string.prompt_file_encoded_successfully),
+                            speex.getFile().getAbsolutePath()),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class DecodeTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            try {
+                if (speex == null) {
+                    LoggerFactory.obtainLogger(TAG).
+                            d("Initial speex file to decode not found");
+                    return false;
+                }
+
+                String filename = FileUtils.getFilename(MainActivity.this,
+                        FileUtils.getFilenameFromSpeex(speex.getFile().getName()) + "-decoded.wav");
+
+                int result = SpeexWrapper.decode(speex.getFile().getAbsolutePath(), filename);
+                if (result == 0) {
+                    speexTmp2 = SoundFile.create(new File(filename));
+                }
+
+                return result == 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (!result) {
+                if (speex == null) {
+                    Toast.makeText(MainActivity.this,
+                            getResources().getString(R.string.prompt_file_speex_not_found), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(MainActivity.this,
+                        getResources().getString(R.string.prompt_file_decoding_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(MainActivity.this,
+                    String.format(getResources().getString(R.string.prompt_file_decoded_successfully),
+                            speexTmp2.getFile().getAbsolutePath()),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

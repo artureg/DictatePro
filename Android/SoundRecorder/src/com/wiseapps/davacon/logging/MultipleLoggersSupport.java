@@ -5,15 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Copyright 2013 Pozitron.
- *
- * All rights reserved.
- * POZITRON PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
+ * Helper class to build the logging hierarchy.
  *
  * @author varya.bzhezinskaya@gmail.pozitron
- * Date: 11/13/12
- * Time: 4:11 AM
+ *          Date: 11/13/12
+ *          Time: 4:11 AM
  */
 public class MultipleLoggersSupport implements Logger {
 

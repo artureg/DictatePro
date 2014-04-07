@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 /**
+ * Helper class to work with fonts.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/20/14
  *         Time: 12:26 PM

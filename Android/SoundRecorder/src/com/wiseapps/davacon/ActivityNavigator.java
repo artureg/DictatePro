@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 /**
+ * Helper class to provide navigation between the application screens.
+ *
  * @author varya.bzhezinskaya@gmail.com
  *         Date: 3/20/14
  *         Time: 12:13 PM

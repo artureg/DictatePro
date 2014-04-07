@@ -56,6 +56,20 @@
                 <!--android:text="@string/main_duration"-->
             </LinearLayout>
         </RelativeLayout>
+
+        <ProgressBar
+                android:id="@+id/progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progress"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@id/play"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:visibility="gone"/>
+
         <LinearLayout
                 android:id="@+id/tracks"
                 android:orientation="vertical"
@@ -63,7 +77,7 @@
                 android:scrollbars="none"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_below="@id/play"
+                android:layout_below="@id/progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
