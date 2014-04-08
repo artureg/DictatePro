@@ -35,7 +35,7 @@ public class SpeexWrapper {
      * @param compressedFilePathStr path to the RIFF/SPEEX file
      * @param offsetMillis offset in millis to start reading the data from
      * @param durationMillis duration in millis of the read data
-     * @return array of data or null if file doesn't exist
+     * @return array of data or empty array if file doesn't exist
      */
     native public static byte[] read(String compressedFilePathStr, long offsetMillis, long durationMillis);
 
