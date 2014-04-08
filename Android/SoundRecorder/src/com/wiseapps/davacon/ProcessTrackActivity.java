@@ -32,7 +32,7 @@ import static com.wiseapps.davacon.core.wav.WAVFile.*;
  *         Date: 3/20/14
  *         Time: 9:23 AM
  */
-public class ProcessTrackActivity extends PlayingCapableActivity {
+public class ProcessTrackActivity extends StreamingCapableActivity /*PlayingCapableActivity*/ {
     private static final String TAG = ProcessTrackActivity.class.getSimpleName();
 
     private SoundFile sf;
@@ -273,7 +273,7 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
             menuSplit.setVisible(false);
         }
 
-        progressBar.setMax(sf.getDuration());
+        progressBar.setMax((int) sf.getDuration());
         progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
@@ -285,6 +285,9 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
      */
     @Override
     void onPlayerInProgress(int currentPosition) {
+        LoggerFactory.obtainLogger(TAG).
+                d("onPlayerInProgress# currentPosition = " + currentPosition);
+
         progressBar.setProgress(currentPosition);
 
         textDuration.setText(
@@ -338,6 +341,8 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
      */
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
+
         setResult(Activity.RESULT_OK);
         finish();
     }
@@ -447,8 +452,8 @@ public class ProcessTrackActivity extends PlayingCapableActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                SoundFileHandler.split(
-                        ProcessTrackActivity.this, sf, getCurrentPosition());
+//                SoundFileHandler.split(
+//                        ProcessTrackActivity.this, sf, getCurrentPosition());
                 return true;
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).e(e.getMessage(), e);

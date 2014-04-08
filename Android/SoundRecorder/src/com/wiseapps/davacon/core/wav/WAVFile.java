@@ -121,18 +121,29 @@ public class WAVFile extends SoundFile {
      * @return duration in millis
      */
     @Override
-    public int getDuration() {
+    public long getDuration() {
+        return getDuration(getFile().length());
+    }
+
+    /**
+     * Method to return duration of buffer size in millis.
+     *
+     * @param buffSize buffer size to return duration in millis of
+     * @return duration in millis
+     */
+    @Override
+    public long getDuration(long buffSize) {
         // http://social.msdn.microsoft.com/Forums/windows/en-US/5a92be69-3b4e-4d92-b1d2-141ef0a50c91/how-to-calculate-duration-of-wave-file-from-its-size?forum=winforms
-        double length = (double) getFile().length();
+        double length = (double) buffSize;
         double sampleRate = (double) this.sampleRate;
         double numChannels = (double) this.numChannels;
         double bitsPerSample = (double) getBitsPerSample();
 
         double duration = (double) Math.round((length / (sampleRate * numChannels * bitsPerSample /8)) * 1000) / 1000 * 1000;
-        LoggerFactory.obtainLogger(TAG).
-                d(String.format("getDuration# calculated duration is %s", duration));
+//        LoggerFactory.obtainLogger(TAG).
+//                d(String.format("getDuration# calculated duration is %s", duration));
 
-        return (int) duration;
+        return (long) duration;
     }
 
     String getChunkID() {

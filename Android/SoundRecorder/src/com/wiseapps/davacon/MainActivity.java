@@ -417,7 +417,7 @@ public class MainActivity extends PlayingCapableActivity {
     void onPlayerStarted() {
         super.onPlayerStarted();
 
-        progressBar.setMax(tmp.getDuration());
+        progressBar.setMax((int) tmp.getDuration());
         progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
