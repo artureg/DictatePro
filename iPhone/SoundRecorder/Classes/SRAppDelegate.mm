@@ -9,11 +9,12 @@
 #import "SRAppDelegate.h"
 
 #import "SRMainViewController.h"
+#import "SRPlayerViewController.h"
 
 @implementation SRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    SRMainViewController* ctrl = [[SRMainViewController alloc] initWithNibName:@"SRMainViewController" bundle:nil];
+    SRPlayerViewController* ctrl = [[SRPlayerViewController alloc] initWithNibName:@"SRPlayerViewController" bundle:nil];
     UINavigationController* navCtrl = [[UINavigationController alloc] initWithRootViewController:ctrl];
     navCtrl.navigationBar.barStyle = UIBarStyleBlackOpaque;
     navCtrl.navigationBar.translucent = NO;

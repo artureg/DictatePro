@@ -31,3 +31,18 @@ bool encodeWavToSpeexACM(const char* wavFilePath, const char* compressedFilePath
     file->close();
     return true;
 }
+
+bool decodeSpeexACMStream(const char* compressedFilePath, double positionInMilliseconds, double durationInMilliseconds, void* data, int* length) {
+    WaveFile* file = new WaveFile();
+    if (!file->openRead(compressedFilePath)) {
+        file->close();
+        return false;
+    }
+    FILE* aFile = file->getFile();
+    int size = file->getFMTInfo().sampleRate*durationInMilliseconds/1000;
+    int offset = file->getFMTInfo().sampleRate*positionInMilliseconds/1000;
+    fseek(aFile, offset, SEEK_CUR);
+    size = fread(data, sizeof(char), size, aFile);
+    *length = size;
+    return true;
+}
