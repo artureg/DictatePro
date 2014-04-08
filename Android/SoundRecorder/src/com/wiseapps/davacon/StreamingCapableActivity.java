@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 
 import java.io.FileInputStream;
 
@@ -34,8 +35,12 @@ abstract class StreamingCapableActivity extends Activity {
 
     private PlayTask mTask;
 
-    long offsetMillis;
-    long durationMillis;
+    private long offset;
+
+    private int currentPosition;
+
+//    private long offsetMillis;
+//    private long durationMillis;
 
     @Override
     public void onBackPressed() {
@@ -67,6 +72,14 @@ abstract class StreamingCapableActivity extends Activity {
     private void preparePlaying() {
         int minBuffSize = RECORDER_BUFFER_SIZE_IN_BYTES;
 
+//        int sampleRate = SpeexWrapper.getSampleRate(getSoundFile().getFile().getAbsolutePath());
+//        LoggerFactory.obtainLogger(TAG).
+//                d("preparePlaying# sampleRate = " + sampleRate);
+//
+//        long duration = SpeexWrapper.getDuration(getSoundFile().getFile().getAbsolutePath());
+//        LoggerFactory.obtainLogger(TAG).
+//                d("preparePlaying# duration = " + duration);
+
         track = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG, AUDIO_FORMAT,
                 minBuffSize, MODE);
 
@@ -75,8 +88,12 @@ abstract class StreamingCapableActivity extends Activity {
             return;
         }
 
-        offsetMillis = 0;
-        durationMillis = getSoundFile().getDuration(minBuffSize);
+        offset = 0;
+
+        currentPosition = 0;
+
+//        offsetMillis = 0;
+//        durationMillis = getSoundFile().getDuration(minBuffSize);
 
         onPlayerPreparedSuccessfully();
     }
@@ -138,7 +155,8 @@ abstract class StreamingCapableActivity extends Activity {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case MSG_PLAYER_IN_PROGRESS: {
-                    onPlayerInProgress((int) offsetMillis);
+                    onPlayerInProgress(currentPosition);
+                    currentPosition += 100;
 
                     sendMessageDelayed(
                             obtainMessage(MSG_PLAYER_IN_PROGRESS), 100);
@@ -152,73 +170,43 @@ abstract class StreamingCapableActivity extends Activity {
     private class PlayTask extends AsyncTask<Void, Integer, Void> {
         private boolean isPaused = false;
 
-        private FileInputStream in;
-
         @Override
         protected Void doInBackground(Void... params) {
+            LoggerFactory.obtainLogger(TAG).d("PlayTask.doInBackground# started");
+
             try {
-                LoggerFactory.obtainLogger(TAG).d("PlayTask.doInBackground# started");
+                int sampleRate = SpeexWrapper.getSampleRate(getSoundFile().getFile().getAbsolutePath());
+                LoggerFactory.obtainLogger(TAG).
+                        d("doPlay# sampleRate = " + sampleRate);
 
-                byte data[] = new byte[RECORDER_BUFFER_SIZE_IN_BYTES / 2];
+                long duration = SpeexWrapper.getDuration(getSoundFile().getFile().getAbsolutePath());
+                LoggerFactory.obtainLogger(TAG).
+                        d("doPlay# duration = " + duration);
 
-                if (in == null) {
-                    in = new FileInputStream(getSoundFile().getFile());
-                }
-
-                while (!isPaused && in.read(data) > -1) {
+                byte data[] = SpeexWrapper.read(getSoundFile().getFile().getAbsolutePath(), offset, 1000);
+                while (!isPaused && data.length != 0) {
                     LoggerFactory.obtainLogger(TAG).
-                            d("doPlay# offsetMillis = " + offsetMillis);
+                            d("doPlay# data.length = " + data.length);
+
                     LoggerFactory.obtainLogger(TAG).
-                            d("doPlay# durationMillis = " + durationMillis);
+                            d("doPlay# data.duration = " + getSoundFile().getDuration(data.length));
 
                     track.write(data, 0, data.length);
                     track.play();
 
-                    offsetMillis += durationMillis;
-                    durationMillis = getSoundFile().getDuration(RECORDER_BUFFER_SIZE_IN_BYTES / 2);
+                    data = SpeexWrapper.read(getSoundFile().getFile().getAbsolutePath(), offset, 1000);
+
+                    offset += 1000;
+
+//                    offsetMillis += durationMillis;
+//                    durationMillis = getSoundFile().getDuration(RECORDER_BUFFER_SIZE_IN_BYTES / 2);
                 }
 
                 track.release();
                 track = null;
-
-//                LoggerFactory.obtainLogger(TAG).d("PlayTask.doInBackground# started");
-//
-//                int minBuffSize = RECORDER_BUFFER_SIZE_IN_BYTES;
-//
-//                byte data[] = new byte[minBuffSize / 2];
-//
-//                offsetMillis = 0;
-//                durationMillis = getSoundFile().getDuration(minBuffSize / 2);
-//
-//                in = new FileInputStream(getSoundFile().getFile());
-//
-//                while (!isPaused && in.read(data) > -1) {
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("doPlay# offsetMillis = " + offsetMillis);
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("doPlay# durationMillis = " + durationMillis);
-//
-//                    track.write(data, 0, data.length);
-//                    track.play();
-//
-//                    offsetMillis += durationMillis;
-//                    durationMillis = getSoundFile().getDuration(minBuffSize / 2);
-//                }
-//
-//                track.release();
-//                track = null;
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
                         e("doPlay# ", e);
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (Exception e) {
-                        LoggerFactory.obtainLogger(TAG).
-                                e("doPlay# ", e);
-                    }
-                }
             }
 
             LoggerFactory.obtainLogger(TAG).d("PlayTask.doInBackground# finished");

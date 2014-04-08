@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.wiseapps.davacon.core.SoundFile;
 import com.wiseapps.davacon.core.SoundFileHandler;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 import com.wiseapps.davacon.utils.DurationUtils;
 import com.wiseapps.davacon.utils.FileUtils;
 import com.wiseapps.davacon.utils.FontUtils;
@@ -273,7 +274,8 @@ public class ProcessTrackActivity extends StreamingCapableActivity /*PlayingCapa
             menuSplit.setVisible(false);
         }
 
-        progressBar.setMax((int) sf.getDuration());
+//        progressBar.setMax((int) sf.getDuration());
+        progressBar.setMax((int) SpeexWrapper.getDuration(sf.getFile().getAbsolutePath()));
         progressBar.setVisibility(View.VISIBLE);
 
         buttonPlay.setImageDrawable(getResources().
