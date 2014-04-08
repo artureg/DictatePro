@@ -14,6 +14,32 @@ public class SpeexWrapper {
     }
 
     /**
+     * Returns sample rate of the RIFF/SPEEX file
+     *
+     * @param compressedFilePathStr path to the RIFF/SPEEX file
+     * @return sample rate of the RIFF/SPEEX file or -1 if file doesn't exist
+     */
+    native public static int getSampleRate(String compressedFilePathStr);
+
+    /**
+     * Returns duration of the RIFF/SPEEX file
+     *
+     * @param compressedFilePathStr path to the RIFF/SPEEX file
+     * @return duration of the RIFF/SPEEX file or -1 if file doesn't exist
+     */
+    native public static long getDuration(String compressedFilePathStr);
+
+    /**
+     * Returns array of data of the RIFF/SPEEX file
+     *
+     * @param compressedFilePathStr path to the RIFF/SPEEX file
+     * @param offsetMillis offset in millis to start reading the data from
+     * @param durationMillis duration in millis of the read data
+     * @return array of data or null if file doesn't exist
+     */
+    native public static byte[] read(String compressedFilePathStr, long offsetMillis, long durationMillis);
+
+    /**
      * Encodes .wav file into RIFF/SPEEX
      *
      * @param wavFilePathStr name of the source .wav file

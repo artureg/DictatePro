@@ -79,11 +79,19 @@ public abstract class SoundFile {
     public abstract void consume() throws IOException;
 
     /**
-     * Method to return duration.
+     * Method to return overall duration in millis.
      *
      * @return duration in millis
      */
-    public abstract int getDuration();
+    public abstract long getDuration();
+
+    /**
+     * Method to return duration of buffer size in millis.
+     *
+     * @param buffSize buffer size to return duration in millis of
+     * @return duration in millis
+     */
+    public abstract long getDuration(long buffSize);
 
     /**
      * Method to return file from sd-card.
