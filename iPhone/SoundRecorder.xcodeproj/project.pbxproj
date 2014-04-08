@@ -79,7 +79,13 @@
 		7869421C1859AF3500EA2D98 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7869421A1859AF3500EA2D98 /* InfoPlist.strings */; };
 		7869421E1859AF3500EA2D98 /* SoundRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7869421D1859AF3500EA2D98 /* SoundRecorderTests.m */; };
 		786E7D81185B55210091731F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786E7D80185B55210091731F /* AudioToolbox.framework */; };
+		789AADE418F3FB63008ECF92 /* rec1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 789AADE318F3FB63008ECF92 /* rec1.wav */; };
 		789B83A6185B1B2D00E6B5CD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789B83A5185B1B2D00E6B5CD /* AVFoundation.framework */; };
+		789CBDB418F2A0E90091D85A /* SRPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */; };
+		789CBDB518F2A0E90091D85A /* SRPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDB318F2A0E90091D85A /* SRPlayerViewController.xib */; };
+		789CBDB818F2A14D0091D85A /* rec_spx.wav in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDB618F2A14D0091D85A /* rec_spx.wav */; };
+		789CBDB918F2A14D0091D85A /* rec.wav in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDB718F2A14D0091D85A /* rec.wav */; };
+		789CBDBC18F2AF170091D85A /* SRAudioStreamPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 789CBDBB18F2AF170091D85A /* SRAudioStreamPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,7 +243,15 @@
 		7869421B1859AF3500EA2D98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7869421D1859AF3500EA2D98 /* SoundRecorderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundRecorderTests.m; sourceTree = "<group>"; };
 		786E7D80185B55210091731F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		789AADE318F3FB63008ECF92 /* rec1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec1.wav; sourceTree = "<group>"; };
 		789B83A5185B1B2D00E6B5CD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		789CBDB118F2A0E90091D85A /* SRPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRPlayerViewController.h; sourceTree = "<group>"; };
+		789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SRPlayerViewController.mm; sourceTree = "<group>"; };
+		789CBDB318F2A0E90091D85A /* SRPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRPlayerViewController.xib; sourceTree = "<group>"; };
+		789CBDB618F2A14D0091D85A /* rec_spx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec_spx.wav; sourceTree = "<group>"; };
+		789CBDB718F2A14D0091D85A /* rec.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec.wav; sourceTree = "<group>"; };
+		789CBDBA18F2AF170091D85A /* SRAudioStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAudioStreamPlayer.h; sourceTree = "<group>"; };
+		789CBDBB18F2AF170091D85A /* SRAudioStreamPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAudioStreamPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +293,8 @@
 			isa = PBXGroup;
 			children = (
 				7835611618EC37BC00A65447 /* Speex */,
+				789CBDBA18F2AF170091D85A /* SRAudioStreamPlayer.h */,
+				789CBDBB18F2AF170091D85A /* SRAudioStreamPlayer.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -474,6 +490,9 @@
 				783F23FD18EB0FA30046520A /* SRMainViewController.h */,
 				783F23FE18EB0FA30046520A /* SRMainViewController.m */,
 				783F23FF18EB0FA30046520A /* SRMainViewController.xib */,
+				789CBDB118F2A0E90091D85A /* SRPlayerViewController.h */,
+				789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */,
+				789CBDB318F2A0E90091D85A /* SRPlayerViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -481,6 +500,9 @@
 		783F240218EB0FA30046520A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				789CBDB618F2A14D0091D85A /* rec_spx.wav */,
+				789CBDB718F2A14D0091D85A /* rec.wav */,
+				789AADE318F3FB63008ECF92 /* rec1.wav */,
 				783F240318EB0FA30046520A /* InfoPlist.strings */,
 				783F240518EB0FA30046520A /* Images */,
 				783F240A18EB0FA30046520A /* Images.xcassets */,
@@ -652,8 +674,12 @@
 				783F241418EB0FA30046520A /* play.png in Resources */,
 				783F241218EB0FA30046520A /* InfoPlist.strings in Resources */,
 				783F241618EB0FA30046520A /* stop.png in Resources */,
+				789CBDB818F2A14D0091D85A /* rec_spx.wav in Resources */,
+				789CBDB518F2A0E90091D85A /* SRPlayerViewController.xib in Resources */,
 				783F241318EB0FA30046520A /* pause.png in Resources */,
+				789CBDB918F2A14D0091D85A /* rec.wav in Resources */,
 				783F241518EB0FA30046520A /* record.png in Resources */,
+				789AADE418F3FB63008ECF92 /* rec1.wav in Resources */,
 				783F240E18EB0FA30046520A /* SREditRecordViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,6 +702,7 @@
 				7835619E18EC37BC00A65447 /* modes.c in Sources */,
 				7835619118EC37BC00A65447 /* gain_table.c in Sources */,
 				7835619318EC37BC00A65447 /* hexc_10_32_table.c in Sources */,
+				789CBDB418F2A0E90091D85A /* SRPlayerViewController.mm in Sources */,
 				783561A218EC37BC00A65447 /* quant_lsp.c in Sources */,
 				783561AB18EC37BC00A65447 /* vbr.c in Sources */,
 				7835618718EC37BC00A65447 /* cb_search.c in Sources */,
@@ -693,6 +720,7 @@
 				7835618F18EC37BC00A65447 /* filterbank.c in Sources */,
 				7835618818EC37BC00A65447 /* exc_10_16_table.c in Sources */,
 				783561A318EC37BC00A65447 /* resample.c in Sources */,
+				789CBDBC18F2AF170091D85A /* SRAudioStreamPlayer.m in Sources */,
 				7835619818EC37BC00A65447 /* kiss_fftr.c in Sources */,
 				7835619D18EC37BC00A65447 /* mdf.c in Sources */,
 				783561B018EC37BC00A65447 /* SpeexACMConvert.cpp in Sources */,
