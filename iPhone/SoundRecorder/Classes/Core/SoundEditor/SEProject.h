@@ -30,7 +30,8 @@
 /** Check project if it is change (add or remove record affects that) */
 @property(nonatomic,readonly) BOOL isChanged;
 
-- (void)splitRecord:(SERecord*)record inPosition:(NSTimeInterval)position;
+/* Split record in time position */
+- (SERecord*)splitRecordInPosition:(NSTimeInterval)position;
 
 /** Add record to project */
 - (void)addRecord:(SERecord*)record;
