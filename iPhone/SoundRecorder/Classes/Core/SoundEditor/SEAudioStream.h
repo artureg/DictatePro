@@ -59,7 +59,7 @@
 - (void)seekToSecond:(NSTimeInterval)second;
 
 /** Export all data to file */
-- (void)exprortToFile:(NSString*)filePath completion:(void(^)(NSError* error))completion;
+- (void)exportToFile:(NSString*)filePath completion:(void(^)(NSError* error))completion;
 
 @end
 
