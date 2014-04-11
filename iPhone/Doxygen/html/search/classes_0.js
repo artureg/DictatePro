@@ -9,5 +9,7 @@ var searchData=
   ['seprojectaudiostream',['SEProjectAudioStream',['../interface_s_e_project_audio_stream.html',1,'']]],
   ['serecord',['SERecord',['../interface_s_e_record.html',1,'']]],
   ['serecordaudiostream',['SERecordAudioStream',['../interface_s_e_record_audio_stream.html',1,'']]],
-  ['serecordsoundrange',['SERecordSoundRange',['../struct_s_e_record_sound_range.html',1,'']]]
+  ['serecordaudiostreamdelegate_2dp',['SERecordAudioStreamDelegate-p',['../protocol_s_e_record_audio_stream_delegate-p.html',1,'']]],
+  ['serecordsoundrange',['SERecordSoundRange',['../struct_s_e_record_sound_range.html',1,'']]],
+  ['sespeexacmaudiostream',['SESpeexACMAudioStream',['../interface_s_e_speex_a_c_m_audio_stream.html',1,'']]]
 ];

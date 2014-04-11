@@ -11,5 +11,7 @@ var searchData=
   ['serecord_2eh',['SERecord.h',['../_s_e_record_8h.html',1,'']]],
   ['serecord_2em',['SERecord.m',['../_s_e_record_8m.html',1,'']]],
   ['serecordaudiostream_2eh',['SERecordAudioStream.h',['../_s_e_record_audio_stream_8h.html',1,'']]],
-  ['serecordaudiostream_2em',['SERecordAudioStream.m',['../_s_e_record_audio_stream_8m.html',1,'']]]
+  ['serecordaudiostream_2em',['SERecordAudioStream.m',['../_s_e_record_audio_stream_8m.html',1,'']]],
+  ['sespeexacmaudiostream_2eh',['SESpeexACMAudioStream.h',['../_s_e_speex_a_c_m_audio_stream_8h.html',1,'']]],
+  ['sespeexacmaudiostream_2em',['SESpeexACMAudioStream.m',['../_s_e_speex_a_c_m_audio_stream_8m.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pause',['pause',['../interface_s_e_audio_stream_player.html#ab9e4c08bf6710368576d15ea05ecfe32',1,'SEAudioStreamPlayer']]]
+  ['open',['open',['../interface_s_e_audio_stream.html#add81dd9d9bd838f3a5dc1ceae94ccf26',1,'SEAudioStream']]]
 ];
