@@ -64,7 +64,11 @@ static const NSTimeInterval kSRSoundRecordDuration = 3*60.0f;
 
 - (void)setCurrentTime:(NSTimeInterval)currentTime {
     _currentTime = currentTime;
-    self.pv_player.currentTime = self.timeRange.start + currentTime;
+    if (_currentTime >= self.duration) {
+        [self stop];
+    } else {
+        self.pv_player.currentTime = self.timeRange.start + currentTime;
+    }
 }
 
 - (void)setTimeRange:(SRSoundRange)timeRange {
@@ -234,6 +238,7 @@ static const NSTimeInterval kSRSoundRecordDuration = 3*60.0f;
     }
     if (self.currentTime == self.duration) {
         self.currentTime = 0;
+        [self stop];
     }
     if (self.currentTime == 0) {
         if ([self.delegate respondsToSelector:@selector(soundDidStartPlaying:)]) {
