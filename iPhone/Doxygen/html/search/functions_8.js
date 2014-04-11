@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['saveproject',['saveProject',['../interface_s_e_project.html#ad0dc83a89c70e8a670d2e0eb0381e632',1,'SEProject']]],
-  ['saveprojectasynchronouslywithcompletion_3a',['saveProjectAsynchronouslyWithCompletion:',['../interface_s_e_project.html#a996a39778f2d176ecf7ffda117703f6c',1,'SEProject']]],
-  ['seektosampleposition_3a',['seekToSamplePosition:',['../interface_s_e_audio_stream.html#a1dd26e76fbcd65f2d221f61de75fd3eb',1,'SEAudioStream']]],
-  ['seektosecond_3a',['seekToSecond:',['../interface_s_e_audio_stream.html#a720083efde7839f0a44ec7456805ffeb',1,'SEAudioStream']]],
-  ['splitrecordinposition_3a',['splitRecordInPosition:',['../interface_s_e_project.html#adb4519610c7481bf048f235189ff737c',1,'SEProject']]],
-  ['start',['start',['../interface_s_e_audio_stream_player.html#a16c600129d3045dc7f7213165df3ca66',1,'SEAudioStreamPlayer']]],
-  ['startrecording',['startRecording',['../interface_s_e_record_audio_stream.html#afa78c4835ce4e83bfca38800faed0f33',1,'SERecordAudioStream']]],
-  ['stop',['stop',['../interface_s_e_audio_stream_player.html#a80491754758a4dab432e18fcafb0721d',1,'SEAudioStreamPlayer']]],
-  ['stoprecording',['stopRecording',['../interface_s_e_record_audio_stream.html#a10e91ee60958add80d70acbf6741b2db',1,'SERecordAudioStream']]]
+  ['readsamples_3acount_3a',['readSamples:count:',['../category_s_e_audio_stream_07_read_08.html#ac80704c916ddbac8f8309f3a6a019e80',1,'SEAudioStream(Read)::readSamples:count:()'],['../interface_s_e_audio_stream.html#ac80704c916ddbac8f8309f3a6a019e80',1,'SEAudioStream::readSamples:count:()']]],
+  ['readsamplesfromchannel_3acount_3a',['readSamplesFromChannel:count:',['../category_s_e_audio_stream_07_read_08.html#a4501c22126f23cc1cb9ecbd1d7ddda6e',1,'SEAudioStream(Read)::readSamplesFromChannel:count:()'],['../interface_s_e_audio_stream.html#a4501c22126f23cc1cb9ecbd1d7ddda6e',1,'SEAudioStream::readSamplesFromChannel:count:()']]],
+  ['readsampleswithcount_3a',['readSamplesWithCount:',['../category_s_e_audio_stream_07_read_08.html#a8d848d7a388d38fb670eb92e3bf6566d',1,'SEAudioStream(Read)::readSamplesWithCount:()'],['../interface_s_e_audio_stream.html#a8d848d7a388d38fb670eb92e3bf6566d',1,'SEAudioStream::readSamplesWithCount:()']]],
+  ['recordaudiostream_3adidupdatewithduration_3a',['recordAudioStream:didUpdateWithDuration:',['../protocol_s_e_record_audio_stream_delegate-p.html#a6f989682abec086abcf3df35aa465b64',1,'SERecordAudioStreamDelegate-p']]],
+  ['recordaudiostreamdidfinishrecording_3a',['recordAudioStreamDidFinishRecording:',['../protocol_s_e_record_audio_stream_delegate-p.html#adfc35cb87b18e6b20e2e02f8894defa8',1,'SERecordAudioStreamDelegate-p']]],
+  ['recordaudiostreamdidstartrecording_3a',['recordAudioStreamDidStartRecording:',['../protocol_s_e_record_audio_stream_delegate-p.html#ad9a82cf4916f8d3dc0450d7904244272',1,'SERecordAudioStreamDelegate-p']]],
+  ['removeallrecords',['removeAllRecords',['../interface_s_e_project.html#adf1f53d931f669b12dfbabf92e3e90a4',1,'SEProject']]]
 ];

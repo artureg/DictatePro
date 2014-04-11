@@ -16,6 +16,12 @@
     return self;
 }
 
+- (id)initWithAudioStream:(SEAudioStream*)stream {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
 - (id)initWithURL:(NSString*)url {
     if (self = [super init]) {
     }
@@ -58,6 +64,9 @@
 }
 
 - (void)seekToSecond:(NSTimeInterval)second {
+}
+
+- (void)exprortToFile:(NSString*)filePath completion:(void(^)(NSError* error))completion {
 }
 
 @end

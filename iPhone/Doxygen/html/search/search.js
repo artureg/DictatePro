@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   0: "acdefilmnoprsw",
   1: "s",
   2: "s",
-  3: "acdimoprsw",
+  3: "acdeimoprsw",
   4: "ds",
   5: "acdefilnprs"
 };

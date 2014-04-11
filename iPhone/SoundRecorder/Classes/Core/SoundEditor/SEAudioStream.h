@@ -34,6 +34,9 @@
 /** Create stream in memory */
 - (id)init;
 
+/** Init with another audio stream */
+- (id)initWithAudioStream:(SEAudioStream*)stream;
+
 /** Load from server */
 - (id)initWithURL:(NSString*)url;
 
@@ -54,6 +57,9 @@
 
 /** Seek to second */
 - (void)seekToSecond:(NSTimeInterval)second;
+
+/** Export all data to file */
+- (void)exprortToFile:(NSString*)filePath completion:(void(^)(NSError* error))completion;
 
 @end
 
