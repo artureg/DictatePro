@@ -10,4 +10,16 @@
 
 @implementation SERecordAudioStream
 
+- (id)initWithRecord:(SRRecord*)record {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (void)startRecording {
+}
+
+- (void)stopRecording {
+}
+
 @end

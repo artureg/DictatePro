@@ -10,4 +10,10 @@
 
 @implementation SEProjectAudioStream
 
+- (id)initWithProject:(SEProject*)project {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
 @end
