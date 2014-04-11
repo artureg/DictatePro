@@ -18,6 +18,7 @@
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollRight;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollToStart;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollToEnd;
+@property(nonatomic,weak) IBOutlet UIButton*                pv_clearBtn;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_playBtn;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_pauseBtn;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_recordBtn;
@@ -43,6 +44,7 @@
 - (IBAction)pm_onStopRecord:(id)sender;
 - (IBAction)pm_onExport:(id)sender;
 - (IBAction)pm_onSave:(id)sender;
+- (IBAction)pm_onClear:(id)sender;
 - (void)pm_reloadSound;
 @end
 
@@ -52,7 +54,6 @@
     [super viewDidLoad];
     self.pv_project = [SRProject new];
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [self.pv_trackSlider setThumbImage:[UIImage imageNamed:@"play_pin-cursor.png"] forState:UIControlStateNormal];
     
 //    [self.pv_volumeSlider setMinimumTrackImage:[UIImage imageNamed:@"volume_selected.png"] forState:UIControlStateNormal];
@@ -72,6 +73,7 @@
 - (IBAction)pm_onTrackSlider:(id)sender {
     self.pv_sound.currentTime = self.pv_trackSlider.value*self.pv_sound.duration;
     self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.currentTime, self.pv_sound.duration];
+    [self.pv_sound stop];
 }
 
 - (IBAction)pm_onVolumeSlider:(id)sender {
@@ -124,6 +126,7 @@
 }
 
 - (IBAction)pm_onPlay:(id)sender {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
     [self.pv_sound play];
 }
 
@@ -132,6 +135,7 @@
 }
 
 - (IBAction)pm_onRecord:(id)sender {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     self.pv_tmpSound = [[SRSound alloc] initWithFilePath:[self.pv_project.projectSoundsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.wav", @(time(NULL))]]];
     self.pv_tmpSound.delegate = self;
     [self.pv_tmpSound record];
@@ -170,6 +174,20 @@
     SRPlayerViewController* ctrl = [SRPlayerViewController new];
     ctrl.filePath = self.pv_project.projectSoundSpeexPath;
     [self.navigationController pushViewController:ctrl animated:YES];
+}
+
+- (IBAction)pm_onClear:(id)sender {
+    [self.pv_project clearAll];
+    [self.pv_project clearSound];
+    self.pv_trackSlider.value = 0;
+    self.pv_statusLbl.text = nil;
+    self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_trackSlider.value*self.pv_project.duration, self.pv_project.duration];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:self.pv_project.projectSoundSpeexPath]) {
+        self.pv_saveBtn.enabled = NO;
+    }
+    self.pv_volume = 1;
+    self.pv_volumeSlider.value = 1;
+    [self pm_reloadSound];
 }
 
 #pragma mark - SRSoundDelegate
@@ -257,6 +275,7 @@
     self.pv_recordBtn.enabled = NO;
     self.pv_playBtn.hidden = YES;
     self.pv_pauseBtn.hidden = NO;
+    self.pv_clearBtn.enabled = NO;
     [self.pv_indicator startAnimating];
     self.pv_statusLbl.text = @"Playing...";
 }
@@ -265,6 +284,7 @@
     self.pv_playBtn.hidden = NO;
     self.pv_pauseBtn.hidden = YES;
     self.pv_recordBtn.enabled = YES;
+    self.pv_clearBtn.enabled = YES;
     [self.pv_indicator stopAnimating];
     self.pv_statusLbl.text = nil;
 }
@@ -273,6 +293,7 @@
     self.pv_playBtn.hidden = YES;
     self.pv_pauseBtn.hidden = NO;
     self.pv_recordBtn.enabled = NO;
+    self.pv_clearBtn.enabled = NO;
     [self.pv_indicator startAnimating];
     self.pv_statusLbl.text = @"Playing...";
 }
@@ -286,8 +307,11 @@
     self.pv_playBtn.hidden = NO;
     self.pv_pauseBtn.hidden = YES;
     self.pv_recordBtn.enabled = YES;
+    self.pv_clearBtn.enabled = YES;
     [self.pv_indicator stopAnimating];
     self.pv_statusLbl.text = nil;
+    self.pv_trackSlider.value = 1;
+    self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.duration, self.pv_sound.duration];
 }
 
 @end

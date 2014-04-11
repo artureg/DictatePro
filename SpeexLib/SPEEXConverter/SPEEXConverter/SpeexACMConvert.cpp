@@ -76,7 +76,7 @@ bool decodeSpeexACMStream(const char* compressedFilePath, double positionInMilli
         file->close();
     } else {
         int offset = wavFile->getFMTInfo().bytesPerSample*wavFile->getFMTInfo().sampleRate*positionInMilliseconds/1000.0f;
-        int duration = wavFile->getFMTInfo().bytesPerSample*wavFile->getFMTInfo().sampleRate*durationInMilliseconds/1000.0f;
+        int duration = 2*wavFile->getFMTInfo().bytesPerSample*wavFile->getFMTInfo().sampleRate*durationInMilliseconds/1000.0f;
         FILE* rFile = wavFile->getFile();
         fseek(rFile, offset, SEEK_CUR);
         switch (wavFile->getFMTInfo().bytesPerSample) {

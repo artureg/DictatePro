@@ -10,6 +10,8 @@
 
 #import "SRAudioStreamPlayer.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 #include "SpeexACMConvert.h"
 
 @interface SRPlayerViewController()<SRAudioStreamDelegate>
@@ -37,6 +39,7 @@
     self.pv_player.delegate = self;
     self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_currentPos, self.pv_duration];
     self.pv_progressSlider.value = 0;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
