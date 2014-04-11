@@ -7,6 +7,7 @@
 //
 
 #import "SEModel.h"
+#import "SERecordAudioStream.h"
 
 @class SEProject;
 
@@ -25,5 +26,8 @@ typedef struct {
 
 /** Range in sound for current record */
 @property(nonatomic,assign) SERecordSoundRange soundRange;
+
+/** Record audio stream */
+@property(nonatomic,readonly) SERecordAudioStream* audioStream;
 
 @end
