@@ -143,7 +143,7 @@ void WaveFile::showFMTInfo() {
     printf("Bytes per Sample    : %hu\n", p_fmtInfo.bytesPerSample);
     printf("Bits per Sample     : %hu\n", p_fmtInfo.bitsPerSample);
     printf("Number of Samples   : %lu\n", getNumberOfSamples());
-    printf("Duration            : %lu\n", getDuration());
+    printf("Duration            : %f\n", getDuration());
     printf("\n");
 }
 

@@ -9,6 +9,7 @@
 #ifndef __SPEEXConverter__SpeexACMConvert__
 #define __SPEEXConverter__SpeexACMConvert__
 
+int getFormat(char* path);
 bool encodeWavToSpeexACM(const char* wavFilePath, const char* compressedFilePath);
 bool decodeSpeexToWav(const char* compressedFilePath, const char* wavFilePath);
 bool decodeSpeexACMStream(const char* compressedFilePath, double positionInMilliseconds, double durationInMilliseconds, void* data, int* length);

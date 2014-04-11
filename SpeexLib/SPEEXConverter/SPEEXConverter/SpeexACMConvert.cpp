@@ -18,6 +18,17 @@
 #include <string.h>
 #include "speex.h"
 
+int getFormat(char* path) {
+    WaveSpeexFile* file = new WaveSpeexFile();
+    if (!file->openRead(path)) {
+        file->close();
+        return 0;
+    }
+    int sampleRate = file->getFMTInfo().sampleRate;
+    file->close();
+    return sampleRate;
+}
+
 bool encodeWavToSpeexACM(const char* wavFilePath, const char* compressedFilePath) {
     WaveSpeexFile* file = new WaveSpeexFile();
     if (!file->openWrite(compressedFilePath)) {
