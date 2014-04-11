@@ -73,7 +73,12 @@
 - (IBAction)pm_onTrackSlider:(id)sender {
     self.pv_sound.currentTime = self.pv_trackSlider.value*self.pv_sound.duration;
     self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.currentTime, self.pv_sound.duration];
-    [self.pv_sound stop];
+    [self.pv_sound pause];
+    if (self.pv_sound.currentTime == self.pv_sound.duration) {
+        [self.pv_sound stop];
+        self.pv_trackSlider.value = 1;
+        self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.duration, self.pv_sound.duration];
+    }
 }
 
 - (IBAction)pm_onVolumeSlider:(id)sender {
@@ -310,8 +315,11 @@
     self.pv_clearBtn.enabled = YES;
     [self.pv_indicator stopAnimating];
     self.pv_statusLbl.text = nil;
-    self.pv_trackSlider.value = 1;
-    self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.duration, self.pv_sound.duration];
+    if (self.pv_sound.currentTime == self.pv_sound.duration) {
+        [self.pv_sound stop];
+        self.pv_trackSlider.value = 1;
+        self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_sound.duration, self.pv_sound.duration];
+    }
 }
 
 @end
