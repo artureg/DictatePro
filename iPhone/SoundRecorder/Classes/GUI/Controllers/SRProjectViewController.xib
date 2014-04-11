@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SRProjectViewController">
             <connections>
+                <outlet property="pv_clearBtn" destination="Y9E-fx-tvU" id="qe2-1x-4ry"/>
                 <outlet property="pv_exportBtn" destination="5u9-3f-QBk" id="JAc-WS-pIA"/>
                 <outlet property="pv_indicator" destination="jrB-p2-Rlz" id="J6Z-9h-FqR"/>
                 <outlet property="pv_pauseBtn" destination="BjC-nk-1ev" id="pPG-dT-gwH"/>
@@ -166,12 +167,15 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y9E-fx-tvU">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y9E-fx-tvU">
                     <rect key="frame" x="128" y="270" width="64" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="button_record02_0.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="pm_onClear:" destination="-1" eventType="touchUpInside" id="DKQ-iz-4EX"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Vy-7c-bkw">
                     <rect key="frame" x="128" y="321" width="64" height="43"/>
