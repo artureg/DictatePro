@@ -108,8 +108,8 @@ unsigned long WaveFile::getNumberOfFrames() {
     return getNumberOfSamples()/p_fmtInfo.numberOfChannels;
 }
 
-unsigned long WaveFile::getDuration() {
-    return getNumberOfSamples()/p_fmtInfo.sampleRate;
+double WaveFile::getDuration() {
+    return (double)getNumberOfSamples()/(double)p_fmtInfo.sampleRate;
 }
 
 unsigned long WaveFile::getDataSize() {

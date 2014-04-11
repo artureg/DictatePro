@@ -44,7 +44,7 @@ public:
     virtual WaveFMTInfo& getFMTInfo();
     unsigned long getNumberOfSamples();
     unsigned long getNumberOfFrames();
-    unsigned long getDuration();
+    double getDuration();
     unsigned long getDataSize();
     void showInfo();
     void setupInfo(int sampleRate, short bitsPerSample, short channels);
