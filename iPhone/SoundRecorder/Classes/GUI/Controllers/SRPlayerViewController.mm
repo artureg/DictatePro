@@ -55,6 +55,7 @@
 - (NSData*)audioStreamPlayerProcessData:(SRAudioStreamPlayer*)aStream position:(NSTimeInterval)position duration:(NSTimeInterval)duration {
     int length;
     const int size = (duration + 1)*self.pv_player.audioInfo.mSampleRate*4;
+    self.pv_currentPos = position;
     char data[size];
     if (decodeSpeexACMStream([self.filePath cStringUsingEncoding:NSASCIIStringEncoding], position*1000, duration*1000, data, &length)) {
         return [NSData dataWithBytes:data length:length];
@@ -64,6 +65,9 @@
         [self.pv_updateTimer invalidate];
         self.pv_updateTimer = nil;
         [self.pv_player stop];
+        self.pv_progressSlider.value = 0;
+        self.pv_currentPos = 0;
+        self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_currentPos, self.pv_duration];
         return nil;
     }
 }
@@ -91,7 +95,6 @@
 }
 
 - (void)pm_onUpdate {
-    self.pv_currentPos += 0.1f;
     self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_currentPos, self.pv_duration];
     self.pv_progressSlider.value = self.pv_currentPos/self.pv_duration;
 }

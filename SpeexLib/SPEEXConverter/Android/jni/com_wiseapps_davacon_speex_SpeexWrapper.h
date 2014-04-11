@@ -33,6 +33,14 @@ JNIEXPORT jbyteArray JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_read
 
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
+ * Method:    getFormat
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getFormat
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_wiseapps_davacon_speex_SpeexWrapper
  * Method:    encode
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
  */

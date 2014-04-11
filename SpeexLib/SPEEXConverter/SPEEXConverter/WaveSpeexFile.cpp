@@ -103,7 +103,7 @@ WaveFMTInfo& WaveSpeexFile::getFMTInfo() {
     return WaveFile::getFMTInfo();
 }
 
-unsigned long WaveSpeexFile::getDuration() {
+double WaveSpeexFile::getDuration() {
     return p_duration;
 }
 
@@ -155,7 +155,8 @@ bool WaveSpeexFile::encodeWavFile(const char* filePath, short quality) {
             state = speex_encoder_init(&speex_uwb_mode);
             break;
     }
-    speex_encoder_ctl(state, SPEEX_SET_QUALITY, &quality);
+    int q = quality;
+    speex_encoder_ctl(state, SPEEX_SET_QUALITY, &q);
     
     int frameSize;
     speex_encoder_ctl(state, SPEEX_GET_FRAME_SIZE, &frameSize);
@@ -164,32 +165,41 @@ bool WaveSpeexFile::encodeWavFile(const char* filePath, short quality) {
     
     FILE* rFile = wavFile->getFile();
     
-    size_t bufSize = frameSize*framesPerPacket*wavFile->getFMTInfo().bitsPerSample/8;
-    char buf[bufSize];
+    p_fmtInfo.bytesPerSample = (short)(((framesPerPacket*WAVE_BITS_PER_FRAME[mode][numberOfChannels - 1][quality]) + 7) >> 3);
     
-    int test = 0;
+    int bytesPerSample = 0;
     
     while (!feof(rFile)) {
-        bzero(buf, bufSize);
-        fread(buf, sizeof(char), bufSize, rFile);
-        
-        for (int j = 0; j < framesPerPacket; ++j) {
-            short samples[frameSize];
-            bzero(samples, frameSize);
-            if (wavFile->getFMTInfo().bitsPerSample == 8) {
-                for (int i = 0; i < frameSize; i++) {
-                    samples[i] = (buf[i + j * frameSize] - 128) << 8; // convert 8u to 16s
+        switch (wavFile->getFMTInfo().bitsPerSample) {
+            case 8: {
+                for (int i = 0; i < framesPerPacket; i++) {
+                    short samples[frameSize];
+                    bzero(samples, frameSize);
+                    for (int j = 0; j < frameSize; j++) {
+                        unsigned char sample;
+                        wavFile->readSample(sample);
+                        samples[j] = (sample - 128) << 8;
+                    }
+                    speex_encode_int(state, (short*)samples, &bits);
                 }
-            } else {
-                for (int i = 0; i < frameSize; i++) {
-                    samples[i] = buf[i + j * frameSize];
+            }break;
+            case 16: {
+                for (int i = 0; i < framesPerPacket; i++) {
+                    short samples[frameSize];
+                    bzero(samples, frameSize);
+                    for (int j = 0; j < frameSize; j++) {
+                        short sample;
+                        wavFile->readSample(sample);
+                        samples[j] = sample;
+                    }
+                    speex_encode_int(state, (short*)samples, &bits);
                 }
-            }
-            
-            speex_encode_int(state, (short*)samples, &bits);
+            }break;
+            default:
+                break;
         }
         int encodedSize = speex_bits_nbytes(&bits);
-        test = encodedSize;
+        bytesPerSample = encodedSize;
         char encoded[encodedSize];
         speex_bits_write(&bits, encoded, encodedSize);
         fwrite(encoded, sizeof(char), encodedSize, p_writeFile);
@@ -205,7 +215,7 @@ bool WaveSpeexFile::encodeWavFile(const char* filePath, short quality) {
     p_fmtInfo.sampleRate = wavFile->getFMTInfo().sampleRate;
     
     p_fmtInfo.bitsPerSample = quality;
-    p_fmtInfo.bytesPerSample = (short)(((framesPerPacket*WAVE_BITS_PER_FRAME[mode][numberOfChannels - 1][quality]) + 7) >> 3);
+    p_fmtInfo.bytesPerSample = (short)(((framesPerPacket*WAVE_BITS_PER_FRAME[mode][numberOfChannels - 1][quality]) + 7) >> 3);;
     p_fmtInfo.bytesPerSecond = p_fmtInfo.bytesPerSample*50/framesPerPacket;
     
     p_spxInfo.sampleRate = wavFile->getFMTInfo().sampleRate;

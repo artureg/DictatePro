@@ -106,6 +106,7 @@ void SRAudioStreamPlayerOutputBufferCallback(void* inUserData, AudioQueueRef inA
     _isPaused = NO;
     _isPlaying = YES;
     AudioQueueDispose(_pv_audioQueue, YES);
+    _pv_audioQueue = NULL;
 }
 
 - (void)pm_performErrorWithCode:(TSRAudioStreamPlayerErrorCode)errorCode {

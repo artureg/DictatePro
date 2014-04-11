@@ -53,7 +53,7 @@ public:
     
     // Info
     WaveFMTInfo& getFMTInfo();
-    unsigned long getDuration();
+    double getDuration();
     void showInfo();
     
     // Encoding

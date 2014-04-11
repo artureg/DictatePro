@@ -17,7 +17,7 @@
 @implementation SCAppDelegate
 
 - (void)pm_action {
-    NSString* wavPath = [[NSBundle mainBundle] pathForResource:@"testOut" ofType:@"wav"];
+    NSString* wavPath = [[NSBundle mainBundle] pathForResource:@"Project" ofType:@"wav"];
     NSString* spxPath = [[NSBundle mainBundle] pathForResource:@"rec_spx" ofType:@"wav"];
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* outFile = [NSString stringWithFormat:@"%@/testOut.wav", paths[0]];

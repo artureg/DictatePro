@@ -47,16 +47,62 @@ bool decodeSpeexToWav(const char* compressedFilePath, const char* wavFilePath) {
 }
 
 bool decodeSpeexACMStream(const char* compressedFilePath, double positionInMilliseconds, double durationInMilliseconds, void* data, int* length) {
-    WaveSpeexFile* file = new WaveSpeexFile();
-    if (!file->openRead(compressedFilePath)) {
-        file->close();
+    WaveFile* wavFile = new WaveFile();
+    if (!wavFile->openRead(compressedFilePath)) {
         return false;
     }
-    if (!file->decodeToData(positionInMilliseconds/1000, durationInMilliseconds/1000, (short*)data, length)) {
+    if (wavFile->getFMTInfo().audioFormat == 41225) {
+        wavFile->close();
+        WaveSpeexFile* file = new WaveSpeexFile();
+        if (!file->openRead(compressedFilePath)) {
+            file->close();
+            return false;
+        }
+        if (!file->decodeToData(positionInMilliseconds/1000.0f, durationInMilliseconds/1000.0f, (short*)data, length)) {
+            file->close();
+            return false;
+        }
         file->close();
-        return false;
+    } else {
+        int offset = wavFile->getFMTInfo().bytesPerSample*wavFile->getFMTInfo().sampleRate*positionInMilliseconds/1000.0f;
+        int duration = wavFile->getFMTInfo().bytesPerSample*wavFile->getFMTInfo().sampleRate*durationInMilliseconds/1000.0f;
+        FILE* rFile = wavFile->getFile();
+        fseek(rFile, offset, SEEK_CUR);
+        switch (wavFile->getFMTInfo().bytesPerSample) {
+            case 1: {
+//                char samples[duration];
+                char* samples = (char*)data;
+                int size = 0;
+                for (int i = 0; i < duration; i++) {
+                    size = i;
+                    if (feof(rFile)) {
+                        break;
+                    }
+                    unsigned char sample;
+                    wavFile->readSample(sample);
+                    samples[i] = sample;
+                }
+                *length = size;
+            }break;
+            case 2: {
+//                short samples[duration];
+                int size = 0;
+                short* samples = (short*)data;
+                for (int i = 0; i < duration/2; i++) {
+                    size = i*2;
+                    if (feof(rFile)) {
+                        break;
+                    }
+                    short sample;
+                    wavFile->readSample(sample);
+                    samples[i] = sample;
+                }
+                *length = size;
+            }break;
+            default:
+                break;
+        }
     }
-    file->close();
     return true;
 }
 
@@ -77,7 +123,7 @@ double getACMSpeexFileDuration(const char* compressedFilePath) {
         file->close();
         return 0;
     }
-    int duration = file->getDuration();
+    double duration = file->getDuration();
     file->close();
     return duration;
 }
