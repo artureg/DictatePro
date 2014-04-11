@@ -12,9 +12,17 @@
 #import "SRPlayerViewController.h"
 #import "SRProjectViewController.h"
 
+#include "SpeexACMConvert.h"
+
+#import "SEAudioStream.h"
+
 @implementation SRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    SEAudioStream* str;
+    [str writeSamples:nil];
+    
     SRProjectViewController* ctrl = [[SRProjectViewController alloc] initWithNibName:@"SRProjectViewController" bundle:nil];
     UINavigationController* navCtrl = [[UINavigationController alloc] initWithRootViewController:ctrl];
     navCtrl.navigationBar.barStyle = UIBarStyleBlackOpaque;

@@ -1,0 +1,206 @@
+\hypertarget{interface_s_e_audio_stream}{\section{S\-E\-Audio\-Stream Class Reference}
+\label{interface_s_e_audio_stream}\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}}
+}
+
+
+{\ttfamily \#import $<$S\-E\-Audio\-Stream.\-h$>$}
+
+Inheritance diagram for S\-E\-Audio\-Stream\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_s_e_audio_stream}
+\end{center}
+\end{figure}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(id) -\/ \hyperlink{interface_s_e_audio_stream_adfb80527c355e64279d60a7b1af838ea}{init}
+\item 
+(id) -\/ \hyperlink{interface_s_e_audio_stream_a7acd0370d5f5066a6d00834af0eea200}{init\-With\-U\-R\-L\-:}
+\item 
+(id) -\/ \hyperlink{interface_s_e_audio_stream_a88b28dfe93892a08d261bd946beea26f}{init\-With\-Contents\-Of\-File\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_add81dd9d9bd838f3a5dc1ceae94ccf26}{open}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_a8c4af367964e8be4817df12989f06d40}{close}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_ae59699f3f9cdf5fa000d9835da89e73e}{clear}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_a1dd26e76fbcd65f2d221f61de75fd3eb}{seek\-To\-Sample\-Position\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_a720083efde7839f0a44ec7456805ffeb}{seek\-To\-Second\-:}
+\item 
+(N\-S\-Data $\ast$) -\/ \hyperlink{interface_s_e_audio_stream_a8d848d7a388d38fb670eb92e3bf6566d}{read\-Samples\-With\-Count\-:}
+\item 
+(N\-S\-Data $\ast$) -\/ \hyperlink{interface_s_e_audio_stream_a4501c22126f23cc1cb9ecbd1d7ddda6e}{read\-Samples\-From\-Channel\-:count\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_ac80704c916ddbac8f8309f3a6a019e80}{read\-Samples\-:count\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_ab184f74429643065a116a8f272bf79b3}{write\-Samples\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_audio_stream_af19a129d2a78172d771f2552dd97f49b}{write\-Samples\-:count\-:}
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Audio\-Stream\-Basic\-Description $\ast$ \hyperlink{interface_s_e_audio_stream_a96f11351b56bdd1d363ad05fb80d1a73}{audio\-Description}
+\item 
+N\-S\-Time\-Interval \hyperlink{interface_s_e_audio_stream_af5e4493693cf24fa25af34487993d693}{duration}
+\item 
+N\-S\-U\-R\-L $\ast$ \hyperlink{interface_s_e_audio_stream_a7561aaa75262c747a4da3d701e2094b9}{file\-Path\-U\-R\-L}
+\item 
+N\-S\-Error $\ast$ \hyperlink{interface_s_e_audio_stream_a095232a32323fc1b43568e1609cc934d}{error}
+\item 
+N\-S\-Integer \hyperlink{interface_s_e_audio_stream_a54229ab240455736790dad362c5335e1}{length}
+\item 
+N\-S\-Integer \hyperlink{interface_s_e_audio_stream_a1e8d0ba4849fffe376bcf5494987c9a8}{number\-Of\-Samples}
+\item 
+N\-S\-Integer \hyperlink{interface_s_e_audio_stream_afac964b9badc8642c250a2234eb3c044}{number\-Of\-Samples\-Per\-Channel}
+\end{DoxyCompactItemize}
+
+
+\subsection{Method Documentation}
+\hypertarget{interface_s_e_audio_stream_ae59699f3f9cdf5fa000d9835da89e73e}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!clear@{clear}}
+\index{clear@{clear}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) clear 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_ae59699f3f9cdf5fa000d9835da89e73e}
+\hypertarget{interface_s_e_audio_stream_a8c4af367964e8be4817df12989f06d40}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!close@{close}}
+\index{close@{close}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{close}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) close 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a8c4af367964e8be4817df12989f06d40}
+\hypertarget{interface_s_e_audio_stream_adfb80527c355e64279d60a7b1af838ea}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!init@{init}}
+\index{init@{init}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (id) init 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_adfb80527c355e64279d60a7b1af838ea}
+\hypertarget{interface_s_e_audio_stream_a88b28dfe93892a08d261bd946beea26f}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!init\-With\-Contents\-Of\-File\-:@{init\-With\-Contents\-Of\-File\-:}}
+\index{init\-With\-Contents\-Of\-File\-:@{init\-With\-Contents\-Of\-File\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{init\-With\-Contents\-Of\-File\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (id) init\-With\-Contents\-Of\-File\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-String$\ast$)}]{file}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a88b28dfe93892a08d261bd946beea26f}
+\hypertarget{interface_s_e_audio_stream_a7acd0370d5f5066a6d00834af0eea200}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!init\-With\-U\-R\-L\-:@{init\-With\-U\-R\-L\-:}}
+\index{init\-With\-U\-R\-L\-:@{init\-With\-U\-R\-L\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{init\-With\-U\-R\-L\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (id) init\-With\-U\-R\-L\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-String$\ast$)}]{url}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a7acd0370d5f5066a6d00834af0eea200}
+\hypertarget{interface_s_e_audio_stream_add81dd9d9bd838f3a5dc1ceae94ccf26}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!open@{open}}
+\index{open@{open}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{open}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) open 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_add81dd9d9bd838f3a5dc1ceae94ccf26}
+\hypertarget{interface_s_e_audio_stream_ac80704c916ddbac8f8309f3a6a019e80}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!read\-Samples\-:count\-:@{read\-Samples\-:count\-:}}
+\index{read\-Samples\-:count\-:@{read\-Samples\-:count\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{read\-Samples\-:count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) read\-Samples\-: 
+\begin{DoxyParamCaption}
+\item[{(void $\ast$)}]{samples}
+\item[{count:(N\-S\-Integer)}]{count}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_ac80704c916ddbac8f8309f3a6a019e80}
+
+
+Provided by category \hyperlink{category_s_e_audio_stream_07_read_08_ac80704c916ddbac8f8309f3a6a019e80}{S\-E\-Audio\-Stream(\-Read)}.
+
+\hypertarget{interface_s_e_audio_stream_a4501c22126f23cc1cb9ecbd1d7ddda6e}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!read\-Samples\-From\-Channel\-:count\-:@{read\-Samples\-From\-Channel\-:count\-:}}
+\index{read\-Samples\-From\-Channel\-:count\-:@{read\-Samples\-From\-Channel\-:count\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{read\-Samples\-From\-Channel\-:count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Data$\ast$) read\-Samples\-From\-Channel\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-Integer)}]{channels}
+\item[{count:(N\-S\-Integer)}]{count}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a4501c22126f23cc1cb9ecbd1d7ddda6e}
+
+
+Provided by category \hyperlink{category_s_e_audio_stream_07_read_08_a4501c22126f23cc1cb9ecbd1d7ddda6e}{S\-E\-Audio\-Stream(\-Read)}.
+
+\hypertarget{interface_s_e_audio_stream_a8d848d7a388d38fb670eb92e3bf6566d}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!read\-Samples\-With\-Count\-:@{read\-Samples\-With\-Count\-:}}
+\index{read\-Samples\-With\-Count\-:@{read\-Samples\-With\-Count\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{read\-Samples\-With\-Count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Data$\ast$) read\-Samples\-With\-Count\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-Integer)}]{count}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a8d848d7a388d38fb670eb92e3bf6566d}
+
+
+Provided by category \hyperlink{category_s_e_audio_stream_07_read_08_a8d848d7a388d38fb670eb92e3bf6566d}{S\-E\-Audio\-Stream(\-Read)}.
+
+\hypertarget{interface_s_e_audio_stream_a1dd26e76fbcd65f2d221f61de75fd3eb}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!seek\-To\-Sample\-Position\-:@{seek\-To\-Sample\-Position\-:}}
+\index{seek\-To\-Sample\-Position\-:@{seek\-To\-Sample\-Position\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{seek\-To\-Sample\-Position\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) seek\-To\-Sample\-Position\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-Integer)}]{position}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a1dd26e76fbcd65f2d221f61de75fd3eb}
+\hypertarget{interface_s_e_audio_stream_a720083efde7839f0a44ec7456805ffeb}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!seek\-To\-Second\-:@{seek\-To\-Second\-:}}
+\index{seek\-To\-Second\-:@{seek\-To\-Second\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{seek\-To\-Second\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) seek\-To\-Second\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-Time\-Interval)}]{second}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_a720083efde7839f0a44ec7456805ffeb}
+\hypertarget{interface_s_e_audio_stream_ab184f74429643065a116a8f272bf79b3}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!write\-Samples\-:@{write\-Samples\-:}}
+\index{write\-Samples\-:@{write\-Samples\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{write\-Samples\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) write\-Samples\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-Data $\ast$)}]{samples}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_ab184f74429643065a116a8f272bf79b3}
+
+
+Provided by category \hyperlink{category_s_e_audio_stream_07_write_08_ab184f74429643065a116a8f272bf79b3}{S\-E\-Audio\-Stream(\-Write)}.
+
+\hypertarget{interface_s_e_audio_stream_af19a129d2a78172d771f2552dd97f49b}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!write\-Samples\-:count\-:@{write\-Samples\-:count\-:}}
+\index{write\-Samples\-:count\-:@{write\-Samples\-:count\-:}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{write\-Samples\-:count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) {\bf write\-Samples\-:} 
+\begin{DoxyParamCaption}
+\item[{(void $\ast$)}]{data}
+\item[{count:(N\-S\-Integer)}]{count}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_audio_stream_af19a129d2a78172d771f2552dd97f49b}
+
+
+Provided by category \hyperlink{category_s_e_audio_stream_07_write_08_af19a129d2a78172d771f2552dd97f49b}{S\-E\-Audio\-Stream(\-Write)}.
+
+
+
+\subsection{Property Documentation}
+\hypertarget{interface_s_e_audio_stream_a96f11351b56bdd1d363ad05fb80d1a73}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!audio\-Description@{audio\-Description}}
+\index{audio\-Description@{audio\-Description}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{audio\-Description}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (Audio\-Stream\-Basic\-Description$\ast$) audio\-Description\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_a96f11351b56bdd1d363ad05fb80d1a73}
+\hypertarget{interface_s_e_audio_stream_af5e4493693cf24fa25af34487993d693}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!duration@{duration}}
+\index{duration@{duration}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{duration}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Time\-Interval) duration\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_af5e4493693cf24fa25af34487993d693}
+\hypertarget{interface_s_e_audio_stream_a095232a32323fc1b43568e1609cc934d}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!error@{error}}
+\index{error@{error}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Error$\ast$) error\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_a095232a32323fc1b43568e1609cc934d}
+\hypertarget{interface_s_e_audio_stream_a7561aaa75262c747a4da3d701e2094b9}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!file\-Path\-U\-R\-L@{file\-Path\-U\-R\-L}}
+\index{file\-Path\-U\-R\-L@{file\-Path\-U\-R\-L}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{file\-Path\-U\-R\-L}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-U\-R\-L$\ast$) file\-Path\-U\-R\-L\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_a7561aaa75262c747a4da3d701e2094b9}
+\hypertarget{interface_s_e_audio_stream_a54229ab240455736790dad362c5335e1}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!length@{length}}
+\index{length@{length}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Integer) length\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_a54229ab240455736790dad362c5335e1}
+\hypertarget{interface_s_e_audio_stream_a1e8d0ba4849fffe376bcf5494987c9a8}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!number\-Of\-Samples@{number\-Of\-Samples}}
+\index{number\-Of\-Samples@{number\-Of\-Samples}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{number\-Of\-Samples}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Integer) number\-Of\-Samples\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_a1e8d0ba4849fffe376bcf5494987c9a8}
+\hypertarget{interface_s_e_audio_stream_afac964b9badc8642c250a2234eb3c044}{\index{S\-E\-Audio\-Stream@{S\-E\-Audio\-Stream}!number\-Of\-Samples\-Per\-Channel@{number\-Of\-Samples\-Per\-Channel}}
+\index{number\-Of\-Samples\-Per\-Channel@{number\-Of\-Samples\-Per\-Channel}!SEAudioStream@{S\-E\-Audio\-Stream}}
+\subsubsection[{number\-Of\-Samples\-Per\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Integer) number\-Of\-Samples\-Per\-Channel\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_audio_stream_afac964b9badc8642c250a2234eb3c044}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_audio_stream_8h}{S\-E\-Audio\-Stream.\-h}\item 
+Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_audio_stream_8m}{S\-E\-Audio\-Stream.\-m}\end{DoxyCompactItemize}

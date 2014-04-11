@@ -1,0 +1,148 @@
+\hypertarget{interface_s_e_sound}{\section{S\-E\-Sound Class Reference}
+\label{interface_s_e_sound}\index{S\-E\-Sound@{S\-E\-Sound}}
+}
+
+
+{\ttfamily \#import $<$S\-E\-Sound.\-h$>$}
+
+Inheritance diagram for S\-E\-Sound\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_s_e_sound}
+\end{center}
+\end{figure}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(id) -\/ \hyperlink{interface_s_e_sound_aab6d0929f0187e9908cdcc9d3f96cc43}{init\-With\-File\-Path\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_a6029d5eae755d92f9a233cf17419ac31}{record}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_a97882088f16c74a517647ce7992337eb}{stop}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_a4a8f6c4a6217a5e8cecbffccf7ab921d}{play}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_a76b8a5e1805a83a8f652e94a16f7669a}{pause}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_abf528c0bac121ce2f0d61144bfd9dabf}{prepare\-To\-Play}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_abd2c45e2d5bb31980b72b7cd0aeaa555}{delete\-Sound}
+\item 
+(void) -\/ \hyperlink{interface_s_e_sound_aa242ebfc7e8a94948caa81ede5ab2611}{clear\-Time\-Range}
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+id$<$ \hyperlink{protocol_s_r_sound_delegate-p}{S\-R\-Sound\-Delegate} $>$ \hyperlink{interface_s_e_sound_a5e5c016dc31e60d35799f5535f6afa7b}{delegate}
+\item 
+N\-S\-String $\ast$ \hyperlink{interface_s_e_sound_a327bbd5dab8c522b7de7aa2ad16dc06c}{file\-Path}
+\item 
+B\-O\-O\-L \hyperlink{interface_s_e_sound_a41964b206d9ff678df2d0c5d74b6e681}{is\-Recording}
+\item 
+B\-O\-O\-L \hyperlink{interface_s_e_sound_ab5115756f4a98bbc401df59353b513b7}{is\-Playing}
+\item 
+B\-O\-O\-L \hyperlink{interface_s_e_sound_a987f2a9cce1f3a3a9c888358acf80649}{can\-Play}
+\item 
+N\-S\-Time\-Interval \hyperlink{interface_s_e_sound_a0641c721c6b3c998eb56ed060b421bad}{duration}
+\item 
+N\-S\-Time\-Interval \hyperlink{interface_s_e_sound_ad05f292aa572613e1012562a4c713e04}{current\-Time}
+\item 
+\hyperlink{struct_s_r_sound_range}{S\-R\-Sound\-Range} \hyperlink{interface_s_e_sound_a9c74b48a63dd95bb49ab983a48fd44c9}{time\-Range}
+\item 
+C\-G\-Float \hyperlink{interface_s_e_sound_aeab4aed9c6ce82c40e7dbbe9de8294f6}{volume}
+\end{DoxyCompactItemize}
+
+
+\subsection{Method Documentation}
+\hypertarget{interface_s_e_sound_aa242ebfc7e8a94948caa81ede5ab2611}{\index{S\-E\-Sound@{S\-E\-Sound}!clear\-Time\-Range@{clear\-Time\-Range}}
+\index{clear\-Time\-Range@{clear\-Time\-Range}!SESound@{S\-E\-Sound}}
+\subsubsection[{clear\-Time\-Range}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) clear\-Time\-Range 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_aa242ebfc7e8a94948caa81ede5ab2611}
+\hypertarget{interface_s_e_sound_abd2c45e2d5bb31980b72b7cd0aeaa555}{\index{S\-E\-Sound@{S\-E\-Sound}!delete\-Sound@{delete\-Sound}}
+\index{delete\-Sound@{delete\-Sound}!SESound@{S\-E\-Sound}}
+\subsubsection[{delete\-Sound}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) delete\-Sound 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_abd2c45e2d5bb31980b72b7cd0aeaa555}
+\hypertarget{interface_s_e_sound_aab6d0929f0187e9908cdcc9d3f96cc43}{\index{S\-E\-Sound@{S\-E\-Sound}!init\-With\-File\-Path\-:@{init\-With\-File\-Path\-:}}
+\index{init\-With\-File\-Path\-:@{init\-With\-File\-Path\-:}!SESound@{S\-E\-Sound}}
+\subsubsection[{init\-With\-File\-Path\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (id) init\-With\-File\-Path\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-String$\ast$)}]{file\-Path}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_aab6d0929f0187e9908cdcc9d3f96cc43}
+\hypertarget{interface_s_e_sound_a76b8a5e1805a83a8f652e94a16f7669a}{\index{S\-E\-Sound@{S\-E\-Sound}!pause@{pause}}
+\index{pause@{pause}!SESound@{S\-E\-Sound}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pause 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_a76b8a5e1805a83a8f652e94a16f7669a}
+\hypertarget{interface_s_e_sound_a4a8f6c4a6217a5e8cecbffccf7ab921d}{\index{S\-E\-Sound@{S\-E\-Sound}!play@{play}}
+\index{play@{play}!SESound@{S\-E\-Sound}}
+\subsubsection[{play}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) play 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_a4a8f6c4a6217a5e8cecbffccf7ab921d}
+\hypertarget{interface_s_e_sound_abf528c0bac121ce2f0d61144bfd9dabf}{\index{S\-E\-Sound@{S\-E\-Sound}!prepare\-To\-Play@{prepare\-To\-Play}}
+\index{prepare\-To\-Play@{prepare\-To\-Play}!SESound@{S\-E\-Sound}}
+\subsubsection[{prepare\-To\-Play}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) prepare\-To\-Play 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_abf528c0bac121ce2f0d61144bfd9dabf}
+\hypertarget{interface_s_e_sound_a6029d5eae755d92f9a233cf17419ac31}{\index{S\-E\-Sound@{S\-E\-Sound}!record@{record}}
+\index{record@{record}!SESound@{S\-E\-Sound}}
+\subsubsection[{record}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) record 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_a6029d5eae755d92f9a233cf17419ac31}
+\hypertarget{interface_s_e_sound_a97882088f16c74a517647ce7992337eb}{\index{S\-E\-Sound@{S\-E\-Sound}!stop@{stop}}
+\index{stop@{stop}!SESound@{S\-E\-Sound}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) stop 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_sound_a97882088f16c74a517647ce7992337eb}
+
+
+\subsection{Property Documentation}
+\hypertarget{interface_s_e_sound_a987f2a9cce1f3a3a9c888358acf80649}{\index{S\-E\-Sound@{S\-E\-Sound}!can\-Play@{can\-Play}}
+\index{can\-Play@{can\-Play}!SESound@{S\-E\-Sound}}
+\subsubsection[{can\-Play}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) can\-Play\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_a987f2a9cce1f3a3a9c888358acf80649}
+\hypertarget{interface_s_e_sound_ad05f292aa572613e1012562a4c713e04}{\index{S\-E\-Sound@{S\-E\-Sound}!current\-Time@{current\-Time}}
+\index{current\-Time@{current\-Time}!SESound@{S\-E\-Sound}}
+\subsubsection[{current\-Time}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Time\-Interval) current\-Time\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_ad05f292aa572613e1012562a4c713e04}
+\hypertarget{interface_s_e_sound_a5e5c016dc31e60d35799f5535f6afa7b}{\index{S\-E\-Sound@{S\-E\-Sound}!delegate@{delegate}}
+\index{delegate@{delegate}!SESound@{S\-E\-Sound}}
+\subsubsection[{delegate}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (id$<${\bf S\-R\-Sound\-Delegate}$>$) delegate\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [weak]}}}\label{interface_s_e_sound_a5e5c016dc31e60d35799f5535f6afa7b}
+\hypertarget{interface_s_e_sound_a0641c721c6b3c998eb56ed060b421bad}{\index{S\-E\-Sound@{S\-E\-Sound}!duration@{duration}}
+\index{duration@{duration}!SESound@{S\-E\-Sound}}
+\subsubsection[{duration}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Time\-Interval) duration\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_a0641c721c6b3c998eb56ed060b421bad}
+\hypertarget{interface_s_e_sound_a327bbd5dab8c522b7de7aa2ad16dc06c}{\index{S\-E\-Sound@{S\-E\-Sound}!file\-Path@{file\-Path}}
+\index{file\-Path@{file\-Path}!SESound@{S\-E\-Sound}}
+\subsubsection[{file\-Path}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-String $\ast$) file\-Path\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_a327bbd5dab8c522b7de7aa2ad16dc06c}
+\hypertarget{interface_s_e_sound_ab5115756f4a98bbc401df59353b513b7}{\index{S\-E\-Sound@{S\-E\-Sound}!is\-Playing@{is\-Playing}}
+\index{is\-Playing@{is\-Playing}!SESound@{S\-E\-Sound}}
+\subsubsection[{is\-Playing}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) is\-Playing\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_ab5115756f4a98bbc401df59353b513b7}
+\hypertarget{interface_s_e_sound_a41964b206d9ff678df2d0c5d74b6e681}{\index{S\-E\-Sound@{S\-E\-Sound}!is\-Recording@{is\-Recording}}
+\index{is\-Recording@{is\-Recording}!SESound@{S\-E\-Sound}}
+\subsubsection[{is\-Recording}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) is\-Recording\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_a41964b206d9ff678df2d0c5d74b6e681}
+\hypertarget{interface_s_e_sound_a9c74b48a63dd95bb49ab983a48fd44c9}{\index{S\-E\-Sound@{S\-E\-Sound}!time\-Range@{time\-Range}}
+\index{time\-Range@{time\-Range}!SESound@{S\-E\-Sound}}
+\subsubsection[{time\-Range}]{\setlength{\rightskip}{0pt plus 5cm}-\/ ({\bf S\-R\-Sound\-Range}) time\-Range\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_a9c74b48a63dd95bb49ab983a48fd44c9}
+\hypertarget{interface_s_e_sound_aeab4aed9c6ce82c40e7dbbe9de8294f6}{\index{S\-E\-Sound@{S\-E\-Sound}!volume@{volume}}
+\index{volume@{volume}!SESound@{S\-E\-Sound}}
+\subsubsection[{volume}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (C\-G\-Float) volume\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_sound_aeab4aed9c6ce82c40e7dbbe9de8294f6}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_sound_8h}{S\-E\-Sound.\-h}\item 
+Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_sound_8m}{S\-E\-Sound.\-m}\end{DoxyCompactItemize}
