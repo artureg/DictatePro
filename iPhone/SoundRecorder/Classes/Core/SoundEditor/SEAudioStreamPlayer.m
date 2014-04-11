@@ -10,4 +10,19 @@
 
 @implementation SEAudioStreamPlayer
 
+- (id)initWithStream:(SEAudioStream*)stream {
+    if (self = [super init]) {
+    }
+    return self;
+}
+
+- (void)start {
+}
+
+- (void)pause {
+}
+
+- (void)stop {
+}
+
 @end

@@ -10,73 +10,72 @@
 
 @interface SEAudioStream : NSObject
 
-/** 
- Audio File Description
- */
+/**  Audio File Description */
 @property(nonatomic,assign) AudioStreamBasicDescription* audioDescription;
 
-/* Audio Duration* */
+/** Audio Duration* */
 @property(nonatomic,readonly) NSTimeInterval duration;
 
-/* File Path */
+/** File Path */
 @property(nonatomic,readonly) NSURL* filePathURL;
 
-/* Last Error */
+/** Last Error */
 @property(nonatomic,readonly) NSError* error;
 
-/* Stream Length in bytes */
+/** Stream Length in bytes */
 @property(nonatomic,readonly) NSInteger length;
 
-/* Number of samples including all channels */
+/** Number of samples including all channels */
 @property(nonatomic,readonly) NSInteger numberOfSamples;
 
-/* Number of samples per channel */
+/** Number of samples per channel */
 @property(nonatomic,readonly) NSInteger numberOfSamplesPerChannel;
 
-/* Create stream in memory */
+/** Create stream in memory */
 - (id)init;
 
-/* Load from server */
+/** Load from server */
 - (id)initWithURL:(NSString*)url;
 
-/* Load from Storage */
+/** Load from Storage */
 - (id)initWithContentsOfFile:(NSString*)file;
 
-/* Open Stream */
+/** Open Stream */
 - (void)open;
 
-/* Close Stream */
+/** Close Stream */
 - (void)close;
 
-/* Delete all information in stream */
+/** Delete all information in stream */
 - (void)clear;
 
-/* Seek to position in samples include all channels */
+/** Seek to position in samples include all channels */
 - (void)seekToSamplePosition:(NSInteger)position;
 
-/* Seek to second */
+/** Seek to second */
 - (void)seekToSecond:(NSTimeInterval)second;
 
 @end
 
 @interface SEAudioStream(Write)
 
-- (void)writeSamples:(NSData*)samples;      /* Write Samples* using NSData */
+/** Write Samples* using NSData */
+- (void)writeSamples:(NSData*)samples;
 
-/* Write Samples using data */
+/** Write Samples using data */
 - (void)writeSamples:(void*)data count:(NSInteger)count;
 
 @end
 
 @interface SEAudioStream(Read)
 
-/* Read Samples from All Channels */
+/** Read Samples from All Channels */
 - (NSData*)readSamplesWithCount:(NSInteger)count;
 
-/* Read Samples from one channel */
+/** Read Samples from one channel */
 - (NSData*)readSamplesFromChannel:(NSInteger)channels count:(NSInteger)count;
 
-/* Read Samples data */
+/** Read Samples data */
 - (void)readSamples:(void*)samples count:(NSInteger)count;
 
 @end

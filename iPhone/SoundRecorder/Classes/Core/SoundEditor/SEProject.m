@@ -10,4 +10,26 @@
 
 @implementation SEProject
 
+- (SERecord*)splitRecordInPosition:(NSTimeInterval)position {
+    return nil;
+}
+
+- (void)addRecord:(SERecord*)record {
+}
+
+- (void)deleteRecord:(SERecord*)record {
+}
+
+- (void)moveRecord:(SERecord*)record toIndex:(NSInteger)index {
+}
+
+- (void)removeAllRecords {
+}
+
+- (void)saveProject {
+}
+
+- (void)saveProjectAsynchronouslyWithCompletion:(void(^)(NSError* error))completion {
+}
+
 @end
