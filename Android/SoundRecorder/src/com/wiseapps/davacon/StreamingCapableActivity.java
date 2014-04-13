@@ -72,11 +72,11 @@ abstract class StreamingCapableActivity extends Activity {
     private void preparePlaying() {
         int minBuffSize = RECORDER_BUFFER_SIZE_IN_BYTES;
 
-//        int sampleRate = SpeexWrapper.getSampleRate(getSoundFile().getFile().getAbsolutePath());
+//        int sampleRate = SpeexWrapper.getSampleRate(getSoundFile().getRecordFromSDCard().getAbsolutePath());
 //        LoggerFactory.obtainLogger(TAG).
 //                d("preparePlaying# sampleRate = " + sampleRate);
 //
-//        long duration = SpeexWrapper.getDuration(getSoundFile().getFile().getAbsolutePath());
+//        long duration = SpeexWrapper.getDuration(getSoundFile().getRecordFromSDCard().getAbsolutePath());
 //        LoggerFactory.obtainLogger(TAG).
 //                d("preparePlaying# duration = " + duration);
 
@@ -254,7 +254,7 @@ abstract class StreamingCapableActivity extends Activity {
 //
 //                byte data[] = new byte[minBuffSize / 2];
 //
-//                in = new FileInputStream(getSoundFile().getFile());
+//                in = new FileInputStream(getSoundFile().getRecordFromSDCard());
 //                while (in.read(data) > -1) {
 //                    LoggerFactory.obtainLogger(TAG).
 //                            d("doPlay# offsetMillis = " + offsetMillis);
