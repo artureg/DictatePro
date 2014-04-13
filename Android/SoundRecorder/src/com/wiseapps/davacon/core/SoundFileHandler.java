@@ -36,14 +36,14 @@ public class SoundFileHandler {
         wav.consume();
 
 //        String speexFilename = FileUtils.getSpeexFilename(context, String.valueOf(currentTimeMillis) + ".wav");
-//        int result = SpeexWrapper.encode(wav.getFile().getAbsolutePath(),
+//        int result = SpeexWrapper.encode(wav.getRecordFromSDCard().getAbsolutePath(),
 //                speexFilename);
 //        if (result == 0) {
 //            File speex = new File(speexFilename);
 //            LoggerFactory.obtainLogger(TAG).
 //                    d(String.format("concat# size of speex file is %s", speex.length()));
 //            LoggerFactory.obtainLogger(TAG).
-//                    d(String.format("concat# size of initial file is %s", wav.getFile().length()));
+//                    d(String.format("concat# size of initial file is %s", wav.getRecordFromSDCard().length()));
 //        }
 
         return wav;
