@@ -65,11 +65,9 @@ public class SoundRecorder {
                 mRecorder.startRecording();
                 sendMsg(MSG_RECORDING_STARTED);
 
-                short[][] buffers = new short[BUFF_COUNT][minBufferSize >> 1];
-
-                int count = 0;
+                byte[] data = new byte[minBufferSize];
                 while (running) {
-                    int samplesRead = mRecorder.read(buffers[count], 0, buffers[count].length);
+                    int samplesRead = mRecorder.read(data, 0, data.length);
 
                     if (samplesRead == AudioRecord.ERROR_INVALID_OPERATION) {
                         sendMsg(MSG_RECORDING_ERROR, "read returned ERROR_INVALID_OPERATION");
@@ -81,8 +79,7 @@ public class SoundRecorder {
                         return;
                     }
 
-                    sendMsg(MSG_DATA_RECORDED, buffers[count]);
-                    count = (count + 1) % BUFF_COUNT;
+                    sendMsg(MSG_DATA_RECORDED, data);
                 }
 
                 mRecorder.stop();

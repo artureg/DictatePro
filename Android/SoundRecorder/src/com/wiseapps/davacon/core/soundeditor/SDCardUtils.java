@@ -5,16 +5,11 @@ import android.os.Environment;
 import android.util.Xml;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.List;
 
-import org.xml.sax.Parser;
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
 /**

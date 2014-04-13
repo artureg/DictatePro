@@ -28,7 +28,7 @@ public class SERecord {
 	public SERecord(SEProject project) {
         this.project = project;
 
-        audioStream = new SERecordAudioStream();
+        audioStream = new SERecordAudioStream(project.getContext());
 	}
 
 	public long getStart() {

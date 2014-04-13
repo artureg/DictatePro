@@ -11,6 +11,7 @@ import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.FileUtils;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * @author varya.bzhezinskaya@gmail.com
@@ -21,6 +22,8 @@ public class SoundRecorderActivity extends Activity {
     private static final String TAG = SoundRecorderActivity.class.getSimpleName();
 
     private SEProject project;
+
+    private SERecordAudioStream stream;
     private SEAudioStreamPlayer player;
 
     private ImageButton buttonRecord;
@@ -49,9 +52,15 @@ public class SoundRecorderActivity extends Activity {
         try {
             File root = FileUtils.getRoot(this);
 
-            File[] files = root.listFiles();
-            if (files != null && files.length != 0) {
-                project = new SEProject(getContext(), files[0].getName());
+            String[] filenames = root.list(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String filename) {
+                    return filename.endsWith(".plist");
+                }
+            });
+
+            if (filenames != null && filenames.length != 0) {
+                project = new SEProject(getContext(), new File(filenames[0]).getName());
                 return;
             }
 
@@ -71,13 +80,16 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void record(View view) {
-        SERecord record = new SERecord(project);
-        record.getAudioStream().setListener(recorderStateListener);
+        if (stream == null) {
+            stream = new SERecord(project).getAudioStream();
+            stream.setListener(recorderStateListener);
+        }
 
-        if (!record.getAudioStream().isRecording()) {
-            record.getAudioStream().startRecording();
+        if (!stream.isRecording()) {
+            stream.startRecording();
         } else {
-            record.getAudioStream().stopRecording();
+            stream.stopRecording();
+            stream = null;
         }
     }
 
@@ -149,7 +161,7 @@ public class SoundRecorderActivity extends Activity {
 
     private SERecorderStateListener recorderStateListener = new SERecorderStateListener() {
         @Override
-        public void recordingStarted(SERecordAudioStream stream) {
+        public void recordingStarted() {
             LoggerFactory.obtainLogger(TAG).
                     d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STARTED");
 
@@ -158,7 +170,7 @@ public class SoundRecorderActivity extends Activity {
         }
 
         @Override
-        public void dataRecorded(SERecordAudioStream stream, long duration) {
+        public void dataRecorded(long duration) {
             LoggerFactory.obtainLogger(TAG).
                     d("SoundRecorderHandler.handleMessage# MSG_DATA_RECORDED");
 
@@ -166,7 +178,7 @@ public class SoundRecorderActivity extends Activity {
         }
 
         @Override
-        public void recordingStopped(SERecordAudioStream stream) {
+        public void recordingStopped() {
             LoggerFactory.obtainLogger(TAG).
                     d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STOPPED");
 
@@ -182,43 +194,4 @@ public class SoundRecorderActivity extends Activity {
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         }
     };
-
-//    private class SoundRecorderHandler extends Handler {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case MSG_RECORDING_STARTED: {
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STARTED");
-//                    buttonRecord.setImageDrawable(
-//                            getResources().getDrawable(R.drawable.button02_2_record_enabled));
-//
-//                    break;
-//                }
-//                case MSG_DATA_RECORDED: {
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("SoundRecorderHandler.handleMessage# MSG_DATA_RECORDED");
-//                    // TODO update progress, write to file
-//                    // TODO save record's data
-//                    break;
-//                }
-//                case MSG_RECORDING_STOPPED: {
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STOPPED");
-//                    buttonRecord.setImageDrawable(
-//                            getResources().getDrawable(R.drawable.button02_1_record_disabled));
-//
-//                    break;
-//                }
-//                case MSG_RECORDING_ERROR: {
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("SoundRecorderHandler.handleMessage# MSG_RECORDING_ERROR");
-//                    Toast.makeText(getContext(), "" + msg.obj, Toast.LENGTH_SHORT).show();
-//                    break;
-//                }
-//            }
-//
-//            super.handleMessage(msg);
-//        }
-//    }
 }

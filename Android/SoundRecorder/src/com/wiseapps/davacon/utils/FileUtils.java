@@ -94,7 +94,12 @@ public class FileUtils {
             throw new IllegalArgumentException();
         }
 
-        return getRoot(context).getAbsolutePath() + "/" + filename;
+        File records = new File(getRoot(context), "Records");
+        if (!records.exists()) {
+            records.mkdir();
+        }
+
+        return records + "/" + filename;
     }
 
     public static String getFilenameFromSpeex(String speexFilename) {

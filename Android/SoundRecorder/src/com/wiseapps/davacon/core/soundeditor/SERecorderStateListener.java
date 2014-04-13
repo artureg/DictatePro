@@ -7,14 +7,20 @@ package com.wiseapps.davacon.core.soundeditor;
  */
 public interface SERecorderStateListener {
 
-    /** Notification for begin recording */
-    void recordingStarted(SERecordAudioStream stream);
+    /**
+     * Notification for begin recording
+     */
+    void recordingStarted();
 
-    /** Notification for update recording info */
-    void dataRecorded(SERecordAudioStream stream, long duration);
+    /**
+     * Notification for update recording info
+     */
+    void dataRecorded(long duration);
 
-    /** Notification for end recording */
-    void recordingStopped(SERecordAudioStream stream);
+    /**
+     * Notification for end recording
+     */
+    void recordingStopped();
 
     void errorOccured(String errorMessage);
 }
