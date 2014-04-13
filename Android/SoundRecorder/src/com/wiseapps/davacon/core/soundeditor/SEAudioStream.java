@@ -24,9 +24,6 @@ public abstract class SEAudioStream {
 	private int numberOfSamplesPerChannel;
 	
 	public SEAudioStream() {
-		
-		// TODO Auto-generated constructor stub
-		
 	}
 	
 //	/* Create stream in memory */
@@ -41,7 +38,7 @@ public abstract class SEAudioStream {
 	/** 
 	 * Open Stream 
 	 */
-	protected void open() {};
+	protected void open() {}
 
 	/** 
 	 * Close Stream 
@@ -51,7 +48,7 @@ public abstract class SEAudioStream {
 	/** 
 	 * Delete all information in stream 
 	 */
-	protected void clear() {};
+	protected void clear() {}
 
 	/**
 	 * Seek to position in samples include all channels
@@ -85,7 +82,7 @@ public abstract class SEAudioStream {
 	 */
 	protected byte[] readSamplesWithCount( int count ) {
 		return null;
-	};
+	}
 
 	/**
 	 * Read Samples from one channel
@@ -95,11 +92,10 @@ public abstract class SEAudioStream {
 	 */
 	protected byte[] readSamplesFromChannel( int channels, int count ) {
 		return null;
-	};
+	}
 
 	/**
 	 * Read Samples data
 	 */
 	protected void readSamples( byte[] samples,  int count ) {}
-
 }

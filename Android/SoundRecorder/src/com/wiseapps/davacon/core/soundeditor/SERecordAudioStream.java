@@ -2,41 +2,32 @@ package com.wiseapps.davacon.core.soundeditor;
 /**
  * Stream with record 
  */
-class SERecordAudioStream extends SEAudioStream {
+public class SERecordAudioStream extends SEAudioStream {
+
+    private SERecorderStateListener listener;
 
 	public SERecordAudioStream() {
-		// TODO Auto-generated constructor stub
 	}
-	
-	private SERecordAudioStreamDelegate delegate;
-
-	/** Pointer to record */
-	private SERecord record;
-
-	/** Initialize stream with record */
-	private void initWithRecord( SERecord record ){};
 
 	/** Start recording sound */
-	private void startRecording(){};
+	public void startRecording() {
+
+    }
+
+    public boolean isRecording() {
+        // TODO implement with SoundRecorder and output to file
+        return true;
+    }
 
 	/** Stop recording sound */
-	private void stopRecording(){};
+	public void stopRecording() {
 
-	/**
-	 * Helper class to provide information of audio streaming (playing) progress of a record
-	 */
-	interface SERecordAudioStreamDelegate {
-		
-		/** Notification for begin recording */
-		void recordAudioStreamDidStartRecording( SERecordAudioStream stream );
+//        record.project.addRecord(record);
+    }
 
-		/** Notification for update recording info */
-		void recordAudioStream( SERecordAudioStream stream, long duration);
-
-		/** Notification for end recording */
-		void recordAudioStreamDidFinishRecording( SERecordAudioStream stream );
-	}
-
+    public void setListener(SERecorderStateListener listener) {
+        this.listener = listener;
+    }
 }
 
 

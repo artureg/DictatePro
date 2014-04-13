@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.List;
 
 import org.xml.sax.Parser;
 import org.xmlpull.v1.XmlPullParser;
@@ -26,7 +27,7 @@ public class SDCardUtils {
 
     private static final String APP_PATH = "Android/data/";
     
-    private static final String FILE_NAME = "priject.xml";
+    private static final String FILE_NAME = "project.xml";
     
     private static final String NAMESPACE = ""; 
     
@@ -158,7 +159,7 @@ public class SDCardUtils {
      */
     public static boolean deleteProjectFromSDCard(Context context, final SEProject project) {
        
-    	if( project != null ) {
+    	if ( project != null ) {
     		return deleteRootFile(context);
     		
     	}
@@ -166,13 +167,7 @@ public class SDCardUtils {
         return false;
     }
 
-    /**
-     * Please note that we assume just a single project file for now!
-     *
-     * @param context context
-     * @return project in case it exists, null otherwise
-     */
-    public static SEProject getProjectFromSDCard(Context context) {
+    public static List<SERecord> getRecordsFromSDCard(Context context, String projectFilename) {
         
 //    	File file = getFile(context);
 //    	if( !file.exists() || !file.canWrite()) {
