@@ -1,6 +1,9 @@
 package com.wiseapps.davacon.core.soundeditor;
 
+import android.content.Context;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *	This class provides entry point to records CRUD operations, i.e.:
@@ -14,71 +17,34 @@ import java.util.ArrayList;
  *	</ul>
  */
 public class SEProject {
-	
-	/** Project name */
-	private String name;
-	
-	/** Project file path */
-	private String projectFilePath;
-	
-	/** Project sounds path */
-	private String projectSoundsPath;
-	
-	/** List of records related to this project */
-	private ArrayList<SERecord> records;
 
-	/** Project audio preview stream */
-	private SEAudioStreamPlayer audioStream;
-	
-	/** Check project if it is change (add or remove record affects that) */
-	private boolean isChanged;
-	
-	
-	public SEProject() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	public ArrayList<SERecord> getRecords() {
-		return records;
-	}
+    private final Context context;
+    private String projectFilename;
 
+    // TODO add fields from .plist file
+    private boolean isChanged;
 
+    private List<SERecord> records;
 
-	public void setRecords(ArrayList<SERecord> records) {
-		this.records = records;
-	}
+    private SEAudioStream audioStream;
 
+    public SEProject(Context context) {
+        this.context = context;
+    }
 
+    public SEProject(Context context, String projectFilename) {
+        this(context);
 
-	public String getName() {
-		return name;
-	}
+        this.projectFilename = projectFilename;
+        this.records = SDCardUtils.getRecordsFromSDCard(context, projectFilename);
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        audioStream = new SEProjectAudioStream(records);
+    }
 
-	public String getProjectFilePath() {
-		return projectFilePath;
-	}
-
-	public void setProjectFilePath(String projectFilePath) {
-		this.projectFilePath = projectFilePath;
-	}
-
-	public String getProjectSoundsPath() {
-		return projectSoundsPath;
-	}
-
-	protected boolean isChanged() {
-		return isChanged;
-	}
-	
-	public void setChanged(boolean isChanged) {
-		this.isChanged = isChanged;
-	}
+    public SEAudioStream getAudioStream() {
+        // TODO rebuild
+        return audioStream;
+    }
 
 	/**
 	 * Split record in time position
@@ -86,29 +52,19 @@ public class SEProject {
 	 * @return SERecord object
 	 */
 	public SERecord splitRecordInPosition( long position ) {
-		
+
 		// TODO Add implementation!
 		return null;
 	}
-	
-	/**
-	 * Add record to project
-	 * @param record
-	 */
-	public void addRecord( SERecord record ) {
 
-		// TODO Add implementation!
-		
-	}
-	
 	/**
-	 * Delete record from project 
+	 * Delete record from project
 	 * @param record
 	 */
 	public void deleteRecord( SERecord record ) {
-		
+
 		// TODO Add implementation!
-		
+
 	}
 
 	/**
@@ -117,37 +73,54 @@ public class SEProject {
 	 * @param index
 	 */
 	public void moveRecord( SERecord record, long index ) {
-		
+
 		// TODO Add implementation!
-		
+
 	}
 
 	/**
-	 * Remove all records from project including all 
+	 * Remove all records from project including all
 	 * sound that are saved to the project sound folder
 	 */
 	public void removeAllRecords() {
-		
+
 		// TODO Add implementation!
-		
+
 	}
 
-	/**
+    /**
+     * Add record to project
+     * @param record
+     */
+    public void addRecord(SERecord record) {
+        records.add(record);
+
+        // TODO update SEProjectAudioStream
+    }
+
+    /**
 	 * Save project
 	 */
 	public void saveProject() {
-		
+
 		// TODO Add implementation!
-		
+
 	}
 
 	/**
-	 * Save project in asynchronously (in another thread) 
+	 * Save project in asynchronously (in another thread)
 	 */
 	public void saveProjectAsynchronouslyWithCompletion() {
-		
+
 		// TODO Add implementation!
-		
+
 	}
 
+    public boolean isChanged() {
+        return isChanged;
+    }
+
+    public List<SERecord> getRecords() {
+        return records;
+    }
 }

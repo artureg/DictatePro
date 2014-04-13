@@ -8,62 +8,60 @@ package com.wiseapps.davacon.core.soundeditor;
  */
 public class SEAudioStreamPlayer {
 	
-	private SEAudioStreamPlayerDelegate delegate;
-	
-	/* Check if stream is playing */
-	private boolean isPlaying;
+	private SEPlayerStateListener listener;
 
-	/* Check if stream is paused */
-	private boolean isPaused;
+    public static enum State {
+        PLAYING, PAUSED, STOPPED
+    }
+	
+	private State state;
 
 	/* Current Time of audio track */
 	private int currentTime;
 
-	public SEAudioStreamPlayer() {
-		
-		// TODO Auto-generated constructor stub
-		
-	}
-	
-	/**
-	 * Load audio stream to player 
-	 * @param stream
-	 */
-	public void initWithStream( SEAudioStream stream ) {}
+    private SEAudioStream stream;
 
-	/**
+	public SEAudioStreamPlayer() {
+        state = State.STOPPED;
+	}
+
+    /**
+     * Load audio stream to player
+     *
+     * @param stream
+     */
+    public void initWithStream(SEAudioStream stream) {
+        this.stream = stream;
+    }
+
+    /**
 	 * Start playing
 	 */
-	public void start() {}
+	public void start() {
+//        stream.open();
+//
+//        stream.seekToSecond(currentTime);
+
+//        stream.readSamples();
+    }
 
 	/**
 	 * Pause on current position
 	 */
-	public void pause() {}
+	public void pause() {
+    }
 
 	/**
 	 * Stop playing and seek to start
 	 */
-	public void stop() {}
-	
-	public interface SEAudioStreamPlayerDelegate {
-		
-		/** Notification for begin playing */
-		public void audioStreamPlayerDidStartPlaying( SEAudioStreamPlayer player );
+	public void stop() {
+    }
 
-		/** Notification for pause playing */
-		public void audioStreamPlayerDidPause( SEAudioStreamPlayer player );
+    public State getState() {
+        return state;
+    }
 
-		/** Notification for continue playing after pause */
-		public void audioStreamPlayerDidContinu( SEAudioStreamPlayer player );
-
-		/** Notification for updating info about play state */
-		public void audioStreamPlayer( SEAudioStreamPlayer player, long position, long duration );
-
-		/** Notification for end playing */
-		public void audioStreamPlayerDidFinishPlaying( SEAudioStreamPlayer player, boolean stopped );
-
-	
-	}
-
+    public void setListener(SEPlayerStateListener listener) {
+        this.listener = listener;
+    }
 }
