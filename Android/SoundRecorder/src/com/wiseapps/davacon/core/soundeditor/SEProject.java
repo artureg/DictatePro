@@ -123,4 +123,8 @@ public class SEProject {
     public List<SERecord> getRecords() {
         return records;
     }
+
+    Context getContext() {
+        return context;
+    }
 }
