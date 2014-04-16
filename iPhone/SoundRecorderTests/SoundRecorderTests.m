@@ -3,7 +3,7 @@
 //  SoundRecorderTests
 //
 //  Created by Igor Danich on 12/12/13.
-//  Property of UAB "Mobilios Aplikacijos"
+
 //
 
 #import <XCTest/XCTest.h>

@@ -3,7 +3,7 @@
 //  SoundRecorder
 //
 //  Created by Igor Danich
-//  Property of UAB "Mobilios Aplikacijos"
+
 //
 
 @interface SEModel : NSObject

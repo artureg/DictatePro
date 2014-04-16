@@ -11,7 +11,6 @@
 		7810F1DA18F800D700B22370 /* SEAudioStreamEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */; };
 		7810F1DE18F80F8E00B22370 /* SRRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1DD18F80F8E00B22370 /* SRRecord.m */; };
 		7810F1E118F80FAB00B22370 /* SRProject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1E018F80FAB00B22370 /* SRProject.mm */; };
-		7835601B18EBEC9900A65447 /* IBKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7835601A18EBEC9900A65447 /* IBKAlertView.m */; };
 		783D288918F7F35C00D5C0E5 /* SEModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 783D288718F7F35C00D5C0E5 /* SEModel.m */; };
 		783D2A2518F7F47800D5C0E5 /* bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BC18F7F47800D5C0E5 /* bits.c */; };
 		783D2A2618F7F47800D5C0E5 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BD18F7F47800D5C0E5 /* buffer.c */; };
@@ -63,8 +62,6 @@
 		783D2A5618F7F51C00D5C0E5 /* 1397208728800-speex.wav in Resources */ = {isa = PBXBuildFile; fileRef = 783D2A5418F7F51C00D5C0E5 /* 1397208728800-speex.wav */; };
 		783F240D18EB0FA30046520A /* SREditRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F23FB18EB0FA30046520A /* SREditRecordViewController.m */; };
 		783F240E18EB0FA30046520A /* SREditRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F23FC18EB0FA30046520A /* SREditRecordViewController.xib */; };
-		783F240F18EB0FA30046520A /* SRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 783F23FE18EB0FA30046520A /* SRMainViewController.m */; };
-		783F241018EB0FA30046520A /* SRMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F23FF18EB0FA30046520A /* SRMainViewController.xib */; };
 		783F241118EB0FA30046520A /* SRAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783F240118EB0FA30046520A /* SRAppDelegate.mm */; };
 		783F241218EB0FA30046520A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 783F240318EB0FA30046520A /* InfoPlist.strings */; };
 		783F241718EB0FA30046520A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 783F240A18EB0FA30046520A /* Images.xcassets */; };
@@ -160,8 +157,6 @@
 		7810F1DD18F80F8E00B22370 /* SRRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRRecord.m; sourceTree = "<group>"; };
 		7810F1DF18F80FAB00B22370 /* SRProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRProject.h; sourceTree = "<group>"; };
 		7810F1E018F80FAB00B22370 /* SRProject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SRProject.mm; sourceTree = "<group>"; };
-		7835601918EBEC9900A65447 /* IBKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBKAlertView.h; sourceTree = "<group>"; };
-		7835601A18EBEC9900A65447 /* IBKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBKAlertView.m; sourceTree = "<group>"; };
 		783D288618F7F35C00D5C0E5 /* SEModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEModel.h; sourceTree = "<group>"; };
 		783D288718F7F35C00D5C0E5 /* SEModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEModel.m; sourceTree = "<group>"; };
 		783D29B818F7F47800D5C0E5 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
@@ -276,9 +271,6 @@
 		783F23FA18EB0FA30046520A /* SREditRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SREditRecordViewController.h; sourceTree = "<group>"; };
 		783F23FB18EB0FA30046520A /* SREditRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SREditRecordViewController.m; sourceTree = "<group>"; };
 		783F23FC18EB0FA30046520A /* SREditRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SREditRecordViewController.xib; sourceTree = "<group>"; };
-		783F23FD18EB0FA30046520A /* SRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMainViewController.h; sourceTree = "<group>"; };
-		783F23FE18EB0FA30046520A /* SRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMainViewController.m; sourceTree = "<group>"; };
-		783F23FF18EB0FA30046520A /* SRMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRMainViewController.xib; sourceTree = "<group>"; };
 		783F240018EB0FA30046520A /* SRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAppDelegate.h; sourceTree = "<group>"; };
 		783F240118EB0FA30046520A /* SRAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 2; path = SRAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		783F240418EB0FA30046520A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -431,8 +423,6 @@
 		7835601818EBEC9900A65447 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7835601918EBEC9900A65447 /* IBKAlertView.h */,
-				7835601A18EBEC9900A65447 /* IBKAlertView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -631,9 +621,6 @@
 				783F23FA18EB0FA30046520A /* SREditRecordViewController.h */,
 				783F23FB18EB0FA30046520A /* SREditRecordViewController.m */,
 				783F23FC18EB0FA30046520A /* SREditRecordViewController.xib */,
-				783F23FD18EB0FA30046520A /* SRMainViewController.h */,
-				783F23FE18EB0FA30046520A /* SRMainViewController.m */,
-				783F23FF18EB0FA30046520A /* SRMainViewController.xib */,
 				789CBDB118F2A0E90091D85A /* SRPlayerViewController.h */,
 				789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */,
 				789CBDB318F2A0E90091D85A /* SRPlayerViewController.xib */,
@@ -859,7 +846,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7876105918F6A58F00F17ACD /* scale_.png in Resources */,
-				783F241018EB0FA30046520A /* SRMainViewController.xib in Resources */,
 				7876106B18F6AB2300F17ACD /* save.png in Resources */,
 				7876106218F6A78600F17ACD /* play_pin-cursor.png in Resources */,
 				7876105618F6A58F00F17ACD /* play.png in Resources */,
@@ -959,7 +945,6 @@
 				783D2A3818F7F47800D5C0E5 /* kiss_fftr.c in Sources */,
 				783D2A4518F7F47800D5C0E5 /* scal.c in Sources */,
 				783D2A4918F7F47800D5C0E5 /* speex_header.c in Sources */,
-				7835601B18EBEC9900A65447 /* IBKAlertView.m in Sources */,
 				783D2A3B18F7F47800D5C0E5 /* lsp_tables_nb.c in Sources */,
 				783D2A2E18F7F47800D5C0E5 /* fftwrap.c in Sources */,
 				783F241118EB0FA30046520A /* SRAppDelegate.mm in Sources */,
@@ -976,7 +961,6 @@
 				7810F1E118F80FAB00B22370 /* SRProject.mm in Sources */,
 				783D2A2F18F7F47800D5C0E5 /* filterbank.c in Sources */,
 				783D2A5018F7F47800D5C0E5 /* SpeexACMConvert.cpp in Sources */,
-				783F240F18EB0FA30046520A /* SRMainViewController.m in Sources */,
 				783D2A3418F7F47800D5C0E5 /* hexc_table.c in Sources */,
 				783D2A4B18F7F47800D5C0E5 /* vbr.c in Sources */,
 				783D2A2718F7F47800D5C0E5 /* cb_search.c in Sources */,
