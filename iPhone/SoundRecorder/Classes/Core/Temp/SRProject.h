@@ -1,10 +1,7 @@
-//
 //  SEProject.h
 //  SoundRecorder
-//
-//  Created by Igor on 4/1/14.
+//  Created by Igor Danich igor.danich@wise-apps.com on 4/1/14.
 
-//
 
 #import "SRRecord.h"
 #import "SRSound.h"

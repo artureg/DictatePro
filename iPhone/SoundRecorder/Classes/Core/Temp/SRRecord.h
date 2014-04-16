@@ -1,10 +1,7 @@
-//
 //  SRRecord.h
 //  SoundRecorder
-//
-//  Created by Igor Danich
+//  Created by Igor Danich igor.danich@wise-apps.com Danich
 
-//
 
 #import "SEModel.h"
 #import "SRSound.h"

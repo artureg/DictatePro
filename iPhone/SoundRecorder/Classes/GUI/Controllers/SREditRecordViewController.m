@@ -2,7 +2,7 @@
 //  SRAddSoundViewController.m
 //  SoundRecorder
 //
-//  Created by Igor Danich
+//  Created by Igor Danich igor.danich@wise-apps.com Danich
 
 //
 

@@ -149,13 +149,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7810F1D218F7FC4600B22370 /* SEAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEAudioStream.h; sourceTree = "<group>"; };
-		7810F1D318F7FC4600B22370 /* SEAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEAudioStream.m; sourceTree = "<group>"; };
-		7810F1D818F800D700B22370 /* SEAudioStreamEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEAudioStreamEngine.h; sourceTree = "<group>"; };
-		7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEAudioStreamEngine.m; sourceTree = "<group>"; };
+		7810F1D218F7FC4600B22370 /* SEAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEAudioStream.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7810F1D318F7FC4600B22370 /* SEAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEAudioStream.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7810F1D818F800D700B22370 /* SEAudioStreamEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEAudioStreamEngine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEAudioStreamEngine.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7810F1DC18F80F8E00B22370 /* SRRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRRecord.h; sourceTree = "<group>"; };
 		7810F1DD18F80F8E00B22370 /* SRRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRRecord.m; sourceTree = "<group>"; };
-		7810F1DF18F80FAB00B22370 /* SRProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRProject.h; sourceTree = "<group>"; };
+		7810F1DF18F80FAB00B22370 /* SRProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRProject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7810F1E018F80FAB00B22370 /* SRProject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SRProject.mm; sourceTree = "<group>"; };
 		783D288618F7F35C00D5C0E5 /* SEModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEModel.h; sourceTree = "<group>"; };
 		783D288718F7F35C00D5C0E5 /* SEModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEModel.m; sourceTree = "<group>"; };
@@ -336,28 +336,28 @@
 		7880555718FEE6E700332407 /* SEAudioStreamEngine+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SEAudioStreamEngine+Internal.h"; sourceTree = "<group>"; };
 		788CE50B18F8101C002746A7 /* SRSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSound.h; sourceTree = "<group>"; };
 		788CE50C18F8101C002746A7 /* SRSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSound.m; sourceTree = "<group>"; };
-		788CE50E18F81105002746A7 /* SEProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProject.h; sourceTree = "<group>"; };
-		788CE50F18F81105002746A7 /* SEProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProject.m; sourceTree = "<group>"; };
-		788CE51118F81122002746A7 /* SRAudioStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAudioStreamPlayer.h; sourceTree = "<group>"; };
-		788CE51218F81122002746A7 /* SRAudioStreamPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAudioStreamPlayer.m; sourceTree = "<group>"; };
-		788CE52018F83BF2002746A7 /* SESpeexACMAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SESpeexACMAudioStream.h; sourceTree = "<group>"; };
-		788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SESpeexACMAudioStream.m; sourceTree = "<group>"; };
+		788CE50E18F81105002746A7 /* SEProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEProject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		788CE50F18F81105002746A7 /* SEProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEProject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		788CE51118F81122002746A7 /* SRAudioStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRAudioStreamPlayer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		788CE51218F81122002746A7 /* SRAudioStreamPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SRAudioStreamPlayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		788CE52018F83BF2002746A7 /* SESpeexACMAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SESpeexACMAudioStream.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SESpeexACMAudioStream.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		78991AC718FBDC2200FF6918 /* SEProjectAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectAudioStream.h; sourceTree = "<group>"; };
 		78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectAudioStream.m; sourceTree = "<group>"; };
 		78991AC918FBDC2200FF6918 /* SERecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecord.h; sourceTree = "<group>"; };
 		78991ACA18FBDC2200FF6918 /* SERecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecord.m; sourceTree = "<group>"; };
 		78991ACB18FBDC2200FF6918 /* SERecordAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecordAudioStream.h; sourceTree = "<group>"; };
 		78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecordAudioStream.m; sourceTree = "<group>"; };
-		78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectEngine.h; sourceTree = "<group>"; };
-		78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectEngine.m; sourceTree = "<group>"; };
+		78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEProjectEngine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SEProjectEngine.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		78991AD418FBE1E000FF6918 /* SEProject+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SEProject+Internal.h"; sourceTree = "<group>"; };
 		789AADE318F3FB63008ECF92 /* rec1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec1.wav; sourceTree = "<group>"; };
 		789AAE9518F435B0008ECF92 /* SRProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRProjectViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		789AAE9618F435B0008ECF92 /* SRProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SRProjectViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		789AAE9718F435B0008ECF92 /* SRProjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRProjectViewController.xib; sourceTree = "<group>"; };
 		789B83A5185B1B2D00E6B5CD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		789CBDB118F2A0E90091D85A /* SRPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRPlayerViewController.h; sourceTree = "<group>"; };
-		789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SRPlayerViewController.mm; sourceTree = "<group>"; };
+		789CBDB118F2A0E90091D85A /* SRPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRPlayerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		789CBDB218F2A0E90091D85A /* SRPlayerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = SRPlayerViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		789CBDB318F2A0E90091D85A /* SRPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SRPlayerViewController.xib; sourceTree = "<group>"; };
 		789CBDB618F2A14D0091D85A /* rec_spx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec_spx.wav; sourceTree = "<group>"; };
 		789CBDB718F2A14D0091D85A /* rec.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec.wav; sourceTree = "<group>"; };
