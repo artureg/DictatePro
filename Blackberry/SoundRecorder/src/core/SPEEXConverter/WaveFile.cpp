@@ -1,9 +1,8 @@
 //
 //  WaveFile.cpp
-//  SPEEXConverter
 //
-//  Created by Igor on 3/19/14.
-//  Copyright (c) 2014 Igor Danich. All rights reserved.
+//  Created on: 3/19/14.
+//  Author: Igor Danich <igor.danich@wise-apps.com>
 //
 
 #include "WaveFile.h"

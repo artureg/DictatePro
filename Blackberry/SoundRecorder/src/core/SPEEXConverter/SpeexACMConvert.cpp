@@ -1,9 +1,8 @@
 //
 //  SpeexACMConvert.cpp
-//  SPEEXConverter
 //
-//  Created by Igor on 3/20/14.
-//  Copyright (c) 2014 Igor Danich. All rights reserved.
+//  Created on: 3/20/14
+//  Author: Igor Danich <igor.danich@wise-apps.com>
 //
 
 #include "SpeexACMConvert.h"
@@ -16,14 +15,9 @@
 #include <strings.h>
 #include <stdio.h>
 #include <string.h>
-//#include <src/speex.h>
 
 bool encodeWavToSpeexACM(const char* wavFilePath, const char* compressedFilePath) {
     WaveSpeexFile* file = new WaveSpeexFile();
-
-
-    printf("RRRRRRRR\n");
-
 
     if (!file->openWrite(compressedFilePath)) {
     	printf(" SPEEX ERROR  %s\n", file->getError());

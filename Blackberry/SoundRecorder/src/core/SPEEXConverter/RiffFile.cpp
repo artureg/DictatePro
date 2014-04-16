@@ -1,10 +1,3 @@
-/* rifffile.cpp
-
-	Copyright (c) 1996, 1988 by Timothy J. Weber.
-
-	See rifffile.txt for documentation.
-*/
-
 #include "RiffFile.h"
 
 using namespace std;
@@ -313,7 +306,7 @@ static void checkResult(bool got, bool expected)
 {
 	if (got)
 		cout << "success." << endl;
-	else 
+	else
 		cout << "fail." << endl;
 
 	if (got != expected)
