@@ -7,18 +7,44 @@ import android.content.Context;
  *         Date: 4/14/14
  *         Time: 11:55 AM
  */
-class SERecord {
-    long start;
-    long duration;
+public class SERecord {
+    double start;
+    double duration;
     String soundPath;
 
-    SEAudioStream getAudioStream(SEProject project, Context context) {
-//        if (this instanceof SPEEXRecord) {
-//            return new SPEEXRecordAudioStream(context);
-//        }
-//
-//        return new PCMRecordAudioStream(context);
+    final SEProject project;
 
-        return new SERecordAudioStream(project, context);
+    SERecord(SEProject project) {
+        this.project = project;
+    }
+
+    SEAudioStream getAudioStream(Context context) {
+        return new SERecordAudioStream(this, context);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SERecord record = (SERecord) o;
+
+        if (Double.compare(record.duration, duration) != 0) return false;
+        if (Double.compare(record.start, start) != 0) return false;
+        if (soundPath != null ? !soundPath.equals(record.soundPath) : record.soundPath != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(start);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(duration);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (soundPath != null ? soundPath.hashCode() : 0);
+        return result;
     }
 }

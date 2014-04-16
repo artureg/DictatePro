@@ -14,7 +14,12 @@ class SEProjectAudioStream extends SEAudioStream {
     private final SEProject project;
     private List<SERecord> records;
 
-    SEProjectAudioStream(final SEProject project, Context context) {
+    private SERecord curRecord;
+    double position, duration;
+
+    byte[] data;
+
+    SEProjectAudioStream(Context context, final SEProject project) {
         super(context);
 
         this.project = project;
@@ -28,6 +33,9 @@ class SEProjectAudioStream extends SEAudioStream {
     @Override
     public void open(Mode mode) {
         this.mode = mode;
+
+        curRecord = records.iterator().next();
+        this.position = 0;
     }
 
     @Override
@@ -50,12 +58,6 @@ class SEProjectAudioStream extends SEAudioStream {
      * @param position position to start reading from
      * @param duration duration of the data to be read
      * @return read data
-     *
-     * TODO START FROM HERE!!!
-     *
-     * TODO to correctly implement do not cycle through the records every time
-     * TODO but keep a reference to the current record and indices
-     * TODO to the previous and the next (as object fields) records in the list
      */
     @Override
     public byte[] read(double position, double duration) {
@@ -63,17 +65,47 @@ class SEProjectAudioStream extends SEAudioStream {
             throw new IllegalStateException();
         }
 
-        SEAudioStream stream;
-        for (SERecord record : records) {
-            stream = record.getAudioStream(project, context);
+        this.duration = duration;
+
+        return doRead();
+    }
+
+    private byte[] doRead() {
+        if (duration < curRecord.duration) {
+            SEAudioStream stream = curRecord.getAudioStream(context);
+
             stream.open(Mode.READ);
+            data = stream.read(position, duration);
+            stream.close();
 
-            if (true /* TODO check the condition for the record to be what we expect */) {
-                return stream.read(position, duration);
-            }
+            position = curRecord.duration - duration;
+            return data;
+        } else if (duration == curRecord.duration) {
+            SEAudioStream stream = curRecord.getAudioStream(context);
+
+            stream.open(Mode.READ);
+            data = stream.read(position, duration);
+            stream.close();
+
+            curRecord = records.iterator().next();
+            position = 0;
+
+            return data;
+        } else {
+            // duration > curRecord.duration
+            double duration = this.duration - curRecord.duration;
+
+            SEAudioStream stream = curRecord.getAudioStream(context);
+
+            stream.open(Mode.READ);
+            data = stream.read(position, duration);
+            stream.close();
+
+            curRecord = records.iterator().next();
+            this.duration = duration;
+
+            return doRead();
         }
-
-        return null;
     }
 
     @Override

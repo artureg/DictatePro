@@ -1,7 +1,9 @@
 package com.wiseapps.davacon.core.se;
 
+import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.os.Handler;
+import android.os.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +24,11 @@ class SESoundPlayer {
     static final int MSG_PLAYING_STOPPED = 3;
     static final int MSG_PLAYING_ERROR = 4;
 
-    private enum State {
+    private enum PlayerState {
         PLAYING, PAUSED, STOPPED
     }
-    private State state;
+
+    private PlayingThread thread;
 
     private final SEAudioStream stream;
     private List<Handler> handlers = new ArrayList<Handler>();
@@ -35,56 +38,16 @@ class SESoundPlayer {
     }
 
     void start() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                AudioTrack audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG, AUDIO_FORMAT,
-                        MIN_BUFFER_SIZE, MODE);
-
-                if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
-                    sendMsgError();
-                    return;
-                }
-
-                stream.open(SEAudioStream.Mode.READ);
-                sendMsgStarted();
-
-                int offset = 0;
-                byte data[] = stream.read(offset, 1);
-                while(state != State.STOPPED) {
-                    if (state == State.PAUSED) {
-                        // TODO send just once
-                        sendMsgPaused();
-                    }
-
-                    audioTrack.write(data, 0, data.length);
-                    audioTrack.play();
-
-                    data = stream.read(offset, 1);
-
-                    offset++;
-
-                    sendMsgInProgress();
-                }
-
-                stream.close();
-
-                audioTrack.stop();
-                audioTrack.release();
-
-                sendMsgStopped();
-            }
-        }).start();
-
-        state = State.PLAYING;
+        thread = new PlayingThread(PlayerState.PLAYING);
+        thread.start();
     }
 
     void pause() {
-        state = State.PAUSED;
+        thread.pausePlaying();
     }
 
     void stop() {
-        state = State.STOPPED;
+        thread.stopPlaying();
     }
 
     void addHandler(Handler handler) {
@@ -119,5 +82,91 @@ class SESoundPlayer {
         for (Handler handler : handlers) {
             handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
         }
+    }
+
+    private class PlayingThread extends Thread {
+        private PlayerState state;
+
+        private PlayingThread(PlayerState state) {
+            this.state = state;
+        }
+
+        @Override
+        public void run() {
+            int minBufferSize =
+                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT);
+
+            AudioTrack audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
+                    minBufferSize, MODE);
+
+            if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
+                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
+                return;
+            }
+
+            stream.open(SEAudioStream.Mode.READ);
+            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
+
+            int offset = 0;
+            byte data[] = stream.read(offset, 1);
+            while(state != PlayerState.STOPPED) {
+                if (state == PlayerState.PAUSED) {
+                    // TODO send just once
+                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
+                }
+
+                audioTrack.write(data, 0, data.length);
+                audioTrack.play();
+
+                data = stream.read(offset, 1);
+
+                offset++;
+
+                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
+            }
+
+            stream.close();
+
+            audioTrack.stop();
+            audioTrack.release();
+
+            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STOPPED));
+        }
+
+        void pausePlaying() {
+            state = PlayerState.PAUSED;
+        }
+
+        void stopPlaying() {
+            state = PlayerState.STOPPED;
+        }
+
+        private Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what) {
+                    case MSG_PLAYING_STARTED: {
+                        sendMsgStarted();
+                        break;
+                    }
+                    case MSG_PLAYING_IN_PROGRESS: {
+                        sendMsgInProgress();
+                        break;
+                    }
+                    case MSG_PLAYING_PAUSED: {
+                        sendMsgPaused();
+                        break;
+                    }
+                    case MSG_PLAYING_STOPPED: {
+                        sendMsgStopped();
+                        break;
+                    }
+                    case MSG_PLAYING_ERROR: {
+                        sendMsgError();
+                        break;
+                    }
+                }
+            }
+        };
     }
 }

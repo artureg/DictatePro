@@ -55,6 +55,10 @@ public class SoundRecorderActivity extends Activity {
     protected void onDestroy() {
         // TODO release engine correctly!
 
+        if (project != null) {
+            SDCardUtils.writeProject(project);
+        }
+
         super.onDestroy();
     }
 
@@ -70,11 +74,11 @@ public class SoundRecorderActivity extends Activity {
             });
 
             if (filenames != null && filenames.length != 0) {
-                project = new SEProject(new File(filenames[0]).getAbsolutePath());
+                project = SDCardUtils.readProject(getContext(), filenames[0]);
                 return;
             }
 
-            project = new SEProject(FileUtils.createProjectPath(getContext()));
+            project = SDCardUtils.readProject(getContext());
         } catch (Exception e) {
             LoggerFactory.obtainLogger(TAG).
                     e("initData# ", e);
