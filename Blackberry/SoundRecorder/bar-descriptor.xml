@@ -26,11 +26,11 @@
 
     <!-- A universally unique application identifier. Must be unique across all BlackBerry 10 applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>com.example.SoundRecorder</id>
+    <id>com.example.SoundR</id>
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>SoundRecorder</name>
+    <name>SoundR</name>
 
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade.
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
@@ -46,7 +46,7 @@
 
     <!-- Description, displayed in the BlackBerry 10 application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The SoundRecorder application</description>
+    <description>The SoundR application</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->
@@ -55,20 +55,20 @@
     <author>Example Inc.</author>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7-g/SoundRecorder" entry="true" type="Qnx/Elf">SoundRecorder</asset>
+       <asset path="arm/o.le-v7-g/SoundR" entry="true" type="Qnx/Elf">SoundR</asset>
     </configuration>
     <configuration name="Device-Release">
        <entryPointType>Qnx/Cascades</entryPointType>
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7/SoundRecorder.so" entry="true" type="Qnx/Elf">SoundRecorder.so</asset>
+       <asset path="arm/o.le-v7/SoundR.so" entry="true" type="Qnx/Elf">SoundR.so</asset>
     </configuration>
     <configuration name="Device-Profile">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm-p/o.le-v7-g/SoundRecorder" entry="true" type="Qnx/Elf">SoundRecorder</asset>
+       <asset path="arm-p/o.le-v7-g/SoundR" entry="true" type="Qnx/Elf">SoundR</asset>
     </configuration>
     <configuration name="Simulator-Debug">
        <platformArchitecture>x86</platformArchitecture>
-       <asset path="x86/o-g/SoundRecorder" entry="true" type="Qnx/Elf">SoundRecorder</asset>
+       <asset path="x86/o-g/SoundR" entry="true" type="Qnx/Elf">SoundR</asset>
     </configuration>
 
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
@@ -95,6 +95,11 @@
 
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
+    <permission>access_shared</permission>
+    <permission>record_audio</permission>
+    <permission>play_audio</permission>
+    <permission>read_device_identifying_information</permission>
+    
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
 
 </qnx>
