@@ -2,6 +2,7 @@ package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,12 +13,18 @@ import java.util.List;
  * Set of public methods could not be changed!!!
  */
 public class SEProject {
+    private final static String TAG = SEProject.class.getSimpleName();
 
-    final String projectPath;
+    final Context context;
+
+    String projectPath;
+
+    List<SERecord> records = new ArrayList<SERecord>();
+
     boolean isChanged;
 
-    public SEProject(String projectPath) {
-        this.projectPath = projectPath;
+    public SEProject(Context context) {
+        this.context = context;
     }
 
     /**
@@ -26,17 +33,21 @@ public class SEProject {
      * @return project audio stream
      */
     SEAudioStream getAudioStream(Context context) {
-        return new SEProjectAudioStream(this, context).
-                initialize(SDCardUtils.getRecordsFromSDCard(context, this));
+        if (isChanged) {
+            SDCardUtils.readProject(context);
+        }
+
+        return new SEProjectAudioStream(context, this).
+                initialize(records);
     }
 
     List<SERecord> getRecords() {
-        // TODO implement
-        return null;
+        return records;
     }
 
     void addRecord(SERecord record) {
-        // TODO implement
+        records.add(record);
+//        SDCardUtils.updateProjectToSDCard(context, this);
     }
 
     void moveRecord(SERecord record, int index) {
@@ -44,11 +55,13 @@ public class SEProject {
     }
 
     void removeRecord(SERecord record) {
-        // TODO implement
+       records.remove(record);
+//       SDCardUtils.updateProjectToSDCard(context, this);
     }
 
     void removeAllRecords() {
-        // TODO implement
+    	records.clear();
+//    	SDCardUtils.updateProjectToSDCard(context, this);
     }
 
     public boolean isChanged() {
@@ -69,8 +82,7 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
-        // TODO implement
-        return false;
+    	return SDCardUtils.writeProject(this);
     }
 
     /**
@@ -81,7 +93,7 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean saveAsync() {
-        // TODO implement
+        // TODO implement, use SDCardUtils.writeProject(this); and thread
         return false;
     }
 }

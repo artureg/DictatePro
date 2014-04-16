@@ -24,19 +24,17 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 
     static final int SAMPLE_RATE_IN_HZ = 8000;
-    static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_OUT_MONO;
+    static final int CHANNEL_CONFIG_IN = AudioFormat.CHANNEL_IN_MONO;
+    static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
     static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 
-    static final int MIN_BUFFER_SIZE =
-            AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG, AUDIO_FORMAT);
+    static final short BITS_PER_SAMPLE = 8;
 
     static final int MODE = AudioTrack.MODE_STREAM;
 
     private final Context context;
 
     private final SEProject project;
-
-    private SEAudioStream streamWrite;
 
     private SESoundRecorder recorder;
     private SESoundPlayer player;
@@ -47,8 +45,6 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         this.context = context;
 
         this.project = project;
-
-        streamWrite = new SERecord().getAudioStream(project, context);
     }
 
     /**
@@ -119,7 +115,11 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        recorder = new SESoundRecorder(streamWrite);
+        SERecord record = new SERecord(project);
+        record.soundPath = SDCardUtils.getSoundPath(context);
+        project.addRecord(record);
+
+        recorder = new SESoundRecorder(record.getAudioStream(context));
         recorder.addHandler(recorderHandler);
         recorder.start();
     }
@@ -137,6 +137,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         recorder.stop();
+        recorder = null;
     }
 
     @Override
