@@ -3,7 +3,7 @@ package com.wiseapps.davacon.speex;
 /**
  * Class provides native methods
  *
- * @author varya.bzhezinskaya@gmail.com
+ * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/2/14
  *         Time: 11:58 AM
  */
@@ -14,30 +14,51 @@ public class SpeexWrapper {
     }
 
     /**
-     * Returns sample rate of the RIFF/SPEEX file
+     * Returns format of the file.
      *
-     * @param compressedFilePathStr path to the RIFF/SPEEX file
-     * @return sample rate of the RIFF/SPEEX file or -1 if file doesn't exist
+     * @param filePath path to the file
+     * @return file format, 0 for standard wav, 1 for speex
      */
-    native public static int getSampleRate(String compressedFilePathStr);
+    native public static int getFormat(String filePath);
 
     /**
-     * Returns duration of the RIFF/SPEEX file
+     * Returns sample rate of the file.
      *
-     * @param compressedFilePathStr path to the RIFF/SPEEX file
-     * @return duration of the RIFF/SPEEX file or -1 if file doesn't exist
+     * @param filePath path to the file
+     * @param format file format
+     * @return sample rate of the file or -1 if file doesn't exist
      */
-    native public static long getDuration(String compressedFilePathStr);
+    native public static int getSampleRate(String filePath, int format);
 
     /**
-     * Returns array of data of the RIFF/SPEEX file
+     * Returns duration of the file.
      *
-     * @param compressedFilePathStr path to the RIFF/SPEEX file
-     * @param offsetMillis offset in millis to start reading the data from
-     * @param durationMillis duration in millis of the read data
-     * @return array of data or empty array if file doesn't exist
+     * @param filePath path to the file
+     * @param format file format
+     * @return duration in seconds of the file or -1 if file doesn't exist
      */
-    native public static byte[] read(String compressedFilePathStr, long offsetMillis, long durationMillis);
+    native public static double getDuration(String filePath, int format);
+
+    /**
+     * Reads data from the file starting from offset to (offset + duration).
+     *
+     * @param filePath path to the file to read data from
+     * @param offset offset in seconds to start reading the data from
+     * @param duration duration in seconds of the data
+     * @param format file format
+     * @return data
+     */
+    native public static byte[] read(String filePath, double offset, double duration, int format);
+
+    /**
+     * Writes data to the end of the file.
+     *
+     * @param filePath path to the file to write data from
+     * @param data data to be written
+     * @param format file format
+     * @return code of the operation, if success return 0
+     */
+    native public static int write(String filePath, byte[] data, int format);
 
     /**
      * Encodes .wav file into RIFF/SPEEX

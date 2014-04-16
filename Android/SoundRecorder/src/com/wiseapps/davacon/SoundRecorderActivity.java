@@ -1,20 +1,27 @@
 package com.wiseapps.davacon;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
-import com.wiseapps.davacon.core.soundeditor.*;
+import com.wiseapps.davacon.core.se.*;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.FileUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
 
+import static com.wiseapps.davacon.core.se.SEAudioStreamEngine.*;
+
 /**
- * @author varya.bzhezinskaya@gmail.com
+ * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/13/14
  *         Time: 9:50 AM
  */
@@ -22,11 +29,13 @@ public class SoundRecorderActivity extends Activity {
     private static final String TAG = SoundRecorderActivity.class.getSimpleName();
 
     private SEProject project;
-
-    private SERecordAudioStream stream;
-    private SEAudioStreamPlayer player;
+    private SEAudioStreamEngine engine;
 
     private ImageButton buttonRecord;
+
+    private SeekBar volumeBar;
+
+    private AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +43,17 @@ public class SoundRecorderActivity extends Activity {
 
         setContentView(R.layout.sound_recorder);
 
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        registerReceiver(new MediaButtonReceiver(),
+                new IntentFilter("android.media.VOLUME_CHANGED_ACTION"));
+
         initData();
         initWidgets();
     }
 
     @Override
     protected void onDestroy() {
-        // TODO release audio player
-//        if (recorder != null) {
-//            recorder.stop();
-//        }
+        // TODO release engine correctly!
 
         super.onDestroy();
     }
@@ -60,19 +70,42 @@ public class SoundRecorderActivity extends Activity {
             });
 
             if (filenames != null && filenames.length != 0) {
-                project = new SEProject(getContext(), new File(filenames[0]).getName());
+                project = new SEProject(new File(filenames[0]).getAbsolutePath());
                 return;
             }
 
-            project = new SEProject(getContext());
+            project = new SEProject(FileUtils.createProjectPath(getContext()));
         } catch (Exception e) {
             LoggerFactory.obtainLogger(TAG).
                     e("initData# ", e);
+        }
+
+        if (project != null) {
+            engine = new SEProjectEngine(getContext(), project);
+            engine.addPlayerStateListener(playerStateListener);
+            engine.addRecorderStateListener(recorderStateListener);
         }
     }
 
     private void initWidgets() {
         buttonRecord = (ImageButton) findViewById(R.id.record);
+
+        volumeBar = (SeekBar) findViewById(R.id.volume);
+        volumeBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+        volumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, AudioManager.FLAG_PLAY_SOUND);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     public void rewind(View view) {
@@ -80,16 +113,13 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void record(View view) {
-        if (stream == null) {
-            stream = new SERecord(project).getAudioStream();
-            stream.setListener(recorderStateListener);
+        if (engine.getState() == State.READY) {
+            engine.startRecording();
+            return;
         }
 
-        if (!stream.isRecording()) {
-            stream.startRecording();
-        } else {
-            stream.stopRecording();
-            stream = null;
+        if (engine.getState() == State.RECORDING_IN_PROGRESS) {
+            engine.stopRecording();
         }
     }
 
@@ -102,25 +132,13 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void play(View view) {
-        if (player == null) {
-            player = new SEAudioStreamPlayer();
-            player.setListener(playerStateListener);
-        }
-        player.initWithStream(project.getAudioStream());
-
-        if (player.getState() == SEAudioStreamPlayer.State.PLAYING) {
-            // TODO implement
+        if (engine.getState() == State.READY) {
+            engine.startPlaying();
             return;
         }
 
-        if (player.getState() == SEAudioStreamPlayer.State.PAUSED) {
-            // TODO implement
-            return;
-        }
-
-        if (player.getState() == SEAudioStreamPlayer.State.STOPPED) {
-            // TODO implement
-            return;
+        if (engine.getState() == State.PLAYING_IN_PROGRESS) {
+            engine.pausePlaying();
         }
     }
 
@@ -134,27 +152,27 @@ public class SoundRecorderActivity extends Activity {
 
     private SEPlayerStateListener playerStateListener = new SEPlayerStateListener() {
         @Override
-        public void audioStreamPlayerDidStartPlaying(SEAudioStreamPlayer player) {
+        public void playingStarted() {
             // TODO implement
         }
 
         @Override
-        public void audioStreamPlayerDidPause(SEAudioStreamPlayer player) {
+        public void playingPaused() {
             // TODO implement
         }
 
         @Override
-        public void audioStreamPlayerDidContinue(SEAudioStreamPlayer player) {
+        public void playingInProgress(double position) {
             // TODO implement
         }
 
         @Override
-        public void audioStreamPlayer(SEAudioStreamPlayer player, long position, long duration) {
+        public void playingStopped() {
             // TODO implement
         }
 
         @Override
-        public void audioStreamPlayerDidFinishPlaying(SEAudioStreamPlayer player, boolean stopped) {
+        public void onError(String errorMessage) {
             // TODO implement
         }
     };
@@ -162,36 +180,32 @@ public class SoundRecorderActivity extends Activity {
     private SERecorderStateListener recorderStateListener = new SERecorderStateListener() {
         @Override
         public void recordingStarted() {
-            LoggerFactory.obtainLogger(TAG).
-                    d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STARTED");
-
             buttonRecord.setImageDrawable(
                     getResources().getDrawable(R.drawable.button02_2_record_enabled));
         }
 
         @Override
-        public void dataRecorded(long duration) {
-            LoggerFactory.obtainLogger(TAG).
-                    d("SoundRecorderHandler.handleMessage# MSG_DATA_RECORDED");
-
+        public void recordingInProgress(double position) {
             // TODO update progress
         }
 
         @Override
         public void recordingStopped() {
-            LoggerFactory.obtainLogger(TAG).
-                    d("SoundRecorderHandler.handleMessage# MSG_RECORDING_STOPPED");
-
             buttonRecord.setImageDrawable(
                     getResources().getDrawable(R.drawable.button02_1_record_disabled));
         }
 
         @Override
-        public void errorOccured(String errorMessage) {
-            LoggerFactory.obtainLogger(TAG).
-                    d("SoundRecorderHandler.handleMessage# MSG_RECORDING_ERROR");
-
+        public void onError(String errorMessage) {
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         }
     };
+
+    private class MediaButtonReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            volumeBar.setProgress(
+                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
+        }
+    }
 }
