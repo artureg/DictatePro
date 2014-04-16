@@ -7,7 +7,7 @@
 //
 
 #import "SEModel.h"
-#import "SEAudioStreamPlayer.h"
+#import "SEAudioStreamEngine.h"
 #import "SERecord.h"
 
 @interface SEProject : SEModel
@@ -15,40 +15,19 @@
 /** Project name */
 @property(nonatomic,strong) NSString* name;
 
-/** Project file path */
-@property(nonatomic,strong) NSString* projectFilePath;
-
-/** Project sounds path */
-@property(nonatomic,readonly) NSString* projectSoundsPath;
-
-/** List of records related to this project */
-@property(nonatomic,readonly) NSArray* records;
-
-/** Project audio preview stream */
-@property(nonatomic,readonly) SEAudioStreamPlayer* audioStream;
-
 /** Check project if it is change (add or remove record affects that) */
 @property(nonatomic,readonly) BOOL isChanged;
 
-/* Split record in time position */
-- (SERecord*)splitRecordInPosition:(NSTimeInterval)position;
+/** Initialize with folder of project */
+- (instancetype)initWithFolder:(NSString*)folder;
 
-/** Add record to project */
-- (void)addRecord:(SERecord*)record;
+/** Remove all data from project */
+- (void)clearProject;
 
-/** Delete record from project */
-- (void)deleteRecord:(SERecord*)record;
-
-/** Change records order */
-- (void)moveRecord:(SERecord*)record toIndex:(NSInteger)index;
-
-/** Remove all records from project including all sound that are saved to the project sound folder */
-- (void)removeAllRecords;
-
-/** Save project */
+/** Build project and save */
 - (void)saveProject;
 
-/** Save project in asynchronously (in another thread) */
+/** Build project and save in asynchronously (in another thread) */
 - (void)saveProjectAsynchronouslyWithCompletion:(void(^)(NSError* error))completion;
 
 @end

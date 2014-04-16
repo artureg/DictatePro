@@ -10,11 +10,11 @@
 
 @implementation SEModel
 
-- (id)initWithContentsOfFile:(NSString*)filePath {
+- (instancetype)initWithContentsOfFile:(NSString*)filePath {
     return [self initWithDictionary:[NSDictionary dictionaryWithContentsOfFile:filePath]];
 }
 
-- (id)initWithDictionary:(NSDictionary*)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary {
     if (self = [super init]) {
         [self updateToDictionary:dictionary];
     }

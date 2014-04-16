@@ -8,55 +8,52 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
+typedef enum {
+    kSEAudioStreamModeUnknown   = 0,
+    kSEAudioStreamModeRead      = 1,
+    kSEAudioStreamModeWrite     = 2
+}TSEAudioStreamMode;
+
 @interface SEAudioStream : NSObject
 
 /**  Audio File Description */
-@property(nonatomic,assign) AudioStreamBasicDescription* audioDescription;
+@property(nonatomic,readonly) AudioStreamBasicDescription audioDescription;
 
 /** Audio Duration* */
 @property(nonatomic,readonly) NSTimeInterval duration;
 
-/** File Path */
-@property(nonatomic,readonly) NSURL* filePathURL;
+/** Source URL */
+@property(nonatomic,readonly) NSURL* URL;
 
 /** Last Error */
 @property(nonatomic,readonly) NSError* error;
 
 /** Stream Length in bytes */
-@property(nonatomic,readonly) NSInteger length;
+@property(nonatomic,readonly) NSUInteger length;
 
-/** Number of samples including all channels */
-@property(nonatomic,readonly) NSInteger numberOfSamples;
-
-/** Number of samples per channel */
-@property(nonatomic,readonly) NSInteger numberOfSamplesPerChannel;
+/* Stream open mode */
+@property(nonatomic,readonly) TSEAudioStreamMode mode;
 
 /** Create stream in memory */
-- (id)init;
+- (instancetype)init;
 
 /** Init with another audio stream */
-- (id)initWithAudioStream:(SEAudioStream*)stream;
+- (instancetype)initWithAudioStream:(SEAudioStream*)stream;
 
 /** Load from server */
-- (id)initWithURL:(NSString*)url;
+- (instancetype)initWithURL:(NSURL*)url;
 
 /** Load from Storage */
-- (id)initWithContentsOfFile:(NSString*)file;
+- (instancetype)initWithContentsOfFile:(NSString*)file;
 
 /** Open Stream */
-- (void)open;
+- (BOOL)openWithMode:(TSEAudioStreamMode)mode;
 
 /** Close Stream */
-- (void)close;
+- (BOOL)close;
 
 /** Delete all information in stream */
-- (void)clear;
-
-/** Seek to position in samples include all channels */
-- (void)seekToSamplePosition:(NSInteger)position;
-
-/** Seek to second */
-- (void)seekToSecond:(NSTimeInterval)second;
+- (BOOL)clear;
 
 /** Export all data to file */
 - (void)exportToFile:(NSString*)filePath completion:(void(^)(NSError* error))completion;
@@ -65,23 +62,22 @@
 
 @interface SEAudioStream(Write)
 
-/** Write Samples* using NSData */
-- (void)writeSamples:(NSData*)samples;
+/** Set audio info for writing */
+- (void)adjustToAudioDescription:(AudioStreamBasicDescription)aInfo;
 
-/** Write Samples using data */
-- (void)writeSamples:(void*)data count:(NSInteger)count;
+/** Write to the end of the stream using NSData */
+- (void)writeData:(NSData*)samples;
 
 @end
 
 @interface SEAudioStream(Read)
 
-/** Read Samples from All Channels */
-- (NSData*)readSamplesWithCount:(NSInteger)count;
-
-/** Read Samples from one channel */
-- (NSData*)readSamplesFromChannel:(NSInteger)channels count:(NSInteger)count;
-
-/** Read Samples data */
-- (void)readSamples:(void*)samples count:(NSInteger)count;
+/** 
+ Read samples
+ data - mutable data to append with stream samples
+ position - position of sound file in milliseconds
+ duration - duration of reading data in milliseconds
+ */
+- (BOOL)readData:(NSMutableData*)data position:(NSUInteger)position duration:(NSUInteger)duration;
 
 @end

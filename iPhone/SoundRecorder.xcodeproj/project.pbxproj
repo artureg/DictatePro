@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7810F1D418F7FC4600B22370 /* SEAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D318F7FC4600B22370 /* SEAudioStream.m */; };
-		7810F1DA18F800D700B22370 /* SEAudioStreamPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D918F800D700B22370 /* SEAudioStreamPlayer.m */; };
+		7810F1DA18F800D700B22370 /* SEAudioStreamEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */; };
 		7810F1DE18F80F8E00B22370 /* SRRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1DD18F80F8E00B22370 /* SRRecord.m */; };
 		7810F1E118F80FAB00B22370 /* SRProject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1E018F80FAB00B22370 /* SRProject.mm */; };
 		7835601B18EBEC9900A65447 /* IBKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7835601A18EBEC9900A65447 /* IBKAlertView.m */; };
@@ -126,10 +126,13 @@
 		788CE50D18F8101C002746A7 /* SRSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE50C18F8101C002746A7 /* SRSound.m */; };
 		788CE51018F81105002746A7 /* SEProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE50F18F81105002746A7 /* SEProject.m */; };
 		788CE51318F81122002746A7 /* SRAudioStreamPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE51218F81122002746A7 /* SRAudioStreamPlayer.m */; };
-		788CE51618F8120D002746A7 /* SEProjectAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE51518F8120D002746A7 /* SEProjectAudioStream.m */; };
-		788CE51918F81363002746A7 /* SERecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE51818F81363002746A7 /* SERecord.m */; };
-		788CE51C18F81823002746A7 /* SERecordAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE51B18F81823002746A7 /* SERecordAudioStream.m */; };
 		788CE52218F83BF2002746A7 /* SESpeexACMAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */; };
+		78991ACE18FBDC2200FF6918 /* SEProjectAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */; };
+		78991ACF18FBDC2200FF6918 /* SERecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACA18FBDC2200FF6918 /* SERecord.m */; };
+		78991AD018FBDC2200FF6918 /* SERecordAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */; };
+		78991AD318FBDC5B00FF6918 /* SEProjectEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */; };
+		78991AD818FC4AA000FF6918 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78991AD718FC4AA000FF6918 /* 1.mp3 */; };
+		78991ADA18FD53F800FF6918 /* 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78991AD918FD53F800FF6918 /* 1.wav */; };
 		789AADE418F3FB63008ECF92 /* rec1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 789AADE318F3FB63008ECF92 /* rec1.wav */; };
 		789AAE9818F435B0008ECF92 /* SRProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 789AAE9618F435B0008ECF92 /* SRProjectViewController.m */; };
 		789AAE9918F435B0008ECF92 /* SRProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789AAE9718F435B0008ECF92 /* SRProjectViewController.xib */; };
@@ -153,8 +156,8 @@
 /* Begin PBXFileReference section */
 		7810F1D218F7FC4600B22370 /* SEAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEAudioStream.h; sourceTree = "<group>"; };
 		7810F1D318F7FC4600B22370 /* SEAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEAudioStream.m; sourceTree = "<group>"; };
-		7810F1D818F800D700B22370 /* SEAudioStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEAudioStreamPlayer.h; sourceTree = "<group>"; };
-		7810F1D918F800D700B22370 /* SEAudioStreamPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEAudioStreamPlayer.m; sourceTree = "<group>"; };
+		7810F1D818F800D700B22370 /* SEAudioStreamEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEAudioStreamEngine.h; sourceTree = "<group>"; };
+		7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEAudioStreamEngine.m; sourceTree = "<group>"; };
 		7810F1DC18F80F8E00B22370 /* SRRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRRecord.h; sourceTree = "<group>"; };
 		7810F1DD18F80F8E00B22370 /* SRRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRRecord.m; sourceTree = "<group>"; };
 		7810F1DF18F80FAB00B22370 /* SRProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRProject.h; sourceTree = "<group>"; };
@@ -340,20 +343,26 @@
 		7876106618F6AAFD00F17ACD /* send_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_disabled.png; sourceTree = "<group>"; };
 		7876106918F6AB2300F17ACD /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		7876106A18F6AB2300F17ACD /* save_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save_disabled.png; sourceTree = "<group>"; };
+		7880555718FEE6E700332407 /* SEAudioStreamEngine+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SEAudioStreamEngine+Internal.h"; sourceTree = "<group>"; };
 		788CE50B18F8101C002746A7 /* SRSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRSound.h; sourceTree = "<group>"; };
 		788CE50C18F8101C002746A7 /* SRSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSound.m; sourceTree = "<group>"; };
 		788CE50E18F81105002746A7 /* SEProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProject.h; sourceTree = "<group>"; };
 		788CE50F18F81105002746A7 /* SEProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProject.m; sourceTree = "<group>"; };
 		788CE51118F81122002746A7 /* SRAudioStreamPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAudioStreamPlayer.h; sourceTree = "<group>"; };
 		788CE51218F81122002746A7 /* SRAudioStreamPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAudioStreamPlayer.m; sourceTree = "<group>"; };
-		788CE51418F8120D002746A7 /* SEProjectAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectAudioStream.h; sourceTree = "<group>"; };
-		788CE51518F8120D002746A7 /* SEProjectAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectAudioStream.m; sourceTree = "<group>"; };
-		788CE51718F81363002746A7 /* SERecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecord.h; sourceTree = "<group>"; };
-		788CE51818F81363002746A7 /* SERecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecord.m; sourceTree = "<group>"; };
-		788CE51A18F81823002746A7 /* SERecordAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecordAudioStream.h; sourceTree = "<group>"; };
-		788CE51B18F81823002746A7 /* SERecordAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecordAudioStream.m; sourceTree = "<group>"; };
 		788CE52018F83BF2002746A7 /* SESpeexACMAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SESpeexACMAudioStream.h; sourceTree = "<group>"; };
 		788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SESpeexACMAudioStream.m; sourceTree = "<group>"; };
+		78991AC718FBDC2200FF6918 /* SEProjectAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectAudioStream.h; sourceTree = "<group>"; };
+		78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectAudioStream.m; sourceTree = "<group>"; };
+		78991AC918FBDC2200FF6918 /* SERecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecord.h; sourceTree = "<group>"; };
+		78991ACA18FBDC2200FF6918 /* SERecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecord.m; sourceTree = "<group>"; };
+		78991ACB18FBDC2200FF6918 /* SERecordAudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SERecordAudioStream.h; sourceTree = "<group>"; };
+		78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SERecordAudioStream.m; sourceTree = "<group>"; };
+		78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectEngine.h; sourceTree = "<group>"; };
+		78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectEngine.m; sourceTree = "<group>"; };
+		78991AD418FBE1E000FF6918 /* SEProject+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SEProject+Internal.h"; sourceTree = "<group>"; };
+		78991AD718FC4AA000FF6918 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		78991AD918FD53F800FF6918 /* 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1.wav; sourceTree = "<group>"; };
 		789AADE318F3FB63008ECF92 /* rec1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec1.wav; sourceTree = "<group>"; };
 		789AAE9518F435B0008ECF92 /* SRProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRProjectViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		789AAE9618F435B0008ECF92 /* SRProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SRProjectViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -435,18 +444,14 @@
 		783D286C18F7F32900D5C0E5 /* SoundEditor */ = {
 			isa = PBXGroup;
 			children = (
+				78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */,
+				78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */,
 				788CE50E18F81105002746A7 /* SEProject.h */,
 				788CE50F18F81105002746A7 /* SEProject.m */,
-				788CE51418F8120D002746A7 /* SEProjectAudioStream.h */,
-				788CE51518F8120D002746A7 /* SEProjectAudioStream.m */,
-				788CE51718F81363002746A7 /* SERecord.h */,
-				788CE51818F81363002746A7 /* SERecord.m */,
-				788CE51A18F81823002746A7 /* SERecordAudioStream.h */,
-				788CE51B18F81823002746A7 /* SERecordAudioStream.m */,
 				7810F1D218F7FC4600B22370 /* SEAudioStream.h */,
 				7810F1D318F7FC4600B22370 /* SEAudioStream.m */,
-				7810F1D818F800D700B22370 /* SEAudioStreamPlayer.h */,
-				7810F1D918F800D700B22370 /* SEAudioStreamPlayer.m */,
+				7810F1D818F800D700B22370 /* SEAudioStreamEngine.h */,
+				7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */,
 				788CE52018F83BF2002746A7 /* SESpeexACMAudioStream.h */,
 				788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */,
 				783D288318F7F35C00D5C0E5 /* Internal */,
@@ -460,6 +465,14 @@
 				7810F1D118F7F74000B22370 /* Speex */,
 				783D288618F7F35C00D5C0E5 /* SEModel.h */,
 				783D288718F7F35C00D5C0E5 /* SEModel.m */,
+				78991AC718FBDC2200FF6918 /* SEProjectAudioStream.h */,
+				78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */,
+				78991AC918FBDC2200FF6918 /* SERecord.h */,
+				78991ACA18FBDC2200FF6918 /* SERecord.m */,
+				78991ACB18FBDC2200FF6918 /* SERecordAudioStream.h */,
+				78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */,
+				78991AD418FBE1E000FF6918 /* SEProject+Internal.h */,
+				7880555718FEE6E700332407 /* SEAudioStreamEngine+Internal.h */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -638,6 +651,8 @@
 		783F240218EB0FA30046520A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				78991AD718FC4AA000FF6918 /* 1.mp3 */,
+				78991AD918FD53F800FF6918 /* 1.wav */,
 				789CBDB618F2A14D0091D85A /* rec_spx.wav */,
 				789CBDB718F2A14D0091D85A /* rec.wav */,
 				789AADE318F3FB63008ECF92 /* rec1.wav */,
@@ -887,7 +902,9 @@
 				789CBDB518F2A0E90091D85A /* SRPlayerViewController.xib in Resources */,
 				7876104518F6A58F00F17ACD /* button08_1.png in Resources */,
 				7876105C18F6A58F00F17ACD /* volume_0.9.png in Resources */,
+				78991AD818FC4AA000FF6918 /* 1.mp3 in Resources */,
 				7876104A18F6A58F00F17ACD /* ic_action_mic.png in Resources */,
+				78991ADA18FD53F800FF6918 /* 1.wav in Resources */,
 				789CBDB918F2A14D0091D85A /* rec.wav in Resources */,
 				7876105D18F6A58F00F17ACD /* volume_1.9.png in Resources */,
 				7876104618F6A58F00F17ACD /* header.9.png in Resources */,
@@ -931,7 +948,9 @@
 				783D2A4318F7F47800D5C0E5 /* resample.c in Sources */,
 				788CE51018F81105002746A7 /* SEProject.m in Sources */,
 				788CE52218F83BF2002746A7 /* SESpeexACMAudioStream.m in Sources */,
-				7810F1DA18F800D700B22370 /* SEAudioStreamPlayer.m in Sources */,
+				7810F1DA18F800D700B22370 /* SEAudioStreamEngine.m in Sources */,
+				78991AD318FBDC5B00FF6918 /* SEProjectEngine.m in Sources */,
+				78991AD018FBDC2200FF6918 /* SERecordAudioStream.m in Sources */,
 				783D2A3118F7F47800D5C0E5 /* gain_table.c in Sources */,
 				788CE51318F81122002746A7 /* SRAudioStreamPlayer.m in Sources */,
 				783D2A4618F7F47800D5C0E5 /* smallft.c in Sources */,
@@ -939,7 +958,6 @@
 				788CE50D18F8101C002746A7 /* SRSound.m in Sources */,
 				783D2A4718F7F47800D5C0E5 /* speex.c in Sources */,
 				789AAE9818F435B0008ECF92 /* SRProjectViewController.m in Sources */,
-				788CE51918F81363002746A7 /* SERecord.m in Sources */,
 				783D2A3018F7F47800D5C0E5 /* filters.c in Sources */,
 				783D2A4418F7F47800D5C0E5 /* sb_celp.c in Sources */,
 				783D2A3C18F7F47800D5C0E5 /* ltp.c in Sources */,
@@ -947,13 +965,13 @@
 				7810F1D418F7FC4600B22370 /* SEAudioStream.m in Sources */,
 				783D2A4C18F7F47800D5C0E5 /* vq.c in Sources */,
 				783D2A3818F7F47800D5C0E5 /* kiss_fftr.c in Sources */,
-				788CE51618F8120D002746A7 /* SEProjectAudioStream.m in Sources */,
 				783D2A4518F7F47800D5C0E5 /* scal.c in Sources */,
 				783D2A4918F7F47800D5C0E5 /* speex_header.c in Sources */,
 				7835601B18EBEC9900A65447 /* IBKAlertView.m in Sources */,
 				783D2A3B18F7F47800D5C0E5 /* lsp_tables_nb.c in Sources */,
 				783D2A2E18F7F47800D5C0E5 /* fftwrap.c in Sources */,
 				783F241118EB0FA30046520A /* SRAppDelegate.mm in Sources */,
+				78991ACF18FBDC2200FF6918 /* SERecord.m in Sources */,
 				7810F1DE18F80F8E00B22370 /* SRRecord.m in Sources */,
 				783D2A2618F7F47800D5C0E5 /* buffer.c in Sources */,
 				783D2A2A18F7F47800D5C0E5 /* exc_20_32_table.c in Sources */,
@@ -976,7 +994,6 @@
 				783F240D18EB0FA30046520A /* SREditRecordViewController.m in Sources */,
 				783D2A4A18F7F47800D5C0E5 /* stereo.c in Sources */,
 				783D2A4818F7F47800D5C0E5 /* speex_callbacks.c in Sources */,
-				788CE51C18F81823002746A7 /* SERecordAudioStream.m in Sources */,
 				783D2A4F18F7F47800D5C0E5 /* RiffFile.cpp in Sources */,
 				783D2A3718F7F47800D5C0E5 /* kiss_fft.c in Sources */,
 				783D2A2C18F7F47800D5C0E5 /* exc_5_64_table.c in Sources */,
@@ -988,6 +1005,7 @@
 				783D2A3A18F7F47800D5C0E5 /* lsp.c in Sources */,
 				783D2A2818F7F47800D5C0E5 /* exc_10_16_table.c in Sources */,
 				783D2A3318F7F47800D5C0E5 /* hexc_10_32_table.c in Sources */,
+				78991ACE18FBDC2200FF6918 /* SEProjectAudioStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,7 +1129,7 @@
 				INFOPLIST_FILE = "SoundRecorder/SoundRecorder-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9127BDF6-0ACB-402E-ACF0-B22CD859B1FF";
+				PROVISIONING_PROFILE = "0D654A7B-48A1-4D68-8E8E-8622BBA9151F";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/Speex/CSource";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1129,7 +1147,7 @@
 				INFOPLIST_FILE = "SoundRecorder/SoundRecorder-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9127BDF6-0ACB-402E-ACF0-B22CD859B1FF";
+				PROVISIONING_PROFILE = "0D654A7B-48A1-4D68-8E8E-8622BBA9151F";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/Speex/CSource";
 				WRAPPER_EXTENSION = app;
 			};

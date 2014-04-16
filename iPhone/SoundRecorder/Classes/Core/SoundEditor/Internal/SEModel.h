@@ -7,8 +7,8 @@
 //
 
 @interface SEModel : NSObject
-- (id)initWithContentsOfFile:(NSString*)filePath;
-- (id)initWithDictionary:(NSDictionary*)dictionary;
+- (instancetype)initWithContentsOfFile:(NSString*)filePath;
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 @end
 
 @interface SEModel(Protected)

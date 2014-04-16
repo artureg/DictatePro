@@ -17,6 +17,7 @@ typedef enum {
 }TSRAudioStreamPlayerErrorCode;
 
 @interface SRAudioStreamPlayer()
+
 @property(nonatomic,assign) AudioStreamBasicDescription pv_audioInfo;
 @property(nonatomic,assign) AudioQueueRef               pv_audioQueue;
 @property(nonatomic,assign) NSTimeInterval              pv_position;
