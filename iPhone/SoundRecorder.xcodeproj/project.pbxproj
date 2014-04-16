@@ -131,8 +131,6 @@
 		78991ACF18FBDC2200FF6918 /* SERecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACA18FBDC2200FF6918 /* SERecord.m */; };
 		78991AD018FBDC2200FF6918 /* SERecordAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */; };
 		78991AD318FBDC5B00FF6918 /* SEProjectEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */; };
-		78991AD818FC4AA000FF6918 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78991AD718FC4AA000FF6918 /* 1.mp3 */; };
-		78991ADA18FD53F800FF6918 /* 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78991AD918FD53F800FF6918 /* 1.wav */; };
 		789AADE418F3FB63008ECF92 /* rec1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 789AADE318F3FB63008ECF92 /* rec1.wav */; };
 		789AAE9818F435B0008ECF92 /* SRProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 789AAE9618F435B0008ECF92 /* SRProjectViewController.m */; };
 		789AAE9918F435B0008ECF92 /* SRProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789AAE9718F435B0008ECF92 /* SRProjectViewController.xib */; };
@@ -361,8 +359,6 @@
 		78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProjectEngine.h; sourceTree = "<group>"; };
 		78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProjectEngine.m; sourceTree = "<group>"; };
 		78991AD418FBE1E000FF6918 /* SEProject+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SEProject+Internal.h"; sourceTree = "<group>"; };
-		78991AD718FC4AA000FF6918 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
-		78991AD918FD53F800FF6918 /* 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1.wav; sourceTree = "<group>"; };
 		789AADE318F3FB63008ECF92 /* rec1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rec1.wav; sourceTree = "<group>"; };
 		789AAE9518F435B0008ECF92 /* SRProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SRProjectViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		789AAE9618F435B0008ECF92 /* SRProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SRProjectViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -651,8 +647,6 @@
 		783F240218EB0FA30046520A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				78991AD718FC4AA000FF6918 /* 1.mp3 */,
-				78991AD918FD53F800FF6918 /* 1.wav */,
 				789CBDB618F2A14D0091D85A /* rec_spx.wav */,
 				789CBDB718F2A14D0091D85A /* rec.wav */,
 				789AADE318F3FB63008ECF92 /* rec1.wav */,
@@ -902,9 +896,7 @@
 				789CBDB518F2A0E90091D85A /* SRPlayerViewController.xib in Resources */,
 				7876104518F6A58F00F17ACD /* button08_1.png in Resources */,
 				7876105C18F6A58F00F17ACD /* volume_0.9.png in Resources */,
-				78991AD818FC4AA000FF6918 /* 1.mp3 in Resources */,
 				7876104A18F6A58F00F17ACD /* ic_action_mic.png in Resources */,
-				78991ADA18FD53F800FF6918 /* 1.wav in Resources */,
 				789CBDB918F2A14D0091D85A /* rec.wav in Resources */,
 				7876105D18F6A58F00F17ACD /* volume_1.9.png in Resources */,
 				7876104618F6A58F00F17ACD /* header.9.png in Resources */,
