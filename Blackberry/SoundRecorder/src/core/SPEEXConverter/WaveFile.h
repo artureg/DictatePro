@@ -3,7 +3,7 @@
 //  SPEEXConverter
 //
 //  Created by Igor on 3/19/14.
-//  Copyright (c) 2014 Igor. All rights reserved.
+//  Copyright (c) 2014 Igor Danich. All rights reserved.
 //
 
 #ifndef __SPEEXConverter__WaveFile__
@@ -27,19 +27,19 @@ class WaveFile {
 public:
     WaveFile();
     ~WaveFile();
-    
+
     // Get Last Error
     const char* getError() {return p_error;}
-    
+
     // Open For Reading
     virtual bool openRead(const char* filePath);
-    
+
     // Open For Writing
     virtual bool openWrite(const char* filePath);
-    
+
     // Close File
     virtual void close();
-    
+
     // Info
     WaveFMTInfo& getFMTInfo();
     unsigned long getNumberOfSamples();
@@ -48,15 +48,15 @@ public:
     unsigned long getDataSize();
     void showInfo();
     void setupInfo(int sampleRate, short bitsPerSample, short channels);
-    
+
     FILE* getFile();
-    
+
     // Read
     bool readSample(unsigned char& sample);
     bool readSample(short& sample);
     bool readSample(long& sample);
     bool readRaw(char* buffer, size_t numBytes = 1);
-    
+
     //Write
     bool writeSample(unsigned char& sample);
     bool writeSample(short& sample);
@@ -70,7 +70,7 @@ protected:
     const char*         p_error;
     WaveFMTInfo         p_fmtInfo;
     unsigned long       p_dataSize;
-    
+
     void showFMTInfo();
     virtual bool writeHeader();
 };

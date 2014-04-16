@@ -1,3 +1,9 @@
+/*
+ * StatusEventHandler.cpp
+ *
+ *  Created on: 08.04.2014
+ *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
+ */
 #ifndef STATUSEVENTHANDLER_H_
 #define STATUSEVENTHANDLER_H_
 

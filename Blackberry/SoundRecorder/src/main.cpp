@@ -13,12 +13,8 @@
 
 #define BLAKCBERRY_x86
 
-
 using namespace bb::cascades;
 
-/// FIXME ===========================================================
-/// !!!!! it should be removed when App will be pushed to Production
-/// =================================================================
 void myMessageOutput(QtMsgType type, const char* msg){
                 fprintf(stdout, "%s\n", msg);
                 fflush(stdout);
@@ -27,7 +23,7 @@ void myMessageOutput(QtMsgType type, const char* msg){
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
     Application app(argc, argv);
-    qInstallMsgHandler(myMessageOutput); //FIXME REMOVE IT
+    qInstallMsgHandler(myMessageOutput);
 
     /** Create the Application UI object, this is where the main.qml file
      is loaded and the application scene is set.

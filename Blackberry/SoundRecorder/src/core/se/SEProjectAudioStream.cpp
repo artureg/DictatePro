@@ -35,7 +35,6 @@ void SEProjectAudioStream::clear() {
 }
 
 void SEProjectAudioStream::write(char* data[]) {
-	// TODO SEProjectAudioStream class is used for reading purposes only
 }
 
 void SEProjectAudioStream::read(char* data[], double position,
@@ -50,7 +49,7 @@ void SEProjectAudioStream::read(char* data[], double position,
 		stream = record.getAudioStream(project);
 		stream.open(Mode.READ);
 
-		if (true) { /* TODO check the condition for the record to be what we expect */
+		if (true) {
 			stream.read(data, position, duration);
 		}
 	}

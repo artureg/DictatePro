@@ -18,13 +18,13 @@ device {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject_test.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/ui/MainController.cpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.cpp) \
@@ -35,13 +35,13 @@ device {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveFile.h) \
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.h) \
                  $$quote($$BASEDIR/src/core/SRProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.h) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.h) \
                  $$quote($$BASEDIR/src/ui/MainController.hpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.h) \
                  $$quote($$BASEDIR/src/utils/StatusEventHandler.h)
@@ -63,13 +63,13 @@ device {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject_test.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/ui/MainController.cpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.cpp) \
@@ -80,13 +80,13 @@ device {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveFile.h) \
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.h) \
                  $$quote($$BASEDIR/src/core/SRProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.h) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.h) \
                  $$quote($$BASEDIR/src/ui/MainController.hpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.h) \
                  $$quote($$BASEDIR/src/utils/StatusEventHandler.h)
@@ -110,13 +110,13 @@ simulator {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject.cpp) \
                  $$quote($$BASEDIR/src/core/SRProject_test.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.cpp) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.cpp) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/ui/MainController.cpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.cpp) \
@@ -127,25 +127,25 @@ simulator {
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveFile.h) \
                  $$quote($$BASEDIR/src/core/SPEEXConverter/WaveSpeexFile.h) \
                  $$quote($$BASEDIR/src/core/SRProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SDCardUtil.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEAudioStreamEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProject.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectAudioStream.h) \
-                 $$quote($$BASEDIR/src/core/se2/SEProjectEngine.h) \
-                 $$quote($$BASEDIR/src/core/se2/SERecord.h) \
+                 $$quote($$BASEDIR/src/core/se/SDCardUtil.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEAudioStreamEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProject.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectAudioStream.h) \
+                 $$quote($$BASEDIR/src/core/se/SEProjectEngine.h) \
+                 $$quote($$BASEDIR/src/core/se/SERecord.h) \
                  $$quote($$BASEDIR/src/ui/MainController.hpp) \
                  $$quote($$BASEDIR/src/utils/SoundPlayer.h) \
                  $$quote($$BASEDIR/src/utils/StatusEventHandler.h)
     }
 }
 
-INCLUDEPATH +=  $$quote($$BASEDIR/src/core/SPEEXConverter) \
+INCLUDEPATH +=  $$quote($$BASEDIR/src/core/se) \
+         $$quote($$BASEDIR/src/core/SPEEXConverter) \
          $$quote($$BASEDIR/src/core) \
          $$quote($$BASEDIR/src/utils) \
          $$quote($$BASEDIR/src/ui) \
-         $$quote($$BASEDIR/src) \
-         $$quote($$BASEDIR/src/core/se2)
+         $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
 
@@ -172,11 +172,11 @@ lupdate_inclusion {
              $$quote($$BASEDIR/../src/core/SPEEXConverter/*.cc) \
              $$quote($$BASEDIR/../src/core/SPEEXConverter/*.cpp) \
              $$quote($$BASEDIR/../src/core/SPEEXConverter/*.cxx) \
-             $$quote($$BASEDIR/../src/core/se2/*.c) \
-             $$quote($$BASEDIR/../src/core/se2/*.c++) \
-             $$quote($$BASEDIR/../src/core/se2/*.cc) \
-             $$quote($$BASEDIR/../src/core/se2/*.cpp) \
-             $$quote($$BASEDIR/../src/core/se2/*.cxx) \
+             $$quote($$BASEDIR/../src/core/se/*.c) \
+             $$quote($$BASEDIR/../src/core/se/*.c++) \
+             $$quote($$BASEDIR/../src/core/se/*.cc) \
+             $$quote($$BASEDIR/../src/core/se/*.cpp) \
+             $$quote($$BASEDIR/../src/core/se/*.cxx) \
              $$quote($$BASEDIR/../src/ui/*.c) \
              $$quote($$BASEDIR/../src/ui/*.c++) \
              $$quote($$BASEDIR/../src/ui/*.cc) \
