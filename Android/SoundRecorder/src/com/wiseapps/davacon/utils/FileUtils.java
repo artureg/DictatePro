@@ -4,12 +4,11 @@ import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
-import java.util.StringTokenizer;
 
 /**
  * Helper class to provide file related methods.
  *
- * @author varya.bzhezinskaya@gmail.com
+ * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 3/23/14
  *         Time: 10:21 AM
  */
@@ -42,6 +41,33 @@ public class FileUtils {
         return root;
     }
 
+    public static String createSoundPath(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException();
+        }
+
+        File records = new File(getRoot(context), "Records");
+        if (!records.exists()) {
+            records.mkdir();
+        }
+
+        return records.getAbsolutePath() + "/" + System.currentTimeMillis();
+    }
+
+    public static String createProjectPath(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException();
+        }
+
+        File root = getRoot(context);
+        if (!root.exists()) {
+            root.mkdirs();
+        }
+
+        return root.getAbsolutePath() + "/" + System.currentTimeMillis();
+    }
+
+    // ---------------------- THE OLD STUFF - DO NOT USE!!! ----------------------
     /**
      * Method to return file name.
      *
