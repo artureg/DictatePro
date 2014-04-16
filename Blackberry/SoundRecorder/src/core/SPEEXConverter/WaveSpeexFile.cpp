@@ -1,9 +1,8 @@
 //
 //  WaveSpeexFile.cpp
-//  SPEEXConverter
 //
-//  Created by Igor on 3/20/14.
-//  Copyright (c) 2014 Igor Danich. All rights reserved.
+//  Created on: 3/20/14
+//  Author: Igor Danich <igor.danich@wise-apps.com>
 //
 
 #include "WaveSpeexFile.h"
@@ -14,8 +13,6 @@
 #include <strings.h>
 #include <stdio.h>
 #include <string.h>
-//#include <src/speex.h>
-
 
 const int WAVE_BITS_PER_FRAME[3][2][11] = {
     {

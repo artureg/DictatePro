@@ -1,5 +1,3 @@
-/* rifffile.h - Copyright (c) 1996, 1998 by Timothy J. Weber */
-
 #ifndef __RIFFFILE_H
 #define __RIFFFILE_H
 
