@@ -1,10 +1,5 @@
-//
 //  SERecordAudioStream.m
-//  SoundRecorder
-//
-//  Created by Igor on 11.04.14.
-
-//
+//  SoundRecorder//  Created by Igor Danich igor.danich@wise-apps.com on 11.04.14.
 
 #import "SERecordAudioStream.h"
 

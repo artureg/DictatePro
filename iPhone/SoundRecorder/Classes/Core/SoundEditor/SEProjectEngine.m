@@ -1,10 +1,7 @@
-//
 //  SEProjectAudioPlayer.m
 //  SoundRecorder
-//
-//  Created by Igor on 4/14/14.
+//  Created by Igor Danich igor.danich@wise-apps.com on 4/14/14.
 
-//
 
 #import "SEProjectEngine.h"
 

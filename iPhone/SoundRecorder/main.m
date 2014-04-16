@@ -2,7 +2,7 @@
 //  main.m
 //  SoundRecorder
 //
-//  Created by Igor Danich on 12/12/13.
+//  Created by Igor Danich igor.danich@wise-apps.com Danich on 12/12/13.
 
 //
 

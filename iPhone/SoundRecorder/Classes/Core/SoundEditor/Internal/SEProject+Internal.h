@@ -1,10 +1,5 @@
-//
 //  SEProject+Internal.h
-//  SoundRecorder
-//
-//  Created by Igor on 4/14/14.
-
-//
+//  SoundRecorder//  Created by Igor Danich igor.danich@wise-apps.com on 4/14/14.
 
 #import "SEProject.h"
 #import "SEProjectAudioStream.h"
