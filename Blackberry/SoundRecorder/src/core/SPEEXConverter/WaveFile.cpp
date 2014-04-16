@@ -3,7 +3,7 @@
 //  SPEEXConverter
 //
 //  Created by Igor on 3/19/14.
-//  Copyright (c) 2014 Igor. All rights reserved.
+//  Copyright (c) 2014 Igor Danich. All rights reserved.
 //
 
 #include "WaveFile.h"

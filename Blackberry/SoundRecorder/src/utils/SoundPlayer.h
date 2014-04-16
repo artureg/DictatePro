@@ -2,7 +2,7 @@
  * SoundPlayer.h
  *
  *  Created on: 04.04.2014
- *      Author: Timofey Kovalenko
+ *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
 #ifndef SOUNDPLAYER_H_

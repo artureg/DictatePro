@@ -3,7 +3,7 @@
 //  SPEEXConverter
 //
 //  Created by Igor on 3/20/14.
-//  Copyright (c) 2014 Igor. All rights reserved.
+//  Copyright (c) 2014 Igor Danich. All rights reserved.
 //
 
 #ifndef __SPEEXConverter__WaveSpeexFile__
@@ -38,28 +38,28 @@ struct WaveSpeexFileInfo {
 class WaveSpeexFile : WaveFile {
 public:
     WaveSpeexFile();
-    
+
     // Get Last Error
     const char* getError() {return p_error;}
-    
+
     // Open For Reading
     bool openRead(const char* filePath);
-    
+
     // Open For Writing
     bool openWrite(const char* filePath);
-    
+
     // Close File
     void close();
-    
+
     // Info
     void showInfo();
-    
+
     // Encoding
     bool encodeWavFile(const char* filePath, short quality = 10);
     bool decodeToWavFile(const char* filePath);
 
 private:
     WaveSpeexFileInfo p_spxInfo;
-    
+
     bool writeHeader();
 };

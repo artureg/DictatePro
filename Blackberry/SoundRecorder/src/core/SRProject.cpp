@@ -2,7 +2,7 @@
  * SRProject.cpp
  *
  *  Created on: 11.04.2014
- *      Author: timofey
+ *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
 #include "SRProject.h"

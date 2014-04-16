@@ -37,7 +37,6 @@ public:
 
 	/**
 	 * Saves project async, i.e. includes file contents of all records into a single file.
-	 * TODO add listener
 	 *
 	 * @return true if saved successfully, false otherwise
 	 */

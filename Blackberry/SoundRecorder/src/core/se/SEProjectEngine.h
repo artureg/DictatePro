@@ -27,9 +27,6 @@ public:
 private:
 	SEProject project;
 
-// TODO implementation
-//	SESoundRecorder recorder;
-//	SESoundPlayer player;
 public:
 	/**
 	 * Plays the stream.

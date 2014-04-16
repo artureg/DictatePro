@@ -23,7 +23,7 @@ QString bb::cascades::SEProject::getProjectPath() {
 }
 
 SEAudioStream bb::cascades::SEProject::getAudioStream() {
-	// TODO implement
+
 }
 
 QList<SERecord> bb::cascades::SEProject::getRecords() {
@@ -35,7 +35,7 @@ void bb::cascades::SEProject::addRecord(SERecord record) {
 }
 
 void bb::cascades::SEProject::moveRecord(SERecord record, int index) {
-	// TODO implement
+
 }
 
 void bb::cascades::SEProject::removeRecord(SERecord record) {
@@ -51,11 +51,11 @@ bool bb::cascades::SEProject::isChanged() {
 }
 
 bool bb::cascades::SEProject::save() {
-	// TODO implement
+
 	return false;
 }
 
 bool bb::cascades::SEProject::saveAsync() {
-	// TODO implement, use SDCardUtils.writeProject(this); and thread
+
 	return false;
 }
