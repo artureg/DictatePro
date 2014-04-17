@@ -21,7 +21,7 @@ public class SDCardUtils {
 
     private static final String APP_PATH = "/Android/data/";
 
-    private static final String PROJECT_NAME = "project.xml";
+    private static final String PROJECT_NAME = "project.plist";
 
     private static final String NAMESPACE = "";
 
@@ -49,14 +49,12 @@ public class SDCardUtils {
 //    </record>
 //    </dist>
 
-    public static SEProject readProject(Context context) {
-        return readProject(context, null);
+    public static void readProject(final SEProject project) {
+        readProject(project, null);
     }
 
-    public static SEProject readProject(Context context, String filename) {
-        SEProject project = new SEProject(context);
-
-        File file = new File(getProjectPath(context),
+    public static void readProject(final SEProject project, String filename) {
+        File file = new File(getProjectPath(project.context),
                 filename != null ? filename : PROJECT_NAME);
         project.projectPath = file.getAbsolutePath();
 
@@ -77,7 +75,8 @@ public class SDCardUtils {
                             }
 
                             if (parser.getName().equals(TAG_RECORD)) {
-                                project.records.add(parseRecord(project, parser));
+                                SERecord record = parseRecord(project, parser);
+                                project.addRecord(record);
                                 break;
                             }
 
@@ -92,8 +91,6 @@ public class SDCardUtils {
                         e("readProject#", e);
             }
         }
-
-        return project;
     }
 
     public static boolean writeProject(final SEProject project) {
@@ -124,7 +121,7 @@ public class SDCardUtils {
                     .endTag(NAMESPACE, TAG_IS_CHANGED)
                     .text(NEWLINE);
 
-            for (SERecord record : project.records) {
+            for (SERecord record : project.getRecords()) {
                 serializeRecord(xmlSerializer, record);
             }
 

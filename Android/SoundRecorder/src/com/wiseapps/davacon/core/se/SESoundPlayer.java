@@ -54,6 +54,10 @@ class SESoundPlayer {
         handlers.add(handler);
     }
 
+    void removeHandler(Handler handler) {
+        handlers.remove(handler);
+    }
+
     private void sendMsgStarted() {
         for (Handler handler : handlers) {
             handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
@@ -113,6 +117,7 @@ class SESoundPlayer {
                 if (state == PlayerState.PAUSED) {
                     // TODO send just once
                     handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
+                    continue;
                 }
 
                 audioTrack.write(data, 0, data.length);

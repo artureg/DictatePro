@@ -64,6 +64,8 @@ public class SoundRecorderActivity extends Activity {
 
     private void initData() {
         try {
+            project = new SEProject(getContext());
+
             File root = FileUtils.getRoot(this);
 
             String[] filenames = root.list(new FilenameFilter() {
@@ -74,11 +76,11 @@ public class SoundRecorderActivity extends Activity {
             });
 
             if (filenames != null && filenames.length != 0) {
-                project = SDCardUtils.readProject(getContext(), filenames[0]);
+                SDCardUtils.readProject(project, filenames[0]);
                 return;
             }
 
-            project = SDCardUtils.readProject(getContext());
+            SDCardUtils.readProject(project);
         } catch (Exception e) {
             LoggerFactory.obtainLogger(TAG).
                     e("initData# ", e);
@@ -113,7 +115,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void rewind(View view) {
-        // TODO implements
+        engine.setCurrentTime(engine.getCurrentTime() - 1);
     }
 
     public void record(View view) {
@@ -128,11 +130,11 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void forward(View view) {
-        // TODO implement
+        engine.setCurrentTime(engine.getCurrentTime() + 1);
     }
 
     public void start(View view) {
-        // TODO implement
+        engine.setCurrentTime(0);
     }
 
     public void play(View view) {
@@ -147,7 +149,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void end(View view) {
-        // TODO implement
+        engine.setCurrentTime(-1);
     }
 
     private Context getContext() {

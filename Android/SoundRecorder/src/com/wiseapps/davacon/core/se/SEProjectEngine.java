@@ -2,12 +2,9 @@ package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
 import android.media.*;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import com.wiseapps.davacon.logging.LoggerFactory;
 
-import static com.wiseapps.davacon.core.se.SEAudioStream.*;
 import static com.wiseapps.davacon.core.se.SESoundRecorder.*;
 import static com.wiseapps.davacon.core.se.SESoundPlayer.*;
 
@@ -138,17 +135,47 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         recorder.stop();
         recorder = null;
+
+        // player position has changed, destroy the player object
+        // so it can be created anew
+        if (player != null) {
+            player.removeHandler(playerHandler);
+
+            player.stop();
+            player = null;
+        }
     }
 
     @Override
     public void setCurrentTime(double currentTime) {
-        // TODO implement
+        // go to end
+        if (currentTime == -1) {
+            currentTime = project.getDuration();
+        }
+
+        // forward : project stream end has been reached
+        if (currentTime > project.getDuration()) {
+            currentTime = project.getDuration();
+        }
+
+        // rewind : project stream start has been reached
+        if (currentTime < 0) {
+            currentTime = 0;
+        }
+
+        project.setPosition(currentTime);
+
+        if (player != null) {
+            player.removeHandler(playerHandler);
+
+            player.stop();
+            player = null;
+        }
     }
 
     @Override
     public double getCurrentTime() {
-        // TODO implement
-        return 0;
+        return project.getPosition();
     }
 
 //    /**
