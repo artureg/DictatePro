@@ -14,6 +14,10 @@ public class SERecord {
 
     final SEProject project;
 
+    SERecord prevRecord, nextRecord;
+
+    double position;
+
     SERecord(SEProject project) {
         this.project = project;
     }

@@ -46,6 +46,10 @@ class SESoundRecorder {
         handlers.add(handler);
     }
 
+    void removeHandler(Handler handler) {
+        handlers.remove(handler);
+    }
+
     private void sendMsgStarted() {
         for (Handler handler : handlers) {
             handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
+
 /**
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
@@ -12,10 +14,9 @@ import java.util.List;
 class SEProjectAudioStream extends SEAudioStream {
 
     private final SEProject project;
-    private List<SERecord> records;
 
-    private SERecord curRecord;
-    double position, duration;
+    private SERecord currentRecord;
+//    double currentRecordPosition;
 
     byte[] data;
 
@@ -25,26 +26,31 @@ class SEProjectAudioStream extends SEAudioStream {
         this.project = project;
     }
 
-    SEProjectAudioStream initialize(List<SERecord> records) {
-        this.records = records;
-        return this;
-    }
-
     @Override
     public void open(Mode mode) {
+        if (project.getRecords() == null) {
+            throw new IllegalStateException();
+        }
+
         this.mode = mode;
 
-        curRecord = records.iterator().next();
-        this.position = 0;
+        // according to project position define current record here
+        currentRecord = project.getCurrentRecord();
     }
 
     @Override
     public void close() {
+        if (project.getRecords() == null) {
+            throw new IllegalStateException();
+        }
+
+        // resetting all values
+        currentRecord = null;
+//        currentRecordPosition = 0;
     }
 
     @Override
     public void clear() {
-        this.records.clear();
     }
 
     @Override
@@ -61,55 +67,87 @@ class SEProjectAudioStream extends SEAudioStream {
      */
     @Override
     public byte[] read(double position, double duration) {
-        if (records == null) {
+        if (project.getRecords() == null) {
             throw new IllegalStateException();
         }
 
-        this.duration = duration;
+        // update project current position
+        project.setPosition(project.getPosition() + duration);
 
-        return doRead();
+        // read data
+        data = new byte[calculateDataLengthFromDuration(duration)];
+        return doRead(duration);
     }
 
-    private byte[] doRead() {
-        if (duration < curRecord.duration) {
-            SEAudioStream stream = curRecord.getAudioStream(context);
-
-            stream.open(Mode.READ);
-            data = stream.read(position, duration);
-            stream.close();
-
-            position = curRecord.duration - duration;
+    private byte[] doRead(double duration) {
+        // check whether the end of project has been reached
+        if (currentRecord == null) {
             return data;
-        } else if (duration == curRecord.duration) {
-            SEAudioStream stream = curRecord.getAudioStream(context);
+        }
+
+        if (duration == currentRecord.duration) {
+            SEAudioStream stream = currentRecord.getAudioStream(context);
 
             stream.open(Mode.READ);
-            data = stream.read(position, duration);
+            data = stream.read(currentRecord.position, currentRecord.duration);
             stream.close();
 
-            curRecord = records.iterator().next();
-            position = 0;
+            currentRecord = currentRecord.nextRecord;
+            if (currentRecord != null) { // handle the last record case
+                currentRecord.position = 0;
+            }
+//            currentRecordPosition = 0;
 
             return data;
-        } else {
-            // duration > curRecord.duration
-            double duration = this.duration - curRecord.duration;
+        }
 
-            SEAudioStream stream = curRecord.getAudioStream(context);
+        else if (duration < currentRecord.duration) {
+            SEAudioStream stream = currentRecord.getAudioStream(context);
 
             stream.open(Mode.READ);
-            data = stream.read(position, duration);
+            data = stream.read(currentRecord.position, duration);
             stream.close();
 
-            curRecord = records.iterator().next();
-            this.duration = duration;
+            // here current record remains unchanged
+            // but the position to read from the next time should be updated
+            currentRecord.position = currentRecord.duration - duration;
+//            currentRecordPosition = currentRecord.duration - duration;
 
-            return doRead();
+            return data;
+        }
+
+        else  {     // duration > currentRecord.duration
+            SEAudioStream stream = currentRecord.getAudioStream(context);
+
+            stream.open(Mode.READ);
+            data = stream.read(currentRecord.position, currentRecord.duration);
+            stream.close();
+
+            currentRecord = currentRecord.nextRecord;
+            if (currentRecord != null) { // handle the last record case
+                currentRecord.position = 0;
+            }
+//            currentRecordPosition = 0;
+
+            if (currentRecord != null) {
+                return doRead(duration - currentRecord.duration);
+            } else {
+                return data;
+            }
         }
     }
 
     @Override
     Mode getMode() {
         return mode;
+    }
+
+    private int calculateDataLengthFromDuration(double duration) {
+        int sampleRate = SAMPLE_RATE_IN_HZ;
+        int numChannels = mode == Mode.WRITE ?
+                CHANNEL_CONFIG_IN : CHANNEL_CONFIG_OUT;
+        int bitsPerSample =  BITS_PER_SAMPLE;
+
+        return (int) (duration / (sampleRate * numChannels * bitsPerSample / 8));
     }
 }

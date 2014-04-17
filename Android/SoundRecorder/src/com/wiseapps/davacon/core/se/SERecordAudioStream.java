@@ -10,8 +10,6 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
  *         Time: 11:56 AM
- *
- * TODO correct start handling, for now it is always 0
  */
 class SERecordAudioStream extends SEAudioStream {
     private static final String TAG = SERecordAudioStream.class.getSimpleName();
@@ -35,7 +33,7 @@ class SERecordAudioStream extends SEAudioStream {
             return;
         }
 
-        record.project.isChanged = true;
+//        record.project.isChanged = true;
         SDCardUtils.writeProject(record.project);
     }
 
@@ -52,7 +50,10 @@ class SERecordAudioStream extends SEAudioStream {
         LoggerFactory.obtainLogger(TAG).d("write# result = " + result);
 
         if (result == 0) {
-            updateDuration(data);
+            double duration = calculateDurationFromDataLength(data.length);
+
+            record.duration += duration;
+            record.project.setDuration(duration);
         }
     }
 
@@ -69,15 +70,12 @@ class SERecordAudioStream extends SEAudioStream {
         return mode;
     }
 
-    private void updateDuration(byte[] data) {
-        double length = (double) data.length;
+    private double calculateDurationFromDataLength(int length) {
         double sampleRate = (double) SAMPLE_RATE_IN_HZ;
-
         double numChannels = mode == Mode.WRITE ?
                 (double) CHANNEL_CONFIG_IN : (double) CHANNEL_CONFIG_OUT;
-
         double bitsPerSample = (double) BITS_PER_SAMPLE;
 
-        record.duration += length / (sampleRate * numChannels * bitsPerSample /8);
+        return ((double) length) / (sampleRate * numChannels * bitsPerSample / 8);
     }
 }
