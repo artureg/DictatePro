@@ -9,27 +9,43 @@ extern "C" {
 #endif
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    getSampleRate
+ * Method:    getFormat
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getSampleRate
+JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getFormat
   (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_wiseapps_davacon_speex_SpeexWrapper
+ * Method:    getSampleRate
+ * Signature: (Ljava/lang/String;I)I
+ */
+JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getSampleRate
+  (JNIEnv *, jclass, jstring, jint);
 
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
  * Method:    getDuration
- * Signature: (Ljava/lang/String;)J
+ * Signature: (Ljava/lang/String;I)D
  */
-JNIEXPORT jlong JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getDuration
-  (JNIEnv *, jclass, jstring);
+JNIEXPORT jdouble JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getDuration
+  (JNIEnv *, jclass, jstring, jint);
 
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
  * Method:    read
- * Signature: (Ljava/lang/String;JJ)[B
+ * Signature: (Ljava/lang/String;DDI)[B
  */
 JNIEXPORT jbyteArray JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_read
-  (JNIEnv *, jclass, jstring, jlong, jlong);
+  (JNIEnv *, jclass, jstring, jdouble, jdouble, jint);
+
+/*
+ * Class:     com_wiseapps_davacon_speex_SpeexWrapper
+ * Method:    write
+ * Signature: (Ljava/lang/String;[BI)I
+ */
+JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_write
+  (JNIEnv *, jclass, jstring, jbyteArray, jint);
 
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper

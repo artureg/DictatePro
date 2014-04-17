@@ -10,13 +10,14 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
  *         Time: 11:56 AM
+ *
+ *
  */
 class SEProjectAudioStream extends SEAudioStream {
 
     private final SEProject project;
 
     private SERecord currentRecord;
-//    double currentRecordPosition;
 
     byte[] data;
 
@@ -34,7 +35,7 @@ class SEProjectAudioStream extends SEAudioStream {
 
         this.mode = mode;
 
-        // according to project position define current record here
+        // according to project current position define current record here
         currentRecord = project.getCurrentRecord();
     }
 
@@ -43,14 +44,13 @@ class SEProjectAudioStream extends SEAudioStream {
         if (project.getRecords() == null) {
             throw new IllegalStateException();
         }
-
-        // resetting all values
-        currentRecord = null;
-//        currentRecordPosition = 0;
     }
 
     @Override
     public void clear() {
+        if (project.getRecords() == null) {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
@@ -61,7 +61,7 @@ class SEProjectAudioStream extends SEAudioStream {
 
     /**
      *
-     * @param position position to start reading from
+     * @param position position to start reading from (not used)
      * @param duration duration of the data to be read
      * @return read data
      */
@@ -71,12 +71,18 @@ class SEProjectAudioStream extends SEAudioStream {
             throw new IllegalStateException();
         }
 
-        // update project current position
+        data = doRead(duration);
         project.setPosition(project.getPosition() + duration);
 
-        // read data
-        data = new byte[calculateDataLengthFromDuration(duration)];
-        return doRead(duration);
+        return data;
+
+//        // update project current position
+//        project.setPosition(project.getPosition() + duration);
+//
+//        // read data
+//        // TODO handle byte array correctly - for now it's always rewritten, use Arrays
+//        data = new byte[calculateDataLengthFromDuration(duration)];
+//        return doRead(duration);
     }
 
     private byte[] doRead(double duration) {
@@ -85,56 +91,116 @@ class SEProjectAudioStream extends SEAudioStream {
             return data;
         }
 
-        if (duration == currentRecord.duration) {
+        if (duration == (currentRecord.duration - currentRecord.position)) {
+            // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
-
             stream.open(Mode.READ);
-            data = stream.read(currentRecord.position, currentRecord.duration);
+            data = stream.read(currentRecord.position, duration);
             stream.close();
 
+            // reset current record's position before moving to next record
+            currentRecord.position = 0;
+
+            // move to next record
             currentRecord = currentRecord.nextRecord;
-            if (currentRecord != null) { // handle the last record case
+
+            // check for null in case stream end has been reached;
+            // if not yet, update the next record's position to 0
+            if (currentRecord != null) {
                 currentRecord.position = 0;
             }
-//            currentRecordPosition = 0;
 
             return data;
         }
 
-        else if (duration < currentRecord.duration) {
+        else if (duration < (currentRecord.duration - currentRecord.position)) {
+            // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
-
             stream.open(Mode.READ);
             data = stream.read(currentRecord.position, duration);
             stream.close();
 
             // here current record remains unchanged
             // but the position to read from the next time should be updated
-            currentRecord.position = currentRecord.duration - duration;
-//            currentRecordPosition = currentRecord.duration - duration;
+            currentRecord.position = currentRecord.position + duration;
 
             return data;
         }
 
-        else  {     // duration > currentRecord.duration
+        else { // duration > (currentRecord.duration - currentRecord.position)
+            // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
-
             stream.open(Mode.READ);
-            data = stream.read(currentRecord.position, currentRecord.duration);
+            data = stream.read(currentRecord.position, (currentRecord.duration - currentRecord.position));
             stream.close();
 
-            currentRecord = currentRecord.nextRecord;
-            if (currentRecord != null) { // handle the last record case
-                currentRecord.position = 0;
-            }
-//            currentRecordPosition = 0;
+            // reset current record's position before moving to next record
+            currentRecord.position = 0;
 
+            // calculate the rest of duration to be read
+            double d = duration - (currentRecord.duration - currentRecord.position);
+
+            // move to next record
+            currentRecord = currentRecord.nextRecord;
+
+            // check for null in case stream end has been reached;
+            // if not yet, update the next record's position to 0
+            // call doRead method again with the rest of duration
             if (currentRecord != null) {
-                return doRead(duration - currentRecord.duration);
+                currentRecord.position = 0;
+                return doRead(d);
             } else {
                 return data;
             }
         }
+
+//        if (duration == currentRecord.duration) {
+//            SEAudioStream stream = currentRecord.getAudioStream(context);
+//
+//            stream.open(Mode.READ);
+//            data = stream.read(currentRecord.position, currentRecord.duration);
+//            stream.close();
+//
+//            currentRecord = currentRecord.nextRecord;
+//            if (currentRecord != null) { // handle the last record case
+//                currentRecord.position = 0;
+//            }
+//
+//            return data;
+//        }
+//
+//        else if (duration < currentRecord.duration) {
+//            SEAudioStream stream = currentRecord.getAudioStream(context);
+//
+//            stream.open(Mode.READ);
+//            data = stream.read(currentRecord.position, duration);
+//            stream.close();
+//
+//            // here current record remains unchanged
+//            // but the position to read from the next time should be updated
+//            currentRecord.position = currentRecord.duration - duration;
+//
+//            return data;
+//        }
+//
+//        else  {     // duration > currentRecord.duration
+//            SEAudioStream stream = currentRecord.getAudioStream(context);
+//
+//            stream.open(Mode.READ);
+//            data = stream.read(currentRecord.position, currentRecord.duration);
+//            stream.close();
+//
+//            currentRecord = currentRecord.nextRecord;
+//            if (currentRecord != null) { // handle the last record case
+//                currentRecord.position = 0;
+//            }
+//
+//            if (currentRecord != null) {
+//                return doRead(duration - currentRecord.duration);
+//            } else {
+//                return data;
+//            }
+//        }
     }
 
     @Override

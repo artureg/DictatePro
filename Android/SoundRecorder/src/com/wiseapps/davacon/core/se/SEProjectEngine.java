@@ -77,7 +77,8 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        player.pause();
+        player.stop();
+        player = null;
     }
 
     /**
@@ -93,6 +94,9 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         player.stop();
+        player = null;
+
+        project.setPosition(0);
     }
 
     /**
@@ -135,26 +139,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         recorder.stop();
         recorder = null;
-
-        // player position has changed, destroy the player object
-        // so it can be created anew
-        if (player != null) {
-            player.removeHandler(playerHandler);
-
-            player.stop();
-            player = null;
-        }
     }
 
     @Override
     public void setCurrentTime(double currentTime) {
-        // go to end
+        // received -1, this means that we must go to end
         if (currentTime == -1) {
-            currentTime = project.getDuration();
-        }
-
-        // forward : project stream end has been reached
-        if (currentTime > project.getDuration()) {
             currentTime = project.getDuration();
         }
 
@@ -163,8 +153,17 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             currentTime = 0;
         }
 
+        // forward : project stream end has been reached
+        if (currentTime > project.getDuration()) {
+            currentTime = project.getDuration();
+        }
+
+        // all other cases are not special,
+        // project position is set equal to what we receive
+
         project.setPosition(currentTime);
 
+        state = State.READY;
         if (player != null) {
             player.removeHandler(playerHandler);
 
@@ -202,6 +201,23 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 //        // TODO use native public static int decode(String compressedFilePathStr, String wavFilePathStr);
 //    }
 
+    public void release() {
+        state = State.READY;
+
+        if (player != null) {
+            player.removeHandler(playerHandler);
+
+            player.stop();
+            player = null;
+        }
+
+        if (recorder != null) {
+            recorder.removeHandler(recorderHandler);
+            recorder.stop();
+            recorder = null;
+        }
+    }
+
     private Handler recorderHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -212,8 +228,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
                     break;
                 }
                 case MSG_RECORDING_IN_PROGRESS: {
-                    // TODO publish progress after one second passed
-//                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
+                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
                     state = State.RECORDING_IN_PROGRESS;
                     break;
                 }
@@ -243,8 +258,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
                     break;
                 }
                 case MSG_PLAYING_IN_PROGRESS: {
-                    // TODO publish progress after one second passed
-//                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
+                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
                     state = State.PLAYING_IN_PROGRESS;
                     break;
                 }
