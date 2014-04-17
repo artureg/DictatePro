@@ -16,6 +16,7 @@ public class SERecord {
 
     SERecord prevRecord, nextRecord;
 
+    // record current position
     double position;
 
     SERecord(SEProject project) {

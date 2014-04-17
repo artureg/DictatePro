@@ -24,9 +24,11 @@ class SESoundPlayer {
     static final int MSG_PLAYING_STOPPED = 3;
     static final int MSG_PLAYING_ERROR = 4;
 
-    private enum PlayerState {
-        PLAYING, PAUSED, STOPPED
-    }
+    private static final int DURATION_SECONDS = 1;
+
+//    private enum PlayerState {
+//        PLAYING, PAUSED, STOPPED
+//    }
 
     private PlayingThread thread;
 
@@ -38,13 +40,13 @@ class SESoundPlayer {
     }
 
     void start() {
-        thread = new PlayingThread(PlayerState.PLAYING);
+        thread = new PlayingThread(true);
         thread.start();
     }
 
-    void pause() {
-        thread.pausePlaying();
-    }
+//    void pause() {
+//        thread.pausePlaying();
+//    }
 
     void stop() {
         thread.stopPlaying();
@@ -70,11 +72,11 @@ class SESoundPlayer {
         }
     }
 
-    private void sendMsgPaused() {
-        for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
-        }
-    }
+//    private void sendMsgPaused() {
+//        for (Handler handler : handlers) {
+//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
+//        }
+//    }
 
     private void sendMsgStopped() {
         for (Handler handler : handlers) {
@@ -89,10 +91,10 @@ class SESoundPlayer {
     }
 
     private class PlayingThread extends Thread {
-        private PlayerState state;
+        private boolean running;
 
-        private PlayingThread(PlayerState state) {
-            this.state = state;
+        private PlayingThread(boolean running) {
+            this.running = running;
         }
 
         @Override
@@ -111,21 +113,12 @@ class SESoundPlayer {
             stream.open(SEAudioStream.Mode.READ);
             handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
 
-            int offset = 0;
-            byte data[] = stream.read(offset, 1);
-            while(state != PlayerState.STOPPED) {
-                if (state == PlayerState.PAUSED) {
-                    // TODO send just once
-                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
-                    continue;
-                }
-
+            byte data[] = stream.read(0, DURATION_SECONDS);
+            while(running) {
                 audioTrack.write(data, 0, data.length);
                 audioTrack.play();
 
-                data = stream.read(offset, 1);
-
-                offset++;
+                data = stream.read(0, DURATION_SECONDS);
 
                 handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
             }
@@ -138,12 +131,8 @@ class SESoundPlayer {
             handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STOPPED));
         }
 
-        void pausePlaying() {
-            state = PlayerState.PAUSED;
-        }
-
         void stopPlaying() {
-            state = PlayerState.STOPPED;
+            running = false;
         }
 
         private Handler handler = new Handler() {
@@ -158,10 +147,6 @@ class SESoundPlayer {
                         sendMsgInProgress();
                         break;
                     }
-                    case MSG_PLAYING_PAUSED: {
-                        sendMsgPaused();
-                        break;
-                    }
                     case MSG_PLAYING_STOPPED: {
                         sendMsgStopped();
                         break;
@@ -174,4 +159,88 @@ class SESoundPlayer {
             }
         };
     }
+
+//    private class PlayingThread extends Thread {
+//        private PlayerState state;
+//
+//        private PlayingThread(PlayerState state) {
+//            this.state = state;
+//        }
+//
+//        @Override
+//        public void run() {
+//            int minBufferSize =
+//                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT);
+//
+//            AudioTrack audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
+//                    minBufferSize, MODE);
+//
+//            if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
+//                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
+//                return;
+//            }
+//
+//            stream.open(SEAudioStream.Mode.READ);
+//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
+//
+//            byte data[] = stream.read(0, DURATION_SECONDS);
+//            while(state != PlayerState.STOPPED) {
+//                if (state == PlayerState.PAUSED) {
+//                    // TODO send just once
+//                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
+//                    continue;
+//                }
+//
+//                audioTrack.write(data, 0, data.length);
+//                audioTrack.play();
+//
+//                data = stream.read(0, DURATION_SECONDS);
+//
+//                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
+//            }
+//
+//            stream.close();
+//
+//            audioTrack.stop();
+//            audioTrack.release();
+//
+//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STOPPED));
+//        }
+//
+//        void pausePlaying() {
+//            state = PlayerState.PAUSED;
+//        }
+//
+//        void stopPlaying() {
+//            state = PlayerState.STOPPED;
+//        }
+//
+//        private Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                switch(msg.what) {
+//                    case MSG_PLAYING_STARTED: {
+//                        sendMsgStarted();
+//                        break;
+//                    }
+//                    case MSG_PLAYING_IN_PROGRESS: {
+//                        sendMsgInProgress();
+//                        break;
+//                    }
+//                    case MSG_PLAYING_PAUSED: {
+//                        sendMsgPaused();
+//                        break;
+//                    }
+//                    case MSG_PLAYING_STOPPED: {
+//                        sendMsgStopped();
+//                        break;
+//                    }
+//                    case MSG_PLAYING_ERROR: {
+//                        sendMsgError();
+//                        break;
+//                    }
+//                }
+//            }
+//        };
+//    }
 }

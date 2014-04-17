@@ -53,7 +53,7 @@ public class SoundRecorderActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        // TODO release engine correctly!
+        ((SEProjectEngine) engine).release();
 
         if (project != null) {
             SDCardUtils.writeProject(project);
@@ -115,7 +115,12 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void rewind(View view) {
+        if (engine.getState() != State.READY) {
+            return;
+        }
+
         engine.setCurrentTime(engine.getCurrentTime() - 1);
+        // TODO update UI
     }
 
     public void record(View view) {
@@ -130,11 +135,21 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void forward(View view) {
+        if (engine.getState() != State.READY) {
+            return;
+        }
+
         engine.setCurrentTime(engine.getCurrentTime() + 1);
+        // TODO update UI
     }
 
     public void start(View view) {
+        if (engine.getState() != State.READY) {
+            return;
+        }
+
         engine.setCurrentTime(0);
+        // TODO update UI
     }
 
     public void play(View view) {
@@ -149,7 +164,12 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void end(View view) {
+        if (engine.getState() != State.READY) {
+            return;
+        }
+
         engine.setCurrentTime(-1);
+        // TODO update UI
     }
 
     private Context getContext() {

@@ -94,8 +94,6 @@ class SESoundRecorder {
                 return;
             }
 
-            // TODO here we 1) check the streamRead current position and find the current record
-            // TODO 2) split current record R on R1 and R2 (after a record is created, project .plist is auto updated)
             stream.open(SEAudioStream.Mode.WRITE);
             handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));
 

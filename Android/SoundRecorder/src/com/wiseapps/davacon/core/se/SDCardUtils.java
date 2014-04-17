@@ -68,11 +68,11 @@ public class SDCardUtils {
                 while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
                     switch (parser.getEventType()) {
                         case XmlPullParser.START_TAG: {
-                            if (parser.getName().equals(TAG_IS_CHANGED)) {
-                                parser.next();
-                                project.isChanged = Boolean.valueOf(parser.getText());
-                                break;
-                            }
+//                            if (parser.getName().equals(TAG_IS_CHANGED)) {
+//                                parser.next();
+//                                project.isChanged = Boolean.valueOf(parser.getText());
+//                                break;
+//                            }
 
                             if (parser.getName().equals(TAG_RECORD)) {
                                 SERecord record = parseRecord(project, parser);
@@ -117,9 +117,13 @@ public class SDCardUtils {
             xmlSerializer.text(NEWLINE).startTag(NAMESPACE, TAG_DIST).text(NEWLINE);
 
             xmlSerializer.startTag(NAMESPACE, TAG_IS_CHANGED)
-                    .text(String.valueOf(project.isChanged))
+                    .text(String.valueOf(false))
                     .endTag(NAMESPACE, TAG_IS_CHANGED)
                     .text(NEWLINE);
+//            xmlSerializer.startTag(NAMESPACE, TAG_IS_CHANGED)
+//                    .text(String.valueOf(project.isChanged))
+//                    .endTag(NAMESPACE, TAG_IS_CHANGED)
+//                    .text(NEWLINE);
 
             for (SERecord record : project.getRecords()) {
                 serializeRecord(xmlSerializer, record);
