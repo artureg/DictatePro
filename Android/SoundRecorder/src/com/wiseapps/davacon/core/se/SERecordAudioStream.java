@@ -48,10 +48,14 @@ class SERecordAudioStream extends SEAudioStream {
         int result = SpeexWrapper.write(record.soundPath, data, format);
         LoggerFactory.obtainLogger(TAG).d("write# result = " + result);
 
+        // update record's and project's durations
         if (result == 0) {
-            double duration = calculateDurationFromDataLength(data.length);
+            double duration =
+                    calculateDurationFromDataLength(data.length);
 
+            record.position += duration;
             record.duration += duration;
+
             record.project.duration += duration;
         }
     }

@@ -77,7 +77,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        player.stop();
+        player.pause();
         player = null;
     }
 
@@ -95,8 +95,6 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         player.stop();
         player = null;
-
-        project.position = 0;
     }
 
     /**
@@ -118,7 +116,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         SERecord record = new SERecord(project);
         record.soundPath = SDCardUtils.getSoundPath(context);
-        project.addRecord(record, project.position);
+        project.splitRecord(record);
 
         recorder = new SESoundRecorder(record.getAudioStream(context));
         recorder.addHandler(recorderHandler);
@@ -275,6 +273,9 @@ public class SEProjectEngine extends SEAudioStreamEngine {
                 case MSG_PLAYING_STOPPED: {
                     notifyRecorderStateChanged(Event.PLAYING_STOPPED);
                     state = State.READY;
+
+                    project.position = 0;
+
                     break;
                 }
                 case MSG_PLAYING_ERROR: {
