@@ -31,9 +31,13 @@ public class SoundRecorderActivity extends Activity {
     private SEProject project;
     private SEAudioStreamEngine engine;
 
-    private ImageButton buttonRecord;
+    private ImageButton
+            buttonRewind, buttonRecord, buttonForward,
+            buttonStart, buttonPlay, buttonEnd,
+            buttonEncode, buttonDecode;
 
     private SeekBar volumeBar;
+    private SeekBar positionBar;
 
     private AudioManager audioManager;
 
@@ -94,7 +98,16 @@ public class SoundRecorderActivity extends Activity {
     }
 
     private void initWidgets() {
+        buttonRewind = (ImageButton) findViewById(R.id.rewind);
         buttonRecord = (ImageButton) findViewById(R.id.record);
+        buttonForward = (ImageButton) findViewById(R.id.forward);
+
+        buttonStart = (ImageButton) findViewById(R.id.start);
+        buttonPlay = (ImageButton) findViewById(R.id.play);
+        buttonEnd = (ImageButton) findViewById(R.id.end);
+
+        buttonEncode = (ImageButton) findViewById(R.id.encode);
+        buttonDecode = (ImageButton) findViewById(R.id.decode);
 
         volumeBar = (SeekBar) findViewById(R.id.volume);
         volumeBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
@@ -112,6 +125,32 @@ public class SoundRecorderActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        positionBar = (SeekBar) findViewById(R.id.position);
+        positionBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (engine.getState() != State.READY) {
+                    return;
+                }
+
+                engine.setCurrentTime(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        updateProgress();
+    }
+
+    private void updateProgress() {
+        positionBar.setMax(((int) engine.getDuration()) + 1);
+        positionBar.setProgress((int) engine.getCurrentTime());
     }
 
     public void rewind(View view) {
@@ -120,7 +159,7 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(engine.getCurrentTime() - 1);
-        // TODO update UI
+        updateProgress();
     }
 
     public void record(View view) {
@@ -140,7 +179,7 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(engine.getCurrentTime() + 1);
-        // TODO update UI
+        updateProgress();
     }
 
     public void start(View view) {
@@ -149,7 +188,7 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(0);
-        // TODO update UI
+        updateProgress();
     }
 
     public void play(View view) {
@@ -169,7 +208,15 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(-1);
-        // TODO update UI
+        updateProgress();
+    }
+
+    public void encode(View view) {
+        // TODO async {1) build project file 2) encode to SPEEX}
+    }
+
+    public void decode(View view) {
+        // TODO async {decode from SPEEX if file exists, play}
     }
 
     private Context getContext() {
@@ -179,51 +226,224 @@ public class SoundRecorderActivity extends Activity {
     private SEPlayerStateListener playerStateListener = new SEPlayerStateListener() {
         @Override
         public void playingStarted() {
-            // TODO implement
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_0));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_0_forward_disabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_0_start_disabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_2));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_0_end_disabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_0));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_0));
+
+            updateProgress();
         }
 
         @Override
         public void playingPaused() {
-            // TODO implement
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_1_rewind_enabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_1_forward_enabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_1_start_enabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_1_play_enabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_1_end_enabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_1));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_1));
+
+            updateProgress();
         }
 
         @Override
         public void playingInProgress(double position) {
-            // TODO implement
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_0));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_0_forward_disabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_0_start_disabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_2));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_0_end_disabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_0));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_0));
+
+            updateProgress();
         }
 
         @Override
         public void playingStopped() {
-            // TODO implement
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_1_rewind_enabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_1_forward_enabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_1_start_enabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_1_play_enabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_1_end_enabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_1));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_1));
+
+            updateProgress();
         }
 
         @Override
         public void onError(String errorMessage) {
-            // TODO implement
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_1_rewind_enabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_1_forward_enabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_1_start_enabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_1_play_enabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_1_end_enabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_1));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_1));
+
+            Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+
+            updateProgress();
         }
     };
 
     private SERecorderStateListener recorderStateListener = new SERecorderStateListener() {
         @Override
         public void recordingStarted() {
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(
                     getResources().getDrawable(R.drawable.button02_2_record_enabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_0_forward_disabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_0_start_disabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_0_play_disabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_0_end_disabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_0));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_0));
+
+            updateProgress();
         }
 
         @Override
         public void recordingInProgress(double position) {
-            // TODO update progress
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_0_forward_disabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_0_start_disabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_0_play_disabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_0_end_disabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_0));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_0));
+
+            updateProgress();
         }
 
         @Override
         public void recordingStopped() {
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_1_rewind_enabled));
             buttonRecord.setImageDrawable(
                     getResources().getDrawable(R.drawable.button02_1_record_disabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_1_forward_enabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_1_start_enabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_1_play_enabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_1_end_enabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_1));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_1));
+
+            updateProgress();
         }
 
         @Override
         public void onError(String errorMessage) {
+            buttonRewind.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button06_1_rewind_enabled));
+            buttonRecord.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+            buttonForward.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button07_1_forward_enabled));
+
+            buttonStart.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button05_1_start_enabled));
+            buttonPlay.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button01_1_play_enabled));
+            buttonEnd.setImageDrawable(
+                    getResources().getDrawable(R.drawable.button08_1_end_enabled));
+
+            buttonEncode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.send_1));
+            buttonDecode.setImageDrawable(
+                    getResources().getDrawable(R.drawable.save_1));
+
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+
+            updateProgress();
         }
     };
 

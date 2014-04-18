@@ -18,18 +18,19 @@ import java.util.List;
 public class SEProject {
     private final static String TAG = SEProject.class.getSimpleName();
 
+//    private static final int DURATION_SECONDS = 1;
+
     final Context context;
 
     String projectPath;
-//    boolean isChanged;
 
     private List<SERecord> records = new ArrayList<SERecord>();
 
     // project duration
-    private double duration;
+    double duration;
 
     // project current position
-    private double position;
+    double position;
 
     public SEProject(Context context) {
         this.context = context;
@@ -44,13 +45,10 @@ public class SEProject {
      * @return project audio stream
      */
     SEAudioStream getAudioStream(Context context) {
+        duration = 0;
+
         // each time audio stream is created the project is read from sdcard anew
         SDCardUtils.readProject(this);
-
-//        if (isChanged) {
-//            SDCardUtils.readProject(this);
-//            isChanged = false;
-//        }
 
         return new SEProjectAudioStream(context, this);
     }
@@ -60,106 +58,89 @@ public class SEProject {
     }
 
     void addRecord(SERecord record) {
-        // define the position to add a record at from project current position
+        records.add(record);
+        int index = records.indexOf(record);
 
+        // set references to the records
+        if (index >= 1) {
+            records.get(index - 1).nextRecord = record;
+            record.prevRecord = records.get(index - 1);
+        }
+
+        duration += record.duration;
     }
 
-//    void addRecord(SERecord record) {
-//        // here we insert to some mid position
-//        if (position != 0) {
-//            InputStream in = null;
-//            OutputStream out = null;
-//
-//            SERecord cur = getCurrentRecord();
-//
-//            int i = records.indexOf(cur);
-//            SERecord prev = i > 0 ? records.get(i - 1) : null;
-//            SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
-//
-////                int format = SpeexWrapper.getFormat(cur.soundPath);
-//            int format = 0;
-//
-//            SERecord a = new SERecord(this);
-//            a.soundPath = SDCardUtils.getSoundPath(context);
-//            a.duration = cur.position;
-//            a.prevRecord = prev;
-//            a.nextRecord = cur;
-//            SpeexWrapper.write(a.soundPath,
-//                    SpeexWrapper.read(cur.soundPath, 0, a.duration, format), format);
-//
-//            SERecord b = new SERecord(this);
-//            b.soundPath = SDCardUtils.getSoundPath(context);
-//            b.duration = cur.duration - (cur.position + 1);
-//            b.prevRecord = cur;
-//            b.nextRecord = next;
-//            SpeexWrapper.write(b.soundPath,
-//                    SpeexWrapper.read(cur.soundPath, cur.position, b.duration, format), format);
-//
-////            SpeexWrapper.write(a = {0, cur.position});
-////            SpeexWrapper.write(b = {cur.position + 1, cur.duration});
-//
-//            // TODO delete cur from sd card
-//
-//            // update project records
-//            List<SERecord> records = this.records;
-//
-//            removeAllRecords();
-//
-//            for (SERecord r : records) {
-//                records.add(r);
-//
-//                if (records.indexOf(r) == i) {
-//                    records.add(a);
-//                    records.add(record);
-//                    records.add(b);
-//                }
-//            }
-//            this.records = records;
-//        } else { // here we insert to the end
-//            records.add(record);
-//            int index = records.indexOf(record);
-//
-//            // set references to the records
-//            if (index >= 1) {
-//                records.get(index - 1).nextRecord = record;
-//                record.prevRecord = records.get(index - 1);
-//            }
-////            if (records.size() > 1) {
-////                records.get(records.size() - 1 - 1).nextRecord = record;
-////            }
-////
-////            set reference to the prev record
-////            if (records.size() > 2) {
-////                records.get(records.size() - 1).prevRecord = records.get(records.size() - 2);
-////            }
-//        }
-//        duration += record.duration;
-//
-////        isChanged = true;
-//    }
+    void addRecord(SERecord record, double position) {
+        // define project current record and its position
+        final SERecord cur = getCurrentRecord();
+
+        // define the neighbour records
+        int i = records.indexOf(cur);
+        SERecord prev = i > 0 ? records.get(i - 1) : null;
+        SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
+
+        // perform the split itself
+        final SERecord aRecord = new SERecord(this);
+        aRecord.soundPath = SDCardUtils.getSoundPath(context);
+        aRecord.position = 0;
+        aRecord.duration = cur.position;
+        aRecord.prevRecord = prev;
+        aRecord.nextRecord = record;
+
+        final SERecord bRecord = new SERecord(this);
+        bRecord.soundPath = SDCardUtils.getSoundPath(context);
+        bRecord.position = 0;
+        bRecord.duration = cur.duration - cur.position;
+        bRecord.prevRecord = record;
+        bRecord.nextRecord = next;
+
+        // update the project with new records list
+        List<SERecord> records = this.records;
+        removeAllRecords();
+        for (SERecord r : records) {
+            addRecord(r);
+
+            if (records.indexOf(r) == i) {
+                addRecord(aRecord);
+                addRecord(record);
+                addRecord(bRecord);
+            }
+        }
+
+        // in a background thread 1) update the neighbour records
+        // 2) delete cur sound file from sd card
+        new Thread() {
+            @Override
+            public void run() {
+                int format = SpeexWrapper.getFormat(cur.soundPath);
+                SpeexWrapper.write(aRecord.soundPath,
+                        SpeexWrapper.read(cur.soundPath, 0, aRecord.duration, format), format);
+                SpeexWrapper.write(bRecord.soundPath,
+                        SpeexWrapper.read(cur.soundPath, aRecord.duration, cur.duration, format), format);
+
+                File file = new File(cur.soundPath);
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+        }.start();
+    }
 
     void moveRecord(SERecord record, int index) {
         // TODO implement
-
-//        isChanged = true;
     }
 
     void removeAllRecords() {
     	records.clear();
         duration = 0;
-
-//        isChanged = true;
     }
 
     void removeRecord(SERecord record) {
         records.remove(record);
         duration -= record.duration;
-
-//        isChanged = true;
     }
 
     public boolean isChanged() {
-//        return isChanged;
         return false;
     }
 
@@ -190,20 +171,6 @@ public class SEProject {
     public boolean saveAsync() {
         // TODO implement, use SDCardUtils.writeProject(this); and thread
         return false;
-    }
-
-    double getDuration() {
-        return duration;
-    }
-    public void setDuration(double duration) {
-        this.duration = duration;
-    }
-
-    double getPosition() {
-        return position;
-    }
-    void setPosition(double position) {
-        this.position = position;
     }
 
     SERecord getCurrentRecord() {

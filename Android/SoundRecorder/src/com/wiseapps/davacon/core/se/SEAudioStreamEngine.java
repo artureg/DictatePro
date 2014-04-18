@@ -60,6 +60,8 @@ public abstract class SEAudioStreamEngine {
 
     abstract public double getCurrentTime();
 
+    abstract public double getDuration();
+
     public void addPlayerStateListener(SEPlayerStateListener listener) {
         playerStateListeners.add(listener);
     }

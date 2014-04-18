@@ -96,7 +96,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         player.stop();
         player = null;
 
-        project.setPosition(0);
+        project.position = 0;
     }
 
     /**
@@ -118,7 +118,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         SERecord record = new SERecord(project);
         record.soundPath = SDCardUtils.getSoundPath(context);
-        project.addRecord(record);
+        project.addRecord(record, project.position);
 
         recorder = new SESoundRecorder(record.getAudioStream(context));
         recorder.addHandler(recorderHandler);
@@ -145,7 +145,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     public void setCurrentTime(double currentTime) {
         // received -1, this means that we must go to end
         if (currentTime == -1) {
-            currentTime = project.getDuration();
+            currentTime = project.duration;
         }
 
         // rewind : project stream start has been reached
@@ -154,14 +154,14 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         // forward : project stream end has been reached
-        if (currentTime > project.getDuration()) {
-            currentTime = project.getDuration();
+        if (currentTime > project.duration) {
+            currentTime = project.duration;
         }
 
         // all other cases are not special,
         // project position is set equal to what we receive
 
-        project.setPosition(currentTime);
+        project.position = currentTime;
 
         state = State.READY;
         if (player != null) {
@@ -174,7 +174,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     @Override
     public double getCurrentTime() {
-        return project.getPosition();
+        return project.position;
+    }
+
+    @Override
+    public double getDuration() {
+        return project.duration;
     }
 
 //    /**

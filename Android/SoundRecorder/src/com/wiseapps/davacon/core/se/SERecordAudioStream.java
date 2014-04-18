@@ -33,7 +33,6 @@ class SERecordAudioStream extends SEAudioStream {
             return;
         }
 
-//        record.project.isChanged = true;
         SDCardUtils.writeProject(record.project);
     }
 
@@ -53,7 +52,7 @@ class SERecordAudioStream extends SEAudioStream {
             double duration = calculateDurationFromDataLength(data.length);
 
             record.duration += duration;
-            record.project.setDuration(duration);
+            record.project.duration += duration;
         }
     }
 
