@@ -144,7 +144,8 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
-    	return SDCardUtils.writeProject(this);
+        // TODO implement, use SDCardUtils.writeProject(this); and thread
+    	return false;
     }
 
     /**

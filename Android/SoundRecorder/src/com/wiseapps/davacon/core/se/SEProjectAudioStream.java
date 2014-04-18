@@ -2,8 +2,6 @@ package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
 
-import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
-
 /**
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
@@ -76,7 +74,6 @@ class SEProjectAudioStream extends SEAudioStream {
         return data;
     }
 
-    // TODO rewrite with SERecord.start
     private byte[] doRead(double duration) {
         // check whether the end of project has been reached
         if (currentRecord == null) {
@@ -146,54 +143,6 @@ class SEProjectAudioStream extends SEAudioStream {
                 return data;
             }
         }
-
-//        if (duration == currentRecord.duration) {
-//            SEAudioStream stream = currentRecord.getAudioStream(context);
-//
-//            stream.open(Mode.READ);
-//            data = stream.read(currentRecord.position, currentRecord.duration);
-//            stream.close();
-//
-//            currentRecord = currentRecord.nextRecord;
-//            if (currentRecord != null) { // handle the last record case
-//                currentRecord.position = 0;
-//            }
-//
-//            return data;
-//        }
-//
-//        else if (duration < currentRecord.duration) {
-//            SEAudioStream stream = currentRecord.getAudioStream(context);
-//
-//            stream.open(Mode.READ);
-//            data = stream.read(currentRecord.position, duration);
-//            stream.close();
-//
-//            // here current record remains unchanged
-//            // but the position to read from the next time should be updated
-//            currentRecord.position = currentRecord.duration - duration;
-//
-//            return data;
-//        }
-//
-//        else  {     // duration > currentRecord.duration
-//            SEAudioStream stream = currentRecord.getAudioStream(context);
-//
-//            stream.open(Mode.READ);
-//            data = stream.read(currentRecord.position, currentRecord.duration);
-//            stream.close();
-//
-//            currentRecord = currentRecord.nextRecord;
-//            if (currentRecord != null) { // handle the last record case
-//                currentRecord.position = 0;
-//            }
-//
-//            if (currentRecord != null) {
-//                return doRead(duration - currentRecord.duration);
-//            } else {
-//                return data;
-//            }
-//        }
     }
 
     private byte[] combine(byte[] one, byte[] two) {
@@ -210,12 +159,12 @@ class SEProjectAudioStream extends SEAudioStream {
         return mode;
     }
 
-    private int calculateDataLengthFromDuration(double duration) {
-        int sampleRate = SAMPLE_RATE_IN_HZ;
-        int numChannels = mode == Mode.WRITE ?
-                CHANNEL_CONFIG_IN : CHANNEL_CONFIG_OUT;
-        int bitsPerSample =  BITS_PER_SAMPLE;
-
-        return (int) (duration / (sampleRate * numChannels * bitsPerSample / 8));
-    }
+//    private int calculateDataLengthFromDuration(double duration) {
+//        int sampleRate = SAMPLE_RATE_IN_HZ;
+//        int numChannels = mode == Mode.WRITE ?
+//                CHANNEL_CONFIG_IN : CHANNEL_CONFIG_OUT;
+//        int bitsPerSample =  BITS_PER_SAMPLE;
+//
+//        return (int) (duration / (sampleRate * numChannels * bitsPerSample / 8));
+//    }
 }
