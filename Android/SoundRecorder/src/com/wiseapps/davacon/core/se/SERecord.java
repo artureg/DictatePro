@@ -1,6 +1,7 @@
 package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com

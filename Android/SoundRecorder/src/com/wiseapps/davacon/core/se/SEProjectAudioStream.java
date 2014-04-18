@@ -2,8 +2,6 @@ package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
 
-import java.util.List;
-
 import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
 
 /**
@@ -18,8 +16,7 @@ class SEProjectAudioStream extends SEAudioStream {
     private final SEProject project;
 
     private SERecord currentRecord;
-
-    byte[] data;
+    private byte[] data;
 
     SEProjectAudioStream(Context context, final SEProject project) {
         super(context);
@@ -71,18 +68,12 @@ class SEProjectAudioStream extends SEAudioStream {
             throw new IllegalStateException();
         }
 
-        data = doRead(duration);
-        project.setPosition(project.getPosition() + duration);
+        this.data = new byte[0];
+
+        byte[] data = doRead(duration);
+        project.position += data.length;
 
         return data;
-
-//        // update project current position
-//        project.setPosition(project.getPosition() + duration);
-//
-//        // read data
-//        // TODO handle byte array correctly - for now it's always rewritten, use Arrays
-//        data = new byte[calculateDataLengthFromDuration(duration)];
-//        return doRead(duration);
     }
 
     private byte[] doRead(double duration) {
@@ -95,7 +86,7 @@ class SEProjectAudioStream extends SEAudioStream {
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = stream.read(currentRecord.position, duration);
+            data = combine(data, stream.read(currentRecord.position, duration));
             stream.close();
 
             // reset current record's position before moving to next record
@@ -117,7 +108,7 @@ class SEProjectAudioStream extends SEAudioStream {
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = stream.read(currentRecord.position, duration);
+            data = combine(data, stream.read(currentRecord.position, duration));
             stream.close();
 
             // here current record remains unchanged
@@ -131,7 +122,7 @@ class SEProjectAudioStream extends SEAudioStream {
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = stream.read(currentRecord.position, (currentRecord.duration - currentRecord.position));
+            data = combine(data, stream.read(currentRecord.position, (currentRecord.duration - currentRecord.position)));
             stream.close();
 
             // reset current record's position before moving to next record
@@ -201,6 +192,15 @@ class SEProjectAudioStream extends SEAudioStream {
 //                return data;
 //            }
 //        }
+    }
+
+    private byte[] combine(byte[] one, byte[] two) {
+        byte[] combined = new byte[one.length + two.length];
+
+        System.arraycopy(one, 0, combined, 0, one.length);
+        System.arraycopy(two, 0, combined, one.length, two.length);
+
+        return combined;
     }
 
     @Override
