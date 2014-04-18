@@ -87,7 +87,7 @@ class SESoundRecorder {
                     AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 
             AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
+                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize * 2);
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
                 handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));

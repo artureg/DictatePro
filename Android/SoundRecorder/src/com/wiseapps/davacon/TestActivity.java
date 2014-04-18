@@ -196,11 +196,10 @@ public class TestActivity extends Activity {
                     AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 
             AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
+                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize * 2);
 
             byte[] data = new byte[minBufferSize];
 
-//            int i = 0;
             while(running) {
                 LoggerFactory.obtainLogger(TAG).
                         d("RecordingThread.run# running");
@@ -209,11 +208,6 @@ public class TestActivity extends Activity {
 
                 int format = SpeexWrapper.getFormat(filePath);
                 SpeexWrapper.write(filePath, data, format);
-
-//                ++i;
-//                if (i == 10) {
-//                    return;
-//                }
             }
             LoggerFactory.obtainLogger(TAG).
                     d("RecordingThread.run# resume running");

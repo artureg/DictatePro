@@ -13,7 +13,6 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import com.wiseapps.davacon.core.se.*;
 import com.wiseapps.davacon.logging.LoggerFactory;
-import com.wiseapps.davacon.utils.FileUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -34,7 +33,7 @@ public class SoundRecorderActivity extends Activity {
     private ImageButton
             buttonRewind, buttonRecord, buttonForward,
             buttonStart, buttonPlay, buttonEnd,
-            buttonEncode, buttonDecode;
+            buttonExport, buttonSave;
 
     private SeekBar volumeBar;
     private SeekBar positionBar;
@@ -70,7 +69,7 @@ public class SoundRecorderActivity extends Activity {
         try {
             project = new SEProject(getContext());
 
-            File root = FileUtils.getRoot(this);
+            File root = SDCardUtils.getRoot(this);
 
             String[] filenames = root.list(new FilenameFilter() {
                 @Override
@@ -106,8 +105,8 @@ public class SoundRecorderActivity extends Activity {
         buttonPlay = (ImageButton) findViewById(R.id.play);
         buttonEnd = (ImageButton) findViewById(R.id.end);
 
-        buttonEncode = (ImageButton) findViewById(R.id.encode);
-        buttonDecode = (ImageButton) findViewById(R.id.decode);
+        buttonExport = (ImageButton) findViewById(R.id.export);
+        buttonSave = (ImageButton) findViewById(R.id.save);
 
         volumeBar = (SeekBar) findViewById(R.id.volume);
         volumeBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
@@ -211,12 +210,12 @@ public class SoundRecorderActivity extends Activity {
         updateProgress();
     }
 
-    public void encode(View view) {
-        // TODO async {1) build project file 2) encode to SPEEX}
+    public void export(View view) {
+        // TODO implement
     }
 
-    public void decode(View view) {
-        // TODO async {decode from SPEEX if file exists, play}
+    public void save(View view) {
+        // TODO implement, use SEProject.saveAsync over SEProjectAudioStream
     }
 
     private Context getContext() {
@@ -240,9 +239,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_0));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
             updateProgress();
@@ -264,9 +263,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_1_end_enabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_1));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
             updateProgress();
@@ -288,9 +287,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_0));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
             updateProgress();
@@ -312,9 +311,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_1_end_enabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_1));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
             updateProgress();
@@ -336,9 +335,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_1_end_enabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_1));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
@@ -364,9 +363,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_0));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
             updateProgress();
@@ -388,9 +387,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_0));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
             updateProgress();
@@ -412,9 +411,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_1_end_enabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_1));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
             updateProgress();
@@ -436,9 +435,9 @@ public class SoundRecorderActivity extends Activity {
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_1_end_enabled));
 
-            buttonEncode.setImageDrawable(
+            buttonExport.setImageDrawable(
                     getResources().getDrawable(R.drawable.send_1));
-            buttonDecode.setImageDrawable(
+            buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();

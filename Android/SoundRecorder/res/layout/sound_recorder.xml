@@ -77,13 +77,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <ImageButton
-                    android:id="@+id/encode"
+                    android:id="@+id/export"
                     android:src="@drawable/send_1"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="encode"/>
+                    android:onClick="export"/>
             <ImageButton
                     android:src="@drawable/button_record02_0"
                     android:background="@null"
@@ -91,13 +91,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <ImageButton
-                    android:id="@+id/decode"
+                    android:id="@+id/save"
                     android:src="@drawable/save_1"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="decode"/>
+                    android:onClick="save"/>
         </LinearLayout>
 
         <LinearLayout
