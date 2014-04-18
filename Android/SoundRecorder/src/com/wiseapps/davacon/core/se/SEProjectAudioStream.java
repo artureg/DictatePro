@@ -76,17 +76,18 @@ class SEProjectAudioStream extends SEAudioStream {
         return data;
     }
 
+    // TODO rewrite with SERecord.start
     private byte[] doRead(double duration) {
         // check whether the end of project has been reached
         if (currentRecord == null) {
             return data;
         }
 
-        if (duration == (currentRecord.duration - currentRecord.position)) {
+        if (duration == (currentRecord.duration - (currentRecord.start + currentRecord.position))) {
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = combine(data, stream.read(currentRecord.position, duration));
+            data = combine(data, stream.read(currentRecord.start + currentRecord.position, duration));
             stream.close();
 
             // reset current record's position before moving to next record
@@ -104,32 +105,33 @@ class SEProjectAudioStream extends SEAudioStream {
             return data;
         }
 
-        else if (duration < (currentRecord.duration - currentRecord.position)) {
+        else if (duration < (currentRecord.duration - (currentRecord.start + currentRecord.position))) {
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = combine(data, stream.read(currentRecord.position, duration));
+            data = combine(data, stream.read(currentRecord.start + currentRecord.position, duration));
             stream.close();
 
             // here current record remains unchanged
             // but the position to read from the next time should be updated
-            currentRecord.position = currentRecord.position + duration;
+            currentRecord.position += duration;
 
             return data;
         }
 
-        else { // duration > (currentRecord.duration - currentRecord.position)
+        else { // duration > (currentRecord.duration - (currentRecord.start + currentRecord.position))
             // read the data
             SEAudioStream stream = currentRecord.getAudioStream(context);
             stream.open(Mode.READ);
-            data = combine(data, stream.read(currentRecord.position, (currentRecord.duration - currentRecord.position)));
+            data = combine(data, stream.read(currentRecord.start + currentRecord.position,
+                    (currentRecord.duration - (currentRecord.start + currentRecord.position))));
             stream.close();
+
+            // calculate the rest of duration to be read
+            double d = duration - (currentRecord.duration - (currentRecord.start + currentRecord.position));
 
             // reset current record's position before moving to next record
             currentRecord.position = 0;
-
-            // calculate the rest of duration to be read
-            double d = duration - (currentRecord.duration - currentRecord.position);
 
             // move to next record
             currentRecord = currentRecord.nextRecord;

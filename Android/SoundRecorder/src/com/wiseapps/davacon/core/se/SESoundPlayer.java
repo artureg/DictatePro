@@ -44,9 +44,9 @@ class SESoundPlayer {
         thread.start();
     }
 
-//    void pause() {
-//        thread.pausePlaying();
-//    }
+    void pause() {
+        thread.pausePlaying();
+    }
 
     void stop() {
         thread.stopPlaying();
@@ -72,11 +72,11 @@ class SESoundPlayer {
         }
     }
 
-//    private void sendMsgPaused() {
-//        for (Handler handler : handlers) {
-//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
-//        }
-//    }
+    private void sendMsgPaused() {
+        for (Handler handler : handlers) {
+            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
+        }
+    }
 
     private void sendMsgStopped() {
         for (Handler handler : handlers) {
@@ -92,6 +92,9 @@ class SESoundPlayer {
 
     private class PlayingThread extends Thread {
         private boolean running;
+
+        // let player pause operation takes preference upon operation stop
+        private boolean paused = true;
 
         private PlayingThread(boolean running) {
             this.running = running;
@@ -128,11 +131,18 @@ class SESoundPlayer {
             audioTrack.stop();
             audioTrack.release();
 
-            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STOPPED));
+            handler.sendMessage(handler.obtainMessage(
+                    paused ? MSG_PLAYING_PAUSED : MSG_PLAYING_STOPPED));
         }
 
         void stopPlaying() {
             running = false;
+            paused = false;
+        }
+
+        void pausePlaying() {
+            running = false;
+            paused = true;
         }
 
         private Handler handler = new Handler() {
@@ -145,6 +155,10 @@ class SESoundPlayer {
                     }
                     case MSG_PLAYING_IN_PROGRESS: {
                         sendMsgInProgress();
+                        break;
+                    }
+                    case MSG_PLAYING_PAUSED: {
+                        sendMsgPaused();
                         break;
                     }
                     case MSG_PLAYING_STOPPED: {

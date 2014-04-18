@@ -61,7 +61,7 @@ public class SEProject {
         records.add(record);
         int index = records.indexOf(record);
 
-        // set references to the records
+        // set references to neighbour records
         if (index >= 1) {
             records.get(index - 1).nextRecord = record;
             record.prevRecord = records.get(index - 1);
@@ -70,7 +70,7 @@ public class SEProject {
         duration += record.duration;
     }
 
-    void addRecord(SERecord record, double position) {
+    void splitRecord(SERecord record) {
         // define project current record and its position
         final SERecord cur = getCurrentRecord();
 
@@ -80,16 +80,16 @@ public class SEProject {
         SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
 
         // perform the split itself
-        final SERecord aRecord = new SERecord(this);
+        SERecord aRecord = new SERecord(this);
         aRecord.soundPath = SDCardUtils.getSoundPath(context);
-        aRecord.position = 0;
+        aRecord.start = 0;
         aRecord.duration = cur.position;
         aRecord.prevRecord = prev;
         aRecord.nextRecord = record;
 
-        final SERecord bRecord = new SERecord(this);
+        SERecord bRecord = new SERecord(this);
         bRecord.soundPath = SDCardUtils.getSoundPath(context);
-        bRecord.position = 0;
+        bRecord.start = cur.position;
         bRecord.duration = cur.duration - cur.position;
         bRecord.prevRecord = record;
         bRecord.nextRecord = next;
@@ -107,23 +107,7 @@ public class SEProject {
             }
         }
 
-        // in a background thread 1) update the neighbour records
-        // 2) delete cur sound file from sd card
-        new Thread() {
-            @Override
-            public void run() {
-                int format = SpeexWrapper.getFormat(cur.soundPath);
-                SpeexWrapper.write(aRecord.soundPath,
-                        SpeexWrapper.read(cur.soundPath, 0, aRecord.duration, format), format);
-                SpeexWrapper.write(bRecord.soundPath,
-                        SpeexWrapper.read(cur.soundPath, aRecord.duration, cur.duration, format), format);
-
-                File file = new File(cur.soundPath);
-                if (file.exists()) {
-                    file.delete();
-                }
-            }
-        }.start();
+        SDCardUtils.writeProject(this);
     }
 
     void moveRecord(SERecord record, int index) {
@@ -132,11 +116,13 @@ public class SEProject {
 
     void removeAllRecords() {
     	records.clear();
+
         duration = 0;
     }
 
     void removeRecord(SERecord record) {
         records.remove(record);
+
         duration -= record.duration;
     }
 
@@ -179,7 +165,7 @@ public class SEProject {
             duration += record.duration;
 
             if (duration >= position) {
-                record.position = record.duration - (duration - position);
+//                record.setPosition(record.getDuration() - record.start - (duration - position));
                 return record;
             }
         }

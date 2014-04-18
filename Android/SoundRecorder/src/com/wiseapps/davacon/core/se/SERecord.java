@@ -10,7 +10,6 @@ import com.wiseapps.davacon.speex.SpeexWrapper;
  */
 public class SERecord {
     double start;
-    double duration;
     String soundPath;
 
     final SEProject project;
@@ -19,6 +18,9 @@ public class SERecord {
 
     // record current position
     double position;
+
+    // record duration
+    double duration;
 
     SERecord(SEProject project) {
         this.project = project;
