@@ -1,38 +1,30 @@
-package com.wiseapps.davacon.core.se;
+package com.wiseapps.davacon.core.mock;
 
 import android.content.Context;
-import com.wiseapps.davacon.logging.LoggerFactory;
-import com.wiseapps.davacon.speex.SpeexWrapper;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/14/14
- *         Time: 11:55 AM
- *
- * Set of public methods could not be changed!!!
+ *         Date: 4/18/14
+ *         Time: 5:03 PM
  */
-public class SEProject {
-    private final static String TAG = SEProject.class.getSimpleName();
-
-//    private static final int DURATION_SECONDS = 1;
+public class MockProject {
 
     final Context context;
 
     String projectPath;
 
-    private List<SERecord> records = new ArrayList<SERecord>();
+    private List<MockRecord> records = new ArrayList<MockRecord>();
 
-    // project duration in millis
-    long duration;
+    // project duration
+    double duration;
 
-    // project current position in millis
-    long position;
+    // project current position
+    double position;
 
-    public SEProject(Context context) {
+    public MockProject(Context context) {
         this.context = context;
 
         this.position = 0;
@@ -44,28 +36,20 @@ public class SEProject {
      *
      * @return project audio stream
      */
-//    SEAudioStream getAudioStream(Context context) {
-//        duration = 0;
-//
-//        // each time audio stream is created the project is read from sdcard anew
-//        SDCardUtils.readProject(this);
-//
-//        return new SEProjectAudioStream(context, this);
-//    }
-    AudioStream getAudioStream() {
-//        removeAllRecords();
-//
-//        // each time audio stream is created the project is read from sdcard anew
-//        SDCardUtils.readProject(this);
+    MockAudioStream getAudioStream(Context context) {
+        removeAllRecords();
 
-        return new ProjectAudioStream(this);
+        // each time audio stream is created the project is read from sdcard anew
+        MockSDCardUtils.readProject(this);
+
+        return new MockProjectAudioStream(context, this);
     }
 
-    List<SERecord> getRecords() {
+    List<MockRecord> getRecords() {
         return records;
     }
 
-    void addRecord(SERecord record) {
+    void addRecord(MockRecord record) {
         records.add(record);
         int index = records.indexOf(record);
 
@@ -78,34 +62,39 @@ public class SEProject {
         duration += record.duration;
     }
 
-    void splitRecord(SERecord record) {
+    void splitRecord(MockRecord record) {
         // define project current record and its position
-        final SERecord cur = getCurrentRecord();
+        final MockRecord cur = getCurrentRecord();
+        if (cur == null) {
+            addRecord(record);
+            return;
+        }
 
         // define the neighbour records
         int i = records.indexOf(cur);
-        SERecord prev = i > 0 ? records.get(i - 1) : null;
-        SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
+        MockRecord prev = i > 0 ? records.get(i - 1) : null;
+        MockRecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
 
         // perform the split itself
-        SERecord aRecord = new SERecord(this);
-        aRecord.soundPath = SDCardUtils.getSoundPath(context);
+        MockRecord aRecord = new MockRecord(this);
+        aRecord.soundPath = MockSDCardUtils.getSoundPath(context);
         aRecord.start = 0;
         aRecord.duration = cur.position;
         aRecord.prevRecord = prev;
         aRecord.nextRecord = record;
 
-        SERecord bRecord = new SERecord(this);
-        bRecord.soundPath = SDCardUtils.getSoundPath(context);
+        MockRecord bRecord = new MockRecord(this);
+        bRecord.soundPath = MockSDCardUtils.getSoundPath(context);
         bRecord.start = cur.position;
         bRecord.duration = cur.duration - cur.position;
         bRecord.prevRecord = record;
         bRecord.nextRecord = next;
 
         // update the project with new records list
-        List<SERecord> records = this.records;
+        // TODO start here
+        List<MockRecord> records = this.records;
         removeAllRecords();
-        for (SERecord r : records) {
+        for (MockRecord r : records) {
             addRecord(r);
 
             if (records.indexOf(r) == i) {
@@ -115,20 +104,20 @@ public class SEProject {
             }
         }
 
-//        SDCardUtils.writeProject(this);
+        MockSDCardUtils.writeProject(this);
     }
 
-    void moveRecord(SERecord record, int index) {
+    void moveRecord(MockRecord record, int index) {
         // TODO implement
     }
 
     void removeAllRecords() {
-    	records.clear();
+        records.clear();
 
         duration = 0;
     }
 
-    void removeRecord(SERecord record) {
+    void removeRecord(MockRecord record) {
         records.remove(record);
 
         duration -= record.duration;
@@ -152,19 +141,16 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
-//        SEProject project = new SEProject(context);
-//        project.projectPath = projectPath;
-//
-//        SDCardUtils.readProject(project);
-//
-//        boolean result = false;
-//
-//        project = null;
-//
-//    	return result;
+        MockProject project = new MockProject(context);
+        project.projectPath = projectPath;
 
-        // TODO implement
-        return false;
+        MockSDCardUtils.readProject(project);
+
+        boolean result = false;
+
+        project = null;
+
+        return result;
     }
 
     /**
@@ -175,13 +161,13 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean saveAsync() {
-        // TODO implement, use SDCardUtils.writeProject(this); and thread
+        // TODO implement, use MockSDCardUtils.writeProject(this); and thread
         return false;
     }
 
-    SERecord getCurrentRecord() {
+    MockRecord getCurrentRecord() {
         double duration = 0;
-        for (SERecord record : records) {
+        for (MockRecord record : records) {
             duration += record.duration;
 
             if (duration >= position) {
@@ -191,18 +177,5 @@ public class SEProject {
         }
 
         return null;
-    }
-
-    int getCurrentRecordIndex() {
-        double duration = 0;
-        for (int i = 0; i < records.size(); i++) {
-            duration += records.get(i).duration;
-
-            if (duration >= position) {
-                return i;
-            }
-        }
-
-        return 0;
     }
 }

@@ -7,23 +7,18 @@
 //import android.os.Environment;
 //import android.view.View;
 //import android.widget.Button;
-//import com.wiseapps.davacon.core.se.SDCardUtils;
-//import com.wiseapps.davacon.core.se.SEProject;
-//import com.wiseapps.davacon.core.se.SERecord;
 //import com.wiseapps.davacon.logging.LoggerFactory;
 //import com.wiseapps.davacon.speex.SpeexWrapper;
 //
 //import java.io.File;
-//import java.util.ArrayList;
-//import java.util.List;
 //
 ///**
 // * @author varya.bzhezinskaya@wise-apps.com
 // *         Date: 4/16/14
 // *         Time: 3:22 PM
 // */
-//public class TestActivity extends Activity {
-//    private static final String TAG = TestActivity.class.getSimpleName();
+//public class Test1Activity extends Activity {
+//    private static final String TAG = Test1Activity.class.getSimpleName();
 //
 //    static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 //
@@ -32,12 +27,9 @@
 //    static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
 //    static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 //
-//    static final int MIN_BUFFER_SIZE =
-//            AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
-//
 //    static final int MODE = AudioTrack.MODE_STREAM;
 //
-////    static final short BITS_PER_SAMPLE = 8;
+//    static final short BITS_PER_SAMPLE = 8;
 //
 //    private static final String APP_PATH = "/Android/data/";
 //    private static final String PROJECT_NAME = "project.xml";
@@ -82,12 +74,12 @@
 //    }
 //
 //    private RecordingThread recorder;
-//    private List<byte[]> data;
+////    private List<byte[]> data;
 //    public void record(View view) {
 //        String filePath = getProjectPath(this) + "/test.wav";
 //
 //        if (recorder == null) {
-//            data = new ArrayList<byte[]>();
+////            data = new ArrayList<byte[]>();
 //
 //            recorder = new RecordingThread(filePath);
 //            recorder.start();
@@ -95,6 +87,9 @@
 //            record.setText("Stop Recording");
 //        } else {
 //            recorder.stopRecording();
+////            recorder = null;
+//
+////            MockSpeexWrapper.write(getProjectPath(this) + "/test.wav", );
 //
 //            record.setText("Start Recording");
 //        }
@@ -153,51 +148,29 @@
 //
 //        @Override
 //        public void run() {
+//            int minBufferSize =
+//                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT);
+//
 //            AudioTrack audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
-//                    MIN_BUFFER_SIZE, MODE);
+//                    minBufferSize * 2, MODE);
 //
+//            audioTrack.play();
 //
-//            String filePath = getProjectPath(TestActivity.this) + "/tes1.wav";
+//            int format = SpeexWrapper.getFormat(filePath);
 //
-//            double offset = 0;
-//
-//            byte data[] = SpeexWrapper.read(filePath, offset, 1, 0);
-//            while (data.length != 0) {
-//                LoggerFactory.obtainLogger(TAG).
-//                        d("doPlay# data.length = " + data.length);
-//
-////                    LoggerFactory.obtainLogger(TAG).
-////                            d("doPlay# data.duration = " + getSoundFile().getDuration(data.length));
+//            int offset = 0;
+//            byte[] data = SpeexWrapper.read(filePath, offset, 1, format);
+//            while(state != PlayerState.STOPPED) {
+//                if (state == PlayerState.PAUSED) {
+//                    continue;
+//                }
 //
 //                audioTrack.write(data, 0, data.length);
-//                audioTrack.play();
 //
-//                data = SpeexWrapper.read(filePath, offset, 1, 0);
+//                data = SpeexWrapper.read(filePath, offset, 1, format);
 //
-//                offset += 1;
+//                ++offset;
 //            }
-//
-////            int format = SpeexWrapper.getFormat(filePath);
-//
-////            int offset = 0;
-////            byte[] data = SpeexWrapper.read(filePath, offset, 1, format);
-////            while(state != PlayerState.STOPPED) {
-////                if (state == PlayerState.PAUSED) {
-////                    continue;
-////                }
-////
-////                audioTrack.write(data, 0, data.length);
-////                audioTrack.play();
-////
-////                data = SpeexWrapper.read(filePath, offset, 1, format);
-////
-////                ++offset;
-////            }
-//
-////            for (byte[] data : TestActivity.this.data) {
-////                audioTrack.write(data, 0, data.length);
-////                audioTrack.play();
-////            }
 //
 //            audioTrack.stop();
 //            audioTrack.release();
@@ -223,31 +196,25 @@
 //
 //        @Override
 //        public void run() {
-////            int minBufferSize =
-////                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
+//            int minBufferSize =
+//                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 //
 //            AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-//                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, MIN_BUFFER_SIZE);
-//
-//            byte[] data = new byte[MIN_BUFFER_SIZE];
+//                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize * 2);
 //
 //            audioRecord.startRecording();
 //
+//            byte[] data = new byte[minBufferSize * 2];
 //            while(running) {
-////                LoggerFactory.obtainLogger(TAG).
-////                        d("RecordingThread.run# running");
-////
-////                LoggerFactory.obtainLogger(TAG).
-////                	e("=== minBufferSize = " + minBufferSize);
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("RecordingThread.run# running");
 //
-//                int len = audioRecord.read(data, 0, data.length);
-//                TestActivity.this.data.add(data);
+//                audioRecord.read(data, 0, data.length);
 //
-////                LoggerFactory.obtainLogger(TAG).
-////            			e("=== read len = " + len);
-////
+////                Test1Activity.this.data.add(data);
+//
 ////                int format = SpeexWrapper.getFormat(filePath);
-////                int result = SpeexWrapper.write(filePath, data, 0);
+//                SpeexWrapper.write(filePath, data, 0);
 //            }
 //            LoggerFactory.obtainLogger(TAG).
 //                    d("RecordingThread.run# resume running");

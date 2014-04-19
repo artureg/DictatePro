@@ -1,4 +1,4 @@
-package com.wiseapps.davacon.core.se;
+package com.wiseapps.davacon.core.mock;
 
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -6,22 +6,18 @@ import android.os.Handler;
 import android.os.Message;
 import com.wiseapps.davacon.logging.LoggerFactory;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
+import static com.wiseapps.davacon.core.mock.MockProjectEngine.*;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/15/14
- *         Time: 4:07 PM
- *
- *         // TODO update project current position!
+ *         Date: 4/18/14
+ *         Time: 5:09 PM
  */
-class SESoundRecorder {
-    private static final String TAG = SESoundRecorder.class.getSimpleName();
+public class MockSoundRecorder {
+    private static final String TAG = MockSoundRecorder.class.getSimpleName();
 
     static final int MSG_RECORDING_STARTED = 0;
     static final int MSG_RECORDING_IN_PROGRESS = 1;
@@ -30,14 +26,10 @@ class SESoundRecorder {
 
     private RecordingThread thread;
 
-//    private final SEAudioStream stream;
-    private final AudioStream stream;
+    private final MockAudioStream stream;
     private List<Handler> handlers = new ArrayList<Handler>();
 
-//    SESoundRecorder(SEAudioStream stream) {
-//        this.stream = stream;
-//    }
-    SESoundRecorder(AudioStream stream) {
+    MockSoundRecorder(MockAudioStream stream) {
         this.stream = stream;
     }
 
@@ -85,21 +77,13 @@ class SESoundRecorder {
     private class RecordingThread extends Thread {
         private boolean running;
 
-        private AudioRecord audioRecord;
-
         private RecordingThread(boolean running) {
             this.running = running;
         }
 
         @Override
         public void run() {
-            open();
-            work();
-            close();
-        }
-
-        private void open() {
-            audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+            AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                     SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, MIN_BUFFER_SIZE);
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
@@ -107,59 +91,21 @@ class SESoundRecorder {
                 return;
             }
 
-//            stream.open(SEAudioStream.Mode.WRITE);
-            stream.open(AudioStream.Mode.WRITE);
+            stream.open(MockAudioStream.Mode.WRITE);
             handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));
 
             audioRecord.startRecording();
-        }
 
-        private void work() {
-            OutputStream out = null;
-
-            try {
-                out = stream.getOutputStream();
-
-                byte[] data = new byte[MIN_BUFFER_SIZE];
-                while(running) {
-                    audioRecord.read(data, 0, data.length);
-                    out.write(data);
-
-                    LoggerFactory.obtainLogger(TAG).
-                            d("run# recorded " + data.length);
-
-                    stream.updatePosition(data.length);
-                    stream.updateDuration(data.length);
-
-                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS));
-                }
-            } catch (Exception e) {
+            byte[] data = new byte[MIN_BUFFER_SIZE];
+            while(running) {
                 LoggerFactory.obtainLogger(TAG).
-                        e(e.getMessage(), e);
+                        d("running " + data.length);
+                audioRecord.read(data, 0, data.length);
+                stream.write(data);
 
-                handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
-            } finally {
-                LoggerFactory.obtainLogger(TAG).
-                        d("work# finally");
-                if (out != null) {
-                    try {
-                        out.flush();
-                        out.close();
-                    } catch (Exception e) {
-                        LoggerFactory.obtainLogger(TAG).
-                                e(e.getMessage(), e);
-                    }
-                }
+                handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS));
             }
 
-//            LoggerFactory.obtainLogger(TAG).d("work# test = " + test);
-            LoggerFactory.obtainLogger(TAG).d("work# record.duration = " +
-                    ((RecordAudioStream) stream).record.duration);
-            LoggerFactory.obtainLogger(TAG).d("work# project.duration = " +
-                    ((RecordAudioStream) stream).record.project.duration);
-        }
-
-        private void close() {
             stream.close();
 
             audioRecord.stop();

@@ -9,67 +9,19 @@ extern "C" {
 #endif
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    getFormat
- * Signature: (Ljava/lang/String;)I
+ * Method:    getInputStream
+ * Signature: (Ljava/lang/String;I)Ljava/io/InputStream;
  */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getFormat
-  (JNIEnv *, jclass, jstring);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    getSampleRate
- * Signature: (Ljava/lang/String;I)I
- */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getSampleRate
+JNIEXPORT jobject JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getInputStream
   (JNIEnv *, jclass, jstring, jint);
 
 /*
  * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    getDuration
- * Signature: (Ljava/lang/String;I)D
+ * Method:    getOutputStream
+ * Signature: (Ljava/lang/String;I)Ljava/io/OutputStream;
  */
-JNIEXPORT jdouble JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getDuration
+JNIEXPORT jobject JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_getOutputStream
   (JNIEnv *, jclass, jstring, jint);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    read
- * Signature: (Ljava/lang/String;DDI)[B
- */
-JNIEXPORT jbyteArray JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_read
-  (JNIEnv *, jclass, jstring, jdouble, jdouble, jint);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    write
- * Signature: (Ljava/lang/String;[BI)I
- */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_write
-  (JNIEnv *, jclass, jstring, jbyteArray, jint);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    encode
- * Signature: (Ljava/lang/String;Ljava/lang/String;)I
- */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_encode
-  (JNIEnv *, jclass, jstring, jstring);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    decode
- * Signature: (Ljava/lang/String;Ljava/lang/String;)I
- */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_decode
-  (JNIEnv *, jclass, jstring, jstring);
-
-/*
- * Class:     com_wiseapps_davacon_speex_SpeexWrapper
- * Method:    test
- * Signature: (II)I
- */
-JNIEXPORT jint JNICALL Java_com_wiseapps_davacon_speex_SpeexWrapper_test
-  (JNIEnv *, jclass, jint, jint);
 
 #ifdef __cplusplus
 }

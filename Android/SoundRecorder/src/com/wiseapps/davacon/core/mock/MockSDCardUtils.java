@@ -1,23 +1,21 @@
-package com.wiseapps.davacon.core.se;
+package com.wiseapps.davacon.core.mock;
 
 import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
-
-import java.io.*;
-
+import com.wiseapps.davacon.logging.LoggerFactory;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
-import com.wiseapps.davacon.logging.LoggerFactory;
+import java.io.*;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/13/14
- *         Time: 10:17 AM
+ *         Date: 4/18/14
+ *         Time: 5:36 PM
  */
-public class SDCardUtils {
-    private static final String TAG = SDCardUtils.class.getSimpleName();
+public class MockSDCardUtils {
+    private static final String TAG = MockSDCardUtils.class.getSimpleName();
 
     private static final String APP_PATH = "/Android/data/";
 
@@ -49,7 +47,7 @@ public class SDCardUtils {
 //    </record>
 //    </dist>
 
-    public static void readProject(final SEProject project) {
+    public static void readProject(final MockProject project) {
         File file = new File(getProjectPath(project.context), PROJECT_NAME);
         project.projectPath = file.getAbsolutePath();
 
@@ -70,7 +68,7 @@ public class SDCardUtils {
 //                            }
 
                             if (parser.getName().equals(TAG_RECORD)) {
-                                SERecord record = parseRecord(project, parser);
+                                MockRecord record = parseRecord(project, parser);
                                 project.addRecord(record);
                                 break;
                             }
@@ -88,7 +86,7 @@ public class SDCardUtils {
         }
     }
 
-    public static boolean writeProject(final SEProject project) {
+    public static boolean writeProject(final MockProject project) {
         File file = new File(project.projectPath);
 
         if (!file.exists()) {
@@ -120,8 +118,9 @@ public class SDCardUtils {
 //                    .endTag(NAMESPACE, TAG_IS_CHANGED)
 //                    .text(NEWLINE);
 
-            for (SERecord record : project.getRecords()) {
+            for (MockRecord record : project.getRecords()) {
                 serializeRecord(xmlSerializer, record);
+                writeMockData(record);
             }
 
             xmlSerializer.endTag(NAMESPACE, TAG_DIST).text(NEWLINE);
@@ -143,7 +142,7 @@ public class SDCardUtils {
         return true;
     }
 
-    private static void serializeRecord(XmlSerializer serializer, final SERecord record) throws Exception {
+    private static void serializeRecord(XmlSerializer serializer, final MockRecord record) throws Exception {
         serializer.startTag(NAMESPACE, TAG_RECORD)
                 .text(NEWLINE);
 
@@ -166,15 +165,15 @@ public class SDCardUtils {
                 .text(NEWLINE);
     }
 
-    private static SERecord parseRecord(SEProject project, XmlPullParser parser) throws Exception {
-        SERecord record = new SERecord(project);
+    private static MockRecord parseRecord(MockProject project, XmlPullParser parser) throws Exception {
+        MockRecord record = new MockRecord(project);
 
         OUTER: while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
             switch (parser.getEventType()) {
                 case XmlPullParser.START_TAG: {
                     if (parser.getName().equals(TAG_DURATION)) {
                         parser.next();
-                        record.duration = Long.valueOf(parser.getText());
+                        record.duration = Double.valueOf(parser.getText());
                         break;
                     }
 
@@ -186,7 +185,7 @@ public class SDCardUtils {
 
                     if (parser.getName().equals(TAG_START)) {
                         parser.next();
-                        record.start = Long.valueOf(parser.getText());
+                        record.start = Double.parseDouble(parser.getText());
                         break;
                     }
 
@@ -202,7 +201,67 @@ public class SDCardUtils {
             parser.next();
         }
 
+        record.mockData = readMockData(record);
         return record;
+    }
+
+    private static byte[] readMockData(final MockRecord record) {
+        InputStream in = null;
+
+        try {
+            File file = new File(record.soundPath);
+            if (!file.exists()) {
+                return null;
+            }
+
+            in = new FileInputStream(file);
+
+            byte[] data = new byte[(int) file.length()];
+            in.read(data);
+
+            return data;
+        } catch (Exception e) {
+            LoggerFactory.obtainLogger(TAG).
+                    e("readMockData#", e);
+
+            return null;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ioe) {
+                    LoggerFactory.obtainLogger(TAG).
+                            e("readMockData#", ioe);
+                }
+            }
+        }
+    }
+
+    private static void writeMockData(final MockRecord record) {
+        OutputStream out = null;
+
+        try {
+            File file = new File(record.soundPath);
+            if (!file.exists()) {
+                file.delete();
+                file.createNewFile();
+            }
+
+            out = new FileOutputStream(file);
+            out.write(record.mockData);
+        } catch (Exception e) {
+            LoggerFactory.obtainLogger(TAG).
+                    e("writeMockData#", e);
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException ioe) {
+                    LoggerFactory.obtainLogger(TAG).
+                            e("writeMockData#", ioe);
+                }
+            }
+        }
     }
 
     private static XmlPullParser getParser(File file) {
