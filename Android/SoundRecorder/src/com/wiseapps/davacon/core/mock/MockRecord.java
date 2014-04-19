@@ -1,36 +1,34 @@
-package com.wiseapps.davacon.core.se;
+package com.wiseapps.davacon.core.mock;
 
 import android.content.Context;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/14/14
- *         Time: 11:55 AM
+ *         Date: 4/18/14
+ *         Time: 5:03 PM
  */
-public class SERecord {
-    long start;
+public class MockRecord {
+    double start;
     String soundPath;
 
-    final SEProject project;
+    final MockProject project;
 
-    SERecord prevRecord, nextRecord;
+    MockRecord prevRecord, nextRecord;
 
-    // record current position in millis
-    long position;
+    // record current position
+    double position;
 
-    // record duration in millis
-    long duration;
+    // record duration
+    double duration;
 
-    SERecord(SEProject project) {
+    byte[] mockData = new byte[0];
+
+    MockRecord(MockProject project) {
         this.project = project;
     }
 
-//    SEAudioStream getAudioStream(Context context) {
-//        return new SERecordAudioStream(this, context);
-//    }
-
-    AudioStream getAudioStream() {
-        return new RecordAudioStream(this);
+    MockAudioStream getAudioStream(Context context) {
+        return new MockRecordAudioStream(this, context);
     }
 
     @Override
@@ -38,7 +36,7 @@ public class SERecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SERecord record = (SERecord) o;
+        MockRecord record = (MockRecord) o;
 
         if (Double.compare(record.duration, duration) != 0) return false;
         if (Double.compare(record.start, start) != 0) return false;

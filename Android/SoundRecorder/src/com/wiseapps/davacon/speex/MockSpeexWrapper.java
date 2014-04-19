@@ -11,7 +11,7 @@ import java.io.RandomAccessFile;
  *         Date: 4/17/14
  *         Time: 4:43 PM
  */
-class MockSpeexWrapper {
+public class MockSpeexWrapper {
     private static final String TAG = MockSpeexWrapper.class.getSimpleName();
 
     private static final int SAMPLE_RATE_IN_HZ = 8000;

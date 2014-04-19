@@ -12,19 +12,26 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
-import com.wiseapps.davacon.core.se.*;
+import com.wiseapps.davacon.core.mock.MockProject;
+import com.wiseapps.davacon.core.mock.MockProjectEngine;
+import com.wiseapps.davacon.core.mock.MockSDCardUtils;
+import com.wiseapps.davacon.core.se.SEAudioStreamEngine;
+import com.wiseapps.davacon.core.se.SEPlayerStateListener;
+import com.wiseapps.davacon.core.se.SERecorderStateListener;
+import com.wiseapps.davacon.logging.LoggerFactory;
 
-import static com.wiseapps.davacon.core.se.SEAudioStreamEngine.*;
+import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/13/14
- *         Time: 9:50 AM
+ *         Date: 4/18/14
+ *         Time: 5:31 PM
  */
-public class SoundRecorderActivity extends Activity {
+public class MockSoundPlayerActivity extends Activity {
     private static final String TAG = SoundRecorderActivity.class.getSimpleName();
 
-    private SEProject project;
+    private MockProject project;
     private SEAudioStreamEngine engine;
 
     private ImageButton
@@ -53,22 +60,22 @@ public class SoundRecorderActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        ((SEProjectEngine) engine).release();
+        ((MockProjectEngine) engine).release();
 
         if (project != null) {
-            SDCardUtils.writeProject(project);
+            MockSDCardUtils.writeProject(project);
         }
 
         super.onDestroy();
     }
 
     private void initData() {
-        project = new SEProject(getContext());
+        project = new MockProject(getContext());
 
-        SDCardUtils.readProject(project);
+        MockSDCardUtils.readProject(project);
 
         if (project != null) {
-            engine = new SEProjectEngine(getContext(), project);
+            engine = new MockProjectEngine(getContext(), project);
             engine.addPlayerStateListener(playerStateListener);
             engine.addRecorderStateListener(recorderStateListener);
         }
@@ -107,7 +114,7 @@ public class SoundRecorderActivity extends Activity {
         positionBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (engine.getState() != State.READY) {
+                if (engine.getState() != SEAudioStreamEngine.State.READY) {
                     return;
                 }
 
@@ -131,7 +138,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void rewind(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 
@@ -140,18 +147,18 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void record(View view) {
-        if (engine.getState() == State.READY) {
+        if (engine.getState() == SEAudioStreamEngine.State.READY) {
             engine.startRecording();
             return;
         }
 
-        if (engine.getState() == State.RECORDING_IN_PROGRESS) {
+        if (engine.getState() == SEAudioStreamEngine.State.RECORDING_IN_PROGRESS) {
             engine.stopRecording();
         }
     }
 
     public void forward(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 
@@ -160,7 +167,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void start(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 
@@ -169,18 +176,18 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void play(View view) {
-        if (engine.getState() == State.READY) {
+        if (engine.getState() == SEAudioStreamEngine.State.READY) {
             engine.startPlaying();
             return;
         }
 
-        if (engine.getState() == State.PLAYING_IN_PROGRESS) {
+        if (engine.getState() == SEAudioStreamEngine.State.PLAYING_IN_PROGRESS) {
             engine.pausePlaying();
         }
     }
 
     public void end(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 
@@ -189,7 +196,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void export(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 
@@ -197,7 +204,7 @@ public class SoundRecorderActivity extends Activity {
     }
 
     public void save(View view) {
-        if (engine.getState() != State.READY) {
+        if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
 

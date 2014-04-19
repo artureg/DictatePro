@@ -1,22 +1,24 @@
-package com.wiseapps.davacon.core.se;
+package com.wiseapps.davacon.core.mock;
 
 import android.content.Context;
-import android.media.*;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.os.Handler;
 import android.os.Message;
+import com.wiseapps.davacon.core.se.SEAudioStreamEngine;
 
-import static com.wiseapps.davacon.core.se.SESoundRecorder.*;
-import static com.wiseapps.davacon.core.se.SESoundPlayer.*;
+import static com.wiseapps.davacon.core.mock.MockSoundRecorder.*;
+import static com.wiseapps.davacon.core.mock.MockSoundPlayer.*;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
- *         Date: 4/14/14
- *         Time: 11:52 AM
- *
- * Set of public methods could not be changed!!!
+ *         Date: 4/18/14
+ *         Time: 5:09 PM
  */
-public class SEProjectEngine extends SEAudioStreamEngine {
-    private static final String TAG = SEProjectEngine.class.getSimpleName();
+public class MockProjectEngine extends SEAudioStreamEngine {
+    private static final String TAG = MockProjectEngine.class.getSimpleName();
 
     static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 
@@ -34,12 +36,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     private final Context context;
 
-    private final SEProject project;
+    private final MockProject project;
 
-    private SESoundRecorder recorder;
-    private SESoundPlayer player;
+    private MockSoundRecorder recorder;
+    private MockSoundPlayer player;
 
-    public SEProjectEngine(Context context, final SEProject project) {
+    public MockProjectEngine(Context context, final MockProject project) {
         super();
 
         this.context = context;
@@ -61,7 +63,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         if (player == null) {
-            player = new SESoundPlayer(project.getAudioStream());
+            player = new MockSoundPlayer(project.getAudioStream(context));
             player.addHandler(playerHandler);
         }
 
@@ -76,10 +78,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        if (player != null) {
-            player.pause();
-            player = null;
+        if (player == null) {
+            throw new IllegalStateException();
         }
+
+        player.pause();
+        player = null;
     }
 
     /**
@@ -90,10 +94,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        if (player != null) {
-            player.stop();
-            player = null;
+        if (player == null) {
+            throw new IllegalStateException();
         }
+
+        player.stop();
+        player = null;
     }
 
     /**
@@ -113,12 +119,11 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        SERecord record = new SERecord(project);
-        record.soundPath = SDCardUtils.getSoundPath(context);
-//        project.splitRecord(record);
-        project.addRecord(record);
+        MockRecord record = new MockRecord(project);
+        record.soundPath = MockSDCardUtils.getSoundPath(context);
+        project.splitRecord(record);
 
-        recorder = new SESoundRecorder(record.getAudioStream());
+        recorder = new MockSoundRecorder(record.getAudioStream(context));
         recorder.addHandler(recorderHandler);
         recorder.start();
     }
@@ -134,8 +139,6 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         if (recorder == null) {
             throw new IllegalStateException();
         }
-
-        SDCardUtils.writeProject(project);
 
         recorder.stop();
         recorder = null;
@@ -161,8 +164,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         // all other cases are not special,
         // project position is set equal to what we receive
 
-        // TODO implement correstly
-//        project.position = currentTime;
+        project.position = currentTime;
 
         state = State.READY;
         if (player != null) {
@@ -259,22 +261,22 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_PLAYING_STARTED: {
-                    notifyPlayerStateChanged(Event.PLAYING_STARTED);
+                    notifyRecorderStateChanged(Event.PLAYING_STARTED);
                     state = State.PLAYING_IN_PROGRESS;
                     break;
                 }
                 case MSG_PLAYING_IN_PROGRESS: {
-                    notifyPlayerStateChanged(Event.PLAYING_IN_PROGRESS);
+                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
                     state = State.PLAYING_IN_PROGRESS;
                     break;
                 }
                 case MSG_PLAYING_PAUSED: {
-                    notifyPlayerStateChanged(Event.PLAYING_PAUSED);
+                    notifyRecorderStateChanged(Event.PLAYING_PAUSED);
                     state = State.READY;
                     break;
                 }
                 case MSG_PLAYING_STOPPED: {
-                    notifyPlayerStateChanged(Event.PLAYING_STOPPED);
+                    notifyRecorderStateChanged(Event.PLAYING_STOPPED);
                     state = State.READY;
 
                     project.position = 0;
@@ -282,7 +284,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
                     break;
                 }
                 case MSG_PLAYING_ERROR: {
-                    notifyPlayerStateChanged(Event.OPERATION_ERROR);
+                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
                     state = State.READY;
                     break;
                 }

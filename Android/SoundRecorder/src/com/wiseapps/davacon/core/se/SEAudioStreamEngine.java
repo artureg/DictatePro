@@ -18,7 +18,7 @@ public abstract class SEAudioStreamEngine {
         RECORDING_IN_PROGRESS,
     }
 
-    static enum Event {
+    public static enum Event {
         PLAYING_STARTED,
         PLAYING_PAUSED,
         PLAYING_IN_PROGRESS,
@@ -29,7 +29,7 @@ public abstract class SEAudioStreamEngine {
         OPERATION_ERROR
     }
 
-    State state = State.READY;
+    public State state = State.READY;
 
     private List<SEPlayerStateListener> playerStateListeners;
     private List<SERecorderStateListener> recorderStateListeners;
