@@ -18,19 +18,19 @@ import static com.wiseapps.davacon.core.se.SESoundPlayer.*;
 public class SEProjectEngine extends SEAudioStreamEngine {
     private static final String TAG = SEProjectEngine.class.getSimpleName();
 
-    static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
+    public static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 
-    static final int SAMPLE_RATE_IN_HZ = 8000;
-    static final int CHANNEL_CONFIG_IN = AudioFormat.CHANNEL_IN_MONO;
-    static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
-    static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+    public static final int SAMPLE_RATE_IN_HZ = 8000;
+    public static final int CHANNEL_CONFIG_IN = AudioFormat.CHANNEL_IN_MONO;
+    public static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
+    public static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 
-    static final int MIN_BUFFER_SIZE =
+    public static final int MIN_BUFFER_SIZE =
             AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 
-    static final short BITS_PER_SAMPLE = 8;
+    public static final short BITS_PER_SAMPLE = 8;
 
-    static final int MODE = AudioTrack.MODE_STREAM;
+    public static final int MODE = AudioTrack.MODE_STREAM;
 
     private final Context context;
 
@@ -115,8 +115,8 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         SERecord record = new SERecord(project);
         record.soundPath = SDCardUtils.getSoundPath(context);
-//        project.splitRecord(record);
-        project.addRecord(record);
+        project.splitRecord(record);
+//        project.addRecord(record);
 
         recorder = new SESoundRecorder(record.getAudioStream());
         recorder.addHandler(recorderHandler);
@@ -142,27 +142,25 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     }
 
     @Override
-    public void setCurrentTime(double currentTime) {
+    public void setCurrentTime(long currentPosition) {
+        if (currentPosition == Long.MIN_VALUE) {
+            project.position = 0;
+        }
+
         // received -1, this means that we must go to end
-        if (currentTime == -1) {
-            currentTime = project.duration;
+        if (currentPosition == Long.MAX_VALUE) {
+            project.position = project.duration;
         }
 
         // rewind : project stream start has been reached
-        if (currentTime < 0) {
-            currentTime = 0;
+        if (currentPosition < 0) {
+            project.position = 0;
         }
 
         // forward : project stream end has been reached
-        if (currentTime > project.duration) {
-            currentTime = project.duration;
+        if (currentPosition > project.duration) {
+            project.position = project.duration;
         }
-
-        // all other cases are not special,
-        // project position is set equal to what we receive
-
-        // TODO implement correstly
-//        project.position = currentTime;
 
         state = State.READY;
         if (player != null) {
@@ -174,12 +172,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     }
 
     @Override
-    public double getCurrentTime() {
+    public long getCurrentTime() {
         return project.position;
     }
 
     @Override
-    public double getDuration() {
+    public long getDuration() {
         return project.duration;
     }
 
@@ -227,25 +225,54 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     private Handler recorderHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            if (recorderStateListeners == null) {
+                return;
+            }
+
             switch (msg.what) {
                 case MSG_RECORDING_STARTED: {
-                    notifyRecorderStateChanged(Event.RECORDING_STARTED);
+                    for (SERecorderStateListener listener : recorderStateListeners) {
+                        if (listener != null) {
+                            listener.recordingStarted();
+                        }
+                    }
+
                     state = State.RECORDING_IN_PROGRESS;
+
                     break;
                 }
                 case MSG_RECORDING_IN_PROGRESS: {
-                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
+                    for (SERecorderStateListener listener : recorderStateListeners) {
+                        if (listener != null) {
+                            listener.recordingInProgress(
+                                    msg.obj != null ? (Integer) msg.obj : 0);
+                        }
+                    }
+
                     state = State.RECORDING_IN_PROGRESS;
+
                     break;
                 }
                 case MSG_RECORDING_STOPPED: {
-                    notifyRecorderStateChanged(Event.RECORDING_STOPPED);
+                    for (SERecorderStateListener listener : recorderStateListeners) {
+                        if (listener != null) {
+                            listener.recordingStopped();
+                        }
+                    }
+
                     state = State.READY;
+
                     break;
                 }
                 case MSG_RECORDING_ERROR: {
-                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
+                    for (SERecorderStateListener listener : recorderStateListeners) {
+                        if (listener != null) {
+                            listener.recordingStopped();
+                        }
+                    }
+
                     state = State.READY;
+
                     break;
                 }
             }
@@ -257,24 +284,51 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     private Handler playerHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            if (playerStateListeners == null) {
+                return;
+            }
+
             switch (msg.what) {
                 case MSG_PLAYING_STARTED: {
-                    notifyPlayerStateChanged(Event.PLAYING_STARTED);
+                    for (SEPlayerStateListener listener : playerStateListeners) {
+                        if (listener != null) {
+                            listener.playingStarted();
+                        }
+                    }
+
                     state = State.PLAYING_IN_PROGRESS;
+
                     break;
                 }
                 case MSG_PLAYING_IN_PROGRESS: {
-                    notifyPlayerStateChanged(Event.PLAYING_IN_PROGRESS);
+                    for (SEPlayerStateListener listener : playerStateListeners) {
+                        if (listener != null) {
+                            listener.playingInProgress(msg.obj != null ? (Integer) msg.obj : 0);
+                        }
+                    }
+
                     state = State.PLAYING_IN_PROGRESS;
+
                     break;
                 }
                 case MSG_PLAYING_PAUSED: {
-                    notifyPlayerStateChanged(Event.PLAYING_PAUSED);
+                    for (SEPlayerStateListener listener : playerStateListeners) {
+                        if (listener != null) {
+                            listener.playingPaused();
+                        }
+                    }
+
                     state = State.READY;
+
                     break;
                 }
                 case MSG_PLAYING_STOPPED: {
-                    notifyPlayerStateChanged(Event.PLAYING_STOPPED);
+                    for (SEPlayerStateListener listener : playerStateListeners) {
+                        if (listener != null) {
+                            listener.playingStopped();
+                        }
+                    }
+
                     state = State.READY;
 
                     project.position = 0;
@@ -282,8 +336,14 @@ public class SEProjectEngine extends SEAudioStreamEngine {
                     break;
                 }
                 case MSG_PLAYING_ERROR: {
-                    notifyPlayerStateChanged(Event.OPERATION_ERROR);
+                    for (SEPlayerStateListener listener : playerStateListeners) {
+                        if (listener != null) {
+                            listener.onError("Playing failed");
+                        }
+                    }
+
                     state = State.READY;
+
                     break;
                 }
             }

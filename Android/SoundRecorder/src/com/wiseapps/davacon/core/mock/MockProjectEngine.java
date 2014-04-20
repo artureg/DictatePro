@@ -145,44 +145,46 @@ public class MockProjectEngine extends SEAudioStreamEngine {
     }
 
     @Override
-    public void setCurrentTime(double currentTime) {
-        // received -1, this means that we must go to end
-        if (currentTime == -1) {
-            currentTime = project.duration;
-        }
-
-        // rewind : project stream start has been reached
-        if (currentTime < 0) {
-            currentTime = 0;
-        }
-
-        // forward : project stream end has been reached
-        if (currentTime > project.duration) {
-            currentTime = project.duration;
-        }
-
-        // all other cases are not special,
-        // project position is set equal to what we receive
-
-        project.position = currentTime;
-
-        state = State.READY;
-        if (player != null) {
-            player.removeHandler(playerHandler);
-
-            player.stop();
-            player = null;
-        }
+    public void setCurrentTime(long currentTime) {
+//        // received -1, this means that we must go to end
+//        if (currentTime == -1) {
+//            currentTime = project.duration;
+//        }
+//
+//        // rewind : project stream start has been reached
+//        if (currentTime < 0) {
+//            currentTime = 0;
+//        }
+//
+//        // forward : project stream end has been reached
+//        if (currentTime > project.duration) {
+//            currentTime = project.duration;
+//        }
+//
+//        // all other cases are not special,
+//        // project position is set equal to what we receive
+//
+//        project.position = currentTime;
+//
+//        state = State.READY;
+//        if (player != null) {
+//            player.removeHandler(playerHandler);
+//
+//            player.stop();
+//            player = null;
+//        }
     }
 
     @Override
-    public double getCurrentTime() {
-        return project.position;
+    public long getCurrentTime() {
+//        return project.position;
+        return 0;
     }
 
     @Override
-    public double getDuration() {
-        return project.duration;
+    public long getDuration() {
+//        return project.duration;
+        return 0;
     }
 
 //    /**
@@ -229,28 +231,28 @@ public class MockProjectEngine extends SEAudioStreamEngine {
     private Handler recorderHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_RECORDING_STARTED: {
-                    notifyRecorderStateChanged(Event.RECORDING_STARTED);
-                    state = State.RECORDING_IN_PROGRESS;
-                    break;
-                }
-                case MSG_RECORDING_IN_PROGRESS: {
-                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
-                    state = State.RECORDING_IN_PROGRESS;
-                    break;
-                }
-                case MSG_RECORDING_STOPPED: {
-                    notifyRecorderStateChanged(Event.RECORDING_STOPPED);
-                    state = State.READY;
-                    break;
-                }
-                case MSG_RECORDING_ERROR: {
-                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
-                    state = State.READY;
-                    break;
-                }
-            }
+//            switch (msg.what) {
+//                case MSG_RECORDING_STARTED: {
+//                    notifyRecorderStateChanged(Event.RECORDING_STARTED);
+//                    state = State.RECORDING_IN_PROGRESS;
+//                    break;
+//                }
+//                case MSG_RECORDING_IN_PROGRESS: {
+//                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
+//                    state = State.RECORDING_IN_PROGRESS;
+//                    break;
+//                }
+//                case MSG_RECORDING_STOPPED: {
+//                    notifyRecorderStateChanged(Event.RECORDING_STOPPED);
+//                    state = State.READY;
+//                    break;
+//                }
+//                case MSG_RECORDING_ERROR: {
+//                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
+//                    state = State.READY;
+//                    break;
+//                }
+//            }
 
             super.handleMessage(msg);
         }
@@ -259,36 +261,36 @@ public class MockProjectEngine extends SEAudioStreamEngine {
     private Handler playerHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_PLAYING_STARTED: {
-                    notifyRecorderStateChanged(Event.PLAYING_STARTED);
-                    state = State.PLAYING_IN_PROGRESS;
-                    break;
-                }
-                case MSG_PLAYING_IN_PROGRESS: {
-                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
-                    state = State.PLAYING_IN_PROGRESS;
-                    break;
-                }
-                case MSG_PLAYING_PAUSED: {
-                    notifyRecorderStateChanged(Event.PLAYING_PAUSED);
-                    state = State.READY;
-                    break;
-                }
-                case MSG_PLAYING_STOPPED: {
-                    notifyRecorderStateChanged(Event.PLAYING_STOPPED);
-                    state = State.READY;
-
-                    project.position = 0;
-
-                    break;
-                }
-                case MSG_PLAYING_ERROR: {
-                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
-                    state = State.READY;
-                    break;
-                }
-            }
+//            switch (msg.what) {
+//                case MSG_PLAYING_STARTED: {
+//                    notifyRecorderStateChanged(Event.PLAYING_STARTED);
+//                    state = State.PLAYING_IN_PROGRESS;
+//                    break;
+//                }
+//                case MSG_PLAYING_IN_PROGRESS: {
+//                    notifyRecorderStateChanged(Event.RECORDING_IN_PROGRESS);
+//                    state = State.PLAYING_IN_PROGRESS;
+//                    break;
+//                }
+//                case MSG_PLAYING_PAUSED: {
+//                    notifyRecorderStateChanged(Event.PLAYING_PAUSED);
+//                    state = State.READY;
+//                    break;
+//                }
+//                case MSG_PLAYING_STOPPED: {
+//                    notifyRecorderStateChanged(Event.PLAYING_STOPPED);
+//                    state = State.READY;
+//
+//                    project.position = 0;
+//
+//                    break;
+//                }
+//                case MSG_PLAYING_ERROR: {
+//                    notifyRecorderStateChanged(Event.OPERATION_ERROR);
+//                    state = State.READY;
+//                    break;
+//                }
+//            }
 
             super.handleMessage(msg);
         }

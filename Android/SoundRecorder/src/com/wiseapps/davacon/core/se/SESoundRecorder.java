@@ -17,8 +17,6 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/15/14
  *         Time: 4:07 PM
- *
- *         // TODO update project current position!
  */
 class SESoundRecorder {
     private static final String TAG = SESoundRecorder.class.getSimpleName();
@@ -64,9 +62,9 @@ class SESoundRecorder {
         }
     }
 
-    private void sendMsgInProgress() {
+    private void sendMsgInProgress(Object obj) {
         for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS));
+            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, obj));
         }
     }
 
@@ -131,7 +129,7 @@ class SESoundRecorder {
                     stream.updatePosition(data.length);
                     stream.updateDuration(data.length);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS));
+                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, data.length));
                 }
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
@@ -181,7 +179,7 @@ class SESoundRecorder {
                         break;
                     }
                     case MSG_RECORDING_IN_PROGRESS: {
-                        sendMsgInProgress();
+                        sendMsgInProgress(msg.obj);
                         break;
                     }
                     case MSG_RECORDING_STOPPED: {

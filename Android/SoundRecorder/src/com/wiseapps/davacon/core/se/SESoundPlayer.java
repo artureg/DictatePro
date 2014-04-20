@@ -72,9 +72,9 @@ class SESoundPlayer {
         }
     }
 
-    private void sendMsgInProgress() {
+    private void sendMsgInProgress(Object obj) {
         for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
+            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, obj));
         }
     }
 
@@ -147,12 +147,10 @@ class SESoundPlayer {
                     LoggerFactory.obtainLogger(TAG).
                             d("run# played " + played);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
+                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, data.length));
                     LoggerFactory.obtainLogger(TAG).
                             d("run# running " + running);
                 }
-
-                stream.updatePosition(played);
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
                         d("work# catch");
@@ -161,6 +159,8 @@ class SESoundPlayer {
 
                 handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
             } finally {
+                stream.updatePosition(played);
+
                 LoggerFactory.obtainLogger(TAG).
                         d("work# finally");
                 if (in != null) {
@@ -206,7 +206,7 @@ class SESoundPlayer {
                         break;
                     }
                     case MSG_PLAYING_IN_PROGRESS: {
-                        sendMsgInProgress();
+                        sendMsgInProgress(msg.obj);
                         break;
                     }
                     case MSG_PLAYING_PAUSED: {

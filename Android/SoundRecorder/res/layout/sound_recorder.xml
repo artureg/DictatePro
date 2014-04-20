@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content">
             <ImageButton
                     android:id="@+id/rewind"
-                    android:src="@drawable/button06_1_rewind_enabled"
+                    android:src="@drawable/rewind_selector"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
                     android:onClick="record"/>
             <ImageButton
                     android:id="@+id/forward"
-                    android:src="@drawable/button07_1_forward_enabled"
+                    android:src="@drawable/forward_selector"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content">
             <ImageButton
                     android:id="@+id/start"
-                    android:src="@drawable/button05_1_start_enabled"
+                    android:src="@drawable/start_selector"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:onClick="play"/>
             <ImageButton
                     android:id="@+id/end"
-                    android:src="@drawable/button08_1_end_enabled"
+                    android:src="@drawable/end_selector"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
@@ -126,6 +126,7 @@
     </LinearLayout>
 
     <RelativeLayout
+            android:id="@+id/position_layout"
             android:background="@drawable/scale"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
@@ -144,6 +145,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
+
+    <TextView
+            android:id="@+id/duration"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/position_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <!--android:text="@string/process_track_duration"-->
 
     <SeekBar
             android:id="@+id/volume"
