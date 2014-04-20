@@ -15,10 +15,10 @@ public class SERecord {
 
     SERecord prevRecord, nextRecord;
 
-    // record current position in millis
+    // record current position in bytes
     long position;
 
-    // record duration in millis
+    // record duration in bytes
     long duration;
 
     SERecord(SEProject project) {

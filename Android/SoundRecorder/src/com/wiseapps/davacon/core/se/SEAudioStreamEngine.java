@@ -8,7 +8,8 @@ import java.util.List;
  *         Date: 4/14/14
  *         Time: 1:16 PM
  *
- * Set of public methods could not be changed!!!
+ * TODO setCurrentTime, getCurrentTime, getDuration - everywhere return back to double (seconds)
+ * TODO for now in bytes
  */
 public abstract class SEAudioStreamEngine {
 
@@ -18,21 +19,21 @@ public abstract class SEAudioStreamEngine {
         RECORDING_IN_PROGRESS,
     }
 
-    public static enum Event {
-        PLAYING_STARTED,
-        PLAYING_PAUSED,
-        PLAYING_IN_PROGRESS,
-        PLAYING_STOPPED,
-        RECORDING_STARTED,
-        RECORDING_IN_PROGRESS,
-        RECORDING_STOPPED,
-        OPERATION_ERROR
-    }
+//    public static enum Event {
+//        PLAYING_STARTED,
+//        PLAYING_PAUSED,
+//        PLAYING_IN_PROGRESS,
+//        PLAYING_STOPPED,
+//        RECORDING_STARTED,
+//        RECORDING_IN_PROGRESS,
+//        RECORDING_STOPPED,
+//        OPERATION_ERROR
+//    }
 
     public State state = State.READY;
 
-    private List<SEPlayerStateListener> playerStateListeners;
-    private List<SERecorderStateListener> recorderStateListeners;
+    List<SEPlayerStateListener> playerStateListeners;
+    List<SERecorderStateListener> recorderStateListeners;
 
     protected SEAudioStreamEngine() {
         playerStateListeners = new ArrayList<SEPlayerStateListener>();
@@ -53,14 +54,20 @@ public abstract class SEAudioStreamEngine {
         return state;
     }
 
-    /**
-     * @param currentTime current time in seconds
-     */
-    abstract public void setCurrentTime(double currentTime);
+//    /**
+//     * @param currentTime current time in seconds
+//     */
+//    abstract public void setCurrentTime(double currentTime);
+//
+//    abstract public double getCurrentTime();
+//
+//    abstract public double getDuration();
 
-    abstract public double getCurrentTime();
+    abstract public void setCurrentTime(long currentPosition);
 
-    abstract public double getDuration();
+    abstract public long getCurrentTime();
+
+    abstract public long getDuration();
 
     public void addPlayerStateListener(SEPlayerStateListener listener) {
         playerStateListeners.add(listener);
@@ -70,91 +77,91 @@ public abstract class SEAudioStreamEngine {
         recorderStateListeners.add(listener);
     }
 
-    protected void notifyPlayerStateChanged(Event event) {
-        if (playerStateListeners == null) {
-            return;
-        }
-
-        switch (event) {
-            case PLAYING_STARTED: {
-                for (SEPlayerStateListener listener : playerStateListeners) {
-                    if (listener != null) {
-                        listener.playingStarted();
-                    }
-                }
-                break;
-            }
-            case PLAYING_PAUSED: {
-                for (SEPlayerStateListener listener : playerStateListeners) {
-                    if (listener != null) {
-                        listener.playingPaused();
-                    }
-                }
-                break;
-            }
-            case PLAYING_IN_PROGRESS: {
-                for (SEPlayerStateListener listener : playerStateListeners) {
-                    if (listener != null) {
-                        listener.playingInProgress(getCurrentTime());
-                    }
-                }
-                break;
-            }
-            case PLAYING_STOPPED: {
-                for (SEPlayerStateListener listener : playerStateListeners) {
-                    if (listener != null) {
-                        listener.playingStopped();
-                    }
-                }
-                break;
-            }
-            default: {
-                for (SEPlayerStateListener listener : playerStateListeners) {
-                    if (listener != null) {
-                        listener.onError("Playing failed");
-                    }
-                }
-            }
-        }
-    }
-
-    protected void notifyRecorderStateChanged(Event event) {
-        if (recorderStateListeners == null) {
-            return;
-        }
-
-        switch (event) {
-            case RECORDING_STARTED: {
-                for (SERecorderStateListener listener : recorderStateListeners) {
-                    if (listener != null) {
-                        listener.recordingStarted();
-                    }
-                }
-                break;
-            }
-            case RECORDING_IN_PROGRESS: {
-                for (SERecorderStateListener listener : recorderStateListeners) {
-                    if (listener != null) {
-                        listener.recordingInProgress(getCurrentTime());
-                    }
-                }
-                break;
-            }
-            case RECORDING_STOPPED: {
-                for (SERecorderStateListener listener : recorderStateListeners) {
-                    if (listener != null) {
-                        listener.recordingStopped();
-                    }
-                }
-                break;
-            }
-            default: {
-                for (SERecorderStateListener listener : recorderStateListeners) {
-                    if (listener != null) {
-                        listener.onError("Recording failed");
-                    }
-                }
-            }
-        }
-    }
+//    protected void notifyPlayerStateChanged(Event event) {
+//        if (playerStateListeners == null) {
+//            return;
+//        }
+//
+//        switch (event) {
+//            case PLAYING_STARTED: {
+//                for (SEPlayerStateListener listener : playerStateListeners) {
+//                    if (listener != null) {
+//                        listener.playingStarted();
+//                    }
+//                }
+//                break;
+//            }
+//            case PLAYING_PAUSED: {
+//                for (SEPlayerStateListener listener : playerStateListeners) {
+//                    if (listener != null) {
+//                        listener.playingPaused();
+//                    }
+//                }
+//                break;
+//            }
+//            case PLAYING_IN_PROGRESS: {
+//                for (SEPlayerStateListener listener : playerStateListeners) {
+//                    if (listener != null) {
+//                        listener.playingInProgress(getCurrentTime());
+//                    }
+//                }
+//                break;
+//            }
+//            case PLAYING_STOPPED: {
+//                for (SEPlayerStateListener listener : playerStateListeners) {
+//                    if (listener != null) {
+//                        listener.playingStopped();
+//                    }
+//                }
+//                break;
+//            }
+//            default: {
+//                for (SEPlayerStateListener listener : playerStateListeners) {
+//                    if (listener != null) {
+//                        listener.onError("Playing failed");
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    protected void notifyRecorderStateChanged(Event event) {
+//        if (recorderStateListeners == null) {
+//            return;
+//        }
+//
+//        switch (event) {
+//            case RECORDING_STARTED: {
+//                for (SERecorderStateListener listener : recorderStateListeners) {
+//                    if (listener != null) {
+//                        listener.recordingStarted();
+//                    }
+//                }
+//                break;
+//            }
+////            case RECORDING_IN_PROGRESS: {
+////                for (SERecorderStateListener listener : recorderStateListeners) {
+////                    if (listener != null) {
+////                        listener.recordingInProgress(getCurrentTime());
+////                    }
+////                }
+////                break;
+////            }
+//            case RECORDING_STOPPED: {
+//                for (SERecorderStateListener listener : recorderStateListeners) {
+//                    if (listener != null) {
+//                        listener.recordingStopped();
+//                    }
+//                }
+//                break;
+//            }
+//            default: {
+//                for (SERecorderStateListener listener : recorderStateListeners) {
+//                    if (listener != null) {
+//                        listener.onError("Recording failed");
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
