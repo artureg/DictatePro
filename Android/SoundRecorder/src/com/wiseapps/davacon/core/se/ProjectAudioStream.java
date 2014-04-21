@@ -59,6 +59,25 @@ public class ProjectAudioStream extends AudioStream {
     @Override
     void updatePosition(long position) {
         project.position += position;
+
+        int index = project.getCurrentRecordIndex();
+
+        int i = 0;
+        long duration = 0;
+        for (SERecord record : project.getRecords()) {
+            record.position = 0;
+
+            duration += record.duration;
+
+            if (i == index) {
+                record.position = duration - project.position;
+                if (record.position == record.duration) {
+                    record.position = 0;
+                }
+            }
+
+            ++i;
+        }
     }
 
     @Override

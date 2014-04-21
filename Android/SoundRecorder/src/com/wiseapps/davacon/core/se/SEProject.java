@@ -80,7 +80,7 @@ public class SEProject {
 
     // for now new record is inserted after the current one
     void splitRecord(SERecord record) {
-        if (records.size() == 0) {
+        if (records.size() == 0 || position == duration) {
             addRecord(record);
             return;
         }
@@ -88,18 +88,42 @@ public class SEProject {
         SERecord current = getCurrentRecord();
         int index = getCurrentRecordIndex();
 
+        SERecord aRecord = new SERecord(this);
+        aRecord.soundPath = SDCardUtils.getSoundPath(context);
+        aRecord.start = current.start;
+        aRecord.duration = current.position - current.start;
+        aRecord.prevRecord = current.prevRecord;
+        aRecord.nextRecord = record;
+
+        SERecord bRecord = new SERecord(this);
+        bRecord.soundPath = SDCardUtils.getSoundPath(context);
+        bRecord.start = current.position;
+        bRecord.duration = current.duration - current.position;
+        bRecord.prevRecord = record;
+        bRecord.nextRecord = current.nextRecord;
+
+        record.prevRecord = aRecord;
+        record.nextRecord = bRecord;
+
+        records.set(index, aRecord);
         records.add(index + 1, record);
+        records.add(index + 2, bRecord);
 
-        // update references to neighbour records for current
-        current.nextRecord = record;
-
-        // update references to neighbour records for a newly inserted one
-        record.prevRecord = current;
-        if (index + 2 < records.size()) {
-            record.nextRecord = records.get(index + 2);
-        }
-
-        duration += record.duration;
+//        SERecord current = getCurrentRecord();
+//        int index = getCurrentRecordIndex();
+//
+//        records.add(index + 1, record);
+//
+//        // update references to neighbour records for current
+//        current.nextRecord = record;
+//
+//        // update references to neighbour records for a newly inserted one
+//        record.prevRecord = current;
+//        if (index + 2 < records.size()) {
+//            record.nextRecord = records.get(index + 2);
+//        }
+//
+//        duration += record.duration;
     }
 
 //    void splitRecord(SERecord record) {
