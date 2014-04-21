@@ -1,0 +1,13 @@
+digraph "/Users/igor/Develop/DevelopGit/Davacon/iPhone/SoundRecorder/Classes" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_84f3208767d02d2e85864869e4598c57 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="SoundRecorder" fontname="Helvetica", fontsize="10", URL="dir_84f3208767d02d2e85864869e4598c57.html"]
+  subgraph clusterdir_a03cd62e0712ad559361717023e3e391 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_a03cd62e0712ad559361717023e3e391.html"];
+    dir_a03cd62e0712ad559361717023e3e391 [shape=plaintext label="Classes"];
+    dir_7605874ae163b20193aa53c747778ae8 [shape=box label="Core" color="red" fillcolor="white" style="filled" URL="dir_7605874ae163b20193aa53c747778ae8.html"];
+  }
+  }
+}
