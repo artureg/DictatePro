@@ -42,6 +42,8 @@ public class RecordAudioStream extends AudioStream {
     @Override
     InputStream getInputStream() throws Exception {
         // TODO implement offsets
+
+//        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, 0));
 //        return SpeexWrapper.getInputStream(record.soundPath, 0);
 
         return mockGetInputStream();
@@ -84,7 +86,13 @@ public class RecordAudioStream extends AudioStream {
             file.createNewFile();
         }
 
-        mockIn = new FileInputStream(file);
+//        mockIn = new FileInputStream(file);
+        RecordFilterInputStream rfin =
+                new RecordFilterInputStream(new FileInputStream(file));
+        rfin.skip(record.start + record.position);
+        rfin.setLimit(record.duration);
+
+        mockIn = rfin;
         return mockIn;
     }
 
@@ -113,5 +121,117 @@ public class RecordAudioStream extends AudioStream {
     @Override
     Mode getMode() {
         return mode;
+    }
+
+    private class RecordFilterInputStream extends FilterInputStream {
+        private long readBytes;
+        private long limit; // Indicates how many bytes can be read (after begin of file)
+        private long skiped;
+        private boolean isReachedEnd; // true - if we have reached the end of record
+
+        private RecordFilterInputStream(InputStream in) {
+            super(in);
+
+            isReachedEnd = false;
+            readBytes = 0;
+            limit = 0;
+            skiped = 0;
+        }
+
+        @Override
+        public long skip(long n) throws IOException {
+            long result = in.skip(n);
+
+            readBytes += result;
+            if (limit != 0) {
+                limit = limit - skiped + result;
+            }
+            skiped = result;
+            System.out.println(" skip(n) result = " + result);
+            return result;
+
+        }
+
+        /**
+         * @param n
+         * @throws IOException
+         */
+        public void setLimit(long n) throws IOException {
+
+//			System.out.println(" setLimit n  = " + n);
+            limit = n + skiped;
+        }
+
+        @Override
+        public int read() throws IOException {
+
+            if (limit != 0 && readBytes == limit) return -1;
+
+            int result = in.read();
+            if (result != -1) {
+                readBytes++;
+            }
+
+            System.out.println(" read() result = " + result);
+            return result;
+        }
+
+        @Override
+        public int read(byte[] b) throws IOException {
+
+            if (isReachedEnd) return -1;
+
+            int result = in.read(b);
+            if (result != -1) {
+                readBytes += result;
+
+                if (limit != 0 && readBytes > limit) {
+                    b = cutPackage(b);
+                    result = b.length;
+                }
+            }
+
+            System.out.println(" read b[] result = " + result);
+            return result;
+
+        }
+
+        @Override
+        public int read(byte[] b, int off, int len) throws IOException {
+
+            if (isReachedEnd) return -1;
+
+            int result = in.read(b, off, len);
+            if (result != -1) {
+                readBytes += result;
+
+                if (limit != 0 && readBytes > limit) {
+                    b = cutPackage(b);
+                    result = b.length;
+                }
+            }
+
+            System.out.println(" read off, len result = " + result);
+            return result;
+        }
+
+        private byte[] cutPackage(byte[] data) {
+
+            int lastBytes = (int) (data.length - (readBytes - limit));
+            System.out.println(" read() lastP = " + lastBytes);
+            byte[] buf = new byte[lastBytes];
+//			System.arraycopy(data, 0, buf, 0, lastBytes);
+            isReachedEnd = true;
+            return buf;
+        }
+
+        @Override
+        public synchronized void reset() throws IOException {
+            in.reset();
+
+            isReachedEnd = false;
+            readBytes = 0;
+            limit = 0;
+        }
     }
 }
