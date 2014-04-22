@@ -150,7 +150,8 @@ public class SEProject {
 
         // creating just a fake record to have possibility to use its stream's capabilities
         SERecord record = new SERecord(this);
-        record.soundPath = SDCardUtils.getPathToSave(context);
+//        record.soundPath = SDCardUtils.getPathToSave(context);
+        record.soundPath = SDCardUtils.getSoundPath(context);
 
         InputStream in = null;
         OutputStream out = null;
@@ -159,10 +160,18 @@ public class SEProject {
             in = stream.getInputStream();
             out = record.getAudioStream().getOutputStream();
 
+            long duration = 0;
+
             byte data[] = new byte[MIN_BUFFER_SIZE];
             while (in.read(data) != -1) {
                 out.write(data);
+                duration += data.length;
             }
+
+            record.duration = duration;
+
+            removeAllRecords();
+            addRecord(record);
 
             return true;
         } catch (Exception e) {

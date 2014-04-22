@@ -242,12 +242,12 @@ public class SoundRecorderActivity extends Activity {
         updateProgress();
     }
 
-    public void export(View view) {
+    public void encode(View view) {
         if (engine.getState() != State.READY) {
             return;
         }
 
-        // TODO implement
+        new EncodeProjectTask().execute();
     }
 
     public void delete(View view) {
@@ -480,14 +480,6 @@ public class SoundRecorderActivity extends Activity {
         }
     };
 
-    private class MediaButtonReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            seekVolume.setProgress(
-                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
-        }
-    }
-
     private class SaveProjectTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -514,6 +506,8 @@ public class SoundRecorderActivity extends Activity {
                 dialog.dismiss();
                 dialog = null;
             }
+
+            updateProgress();
 
             Toast.makeText(getContext(),
                     aBoolean ? "Project saved successfully!" : "Saving project failed...",
@@ -561,6 +555,21 @@ public class SoundRecorderActivity extends Activity {
             Toast.makeText(getContext(),
                     aBoolean ? "Project deleted successfully!" : "Deletion of project failed...",
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class EncodeProjectTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return null;
+        }
+    }
+
+    private class MediaButtonReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            seekVolume.setProgress(
+                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
         }
     }
 }
