@@ -83,7 +83,7 @@
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="export"/>
+                    android:onClick="encode"/>
             <ImageButton
                     android:src="@drawable/button_record02_0"
                     android:background="@null"

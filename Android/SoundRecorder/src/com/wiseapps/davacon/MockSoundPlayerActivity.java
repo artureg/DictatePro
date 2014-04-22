@@ -195,7 +195,7 @@ public class MockSoundPlayerActivity extends Activity {
         updateProgress();
     }
 
-    public void export(View view) {
+    public void encode(View view) {
         if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
         }
