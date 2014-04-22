@@ -89,15 +89,15 @@ public class SEProject {
         int index = getCurrentRecordIndex();
 
         SERecord aRecord = new SERecord(this);
-        aRecord.soundPath = SDCardUtils.getSoundPath(context);
+        aRecord.soundPath = current.soundPath;
         aRecord.start = current.start;
-        aRecord.duration = current.position - current.start;
+        aRecord.duration = current.position;
         aRecord.prevRecord = current.prevRecord;
         aRecord.nextRecord = record;
 
         SERecord bRecord = new SERecord(this);
-        bRecord.soundPath = SDCardUtils.getSoundPath(context);
-        bRecord.start = current.position;
+        bRecord.soundPath = current.soundPath;
+        bRecord.start = current.start + current.position;
         bRecord.duration = current.duration - current.position;
         bRecord.prevRecord = record;
         bRecord.nextRecord = current.nextRecord;
@@ -108,69 +108,7 @@ public class SEProject {
         records.set(index, aRecord);
         records.add(index + 1, record);
         records.add(index + 2, bRecord);
-
-//        SERecord current = getCurrentRecord();
-//        int index = getCurrentRecordIndex();
-//
-//        records.add(index + 1, record);
-//
-//        // update references to neighbour records for current
-//        current.nextRecord = record;
-//
-//        // update references to neighbour records for a newly inserted one
-//        record.prevRecord = current;
-//        if (index + 2 < records.size()) {
-//            record.nextRecord = records.get(index + 2);
-//        }
-//
-//        duration += record.duration;
     }
-
-//    void splitRecord(SERecord record) {
-//        final SERecord cur = getCurrentRecord();
-//
-//        int i = records.indexOf(cur);
-//
-//        SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
-//
-//
-//
-//        // define project current record and its position
-//        final SERecord cur = getCurrentRecord();
-//
-//        // define the neighbour records
-//        int i = records.indexOf(cur);
-//        SERecord prev = i > 0 ? records.get(i - 1) : null;
-//        SERecord next = i < (records.size() - 1) ? records.get(i + 1) : null;
-//
-//        // perform the split itself
-//        SERecord aRecord = new SERecord(this);
-//        aRecord.soundPath = SDCardUtils.getSoundPath(context);
-//        aRecord.start = 0;
-//        aRecord.duration = cur.position;
-//        aRecord.prevRecord = prev;
-//        aRecord.nextRecord = record;
-//
-//        SERecord bRecord = new SERecord(this);
-//        bRecord.soundPath = SDCardUtils.getSoundPath(context);
-//        bRecord.start = cur.position;
-//        bRecord.duration = cur.duration - cur.position;
-//        bRecord.prevRecord = record;
-//        bRecord.nextRecord = next;
-//
-//        // update the project with new records list
-//        List<SERecord> records = this.records;
-//        removeAllRecords();
-//        for (SERecord r : records) {
-//            addRecord(r);
-//
-//            if (records.indexOf(r) == i) {
-//                addRecord(aRecord);
-//                addRecord(record);
-//                addRecord(bRecord);
-//            }
-//        }
-//    }
 
     void moveRecord(SERecord record, int index) {
         // TODO implement
@@ -258,5 +196,23 @@ public class SEProject {
         }
 
         return 0;
+    }
+
+    void updateRecordPositions() {
+        int index = getCurrentRecordIndex();
+
+        int i = 0;
+        long duration = 0;
+        for (SERecord record : records) {
+            record.position = 0;
+
+            duration += record.duration;
+
+            if (i == index) {
+                record.position = record.duration - (duration - position);
+            }
+
+            ++i;
+        }
     }
 }
