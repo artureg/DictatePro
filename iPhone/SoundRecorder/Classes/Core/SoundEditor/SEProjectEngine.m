@@ -55,9 +55,7 @@
         return;
     }
     [self.pv_recorder stopRecording];
-    if (self.currentTime != 0) {
-        self.currentTime += self.pv_recorder.duration;
-    }
+    self.currentTime += self.pv_recorder.duration;
     self.pv_recorder = nil;
     [self setState:kSEAudioStreamEngineStateReady];
 }

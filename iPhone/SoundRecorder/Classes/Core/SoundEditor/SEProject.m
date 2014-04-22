@@ -25,23 +25,6 @@
     if (self = [super init]) {
         self.pv_projectPath = folder;
         [self pm_loadProject];
-//        [self clearProject];
-//        if ([self.pv_records count] == 0) {
-//            SERecord* record = [SERecord new];
-//            record.soundURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"1" ofType:@"wav"]];
-//            SERecordSoundRange range;
-//            range.start = 18000;
-//            range.duration = 10000;
-//            record.soundRange = range;
-//            [self addRecord:record];
-//            
-//            record = [self splitRecordInPosition:3.0f];
-//            record.soundURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"2" ofType:@"wav"]];
-//            range.start = 1500;
-//            range.duration = 5000;
-//            record.soundRange = range;
-//            [self saveProjectInfo];
-//        }
     }
     return self;
 }
