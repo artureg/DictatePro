@@ -146,6 +146,9 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
+        position = 0;
+        updateRecordPositions();
+
         AudioStream stream = getAudioStream();
 
         // creating just a fake record to have possibility to use its stream's capabilities
