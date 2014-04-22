@@ -12,12 +12,12 @@ import android.util.Log;
  *          Time: 4:05 AM
  */
 public class AndroidLogger implements Logger {
-    private static final String ANB_PREFIX = "ANB_";
+    private static final String DEV_PREFIX = "DEV_";
 
     private final String tag;
 
     public AndroidLogger(String tag) {
-        this.tag = ANB_PREFIX + tag;
+        this.tag = DEV_PREFIX + tag;
     }
 
     @Override

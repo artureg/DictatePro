@@ -162,6 +162,8 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             project.position = project.duration;
         }
 
+        project.updateRecordPositions();
+
         state = State.READY;
         if (player != null) {
             player.removeHandler(playerHandler);

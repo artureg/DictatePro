@@ -89,6 +89,7 @@ public class RecordAudioStream extends AudioStream {
 //        mockIn = new FileInputStream(file);
         RecordFilterInputStream rfin =
                 new RecordFilterInputStream(new FileInputStream(file));
+
         rfin.skip(record.start + record.position);
         rfin.setLimit(record.duration);
 
@@ -147,9 +148,10 @@ public class RecordAudioStream extends AudioStream {
                 limit = limit - skiped + result;
             }
             skiped = result;
-            System.out.println(" skip(n) result = " + result);
-            return result;
 
+            LoggerFactory.obtainLogger(TAG).
+                    d("skip# " + getDescription() + "skiped = " + limit);
+            return result;
         }
 
         /**
@@ -157,48 +159,61 @@ public class RecordAudioStream extends AudioStream {
          * @throws IOException
          */
         public void setLimit(long n) throws IOException {
-
-//			System.out.println(" setLimit n  = " + n);
             limit = n + skiped;
+
+            LoggerFactory.obtainLogger(TAG).
+                    d("setLimit# " + getDescription() + "limit = " + limit);
         }
 
         @Override
         public int read() throws IOException {
-
             if (limit != 0 && readBytes == limit) return -1;
 
             int result = in.read();
+
             if (result != -1) {
                 readBytes++;
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("read# " + getDescription() + "readBytes = " + readBytes);
+            } else {
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("read# " + getDescription() + "EOF");
             }
 
-            System.out.println(" read() result = " + result);
             return result;
         }
 
         @Override
         public int read(byte[] b) throws IOException {
-
-            if (isReachedEnd) return -1;
+            if (isReachedEnd) {
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("read[]# " + getDescription() + "EOF");
+                return -1;
+            }
 
             int result = in.read(b);
             if (result != -1) {
                 readBytes += result;
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("read[]# " + getDescription() + "readBytes = " + readBytes);
 
                 if (limit != 0 && readBytes > limit) {
                     b = cutPackage(b);
                     result = b.length;
                 }
+            } else {
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("read[]# " + getDescription() + "EOF");
             }
 
-            System.out.println(" read b[] result = " + result);
+//            LoggerFactory.obtainLogger(TAG).
+//                    d("read[]# " + getDescription() + "returned = " + b.length);
             return result;
 
         }
 
         @Override
         public int read(byte[] b, int off, int len) throws IOException {
-
             if (isReachedEnd) return -1;
 
             int result = in.read(b, off, len);
@@ -211,16 +226,13 @@ public class RecordAudioStream extends AudioStream {
                 }
             }
 
-            System.out.println(" read off, len result = " + result);
+//            System.out.println(" read off, len result = " + result);
             return result;
         }
 
         private byte[] cutPackage(byte[] data) {
-
             int lastBytes = (int) (data.length - (readBytes - limit));
-            System.out.println(" read() lastP = " + lastBytes);
             byte[] buf = new byte[lastBytes];
-//			System.arraycopy(data, 0, buf, 0, lastBytes);
             isReachedEnd = true;
             return buf;
         }
@@ -232,6 +244,13 @@ public class RecordAudioStream extends AudioStream {
             isReachedEnd = false;
             readBytes = 0;
             limit = 0;
+        }
+
+        private String getDescription() {
+            return "{start=" + record.start +
+                    ", duration=" + record.duration +
+                    ", position=" + record.position +
+                    ", path=" + record.soundPath + "} ";
         }
     }
 }
