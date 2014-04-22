@@ -110,7 +110,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         if (recorder != null) {
-            throw new IllegalStateException();
+            return;
         }
 
         SERecord record = new SERecord(project);
@@ -131,14 +131,12 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             throw new IllegalStateException();
         }
 
-        if (recorder == null) {
-            throw new IllegalStateException();
+        if (recorder != null) {
+            SDCardUtils.writeProject(project);
+
+            recorder.stop();
+            recorder = null;
         }
-
-        SDCardUtils.writeProject(project);
-
-        recorder.stop();
-        recorder = null;
     }
 
     @Override
