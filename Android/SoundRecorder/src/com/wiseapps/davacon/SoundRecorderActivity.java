@@ -1,6 +1,7 @@
 package com.wiseapps.davacon;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import static com.wiseapps.davacon.core.se.SEAudioStreamEngine.*;
  *         Time: 9:50 AM
  *
  *         TODO 1) record to the end + playback of the whole track - done
- *         TODO 2) record with a split
+ *         TODO 2) record with a split - done
  *         TODO 3) duration in seconds
  *         TODO 4) project save and save async
  *         TODO 5) project decode
@@ -44,6 +45,8 @@ public class SoundRecorderActivity extends Activity {
     private SeekBar seekVolume;
     private SeekBar seekPosition;
 
+    private ProgressDialog dialog;
+
     private AudioManager audioManager;
 
     @Override
@@ -61,8 +64,26 @@ public class SoundRecorderActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (dialog != null) {
+            dialog.show();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
-        ((SEProjectEngine) engine).release();
+        destroyEngine();
 
         if (project != null) {
             SDCardUtils.writeProject(project);
@@ -77,10 +98,19 @@ public class SoundRecorderActivity extends Activity {
         SDCardUtils.readProject(project);
 
         if (project != null) {
+            initEngine();
+        }
+    }
+
+    private void initEngine() {
             engine = new SEProjectEngine(getContext(), project);
             engine.addPlayerStateListener(playerStateListener);
             engine.addRecorderStateListener(recorderStateListener);
         }
+
+    private void destroyEngine() {
+        ((SEProjectEngine) engine).release();
+        engine = null;
     }
 
     private void initWidgets() {
@@ -218,6 +248,14 @@ public class SoundRecorderActivity extends Activity {
         }
 
         // TODO implement
+    }
+
+    public void delete(View view) {
+        if (engine.getState() != State.READY) {
+            return;
+        }
+
+        new DeleteProjectTask().execute();
     }
 
     public void save(View view) {
@@ -452,6 +490,18 @@ public class SoundRecorderActivity extends Activity {
 
     private class SaveProjectTask extends AsyncTask<Void, Void, Boolean> {
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            dialog = new ProgressDialog(getContext());
+
+            dialog.show();
+
+            dialog.setMessage(getResources().getString(R.string.project_save_in_progress));
+            dialog.setCancelable(false);
+        }
+
+        @Override
         protected Boolean doInBackground(Void... params) {
             return project.save();
         }
@@ -460,8 +510,56 @@ public class SoundRecorderActivity extends Activity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
 
+            if (dialog != null) {
+                dialog.dismiss();
+                dialog = null;
+            }
+
             Toast.makeText(getContext(),
-                    aBoolean ? "Project saved successfully!" : "Saving project failed!",
+                    aBoolean ? "Project saved successfully!" : "Saving project failed...",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class DeleteProjectTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            dialog = new ProgressDialog(getContext());
+
+            dialog.show();
+
+            dialog.setMessage(getResources().getString(R.string.project_deletion_in_progress));
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            boolean result = SDCardUtils.deleteProject(project);
+
+            project = new SEProject(getContext());
+            SDCardUtils.readProject(project);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+
+            if (dialog != null) {
+                dialog.dismiss();
+                dialog = null;
+            }
+
+            destroyEngine();
+            initEngine();
+
+            updateProgress();
+
+            Toast.makeText(getContext(),
+                    aBoolean ? "Project deleted successfully!" : "Deletion of project failed...",
                     Toast.LENGTH_SHORT).show();
         }
     }

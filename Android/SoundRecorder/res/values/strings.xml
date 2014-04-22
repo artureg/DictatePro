@@ -26,4 +26,7 @@
 
     <string name="menu_encode">Encode</string>
     <string name="menu_decode">Decode</string>
+
+    <string name="project_save_in_progress">Project save in progress&#8230;</string>
+    <string name="project_deletion_in_progress">Project deletion in progress&#8230;</string>
 </resources>

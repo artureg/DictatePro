@@ -23,6 +23,8 @@ public class SDCardUtils {
 
     private static final String PROJECT_NAME = "project.plist";
 
+    private static final String PROLECT_FILE_SUFFIX = "_project.wav";
+
     private static final String NAMESPACE = "";
 
     private static final String TAG_DIST = "dist";
@@ -143,6 +145,27 @@ public class SDCardUtils {
         return true;
     }
 
+    public static boolean deleteProject(final SEProject project) {
+        boolean projectDeleted = true;
+
+        File projectFile = new File(project.projectPath);
+        if (projectFile.exists()) {
+            projectDeleted = projectFile.delete();
+        }
+
+        boolean recordsDeleted = true;
+
+        File recordFile;
+        for (SERecord record : project.getRecords()) {
+            recordFile = new File(record.soundPath);
+            if (recordFile.exists()) {
+                recordsDeleted = recordsDeleted && recordFile.delete();
+            }
+        }
+
+        return projectDeleted && recordsDeleted;
+    }
+
     private static void serializeRecord(XmlSerializer serializer, final SERecord record) throws Exception {
         serializer.startTag(NAMESPACE, TAG_RECORD)
                 .text(NEWLINE);
@@ -241,17 +264,30 @@ public class SDCardUtils {
         return getRoot(context).getAbsolutePath();
     }
 
+    public static String getPathToSave(Context context) {
+        return getProjectPath(context) +
+                "/" + System.currentTimeMillis() + PROLECT_FILE_SUFFIX;
+    }
+
     public static String getSoundPath(Context context) {
         if (context == null || context.getApplicationContext() == null) {
             throw new IllegalArgumentException();
         }
 
-        File root = new File(getRoot(context), "Records");
-        if (!root.exists()) {
-            root.mkdirs();
+        return getRecordsPath(context) + "/" + System.currentTimeMillis();
+    }
+
+    private static String getRecordsPath(Context context) {
+        if (context == null || context.getApplicationContext() == null) {
+            throw new IllegalArgumentException();
         }
 
-        return root.getAbsolutePath() + "/" + System.currentTimeMillis();
+        File records = new File(getRoot(context), "Records");
+        if (!records.exists()) {
+            records.mkdirs();
+        }
+
+        return records.getAbsolutePath();
     }
 
     /**
