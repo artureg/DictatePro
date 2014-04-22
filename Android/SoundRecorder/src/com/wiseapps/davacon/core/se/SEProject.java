@@ -8,6 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wiseapps.davacon.core.se.SEProjectEngine.MIN_BUFFER_SIZE;
+
 /**
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
@@ -144,18 +146,47 @@ public class SEProject {
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
-//        SEProject project = new SEProject(context);
-//        project.projectPath = projectPath;
-//
-//        SDCardUtils.readProject(project);
-//
-//        boolean result = false;
-//
-//        project = null;
-//
-//    	return result;
+        AudioStream stream = getAudioStream();
 
-        // TODO implement
+        // creating just a fake record to have possibility to use its stream's capabilities
+        SERecord record = new SERecord(this);
+        record.soundPath = SDCardUtils.getPathToSave(context);
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+            in = stream.getInputStream();
+            out = record.getAudioStream().getOutputStream();
+
+            byte data[] = new byte[MIN_BUFFER_SIZE];
+            while (in.read(data) != -1) {
+                out.write(data);
+            }
+
+            return true;
+        } catch (Exception e) {
+            LoggerFactory.obtainLogger(TAG).
+                    e(e.getMessage(), e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    LoggerFactory.obtainLogger(TAG).
+                            e(e.getMessage(), e);
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (Exception e) {
+                    LoggerFactory.obtainLogger(TAG).
+                            e(e.getMessage(), e);
+                }
+            }
+        }
+
         return false;
     }
 

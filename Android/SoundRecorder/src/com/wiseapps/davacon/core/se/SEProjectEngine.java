@@ -171,6 +171,8 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             player.stop();
             player = null;
         }
+
+        // TODO update position seek bar
     }
 
     @Override

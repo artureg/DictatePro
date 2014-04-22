@@ -203,6 +203,10 @@ public class MockSoundPlayerActivity extends Activity {
         // TODO implement
     }
 
+    public void delete(View view) {
+        // TODO implement
+    }
+
     public void save(View view) {
         if (engine.getState() != SEAudioStreamEngine.State.READY) {
             return;
