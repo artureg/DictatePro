@@ -159,8 +159,12 @@ public class SoundRecorderActivity extends Activity {
                     return;
                 }
 
-//                engine.setCurrentTime(progress);
                 engine.setCurrentTime(DurationUtils.secondsToBytes((double) progress / 10));
+
+                textDuration.setText(
+                        String.format(getResources().getString(R.string.process_track_duration),
+                                DurationUtils.secondsFromBytes(engine.getCurrentTime()),
+                                DurationUtils.secondsFromBytes(engine.getDuration())));
             }
 
             @Override

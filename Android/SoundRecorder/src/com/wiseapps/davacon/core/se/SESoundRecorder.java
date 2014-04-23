@@ -132,7 +132,7 @@ class SESoundRecorder {
                     stream.updatePosition(data.length);
                     stream.updateDuration(data.length);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, minBufferSize));
+                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, data.length));
                 }
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
@@ -140,6 +140,9 @@ class SESoundRecorder {
 
                 handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
             } finally {
+                stream.finalizePosition();
+                stream.finalizeDuration();
+
                 LoggerFactory.obtainLogger(TAG).
                         d("work# finally");
                 if (out != null) {
