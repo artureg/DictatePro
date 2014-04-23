@@ -12,6 +12,8 @@ import org.xmlpull.v1.XmlSerializer;
 import com.wiseapps.davacon.logging.LoggerFactory;
 
 /**
+ * The class provides static methods to handle read from/write to sd card operations.
+ *
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/13/14
  *         Time: 10:17 AM
@@ -51,6 +53,11 @@ public class SDCardUtils {
 //    </record>
 //    </dist>
 
+    /**
+     * Reads project from sd card.
+     *
+     * @param project object of {@link com.wiseapps.davacon.core.se.SEProject} to be restored
+     */
     public static void readProject(final SEProject project) {
         File file = new File(getProjectPath(project.context), PROJECT_NAME);
         project.projectPath = file.getAbsolutePath();
@@ -90,6 +97,12 @@ public class SDCardUtils {
         }
     }
 
+    /**
+     * Writes project to sd card.
+     *
+     * @param project object of {@link com.wiseapps.davacon.core.se.SEProject} to be written to sd card
+     * @return true if project has been written successfully, false otherwise
+     */
     public static boolean writeProject(final SEProject project) {
         File file = new File(project.projectPath);
 
@@ -145,6 +158,12 @@ public class SDCardUtils {
         return true;
     }
 
+    /**
+     * Deletes project from sd card.
+     *
+     * @param project object of {@link com.wiseapps.davacon.core.se.SEProject} to be deleted from sd card
+     * @return true if project has been deleted successfully, false otherwise
+     */
     public static boolean deleteProject(final SEProject project) {
         boolean projectDeleted = true;
 
@@ -156,6 +175,12 @@ public class SDCardUtils {
         return projectDeleted && deleteRecords(project);
     }
 
+    /**
+     * Deletes project records from sd card.
+     *
+     * @param project object of {@link com.wiseapps.davacon.core.se.SEProject} which records should be deleted from sd card
+     * @return true if records have been deleted successfully, false otherwise
+     */
     public static boolean deleteRecords(final SEProject project) {
         boolean recordsDeleted = true;
 
@@ -268,11 +293,12 @@ public class SDCardUtils {
         return getRoot(context).getAbsolutePath();
     }
 
-    public static String getPathToSave(Context context) {
-        return getProjectPath(context) +
-                "/" + System.currentTimeMillis() + PROLECT_FILE_SUFFIX;
-    }
-
+    /**
+     * Creates absolute path for a record file to be stored at.
+     *
+     * @param context application context
+     * @return absolute path string
+     */
     public static String getSoundPath(Context context) {
         if (context == null || context.getApplicationContext() == null) {
             throw new IllegalArgumentException();
@@ -297,7 +323,7 @@ public class SDCardUtils {
     /**
      * Method to return the root of the tracks hierarchy.
      *
-     * @param context Application context
+     * @param context application context
      * @return root of the tracks hierarchy
      */
     public static File getRoot(Context context) {

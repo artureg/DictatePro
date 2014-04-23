@@ -1,34 +1,40 @@
 package com.wiseapps.davacon.core.se;
 
 /**
+ * Interface all interested in a playback status parts should implement.
+ *
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
  *         Time: 11:59 AM
- *
- * TODO return playingInProgress method to its prev state (handle double position type)
  */
 public interface SEPlayerStateListener {
 
     /**
-     * Notification for begin playing
+     * Notifies that playback has started.
      */
     void playingStarted();
 
     /**
-     * Notification for pause playing
+     * Notifies that playback has been paused.
      */
     void playingPaused();
 
     /**
-     * Notification for continue playing after pause
+     * Notifies that playback is in progress.
+     *
+     * @param progress playback progress in bytes
      */
-//    void playingInProgress(double position);
     void playingInProgress(int progress);
 
     /**
-     * Notification for end playing
+     * Notifies that playback has stopped.
      */
     void playingStopped();
 
+    /**
+     * Notifies that during playback some kind of error has occured.
+     *
+     * @param errorMessage error message
+     */
     void onError(String errorMessage);
 }

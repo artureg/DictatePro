@@ -369,7 +369,7 @@ public class MockSoundPlayerActivity extends Activity {
         }
 
         @Override
-        public void recordingInProgress(int position) {
+        public void recordingInProgress(int progress) {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(

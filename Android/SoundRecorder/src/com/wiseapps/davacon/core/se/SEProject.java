@@ -2,7 +2,6 @@ package com.wiseapps.davacon.core.se;
 
 import android.content.Context;
 import com.wiseapps.davacon.logging.LoggerFactory;
-import com.wiseapps.davacon.speex.SpeexWrapper;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,13 +13,9 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.MIN_BUFFER_SIZE;
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
  *         Time: 11:55 AM
- *
- * Set of public methods could not be changed!!!
  */
 public class SEProject {
     private final static String TAG = SEProject.class.getSimpleName();
-
-//    private static final int DURATION_SECONDS = 1;
 
     final Context context;
 
@@ -41,11 +36,6 @@ public class SEProject {
         this.duration = 0;
     }
 
-    /**
-     * Method to build (internally) and provide project audio stream.
-     *
-     * @return project audio stream
-     */
     AudioStream getAudioStream() {
         return new ProjectAudioStream(this);
     }
@@ -71,7 +61,6 @@ public class SEProject {
         duration += record.duration;
     }
 
-    // for now new record is inserted after the current one
     void splitRecord(SERecord record) {
         if (position == 0) {
             addRecord(0, record);
@@ -125,11 +114,17 @@ public class SEProject {
         duration -= record.duration;
     }
 
+    /**
+     * Returns whether the project has been changed.
+     *
+     * @return true if project has been changed, false otherwise
+     */
     public boolean isChanged() {
         return false;
     }
 
     /**
+     * Returns path to the project.
      *
      * @return path to the project
      */
@@ -138,11 +133,39 @@ public class SEProject {
     }
 
     /**
-     * Saves project, i.e. includes file contents of all records into a single file.
+     * Saves project, i.e. includes contents of all records into a single record.
      *
      * @return true if saved successfully, false otherwise
      */
     public boolean save() {
+        return doSave();
+    }
+
+    /**
+     * Saves project async, see {@link #save}.
+     * An interested in an operation's status part should implement the
+     * {@link com.wiseapps.davacon.core.se.SEProject.SaveProjectStatusListener} interface.
+     *
+     * @param listener an interested in a current operation's status part
+     */
+    public void saveAsync(final SaveProjectStatusListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = doSave();
+
+                if (listener != null) {
+                    if (success) {
+                        listener.onOperationCompletedSuccessfully();
+                    } else {
+                        listener.onOperationFailed();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private boolean doSave() {
         position = 0;
         updateRecordPositions();
 
@@ -202,18 +225,6 @@ public class SEProject {
         return false;
     }
 
-    /**
-     * Saves project async, i.e. includes file contents of all records into a single file.
-     *
-     * TODO add listener
-     *
-     * @return true if saved successfully, false otherwise
-     */
-    public boolean saveAsync() {
-        // TODO implement, use SDCardUtils.writeProject(this); and thread
-        return false;
-    }
-
     SERecord getCurrentRecord() {
         double duration = 0;
         for (SERecord record : records) {
@@ -256,5 +267,13 @@ public class SEProject {
 
             ++i;
         }
+    }
+
+    /**
+     * Interface interested in a project save operation part should implement.
+     */
+    public interface SaveProjectStatusListener {
+        void onOperationCompletedSuccessfully();
+        void onOperationFailed();
     }
 }
