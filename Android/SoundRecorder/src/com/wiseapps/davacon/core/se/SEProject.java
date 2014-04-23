@@ -69,7 +69,7 @@ public class SEProject {
 
     // for now new record is inserted after the current one
     void splitRecord(SERecord record) {
-        if (records.size() == 0 || position == duration) {
+        if (records.size() == 0 || position >= duration) {
             addRecord(record);
             return;
         }
@@ -158,6 +158,8 @@ public class SEProject {
             }
 
             record.duration = duration;
+
+            SDCardUtils.deleteRecords(this);
 
             removeAllRecords();
             addRecord(record);

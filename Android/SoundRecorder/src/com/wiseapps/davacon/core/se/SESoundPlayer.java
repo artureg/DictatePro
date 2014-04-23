@@ -139,8 +139,8 @@ class SESoundPlayer {
                     audioTrack.write(data, 0, data.length);
 
                     played += data.length;
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("run# played " + played);
+                    LoggerFactory.obtainLogger(TAG).
+                            d("run# played " + played);
 
                     handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, minBufferSize));
 //                    LoggerFactory.obtainLogger(TAG).
