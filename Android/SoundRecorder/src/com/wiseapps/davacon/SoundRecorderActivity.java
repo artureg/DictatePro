@@ -159,7 +159,8 @@ public class SoundRecorderActivity extends Activity {
                     return;
                 }
 
-                engine.setCurrentTime(progress);
+//                engine.setCurrentTime(progress);
+                engine.setCurrentTime(DurationUtils.secondsToBytes((double) progress / 10));
             }
 
             @Override
