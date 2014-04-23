@@ -129,7 +129,7 @@ class SESoundPlayer {
 
             InputStream in = null;
 
-            long played = 0;
+//            long played = 0;
 
             try {
                 in = stream.getInputStream();
@@ -138,11 +138,17 @@ class SESoundPlayer {
                 while(running && (in.read(data) != -1)) {
                     audioTrack.write(data, 0, data.length);
 
-                    played += data.length;
                     LoggerFactory.obtainLogger(TAG).
-                            d("run# played " + played);
+                            d("run# played " + data.length);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, minBufferSize));
+//                    played += data.length;
+//                    LoggerFactory.obtainLogger(TAG).
+//                            d("run# played " + played);
+
+                    stream.updatePosition(data.length);
+                    stream.updateDuration(data.length);
+
+                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, data.length));
 //                    LoggerFactory.obtainLogger(TAG).
 //                            d("run# running " + running);
                 }
@@ -154,7 +160,8 @@ class SESoundPlayer {
 
                 handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
             } finally {
-                stream.updatePosition(played);
+                stream.finalizePosition();
+                stream.finalizeDuration();
 
                 LoggerFactory.obtainLogger(TAG).
                         d("work# finally");

@@ -49,5 +49,9 @@ public abstract class AudioStream {
 
     abstract void updateDuration(long duration);
 
+    abstract void finalizePosition();
+
+    abstract void finalizeDuration();
+
     abstract Mode getMode();
 }

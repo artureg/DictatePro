@@ -123,6 +123,14 @@ public class RecordAudioStream extends AudioStream {
     }
 
     @Override
+    void finalizePosition() {
+    }
+
+    @Override
+    void finalizeDuration() {
+    }
+
+    @Override
     Mode getMode() {
         return mode;
     }

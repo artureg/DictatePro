@@ -59,11 +59,19 @@ public class ProjectAudioStream extends AudioStream {
     @Override
     void updatePosition(long position) {
         project.position += position;
-        project.updateRecordPositions();
     }
 
     @Override
     void updateDuration(long duration) {
+    }
+
+    @Override
+    void finalizePosition() {
+        project.updateRecordPositions();
+    }
+
+    @Override
+    void finalizeDuration() {
     }
 
     @Override
