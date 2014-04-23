@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,89 +87,89 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">SEAudioStream.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_s_e_audio_stream_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SEAudioStream.h</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  SoundRecorder</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Created by Igor on 11.04.14.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//  Copyright (c) 2014 Wise-Apps. All rights reserved.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#import &lt;AudioToolbox/AudioToolbox.h&gt;</span></div>
+<a href="_s_e_audio_stream_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//  SEAudioStream.h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SoundRecorder</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Created by Igor Danich igor.danich@wise-apps.com on 11.04.14.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57">    5</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a43bb64d64167288796c7c41186e38ec9">    6</a></span>&#160;    <a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a43bb64d64167288796c7c41186e38ec9">kSEAudioStreamModeUnknown</a>   = 0,</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57aa61add0d737d2d12400ae6407c4e613b">    7</a></span>&#160;    <a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57aa61add0d737d2d12400ae6407c4e613b">kSEAudioStreamModeRead</a>      = 1,</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a6bfcb2bb576c5fcda977d75e58bc0e66">    8</a></span>&#160;    <a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a6bfcb2bb576c5fcda977d75e58bc0e66">kSEAudioStreamModeWrite</a>     = 2</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}<a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57">TSEAudioStreamMode</a>;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html">   11</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_e_audio_stream.html">SEAudioStream</a> : NSObject</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a96f11351b56bdd1d363ad05fb80d1a73">   14</a></span>&#160;<span class="keyword">@property</span>(nonatomic,assign) AudioStreamBasicDescription* <a class="code" href="interface_s_e_audio_stream.html#a96f11351b56bdd1d363ad05fb80d1a73">audioDescription</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a5c43770f8936fa054d438771cb329bab">   14</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) AudioStreamBasicDescription <a class="code" href="interface_s_e_audio_stream.html#a5c43770f8936fa054d438771cb329bab">audioDescription</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#af5e4493693cf24fa25af34487993d693">   17</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSTimeInterval <a class="code" href="interface_s_e_audio_stream.html#af5e4493693cf24fa25af34487993d693">duration</a>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a7561aaa75262c747a4da3d701e2094b9">   20</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSURL* <a class="code" href="interface_s_e_audio_stream.html#a7561aaa75262c747a4da3d701e2094b9">filePathURL</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#ad987b7c1430970636c8d041b018e4a64">   20</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSURL* <a class="code" href="interface_s_e_audio_stream.html#ad987b7c1430970636c8d041b018e4a64">URL</a>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a095232a32323fc1b43568e1609cc934d">   23</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSError* <a class="code" href="interface_s_e_audio_stream.html#a095232a32323fc1b43568e1609cc934d">error</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#adbfea649836caa8559708a933f907536">   23</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSError* <a class="code" href="interface_s_e_audio_stream.html#adbfea649836caa8559708a933f907536">error</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a54229ab240455736790dad362c5335e1">   26</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSInteger <a class="code" href="interface_s_e_audio_stream.html#a54229ab240455736790dad362c5335e1">length</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a1fd4decb2fec74b1fe26c3805a02999b">   26</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSUInteger <a class="code" href="interface_s_e_audio_stream.html#a1fd4decb2fec74b1fe26c3805a02999b">length</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#a1e8d0ba4849fffe376bcf5494987c9a8">   29</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSInteger <a class="code" href="interface_s_e_audio_stream.html#a1e8d0ba4849fffe376bcf5494987c9a8">numberOfSamples</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#ac810584c028fe50e48e7fbbef9a7e4c7">   29</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) <a class="code" href="interface_s_e_audio_stream.html">SEAudioStream</a>* <a class="code" href="interface_s_e_audio_stream.html#ac810584c028fe50e48e7fbbef9a7e4c7">otherStream</a>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#afac964b9badc8642c250a2234eb3c044">   32</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSInteger <a class="code" href="interface_s_e_audio_stream.html#afac964b9badc8642c250a2234eb3c044">numberOfSamplesPerChannel</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">/* Stream open mode */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="interface_s_e_audio_stream.html#afde89d08f02ae01b1e9be3905942fb31">   32</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) <a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57">TSEAudioStreamMode</a> <a class="code" href="interface_s_e_audio_stream.html#afde89d08f02ae01b1e9be3905942fb31">mode</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;- (id)<a class="code" href="interface_s_e_audio_stream.html#adfb80527c355e64279d60a7b1af838ea">init</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;- (instancetype)<a class="code" href="interface_s_e_audio_stream.html#a3399ff27e1d1189946e698ebd1449d08">init</a>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;- (id)initWithAudioStream:(<a class="code" href="interface_s_e_audio_stream.html">SEAudioStream</a>*)stream;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;- (instancetype)initWithAudioStream:(<a class="code" href="interface_s_e_audio_stream.html">SEAudioStream</a>*)stream;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;- (id)initWithURL:(NSString*)url;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;- (instancetype)initWithURL:(NSURL*)url;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (id)initWithContentsOfFile:(NSString*)file;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (instancetype)initWithContentsOfFile:(NSString*)file;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;- (void)<a class="code" href="interface_s_e_audio_stream.html#add81dd9d9bd838f3a5dc1ceae94ccf26">open</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;- (BOOL)openWithMode:(<a class="code" href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57">TSEAudioStreamMode</a>)mode;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;- (void)<a class="code" href="interface_s_e_audio_stream.html#a8c4af367964e8be4817df12989f06d40">close</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;- (BOOL)<a class="code" href="interface_s_e_audio_stream.html#af2cf137df7939dea6d1003ff00f7af02">close</a>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;- (void)<a class="code" href="interface_s_e_audio_stream.html#ae59699f3f9cdf5fa000d9835da89e73e">clear</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;- (BOOL)<a class="code" href="interface_s_e_audio_stream.html#a7a808893a77d0fb9ad960563d75a822b">clear</a>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;- (void)seekToSamplePosition:(NSInteger)position;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;- (NSError*)exportToFile:(NSString*)filePath;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (void)seekToSecond:(NSTimeInterval)second;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (void)exportAsynchronouslyToFile:(NSString*)filePath completion:(<span class="keywordtype">void</span>(^)(NSError* <a class="code" href="interface_s_e_audio_stream.html#adbfea649836caa8559708a933f907536">error</a>))completion;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (void)exportToFile:(NSString*)filePath completion:(<span class="keywordtype">void</span>(^)(NSError* <a class="code" href="interface_s_e_audio_stream.html#a095232a32323fc1b43568e1609cc934d">error</a>))completion;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="category_s_e_audio_stream_07_write_08.html">   66</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="category_s_e_audio_stream_07_write_08.html">SEAudioStream(Write)</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="category_s_e_audio_stream_07_write_08.html">   63</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="category_s_e_audio_stream_07_write_08.html">SEAudioStream(Write)</a></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;- (void)adjustToAudioDescription:(AudioStreamBasicDescription)aInfo;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (void)writeSamples:(NSData*)samples;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (BOOL)writeData:(NSData*)samples;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;- (void)writeSamples:(<span class="keywordtype">void</span>*)data count:(NSInteger)count;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="category_s_e_audio_stream_07_read_08.html">   76</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="category_s_e_audio_stream_07_read_08.html">SEAudioStream(Read)</a></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;- (NSData*)readSamplesWithCount:(NSInteger)count;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;- (NSData*)readSamplesFromChannel:(NSInteger)channels count:(NSInteger)count;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;- (void)readSamples:(<span class="keywordtype">void</span>*)samples count:(NSInteger)count;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a54229ab240455736790dad362c5335e1"><div class="ttname"><a href="interface_s_e_audio_stream.html#a54229ab240455736790dad362c5335e1">SEAudioStream::length</a></div><div class="ttdeci">NSInteger length</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:26</div></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="category_s_e_audio_stream_07_read_08.html">   73</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="category_s_e_audio_stream_07_read_08.html">SEAudioStream(Read)</a></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;- (BOOL)readData:(NSMutableData*)data position:(NSUInteger)position duration:(NSUInteger)duration;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;- (NSTimeInterval)durationForBufferWithSize:(NSUInteger)size;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_afde89d08f02ae01b1e9be3905942fb31"><div class="ttname"><a href="interface_s_e_audio_stream.html#afde89d08f02ae01b1e9be3905942fb31">SEAudioStream::mode</a></div><div class="ttdeci">TSEAudioStreamMode mode</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:32</div></div>
+<div class="ttc" id="_s_e_audio_stream_8h_html_a9689aa516925fa132495c3c8a719ba57a6bfcb2bb576c5fcda977d75e58bc0e66"><div class="ttname"><a href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a6bfcb2bb576c5fcda977d75e58bc0e66">kSEAudioStreamModeWrite</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:8</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_af2cf137df7939dea6d1003ff00f7af02"><div class="ttname"><a href="interface_s_e_audio_stream.html#af2cf137df7939dea6d1003ff00f7af02">-[SEAudioStream close]</a></div><div class="ttdeci">BOOL close()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:285</div></div>
 <div class="ttc" id="interface_s_e_audio_stream_html_af5e4493693cf24fa25af34487993d693"><div class="ttname"><a href="interface_s_e_audio_stream.html#af5e4493693cf24fa25af34487993d693">SEAudioStream::duration</a></div><div class="ttdeci">NSTimeInterval duration</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:17</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a1e8d0ba4849fffe376bcf5494987c9a8"><div class="ttname"><a href="interface_s_e_audio_stream.html#a1e8d0ba4849fffe376bcf5494987c9a8">SEAudioStream::numberOfSamples</a></div><div class="ttdeci">NSInteger numberOfSamples</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:29</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_afac964b9badc8642c250a2234eb3c044"><div class="ttname"><a href="interface_s_e_audio_stream.html#afac964b9badc8642c250a2234eb3c044">SEAudioStream::numberOfSamplesPerChannel</a></div><div class="ttdeci">NSInteger numberOfSamplesPerChannel</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:32</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a96f11351b56bdd1d363ad05fb80d1a73"><div class="ttname"><a href="interface_s_e_audio_stream.html#a96f11351b56bdd1d363ad05fb80d1a73">SEAudioStream::audioDescription</a></div><div class="ttdeci">AudioStreamBasicDescription * audioDescription</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:14</div></div>
-<div class="ttc" id="category_s_e_audio_stream_07_read_08_html"><div class="ttname"><a href="category_s_e_audio_stream_07_read_08.html">SEAudioStream(Read)</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:76</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_add81dd9d9bd838f3a5dc1ceae94ccf26"><div class="ttname"><a href="interface_s_e_audio_stream.html#add81dd9d9bd838f3a5dc1ceae94ccf26">-[SEAudioStream open]</a></div><div class="ttdeci">void open()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:37</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a095232a32323fc1b43568e1609cc934d"><div class="ttname"><a href="interface_s_e_audio_stream.html#a095232a32323fc1b43568e1609cc934d">SEAudioStream::error</a></div><div class="ttdeci">NSError * error</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:23</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_adfb80527c355e64279d60a7b1af838ea"><div class="ttname"><a href="interface_s_e_audio_stream.html#adfb80527c355e64279d60a7b1af838ea">-[SEAudioStream init]</a></div><div class="ttdeci">id init()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:13</div></div>
-<div class="ttc" id="category_s_e_audio_stream_07_write_08_html"><div class="ttname"><a href="category_s_e_audio_stream_07_write_08.html">SEAudioStream(Write)</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:66</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_ac810584c028fe50e48e7fbbef9a7e4c7"><div class="ttname"><a href="interface_s_e_audio_stream.html#ac810584c028fe50e48e7fbbef9a7e4c7">SEAudioStream::otherStream</a></div><div class="ttdeci">SEAudioStream * otherStream</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:29</div></div>
+<div class="ttc" id="category_s_e_audio_stream_07_read_08_html"><div class="ttname"><a href="category_s_e_audio_stream_07_read_08.html">SEAudioStream(Read)</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:73</div></div>
+<div class="ttc" id="_s_e_audio_stream_8h_html_a9689aa516925fa132495c3c8a719ba57a43bb64d64167288796c7c41186e38ec9"><div class="ttname"><a href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57a43bb64d64167288796c7c41186e38ec9">kSEAudioStreamModeUnknown</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:6</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_a1fd4decb2fec74b1fe26c3805a02999b"><div class="ttname"><a href="interface_s_e_audio_stream.html#a1fd4decb2fec74b1fe26c3805a02999b">SEAudioStream::length</a></div><div class="ttdeci">NSUInteger length</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:26</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_adbfea649836caa8559708a933f907536"><div class="ttname"><a href="interface_s_e_audio_stream.html#adbfea649836caa8559708a933f907536">SEAudioStream::error</a></div><div class="ttdeci">NSError * error</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:23</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_a3399ff27e1d1189946e698ebd1449d08"><div class="ttname"><a href="interface_s_e_audio_stream.html#a3399ff27e1d1189946e698ebd1449d08">-[SEAudioStream init]</a></div><div class="ttdeci">instancetype init()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:113</div></div>
+<div class="ttc" id="category_s_e_audio_stream_07_write_08_html"><div class="ttname"><a href="category_s_e_audio_stream_07_write_08.html">SEAudioStream(Write)</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:63</div></div>
+<div class="ttc" id="_s_e_audio_stream_8h_html_a9689aa516925fa132495c3c8a719ba57"><div class="ttname"><a href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57">TSEAudioStreamMode</a></div><div class="ttdeci">TSEAudioStreamMode</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:5</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_a7a808893a77d0fb9ad960563d75a822b"><div class="ttname"><a href="interface_s_e_audio_stream.html#a7a808893a77d0fb9ad960563d75a822b">-[SEAudioStream clear]</a></div><div class="ttdeci">BOOL clear()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:303</div></div>
 <div class="ttc" id="interface_s_e_audio_stream_html"><div class="ttname"><a href="interface_s_e_audio_stream.html">SEAudioStream</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:11</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a8c4af367964e8be4817df12989f06d40"><div class="ttname"><a href="interface_s_e_audio_stream.html#a8c4af367964e8be4817df12989f06d40">-[SEAudioStream close]</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:40</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_a7561aaa75262c747a4da3d701e2094b9"><div class="ttname"><a href="interface_s_e_audio_stream.html#a7561aaa75262c747a4da3d701e2094b9">SEAudioStream::filePathURL</a></div><div class="ttdeci">NSURL * filePathURL</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:20</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_html_ae59699f3f9cdf5fa000d9835da89e73e"><div class="ttname"><a href="interface_s_e_audio_stream.html#ae59699f3f9cdf5fa000d9835da89e73e">-[SEAudioStream clear]</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> SEAudioStream.m:43</div></div>
+<div class="ttc" id="_s_e_audio_stream_8h_html_a9689aa516925fa132495c3c8a719ba57aa61add0d737d2d12400ae6407c4e613b"><div class="ttname"><a href="_s_e_audio_stream_8h.html#a9689aa516925fa132495c3c8a719ba57aa61add0d737d2d12400ae6407c4e613b">kSEAudioStreamModeRead</a></div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:7</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_a5c43770f8936fa054d438771cb329bab"><div class="ttname"><a href="interface_s_e_audio_stream.html#a5c43770f8936fa054d438771cb329bab">SEAudioStream::audioDescription</a></div><div class="ttdeci">AudioStreamBasicDescription audioDescription</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:14</div></div>
+<div class="ttc" id="interface_s_e_audio_stream_html_ad987b7c1430970636c8d041b018e4a64"><div class="ttname"><a href="interface_s_e_audio_stream.html#ad987b7c1430970636c8d041b018e4a64">SEAudioStream::URL</a></div><div class="ttdeci">NSURL * URL</div><div class="ttdef"><b>Definition:</b> SEAudioStream.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

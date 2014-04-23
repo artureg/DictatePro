@@ -8,27 +8,75 @@
 
 #import <XCTest/XCTest.h>
 
-@interface SoundRecorderTests : XCTestCase
+#import "SEProject.h"
+#import "SEProjectEngine.h"
 
+#import "IBKTimer.h"
+
+#import <Foundation/Foundation.h>
+
+static __strong SEProjectEngine* gv_engine = nil;
+
+@interface SoundRecorderTests : XCTestCase<SEAudioStreamEngineDelegate>
+@property(nonatomic,strong) NSOperationQueue* pv_queue;
 @end
 
 @implementation SoundRecorderTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    if (!gv_engine) {
+        gv_engine = [[SEProjectEngine alloc] initWithProject:[[SEProject alloc] initWithFolder:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]]];
+        gv_engine.delegate = self;
+    }
+    self.pv_queue = [NSOperationQueue new];
 }
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)test1 {
+    [self.pv_queue addOperationWithBlock:^{
+        [gv_engine startRecording];
+    }];
+    [NSThread sleepForTimeInterval:5];
+    [self.pv_queue addOperationWithBlock:^{
+        [gv_engine stopRecording];
+        if (gv_engine.duration < 3) {
+            XCTFail(@"Recording failed for \"%s\"", __PRETTY_FUNCTION__);
+        }
+    }];
+}
+
+- (void)test2 {
+    [self.pv_queue addOperationWithBlock:^{
+        gv_engine.currentTime = 1;
+        [gv_engine startRecording];
+    }];
+    [NSThread sleepForTimeInterval:5];
+    [self.pv_queue addOperationWithBlock:^{
+        [gv_engine stopRecording];
+        if (gv_engine.duration < 3) {
+            XCTFail(@"Recording failed for \"%s\"", __PRETTY_FUNCTION__);
+        }
+    }];
+}
+
+- (void)test3 {
+    [self.pv_queue addOperationWithBlock:^{
+        [gv_engine startPlaying];
+    }];
+    [NSThread sleepForTimeInterval:5];
+    [self.pv_queue addOperationWithBlock:^{
+        [gv_engine stopPlaying];
+    }];
+}
+
+#pragma mark - SEAudioStreamEngineDelegate
+
+- (void)audioStreamEngine:(SEAudioStreamEngine*)engine didOccurError:(NSError*)error {
+    XCTFail(@"\"%s\" Test failed with error '%@'", __PRETTY_FUNCTION__, [error localizedDescription]);
 }
 
 @end

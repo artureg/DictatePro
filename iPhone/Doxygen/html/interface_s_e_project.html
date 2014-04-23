@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,18 +102,12 @@ Inheritance diagram for SEProject:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:adb4519610c7481bf048f235189ff737c"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_e_record.html">SERecord</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#adb4519610c7481bf048f235189ff737c">splitRecordInPosition:</a></td></tr>
-<tr class="separator:adb4519610c7481bf048f235189ff737c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a215f3b65a6214364b1c91a3e868e326f"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a215f3b65a6214364b1c91a3e868e326f">addRecord:</a></td></tr>
-<tr class="separator:a215f3b65a6214364b1c91a3e868e326f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766d033976c34b25c714664a936431c0"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a766d033976c34b25c714664a936431c0">deleteRecord:</a></td></tr>
-<tr class="separator:a766d033976c34b25c714664a936431c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6df677b3addadd2b57c7cb476817b3f0"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a6df677b3addadd2b57c7cb476817b3f0">moveRecord:toIndex:</a></td></tr>
-<tr class="separator:a6df677b3addadd2b57c7cb476817b3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf1f53d931f669b12dfbabf92e3e90a4"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#adf1f53d931f669b12dfbabf92e3e90a4">removeAllRecords</a></td></tr>
-<tr class="separator:adf1f53d931f669b12dfbabf92e3e90a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0dc83a89c70e8a670d2e0eb0381e632"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#ad0dc83a89c70e8a670d2e0eb0381e632">saveProject</a></td></tr>
-<tr class="separator:ad0dc83a89c70e8a670d2e0eb0381e632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321757359b849bd9ec36324d3fe128ab"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a321757359b849bd9ec36324d3fe128ab">initWithFolder:</a></td></tr>
+<tr class="separator:a321757359b849bd9ec36324d3fe128ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191586c8f8464149aa101709b3b712b9"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a191586c8f8464149aa101709b3b712b9">clearProject</a></td></tr>
+<tr class="separator:a191586c8f8464149aa101709b3b712b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ae48fbd2576ff28449dcedf0dc8f29"><td class="memItemLeft" align="right" valign="top">(NSError *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#af1ae48fbd2576ff28449dcedf0dc8f29">saveProject</a></td></tr>
+<tr class="separator:af1ae48fbd2576ff28449dcedf0dc8f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a996a39778f2d176ecf7ffda117703f6c"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_e_project.html#a996a39778f2d176ecf7ffda117703f6c">saveProjectAsynchronouslyWithCompletion:</a></td></tr>
 <tr class="separator:a996a39778f2d176ecf7ffda117703f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -121,108 +115,56 @@ Instance Methods</h2></td></tr>
 Properties</h2></td></tr>
 <tr class="memitem:adf05552fc2cf324eb3511d3bd1b8a996"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">name</a></td></tr>
 <tr class="separator:adf05552fc2cf324eb3511d3bd1b8a996"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d54ed4720974d226ab30b8d32ef21dd"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#a2d54ed4720974d226ab30b8d32ef21dd">projectFilePath</a></td></tr>
-<tr class="separator:a2d54ed4720974d226ab30b8d32ef21dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59726fcb927ff059c83a1ac7b252db0d"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#a59726fcb927ff059c83a1ac7b252db0d">projectSoundsPath</a></td></tr>
-<tr class="separator:a59726fcb927ff059c83a1ac7b252db0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1f0c37f5832b2ba24ac9bf65f0fdcce"><td class="memItemLeft" align="right" valign="top">NSArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#ac1f0c37f5832b2ba24ac9bf65f0fdcce">records</a></td></tr>
-<tr class="separator:ac1f0c37f5832b2ba24ac9bf65f0fdcce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af35059bb818d498c8a96053818016a26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_e_audio_stream_player.html">SEAudioStreamPlayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#af35059bb818d498c8a96053818016a26">audioStream</a></td></tr>
-<tr class="separator:af35059bb818d498c8a96053818016a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4da84c0c1ef729881956646b15762cc9"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">isChanged</a></td></tr>
 <tr class="separator:a4da84c0c1ef729881956646b15762cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Method Documentation</h2>
-<a class="anchor" id="a215f3b65a6214364b1c91a3e868e326f"></a>
+<a class="anchor" id="a191586c8f8464149aa101709b3b712b9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (void) addRecord: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_e_record.html">SERecord</a>*)&#160;</td>
-          <td class="paramname"><em>record</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Add record to project </p>
-
-</div>
-</div>
-<a class="anchor" id="a766d033976c34b25c714664a936431c0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) deleteRecord: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_e_record.html">SERecord</a>*)&#160;</td>
-          <td class="paramname"><em>record</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Delete record from project </p>
-
-</div>
-</div>
-<a class="anchor" id="a6df677b3addadd2b57c7cb476817b3f0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) moveRecord: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_e_record.html">SERecord</a>*)&#160;</td>
-          <td class="paramname"><em>record</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">toIndex:</td>
-          <td></td>
-          <td class="paramtype">(NSInteger)&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Change records order </p>
-
-</div>
-</div>
-<a class="anchor" id="adf1f53d931f669b12dfbabf92e3e90a4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) removeAllRecords </td>
+          <td class="memname">- (void) clearProject </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove all records from project including all sound that are saved to the project sound folder </p>
+<p>Remove all data from project </p>
 
 </div>
 </div>
-<a class="anchor" id="ad0dc83a89c70e8a670d2e0eb0381e632"></a>
+<a class="anchor" id="a321757359b849bd9ec36324d3fe128ab"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (void) saveProject </td>
+          <td class="memname">- (instancetype) initWithFolder: </td>
+          <td></td>
+          <td class="paramtype">(NSString*)&#160;</td>
+          <td class="paramname"><em>folder</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initialize with folder of project </p>
+
+</div>
+</div>
+<a class="anchor" id="af1ae48fbd2576ff28449dcedf0dc8f29"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSError *) saveProject </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Save project </p>
+<p>Build project and save </p>
 
 </div>
 </div>
@@ -239,48 +181,11 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Save project in asynchronously (in another thread) </p>
-
-</div>
-</div>
-<a class="anchor" id="adb4519610c7481bf048f235189ff737c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (<a class="el" href="interface_s_e_record.html">SERecord</a> *) splitRecordInPosition: </td>
-          <td></td>
-          <td class="paramtype">(NSTimeInterval)&#160;</td>
-          <td class="paramname"><em>position</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Build project and save in asynchronously (in another thread) </p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a class="anchor" id="af35059bb818d498c8a96053818016a26"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (<a class="el" href="interface_s_e_audio_stream_player.html">SEAudioStreamPlayer</a>*) audioStream</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Project audio preview stream </p>
-
-</div>
-</div>
 <a class="anchor" id="a4da84c0c1ef729881956646b15762cc9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -323,69 +228,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2d54ed4720974d226ab30b8d32ef21dd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSString*) projectFilePath</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Project file path </p>
-
-</div>
-</div>
-<a class="anchor" id="a59726fcb927ff059c83a1ac7b252db0d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSString*) projectSoundsPath</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Project sounds path </p>
-
-</div>
-</div>
-<a class="anchor" id="ac1f0c37f5832b2ba24ac9bf65f0fdcce"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSArray*) records</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>List of records related to this project </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/igor/Develop/DevelopGit/Davacon/iPhone/SoundRecorder/Classes/Core/SoundEditor/<a class="el" href="_s_e_project_8h_source.html">SEProject.h</a></li>
 <li>/Users/igor/Develop/DevelopGit/Davacon/iPhone/SoundRecorder/Classes/Core/SoundEditor/<a class="el" href="_s_e_project_8m.html">SEProject.m</a></li>
@@ -393,7 +235,7 @@ Properties</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

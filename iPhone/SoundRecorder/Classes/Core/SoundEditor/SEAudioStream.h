@@ -2,9 +2,6 @@
 //  SoundRecorder
 //  Created by Igor Danich igor.danich@wise-apps.com on 11.04.14.
 
-
-#import <AudioToolbox/AudioToolbox.h>
-
 typedef enum {
     kSEAudioStreamModeUnknown   = 0,
     kSEAudioStreamModeRead      = 1,

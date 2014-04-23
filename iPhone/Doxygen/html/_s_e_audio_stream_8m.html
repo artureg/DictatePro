@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,15 +83,99 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">SEAudioStream.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#import &quot;<a class="el" href="_s_e_audio_stream_8h_source.html">SEAudioStream.h</a>&quot;</code><br/>
-</div></div><!-- contents -->
+<code>#import &lt;Foundation/Foundation.h&gt;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab23d772523cd805a49196d237af16aa2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2">TSEAudioStreamSourceType</a> { <a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2aa854c97744ab62ac11c0a12412480412">kSEAudioStreamSourceNone</a> = 0, 
+<a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2a7aaf3a6de994acea1caf0ddf95361d9a">kSEAudioStreamSourceFile</a> = 1, 
+<a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2a7e1e18f599104be65c66c013d01c2ba3">kSEAudioStreamSourceURL</a> = 2, 
+<a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2a0bf0a190a5a1bfaf82c6859f85d9b550">kSEAudioStreamSourceOtherStream</a> = 3
+ }</td></tr>
+<tr class="separator:ab23d772523cd805a49196d237af16aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac186b974a8cde69566a9c2f651db79f5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5">TSEAudioStreamStatusType</a> { <br/>
+&#160;&#160;<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a7523e8b07bb85ef711ec3397d701bb3f">kSEAudioStreamSuccess</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5aba0d1c477318e1bc6077bd4cb48954cc">kSEAudioStreamUnknownMode</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a0996008d4ae13645f06493158758f49c">kSEAudioStreamCloseBeforeOpen</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a50339c46812153194b350f917d390d39">kSEAudioStreamCantOpenStream</a>, 
+<br/>
+&#160;&#160;<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a4c1af24757bd34a507dfceb0ea60e52e">kSEAudioStreamCantReadAudioDescription</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5ae0d63e5a19d43f996d8fe2b62cd3526a">kSEAudioStreamCantReadAudioFile</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a5207cde5b859ac2af6e219ba15be66e9">kSEAudioStreamCantReadWithCurrentMode</a>, 
+<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5ae867e35b909843143c47ec0f064f4a46">kSEAudioStreamCantWriteWithCurrentMode</a>, 
+<br/>
+&#160;&#160;<a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5a25a9ea12e256d9edc3cd75b5f277e0cd">kSEAudioStreamCantWriteStream</a>
+<br/>
+ }</td></tr>
+<tr class="separator:ac186b974a8cde69566a9c2f651db79f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ab23d772523cd805a49196d237af16aa2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_s_e_audio_stream_8m.html#ab23d772523cd805a49196d237af16aa2">TSEAudioStreamSourceType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="ab23d772523cd805a49196d237af16aa2aa854c97744ab62ac11c0a12412480412"></a>kSEAudioStreamSourceNone</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab23d772523cd805a49196d237af16aa2a7aaf3a6de994acea1caf0ddf95361d9a"></a>kSEAudioStreamSourceFile</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab23d772523cd805a49196d237af16aa2a7e1e18f599104be65c66c013d01c2ba3"></a>kSEAudioStreamSourceURL</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ab23d772523cd805a49196d237af16aa2a0bf0a190a5a1bfaf82c6859f85d9b550"></a>kSEAudioStreamSourceOtherStream</em>&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_s_e_audio_stream_8m.html#ac186b974a8cde69566a9c2f651db79f5">TSEAudioStreamStatusType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a7523e8b07bb85ef711ec3397d701bb3f"></a>kSEAudioStreamSuccess</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5aba0d1c477318e1bc6077bd4cb48954cc"></a>kSEAudioStreamUnknownMode</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a0996008d4ae13645f06493158758f49c"></a>kSEAudioStreamCloseBeforeOpen</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a50339c46812153194b350f917d390d39"></a>kSEAudioStreamCantOpenStream</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a4c1af24757bd34a507dfceb0ea60e52e"></a>kSEAudioStreamCantReadAudioDescription</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5ae0d63e5a19d43f996d8fe2b62cd3526a"></a>kSEAudioStreamCantReadAudioFile</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a5207cde5b859ac2af6e219ba15be66e9"></a>kSEAudioStreamCantReadWithCurrentMode</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5ae867e35b909843143c47ec0f064f4a46"></a>kSEAudioStreamCantWriteWithCurrentMode</em>&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ac186b974a8cde69566a9c2f651db79f5a25a9ea12e256d9edc3cd75b5f277e0cd"></a>kSEAudioStreamCantWriteStream</em>&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

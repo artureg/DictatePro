@@ -38,6 +38,16 @@
                ReferencedContainer = "container:SoundRecorder.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7873424F190806EC004EEEB7"
+               BuildableName = "SEKitTests.xctest"
+               BlueprintName = "SEKitTests"
+               ReferencedContainer = "container:SoundRecorder.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -3,6 +3,7 @@
 
 #import "SEProject.h"
 #import "SEProjectAudioStream.h"
+#import "SERecord.h"
 
 @interface SEProject (Internal)
 

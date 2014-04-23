@@ -69,7 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
-      <li><a href="functions_vars.html"><span>Variables</span></a></li>
       <li><a href="functions_prop.html"><span>Properties</span></a></li>
     </ul>
   </div>
@@ -80,7 +79,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_e"><span>e</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
-      <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
@@ -94,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,170 +105,193 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 &#160;
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
-<li>addRecord:
-: <a class="el" href="interface_s_e_project.html#a215f3b65a6214364b1c91a3e868e326f">SEProject</a>
+<li>adjustToAudioDescription:
+: <a class="el" href="interface_s_e_audio_stream.html#adfdf1dbe3671da136d6cdae4fe4256bc">SEAudioStream</a>
+, <a class="el" href="category_s_e_audio_stream_07_write_08.html#adfdf1dbe3671da136d6cdae4fe4256bc">SEAudioStream(Write)</a>
 </li>
-<li>audioStreamPlayer:didUpdateWithCurrentPosition:duration:
-: <a class="el" href="protocol_s_e_audio_stream_player_delegate-p.html#a16a6ec647062ed75001f394ae08a1125">&lt;SEAudioStreamPlayerDelegate&gt;</a>
+<li>audioStreamEngine:didOccurError:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#afbb8aa7876ff176dc2e3bf52343084ce">&lt;SEAudioStreamEngineDelegate&gt;</a>
 </li>
-<li>audioStreamPlayerDidContinue:
-: <a class="el" href="protocol_s_e_audio_stream_player_delegate-p.html#abbf414d9214d2bae34556952792fa8bc">&lt;SEAudioStreamPlayerDelegate&gt;</a>
+<li>audioStreamEngineDidContinue:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#a25a68e34ad837b70cedc6d8485185fe3">&lt;SEAudioStreamEngineDelegate&gt;</a>
 </li>
-<li>audioStreamPlayerDidFinishPlaying:stopped:
-: <a class="el" href="protocol_s_e_audio_stream_player_delegate-p.html#afd0e13575d327b091285b6c7f44792d3">&lt;SEAudioStreamPlayerDelegate&gt;</a>
+<li>audioStreamEngineDidFinishPlaying:stopped:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#a824aeca3299956565bfaa84ba4d04f33">&lt;SEAudioStreamEngineDelegate&gt;</a>
 </li>
-<li>audioStreamPlayerDidPause:
-: <a class="el" href="protocol_s_e_audio_stream_player_delegate-p.html#a11ec4e64acd6d9a5bc84a94a314c4335">&lt;SEAudioStreamPlayerDelegate&gt;</a>
+<li>audioStreamEngineDidPause:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#a1bd5a2cc2a8c641534cbb74a55773fcb">&lt;SEAudioStreamEngineDelegate&gt;</a>
 </li>
-<li>audioStreamPlayerDidStartPlaying:
-: <a class="el" href="protocol_s_e_audio_stream_player_delegate-p.html#a74bb3b4dcd45b0c79616eba1d11fdd02">&lt;SEAudioStreamPlayerDelegate&gt;</a>
+<li>audioStreamEngineDidStartPlaying:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#ad028df707bf49e8666b815bde8f40902">&lt;SEAudioStreamEngineDelegate&gt;</a>
+</li>
+<li>audioStreamEngineDidStartRecording:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#a192f31070f458201190d97c2e3dbbbee">&lt;SEAudioStreamEngineDelegate&gt;</a>
+</li>
+<li>audioStreamEngineDidStopRecording:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#ad693afa65ce5cc6560f40b8cf9719606">&lt;SEAudioStreamEngineDelegate&gt;</a>
+</li>
+<li>audioStreamEnginePlaying:didUpdateWithCurrentTime:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#af917adce2406d3802da99282c8fc1723">&lt;SEAudioStreamEngineDelegate&gt;</a>
+</li>
+<li>audioStreamEngineRecording:didUpdateWithCurrentTime:
+: <a class="el" href="protocol_s_e_audio_stream_engine_delegate-p.html#a75f167807ad628680176d4438aeb840a">&lt;SEAudioStreamEngineDelegate&gt;</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>clear
-: <a class="el" href="interface_s_e_audio_stream.html#ae59699f3f9cdf5fa000d9835da89e73e">SEAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream.html#a7a808893a77d0fb9ad960563d75a822b">SEAudioStream</a>
+</li>
+<li>clearProject
+: <a class="el" href="interface_s_e_project.html#a191586c8f8464149aa101709b3b712b9">SEProject</a>
 </li>
 <li>close
-: <a class="el" href="interface_s_e_audio_stream.html#a8c4af367964e8be4817df12989f06d40">SEAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream.html#af2cf137df7939dea6d1003ff00f7af02">SEAudioStream</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
-<li>deleteRecord:
-: <a class="el" href="interface_s_e_project.html#a766d033976c34b25c714664a936431c0">SEProject</a>
+<li>durationForBufferWithSize:
+: <a class="el" href="interface_s_e_audio_stream.html#a9c310c1951f40e16cfd429be70730b27">SEAudioStream</a>
+, <a class="el" href="category_s_e_audio_stream_07_read_08.html#a9c310c1951f40e16cfd429be70730b27">SEAudioStream(Read)</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
-<li>exportToFile:completion:
-: <a class="el" href="interface_s_e_audio_stream.html#aa20244d64005b2e198eb72f99d6f7bee">SEAudioStream</a>
+<li>exportAsynchronouslyToFile:completion:
+: <a class="el" href="interface_s_e_audio_stream.html#add18c4dadc3625b3e22cb4e9e105d03e">SEAudioStream</a>
+</li>
+<li>exportToFile:
+: <a class="el" href="interface_s_e_audio_stream.html#a6300968768eeb9d47dda0aa21748b2ed">SEAudioStream</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>init
-: <a class="el" href="interface_s_e_audio_stream.html#adfb80527c355e64279d60a7b1af838ea">SEAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream.html#a3399ff27e1d1189946e698ebd1449d08">SEAudioStream</a>
 </li>
 <li>initWithAudioStream:
-: <a class="el" href="interface_s_e_audio_stream.html#a34663b1bbae1fdb5e32111a6629a994a">SEAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream.html#abe3e88c47e7d46b1d8d041c70cef8305">SEAudioStream</a>
 </li>
 <li>initWithContentsOfFile:
-: <a class="el" href="interface_s_e_audio_stream.html#a88b28dfe93892a08d261bd946beea26f">SEAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream.html#a518443753d9748fb80a4811c69dac1ce">SEAudioStream</a>
+</li>
+<li>initWithFolder:
+: <a class="el" href="interface_s_e_project.html#a321757359b849bd9ec36324d3fe128ab">SEProject</a>
 </li>
 <li>initWithProject:
-: <a class="el" href="interface_s_e_project_audio_stream.html#a30ceafdd92a02b9cc8f361674d462e86">SEProjectAudioStream</a>
-</li>
-<li>initWithRecord:
-: <a class="el" href="interface_s_e_record_audio_stream.html#a92c7ab157006ec7f599b742512173417">SERecordAudioStream</a>
+: <a class="el" href="interface_s_e_project_engine.html#a7efbca25d6d786ef7d7ef089001d1c07">SEProjectEngine</a>
 </li>
 <li>initWithStream:
-: <a class="el" href="interface_s_e_audio_stream_player.html#af81895d0a82b3255e9b9840def52599b">SEAudioStreamPlayer</a>
+: <a class="el" href="interface_s_e_audio_stream_engine.html#a1ec76b50caa6e569a74fb1fc642d6ede">SEAudioStreamEngine</a>
 </li>
 <li>initWithURL:
-: <a class="el" href="interface_s_e_audio_stream.html#a7acd0370d5f5066a6d00834af0eea200">SEAudioStream</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
-<li>moveRecord:toIndex:
-: <a class="el" href="interface_s_e_project.html#a6df677b3addadd2b57c7cb476817b3f0">SEProject</a>
+: <a class="el" href="interface_s_e_audio_stream.html#a036f98d5a2373bb2eb5e223cfde0cdae">SEAudioStream</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
-<li>open
-: <a class="el" href="interface_s_e_audio_stream.html#add81dd9d9bd838f3a5dc1ceae94ccf26">SEAudioStream</a>
+<li>openWithMode:
+: <a class="el" href="interface_s_e_audio_stream.html#acff6e63be14a361a5b0ac065170a843d">SEAudioStream</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
-<li>pause
-: <a class="el" href="interface_s_e_audio_stream_player.html#ab9e4c08bf6710368576d15ea05ecfe32">SEAudioStreamPlayer</a>
+<li>pausePlaying
+: <a class="el" href="interface_s_e_audio_stream_engine.html#ae75c4a24cb45b92433a0f954c7180489">SEAudioStreamEngine</a>
+</li>
+<li>pm_checkAndFlush
+: <a class="el" href="category_s_e_speex_a_c_m_audio_stream_07_08.html#aa65035991aabcebcb8319072198e31ba">SESpeexACMAudioStream()</a>
+</li>
+<li>pm_computeBufferSizeWithFormat:seconds:
+: <a class="el" href="category_s_e_audio_stream_engine_07_08.html#a3f2ea6f72f3de68056d8b2a159e4b743">SEAudioStreamEngine()</a>
+</li>
+<li>pm_dataDuration
+: <a class="el" href="category_s_e_audio_stream_07_08.html#a6d445c53ea91dc93dc816d869a0920ca">SEAudioStream()</a>
+</li>
+<li>pm_flush
+: <a class="el" href="category_s_e_audio_stream_07_08.html#a70ebad17a61f0c4638e165b1ab698f12">SEAudioStream()</a>
+</li>
+<li>pm_handleAudioPackets:numberBytes:numberPackets:packetDescriptions:
+: <a class="el" href="category_s_e_audio_stream_07_08.html#a0e5ee17bc631e7b9b6cc2d710d855d1d">SEAudioStream()</a>
+</li>
+<li>pm_handlePropertyChangeForFileStream:fileStreamPropertyID:ioFlags:
+: <a class="el" href="category_s_e_audio_stream_07_08.html#a9e38c18656273234be61619aafa089e6">SEAudioStream()</a>
+</li>
+<li>pm_hintForFileExtension:
+: <a class="el" href="category_s_e_audio_stream_07_08.html#a12c6083989cd11b11dbd2358af3db5b1">SEAudioStream()</a>
+</li>
+<li>pm_loadProject
+: <a class="el" href="category_s_e_project_07_08.html#a2733629176d07d6e49be855ca64bc8e0">SEProject()</a>
+</li>
+<li>pm_onPlayTimer
+: <a class="el" href="category_s_e_audio_stream_engine_07_08.html#a66b8ff5a0c4c3073c26122d247956abd">SEAudioStreamEngine()</a>
+</li>
+<li>pm_performError:
+: <a class="el" href="category_s_e_audio_stream_07_08.html#ad24e56ffa5a11921036f512b30c2e61d">SEAudioStream()</a>
+, <a class="el" href="category_s_e_audio_stream_engine_07_08.html#a904166440be2c605407aa2dfd37a8cec">SEAudioStreamEngine()</a>
+</li>
+<li>pm_processInputBuffer:queue:startTime:numberPacketDescriptions:packetDescs:
+: <a class="el" href="category_s_e_audio_stream_engine_07_08.html#ad31ccee072ba39e61a59856ac4bb2c36">SEAudioStreamEngine()</a>
+</li>
+<li>pm_processOutputBuffer:queue:
+: <a class="el" href="category_s_e_audio_stream_engine_07_08.html#ac7baec71cdb25574abf73b975691d624">SEAudioStreamEngine()</a>
+</li>
+<li>pm_readBufferDataWithDuration:
+: <a class="el" href="category_s_e_audio_stream_engine_07_08.html#adeb9a1148989f4bea42b99dfc7c24e34">SEAudioStreamEngine()</a>
+</li>
+<li>pm_readHeader
+: <a class="el" href="category_s_e_audio_stream_07_08.html#aa7990eeb00de4c75445968be37c3fb6c">SEAudioStream()</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
-<li>readSamples:count:
-: <a class="el" href="interface_s_e_audio_stream.html#ac80704c916ddbac8f8309f3a6a019e80">SEAudioStream</a>
-, <a class="el" href="category_s_e_audio_stream_07_read_08.html#ac80704c916ddbac8f8309f3a6a019e80">SEAudioStream(Read)</a>
-</li>
-<li>readSamplesFromChannel:count:
-: <a class="el" href="interface_s_e_audio_stream.html#a4501c22126f23cc1cb9ecbd1d7ddda6e">SEAudioStream</a>
-, <a class="el" href="category_s_e_audio_stream_07_read_08.html#a4501c22126f23cc1cb9ecbd1d7ddda6e">SEAudioStream(Read)</a>
-</li>
-<li>readSamplesWithCount:
-: <a class="el" href="interface_s_e_audio_stream.html#a8d848d7a388d38fb670eb92e3bf6566d">SEAudioStream</a>
-, <a class="el" href="category_s_e_audio_stream_07_read_08.html#a8d848d7a388d38fb670eb92e3bf6566d">SEAudioStream(Read)</a>
-</li>
-<li>recordAudioStream:didUpdateWithDuration:
-: <a class="el" href="protocol_s_e_record_audio_stream_delegate-p.html#a6f989682abec086abcf3df35aa465b64">&lt;SERecordAudioStreamDelegate&gt;</a>
-</li>
-<li>recordAudioStreamDidFinishRecording:
-: <a class="el" href="protocol_s_e_record_audio_stream_delegate-p.html#adfc35cb87b18e6b20e2e02f8894defa8">&lt;SERecordAudioStreamDelegate&gt;</a>
-</li>
-<li>recordAudioStreamDidStartRecording:
-: <a class="el" href="protocol_s_e_record_audio_stream_delegate-p.html#ad9a82cf4916f8d3dc0450d7904244272">&lt;SERecordAudioStreamDelegate&gt;</a>
-</li>
-<li>removeAllRecords
-: <a class="el" href="interface_s_e_project.html#adf1f53d931f669b12dfbabf92e3e90a4">SEProject</a>
+<li>readData:position:duration:
+: <a class="el" href="interface_s_e_audio_stream.html#a282b3ff513e91b82eb0da34d723dbcd0">SEAudioStream</a>
+, <a class="el" href="category_s_e_audio_stream_07_read_08.html#a282b3ff513e91b82eb0da34d723dbcd0">SEAudioStream(Read)</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>saveProject
-: <a class="el" href="interface_s_e_project.html#ad0dc83a89c70e8a670d2e0eb0381e632">SEProject</a>
+: <a class="el" href="interface_s_e_project.html#af1ae48fbd2576ff28449dcedf0dc8f29">SEProject</a>
 </li>
 <li>saveProjectAsynchronouslyWithCompletion:
 : <a class="el" href="interface_s_e_project.html#a996a39778f2d176ecf7ffda117703f6c">SEProject</a>
 </li>
-<li>seekToSamplePosition:
-: <a class="el" href="interface_s_e_audio_stream.html#a1dd26e76fbcd65f2d221f61de75fd3eb">SEAudioStream</a>
-</li>
-<li>seekToSecond:
-: <a class="el" href="interface_s_e_audio_stream.html#a720083efde7839f0a44ec7456805ffeb">SEAudioStream</a>
-</li>
-<li>splitRecordInPosition:
-: <a class="el" href="interface_s_e_project.html#adb4519610c7481bf048f235189ff737c">SEProject</a>
-</li>
-<li>start
-: <a class="el" href="interface_s_e_audio_stream_player.html#a16c600129d3045dc7f7213165df3ca66">SEAudioStreamPlayer</a>
+<li>startPlaying
+: <a class="el" href="interface_s_e_audio_stream_engine.html#a6e3666a25828115786cc39ad40741a9d">SEAudioStreamEngine</a>
 </li>
 <li>startRecording
-: <a class="el" href="interface_s_e_record_audio_stream.html#afa78c4835ce4e83bfca38800faed0f33">SERecordAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream_engine.html#ad19a0488b4ea40ae9ae54c38526895de">SEAudioStreamEngine</a>
 </li>
-<li>stop
-: <a class="el" href="interface_s_e_audio_stream_player.html#a80491754758a4dab432e18fcafb0721d">SEAudioStreamPlayer</a>
+<li>stopPlaying
+: <a class="el" href="interface_s_e_audio_stream_engine.html#a77d1d55cf373ab32b01d20b7997b13f2">SEAudioStreamEngine</a>
 </li>
 <li>stopRecording
-: <a class="el" href="interface_s_e_record_audio_stream.html#a10e91ee60958add80d70acbf6741b2db">SERecordAudioStream</a>
+: <a class="el" href="interface_s_e_audio_stream_engine.html#a2a1cd707ceb8fb2801826c38d932da66">SEAudioStreamEngine</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
-<li>writeSamples:
-: <a class="el" href="interface_s_e_audio_stream.html#ab184f74429643065a116a8f272bf79b3">SEAudioStream</a>
-, <a class="el" href="category_s_e_audio_stream_07_write_08.html#ab184f74429643065a116a8f272bf79b3">SEAudioStream(Write)</a>
-</li>
-<li>writeSamples:count:
-: <a class="el" href="interface_s_e_audio_stream.html#af19a129d2a78172d771f2552dd97f49b">SEAudioStream</a>
-, <a class="el" href="category_s_e_audio_stream_07_write_08.html#af19a129d2a78172d771f2552dd97f49b">SEAudioStream(Write)</a>
+<li>writeData:
+: <a class="el" href="interface_s_e_audio_stream.html#a72236de5f14e8c3494be78f310d4282a">SEAudioStream</a>
+, <a class="el" href="category_s_e_audio_stream_07_write_08.html#a72236de5f14e8c3494be78f310d4282a">SEAudioStream(Write)</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
