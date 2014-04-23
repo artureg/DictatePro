@@ -1,8 +1,11 @@
 package com.wiseapps.davacon.core.se;
 
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.SpeexWrapper;
 
 import java.io.*;
+
+import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
@@ -41,19 +44,19 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     InputStream getInputStream() throws Exception {
-        // TODO implement offsets
+        int format = 0;
+        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
 
-//        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, 0));
-//        return SpeexWrapper.getInputStream(record.soundPath, 0);
-
-        return mockGetInputStream();
+//        return mockGetInputStream();
     }
 
     @Override
     OutputStream getOutputStream() throws Exception{
-//        return SpeexWrapper.getOutputStream(record.soundPath, 0);
+        int format = 0;
+        return SpeexWrapper.getOutputStream(record.soundPath, format,
+                SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
 
-        return mockGetOutputStream();
+//        return mockGetOutputStream();
     }
 
 //    private void mockClose() {
