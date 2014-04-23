@@ -9,11 +9,12 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
  */
 public class DurationUtils {
 
-    public static long bytesFromMillis(long millis) {
-        return millis / (SAMPLE_RATE_IN_HZ * CHANNEL_CONFIG_IN * BITS_PER_SAMPLE / 8);
+    public static double secondsFromBytes(long bytes) {
+        double seconds = ((double) bytes) / (double) (SAMPLE_RATE_IN_HZ * NUM_CHANNELS * BITS_PER_SAMPLE / 8);
+        return (double) (Math.round(seconds * 10)) / 10;
     }
 
-    public static long millisFromBytes(long bytes) {
-        return bytes * (SAMPLE_RATE_IN_HZ * CHANNEL_CONFIG_IN * BITS_PER_SAMPLE / 8);
+    public static long secondsToBytes(double seconds) {
+        return Math.round(seconds * (SAMPLE_RATE_IN_HZ * NUM_CHANNELS * BITS_PER_SAMPLE / 8));
     }
 }

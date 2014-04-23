@@ -16,7 +16,7 @@ public abstract class SEAudioStreamEngine {
     public static enum State {
         READY,
         PLAYING_IN_PROGRESS,
-        RECORDING_IN_PROGRESS,
+        RECORDING_IN_PROGRESS
     }
 
 //    public static enum Event {

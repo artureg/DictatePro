@@ -46,20 +46,7 @@ public class SEProject {
      *
      * @return project audio stream
      */
-//    SEAudioStream getAudioStream(Context context) {
-//        duration = 0;
-//
-//        // each time audio stream is created the project is read from sdcard anew
-//        SDCardUtils.readProject(this);
-//
-//        return new SEProjectAudioStream(context, this);
-//    }
     AudioStream getAudioStream() {
-//        removeAllRecords();
-//
-//        // each time audio stream is created the project is read from sdcard anew
-//        SDCardUtils.readProject(this);
-
         return new ProjectAudioStream(this);
     }
 
@@ -153,7 +140,6 @@ public class SEProject {
 
         // creating just a fake record to have possibility to use its stream's capabilities
         SERecord record = new SERecord(this);
-//        record.soundPath = SDCardUtils.getPathToSave(context);
         record.soundPath = SDCardUtils.getSoundPath(context);
 
         InputStream in = null;
@@ -220,7 +206,6 @@ public class SEProject {
             duration += record.duration;
 
             if (duration >= position) {
-//                record.setPosition(record.getDuration() - record.start - (duration - position));
                 return record;
             }
         }

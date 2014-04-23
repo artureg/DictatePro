@@ -27,20 +27,12 @@ class SESoundPlayer {
     static final int MSG_PLAYING_STOPPED = 3;
     static final int MSG_PLAYING_ERROR = 4;
 
-//    private enum PlayerState {
-//        PLAYING, PAUSED, STOPPED
-//    }
-
     private PlayingThread thread;
 
-//    private final SEAudioStream stream;
     private final AudioStream stream;
 
     private List<Handler> handlers = new ArrayList<Handler>();
 
-//    SESoundPlayer(SEAudioStream stream) {
-//        this.stream = stream;
-//    }
     SESoundPlayer(AudioStream stream) {
         this.stream = stream;
     }
@@ -116,15 +108,16 @@ class SESoundPlayer {
         }
 
         private void open() {
+            int minBufferSize = 1600;
+
             audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
-                    MIN_BUFFER_SIZE, MODE);
+                    minBufferSize, MODE);
 
             if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
                 handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
                 return;
             }
 
-//            stream.open(SEAudioStream.Mode.READ);
             stream.open(AudioStream.Mode.READ);
             handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
 
@@ -132,6 +125,8 @@ class SESoundPlayer {
         }
 
         private void work() {
+            int minBufferSize = 1600;
+
             InputStream in = null;
 
             long played = 0;
@@ -139,17 +134,17 @@ class SESoundPlayer {
             try {
                 in = stream.getInputStream();
 
-                byte data[] = new byte[MIN_BUFFER_SIZE];
+                byte data[] = new byte[minBufferSize];
                 while(running && (in.read(data) != -1)) {
                     audioTrack.write(data, 0, data.length);
 
                     played += data.length;
-                    LoggerFactory.obtainLogger(TAG).
-                            d("run# played " + played);
+//                    LoggerFactory.obtainLogger(TAG).
+//                            d("run# played " + played);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, data.length));
-                    LoggerFactory.obtainLogger(TAG).
-                            d("run# running " + running);
+                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS, minBufferSize));
+//                    LoggerFactory.obtainLogger(TAG).
+//                            d("run# running " + running);
                 }
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
@@ -173,8 +168,8 @@ class SESoundPlayer {
                 }
             }
 
-            LoggerFactory.obtainLogger(TAG).d("work# played = " + played);
-            LoggerFactory.obtainLogger(TAG).d("work# exited due to EOF = " + running);
+//            LoggerFactory.obtainLogger(TAG).d("work# played = " + played);
+//            LoggerFactory.obtainLogger(TAG).d("work# exited due to EOF = " + running);
         }
 
         private void close() {
@@ -225,88 +220,4 @@ class SESoundPlayer {
             }
         };
     }
-
-//    private class PlayingThread extends Thread {
-//        private PlayerState state;
-//
-//        private PlayingThread(PlayerState state) {
-//            this.state = state;
-//        }
-//
-//        @Override
-//        public void run() {
-//            int minBufferSize =
-//                    AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT);
-//
-//            AudioTrack audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
-//                    minBufferSize, MODE);
-//
-//            if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
-//                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_ERROR));
-//                return;
-//            }
-//
-//            stream.open(SEAudioStream.Mode.READ);
-//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STARTED));
-//
-//            byte data[] = stream.read(0, DURATION_SECONDS);
-//            while(state != PlayerState.STOPPED) {
-//                if (state == PlayerState.PAUSED) {
-//                    // TODO send just once
-//                    handler.sendMessage(handler.obtainMessage(MSG_PLAYING_PAUSED));
-//                    continue;
-//                }
-//
-//                audioTrack.write(data, 0, data.length);
-//                audioTrack.play();
-//
-//                data = stream.read(0, DURATION_SECONDS);
-//
-//                handler.sendMessage(handler.obtainMessage(MSG_PLAYING_IN_PROGRESS));
-//            }
-//
-//            stream.close();
-//
-//            audioTrack.stop();
-//            audioTrack.release();
-//
-//            handler.sendMessage(handler.obtainMessage(MSG_PLAYING_STOPPED));
-//        }
-//
-//        void pausePlaying() {
-//            state = PlayerState.PAUSED;
-//        }
-//
-//        void stopPlaying() {
-//            state = PlayerState.STOPPED;
-//        }
-//
-//        private Handler handler = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                switch(msg.what) {
-//                    case MSG_PLAYING_STARTED: {
-//                        sendMsgStarted();
-//                        break;
-//                    }
-//                    case MSG_PLAYING_IN_PROGRESS: {
-//                        sendMsgInProgress();
-//                        break;
-//                    }
-//                    case MSG_PLAYING_PAUSED: {
-//                        sendMsgPaused();
-//                        break;
-//                    }
-//                    case MSG_PLAYING_STOPPED: {
-//                        sendMsgStopped();
-//                        break;
-//                    }
-//                    case MSG_PLAYING_ERROR: {
-//                        sendMsgError();
-//                        break;
-//                    }
-//                }
-//            }
-//        };
-//    }
 }
