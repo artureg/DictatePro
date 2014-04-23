@@ -1,8 +1,5 @@
 package com.wiseapps.davacon.speex;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-
 /**
  * Class provides native methods
  *
@@ -15,10 +12,18 @@ public class SpeexWrapper {
     static {
         System.loadLibrary("SpeexLib");
     }
-
-    native public static InputStream getInputStream(String filePath, int format);
-
-    native public static OutputStream getOutputStream(String filePath, int format);
+    
+    public static NativeInputStream getInputStream(String filePath, int format) {
+    	NativeInputStream steram = new NativeInputStream(filePath, format);
+//    	steram.initNative();
+    	return steram;
+    }
+    
+    public static NativeOutputStream getOutputStream(String filePath, int format, int sampleRate, int bitsPerSample, int channel) {
+    	NativeOutputStream stream = new NativeOutputStream(filePath, format, sampleRate, bitsPerSample, channel);
+//    	steram.initNative();
+    	return stream;
+    }
 
 //    /**
 //     * Returns format of the file.
@@ -46,16 +51,16 @@ public class SpeexWrapper {
 //     */
 //    native public static double getDuration(String filePath, int format);
 //
-//    /**
-//     * Reads data from the file starting from offset to (offset + duration).
-//     *
-//     * @param filePath path to the file to read data from
-//     * @param offset offset in seconds to start reading the data from
-//     * @param duration duration in seconds of the data
-//     * @param format file format
-//     * @return data
-//     */
-//    native public static byte[] read(String filePath, double offset, double duration, int format);
+    /**
+     * Reads data from the file starting from offset to (offset + duration).
+     *
+     * @param filePath path to the file to read data from
+     * @param offset offset in seconds to start reading the data from
+     * @param duration duration in seconds of the data
+     * @param format file format
+     * @return data
+     */
+    native public static byte[] read(String filePath, double offset, double duration, int format);
 //
 //    /**
 //     * Writes data to the end of the file.
