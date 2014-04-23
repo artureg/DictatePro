@@ -1,0 +1,109 @@
+\hypertarget{protocol_s_e_audio_stream_engine_delegate-p}{\section{$<$S\-E\-Audio\-Stream\-Engine\-Delegate$>$ Protocol Reference}
+\label{protocol_s_e_audio_stream_engine_delegate-p}\index{$<$\-S\-E\-Audio\-Stream\-Engine\-Delegate$>$@{$<$\-S\-E\-Audio\-Stream\-Engine\-Delegate$>$}}
+}
+
+
+{\ttfamily \#import $<$S\-E\-Audio\-Stream\-Engine.\-h$>$}
+
+Inheritance diagram for $<$S\-E\-Audio\-Stream\-Engine\-Delegate$>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{protocol_s_e_audio_stream_engine_delegate-p}
+\end{center}
+\end{figure}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_ad028df707bf49e8666b815bde8f40902}{audio\-Stream\-Engine\-Did\-Start\-Playing\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_a1bd5a2cc2a8c641534cbb74a55773fcb}{audio\-Stream\-Engine\-Did\-Pause\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_a25a68e34ad837b70cedc6d8485185fe3}{audio\-Stream\-Engine\-Did\-Continue\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_af917adce2406d3802da99282c8fc1723}{audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_a824aeca3299956565bfaa84ba4d04f33}{audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_a192f31070f458201190d97c2e3dbbbee}{audio\-Stream\-Engine\-Did\-Start\-Recording\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_a75f167807ad628680176d4438aeb840a}{audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_ad693afa65ce5cc6560f40b8cf9719606}{audio\-Stream\-Engine\-Did\-Stop\-Recording\-:}
+\item 
+(void) -\/ \hyperlink{protocol_s_e_audio_stream_engine_delegate-p_afbb8aa7876ff176dc2e3bf52343084ce}{audio\-Stream\-Engine\-:did\-Occur\-Error\-:}
+\end{DoxyCompactItemize}
+
+
+\subsection{Method Documentation}
+\hypertarget{protocol_s_e_audio_stream_engine_delegate-p_afbb8aa7876ff176dc2e3bf52343084ce}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-:did\-Occur\-Error\-:@{audio\-Stream\-Engine\-:did\-Occur\-Error\-:}}
+\index{audio\-Stream\-Engine\-:did\-Occur\-Error\-:@{audio\-Stream\-Engine\-:did\-Occur\-Error\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-:did\-Occur\-Error\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\item[{didOccurError:(N\-S\-Error $\ast$)}]{error}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_afbb8aa7876ff176dc2e3bf52343084ce}
+Notification for error \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_a25a68e34ad837b70cedc6d8485185fe3}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Continue\-:@{audio\-Stream\-Engine\-Did\-Continue\-:}}
+\index{audio\-Stream\-Engine\-Did\-Continue\-:@{audio\-Stream\-Engine\-Did\-Continue\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Continue\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Continue\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_a25a68e34ad837b70cedc6d8485185fe3}
+Notification for continue playing after pause \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_a824aeca3299956565bfaa84ba4d04f33}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:@{audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:}}
+\index{audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:@{audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Finish\-Playing\-:stopped\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Finish\-Playing\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\item[{stopped:(B\-O\-O\-L)}]{stopped}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_a824aeca3299956565bfaa84ba4d04f33}
+Notification for end playing \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_a1bd5a2cc2a8c641534cbb74a55773fcb}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Pause\-:@{audio\-Stream\-Engine\-Did\-Pause\-:}}
+\index{audio\-Stream\-Engine\-Did\-Pause\-:@{audio\-Stream\-Engine\-Did\-Pause\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Pause\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Pause\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_a1bd5a2cc2a8c641534cbb74a55773fcb}
+Notification for pause playing \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_ad028df707bf49e8666b815bde8f40902}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Start\-Playing\-:@{audio\-Stream\-Engine\-Did\-Start\-Playing\-:}}
+\index{audio\-Stream\-Engine\-Did\-Start\-Playing\-:@{audio\-Stream\-Engine\-Did\-Start\-Playing\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Start\-Playing\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Start\-Playing\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_ad028df707bf49e8666b815bde8f40902}
+Notification for begin playing \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_a192f31070f458201190d97c2e3dbbbee}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Start\-Recording\-:@{audio\-Stream\-Engine\-Did\-Start\-Recording\-:}}
+\index{audio\-Stream\-Engine\-Did\-Start\-Recording\-:@{audio\-Stream\-Engine\-Did\-Start\-Recording\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Start\-Recording\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Start\-Recording\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_a192f31070f458201190d97c2e3dbbbee}
+Notification for start recording \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_ad693afa65ce5cc6560f40b8cf9719606}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Did\-Stop\-Recording\-:@{audio\-Stream\-Engine\-Did\-Stop\-Recording\-:}}
+\index{audio\-Stream\-Engine\-Did\-Stop\-Recording\-:@{audio\-Stream\-Engine\-Did\-Stop\-Recording\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Did\-Stop\-Recording\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Did\-Stop\-Recording\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_ad693afa65ce5cc6560f40b8cf9719606}
+Notification for end recording \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_af917adce2406d3802da99282c8fc1723}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:@{audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:}}
+\index{audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:@{audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Playing\-:did\-Update\-With\-Current\-Time\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Playing\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\item[{didUpdateWithCurrentTime:(N\-S\-Time\-Interval)}]{time}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_af917adce2406d3802da99282c8fc1723}
+Notification for updating info about play state \hypertarget{protocol_s_e_audio_stream_engine_delegate-p_a75f167807ad628680176d4438aeb840a}{\index{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}!audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:@{audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:}}
+\index{audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:@{audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:}!SEAudioStreamEngineDelegate-p@{S\-E\-Audio\-Stream\-Engine\-Delegate-\/p}}
+\subsubsection[{audio\-Stream\-Engine\-Recording\-:did\-Update\-With\-Current\-Time\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) audio\-Stream\-Engine\-Recording\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf S\-E\-Audio\-Stream\-Engine} $\ast$)}]{engine}
+\item[{didUpdateWithCurrentTime:(N\-S\-Time\-Interval)}]{time}
+\end{DoxyParamCaption}
+\hspace{0.3cm}{\ttfamily [optional]}}}\label{protocol_s_e_audio_stream_engine_delegate-p_a75f167807ad628680176d4438aeb840a}
+Notification for updating info about play state 
+
+The documentation for this protocol was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_audio_stream_engine_8h}{S\-E\-Audio\-Stream\-Engine.\-h}\end{DoxyCompactItemize}

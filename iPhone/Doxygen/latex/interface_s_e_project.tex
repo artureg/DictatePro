@@ -1,0 +1,77 @@
+\hypertarget{interface_s_e_project}{\section{S\-E\-Project Class Reference}
+\label{interface_s_e_project}\index{S\-E\-Project@{S\-E\-Project}}
+}
+
+
+{\ttfamily \#import $<$S\-E\-Project.\-h$>$}
+
+Inheritance diagram for S\-E\-Project\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_s_e_project}
+\end{center}
+\end{figure}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(instancetype) -\/ \hyperlink{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}{init\-With\-Folder\-:}
+\item 
+(void) -\/ \hyperlink{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}{clear\-Project}
+\item 
+(N\-S\-Error $\ast$) -\/ \hyperlink{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}{save\-Project}
+\item 
+(void) -\/ \hyperlink{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}{save\-Project\-Asynchronously\-With\-Completion\-:}
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+N\-S\-String $\ast$ \hyperlink{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}{name}
+\item 
+B\-O\-O\-L \hyperlink{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}{is\-Changed}
+\end{DoxyCompactItemize}
+
+
+\subsection{Method Documentation}
+\hypertarget{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}{\index{S\-E\-Project@{S\-E\-Project}!clear\-Project@{clear\-Project}}
+\index{clear\-Project@{clear\-Project}!SEProject@{S\-E\-Project}}
+\subsubsection[{clear\-Project}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) clear\-Project 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}
+Remove all data from project \hypertarget{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}{\index{S\-E\-Project@{S\-E\-Project}!init\-With\-Folder\-:@{init\-With\-Folder\-:}}
+\index{init\-With\-Folder\-:@{init\-With\-Folder\-:}!SEProject@{S\-E\-Project}}
+\subsubsection[{init\-With\-Folder\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (instancetype) init\-With\-Folder\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-String$\ast$)}]{folder}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}
+Initialize with folder of project \hypertarget{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project@{save\-Project}}
+\index{save\-Project@{save\-Project}!SEProject@{S\-E\-Project}}
+\subsubsection[{save\-Project}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Error $\ast$) save\-Project 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}
+Build project and save \hypertarget{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project\-Asynchronously\-With\-Completion\-:@{save\-Project\-Asynchronously\-With\-Completion\-:}}
+\index{save\-Project\-Asynchronously\-With\-Completion\-:@{save\-Project\-Asynchronously\-With\-Completion\-:}!SEProject@{S\-E\-Project}}
+\subsubsection[{save\-Project\-Asynchronously\-With\-Completion\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) save\-Project\-Asynchronously\-With\-Completion\-: 
+\begin{DoxyParamCaption}
+\item[{(void($^\wedge$)(N\-S\-Error$\ast$ error))}]{completion}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}
+Build project and save in asynchronously (in another thread) 
+
+\subsection{Property Documentation}
+\hypertarget{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}{\index{S\-E\-Project@{S\-E\-Project}!is\-Changed@{is\-Changed}}
+\index{is\-Changed@{is\-Changed}!SEProject@{S\-E\-Project}}
+\subsubsection[{is\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) is\-Changed\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}
+Check project if it is change (add or remove record affects that) \hypertarget{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}{\index{S\-E\-Project@{S\-E\-Project}!name@{name}}
+\index{name@{name}!SEProject@{S\-E\-Project}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-String$\ast$) name\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}
+Project name 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_project_8h}{S\-E\-Project.\-h}\item 
+/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_project_8m}{S\-E\-Project.\-m}\end{DoxyCompactItemize}

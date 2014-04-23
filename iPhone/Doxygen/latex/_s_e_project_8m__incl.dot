@@ -1,0 +1,22 @@
+digraph "/Users/igor/Develop/DevelopGit/Davacon/iPhone/SoundRecorder/Classes/Core/SoundEditor/SEProject.m"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="/Users/igor/Develop\l/DevelopGit/Davacon\l/iPhone/SoundRecorder\l/Classes/Core/SoundEditor\l/SEProject.m",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="SEProject.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_e_project_8h.html"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="SEModel.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="SEAudioStreamPlayer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_e_audio_stream_player_8h.html"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="AudioToolbox/AudioToolbox.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="SERecord.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_e_record_8h.html"];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="SERecordAudioStream.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_e_record_audio_stream_8h.html"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="SEAudioStream.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_e_audio_stream_8h.html"];
+  Node8 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+}
