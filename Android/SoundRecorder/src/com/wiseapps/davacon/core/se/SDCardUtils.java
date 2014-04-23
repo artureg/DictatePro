@@ -153,6 +153,10 @@ public class SDCardUtils {
             projectDeleted = projectFile.delete();
         }
 
+        return projectDeleted && deleteRecords(project);
+    }
+
+    public static boolean deleteRecords(final SEProject project) {
         boolean recordsDeleted = true;
 
         File recordFile;
@@ -163,7 +167,7 @@ public class SDCardUtils {
             }
         }
 
-        return projectDeleted && recordsDeleted;
+        return recordsDeleted;
     }
 
     private static void serializeRecord(XmlSerializer serializer, final SERecord record) throws Exception {

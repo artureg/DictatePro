@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wiseapps.davacon.core.se.*;
+import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 
 import static com.wiseapps.davacon.core.se.SEAudioStreamEngine.*;
@@ -345,6 +346,11 @@ public class SoundRecorderActivity extends Activity {
                     getResources().getDrawable(R.drawable.send_0));
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
+
+            LoggerFactory.obtainLogger(TAG).
+                    d("playingInProgress# progress " + this.progress);
+            LoggerFactory.obtainLogger(TAG).
+                    d("playingInProgress# duration " + engine.getDuration());
 
             this.progress += progress;
             updateProgress((int) this.currentTime + this.progress, (int) engine.getDuration());

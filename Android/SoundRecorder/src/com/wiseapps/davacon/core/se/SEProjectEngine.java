@@ -144,23 +144,36 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     @Override
     public void setCurrentTime(long currentPosition) {
-        if (currentPosition == Long.MIN_VALUE) {
+        // goto start || rewind (with project stream start has been reached)
+        if (currentPosition == Long.MIN_VALUE || currentPosition < 0) {
             project.position = 0;
+            project.updateRecordPositions();
+
+            state = State.READY;
+            if (player != null) {
+                player.removeHandler(playerHandler);
+
+                player.stop();
+                player = null;
+            }
+
+            return;
         }
 
-        // received -1, this means that we must go to end
-        if (currentPosition == Long.MAX_VALUE) {
+        // goto end || forward (with project stream end has been reached)
+        if (currentPosition == Long.MAX_VALUE || currentPosition > project.duration) {
             project.position = project.duration;
-        }
+            project.updateRecordPositions();
 
-        // rewind : project stream start has been reached
-        if (currentPosition < 0) {
-            project.position = 0;
-        }
+            state = State.READY;
+            if (player != null) {
+                player.removeHandler(playerHandler);
 
-        // forward : project stream end has been reached
-        if (currentPosition > project.duration) {
-            project.position = project.duration;
+                player.stop();
+                player = null;
+            }
+
+            return;
         }
 
         project.position = currentPosition;
@@ -173,8 +186,6 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             player.stop();
             player = null;
         }
-
-        // TODO update position seek bar
     }
 
     @Override
