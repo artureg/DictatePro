@@ -55,7 +55,11 @@ public class SEProject {
     }
 
     void addRecord(SERecord record) {
-        records.add(record);
+        addRecord(records.size() == 0 ? 0 : records.size(), record);
+    }
+
+    void addRecord(int position, SERecord record) {
+        records.add(position, record);
         int index = records.indexOf(record);
 
         // set references to neighbour records
@@ -69,7 +73,13 @@ public class SEProject {
 
     // for now new record is inserted after the current one
     void splitRecord(SERecord record) {
-        if (records.size() == 0 || position >= duration) {
+        if (position == 0) {
+            addRecord(0, record);
+            return;
+        }
+
+        // we are at the stream end
+        if (/*records.size() == 0 || */position >= duration) {
             addRecord(record);
             return;
         }
@@ -163,6 +173,8 @@ public class SEProject {
 
             removeAllRecords();
             addRecord(record);
+
+            SDCardUtils.writeProject(this);
 
             return true;
         } catch (Exception e) {
