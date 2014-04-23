@@ -1,0 +1,140 @@
+\hypertarget{category_s_e_audio_stream_engine_07_08}{\section{S\-E\-Audio\-Stream\-Engine() Category Reference}
+\label{category_s_e_audio_stream_engine_07_08}\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}}
+}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(void) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_a904166440be2c605407aa2dfd37a8cec}{pm\-\_\-perform\-Error\-:}
+\item 
+(void) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_ac7baec71cdb25574abf73b975691d624}{pm\-\_\-process\-Output\-Buffer\-:queue\-:}
+\item 
+(void) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_adeb9a1148989f4bea42b99dfc7c24e34}{pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:}
+\item 
+(int) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_a3f2ea6f72f3de68056d8b2a159e4b743}{pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:}
+\item 
+(void) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_ad31ccee072ba39e61a59856ac4bb2c36}{pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:}
+\item 
+(void) -\/ \hyperlink{category_s_e_audio_stream_engine_07_08_a66b8ff5a0c4c3073c26122d247956abd}{pm\-\_\-on\-Play\-Timer}
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{interface_s_e_audio_stream}{S\-E\-Audio\-Stream} $\ast$ \hyperlink{category_s_e_audio_stream_engine_07_08_ab9879d1cd039675a837837ccd094b956}{pv\-\_\-stream}
+\item 
+Audio\-Queue\-Ref \hyperlink{category_s_e_audio_stream_engine_07_08_aeba6c4680df8f38ea1271cfc52e697c5}{pv\-\_\-audio\-Output\-Queue}
+\item 
+Audio\-Queue\-Ref \hyperlink{category_s_e_audio_stream_engine_07_08_a4baace9b0ac0bccb1ab2e87446fb76be}{pv\-\_\-audio\-Input\-Queue}
+\item 
+N\-S\-U\-Integer \hyperlink{category_s_e_audio_stream_engine_07_08_a3248ba3a7ac29c4f865d24d084388ed0}{pv\-\_\-position}
+\item 
+N\-S\-Operation\-Queue $\ast$ \hyperlink{category_s_e_audio_stream_engine_07_08_adbcd5ee6428568c23a4a70a0387fe6bc}{pv\-\_\-queue}
+\item 
+\hyperlink{_s_e_audio_stream_engine_8h_a6eabe41a5616eddfad154f7259ccdc27}{T\-S\-E\-Audio\-Stream\-Engine\-State} \hyperlink{category_s_e_audio_stream_engine_07_08_a9f97a9d34b849921ab25f63422b4b02f}{pv\-\_\-state}
+\item 
+N\-S\-Error $\ast$ \hyperlink{category_s_e_audio_stream_engine_07_08_a553f6f36c7c69e5bcd7a63479b85c523}{pv\-\_\-error}
+\item 
+Audio\-Queue\-Buffer\-Ref \hyperlink{category_s_e_audio_stream_engine_07_08_ac0bed6a9ad4abf1fbaafc01fe2440283}{pv\-\_\-audio\-Buffer}
+\item 
+N\-S\-Mutable\-Data $\ast$ \hyperlink{category_s_e_audio_stream_engine_07_08_a358e58a2d9db7fd33050b6d3e3c00868}{pv\-\_\-play\-Buffer}
+\item 
+N\-S\-U\-Integer \hyperlink{category_s_e_audio_stream_engine_07_08_a357f65ae666f5971174ec6a162d76afd}{pv\-\_\-play\-Buffer\-Pos}
+\item 
+N\-S\-Timer $\ast$ \hyperlink{category_s_e_audio_stream_engine_07_08_aacc4ea3a3cebb5f53f99f8539e96b233}{pv\-\_\-play\-Timer}
+\item 
+B\-O\-O\-L \hyperlink{category_s_e_audio_stream_engine_07_08_a83ad29af81c705aa2f0f8474540f415e}{pv\-\_\-is\-Playing}
+\end{DoxyCompactItemize}
+
+
+\subsection{Method Documentation}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a3f2ea6f72f3de68056d8b2a159e4b743}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:@{pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:}}
+\index{pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:@{pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-compute\-Buffer\-Size\-With\-Format\-:seconds\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (int) pm\-\_\-compute\-Buffer\-Size\-With\-Format\-: 
+\begin{DoxyParamCaption}
+\item[{(const Audio\-Stream\-Basic\-Description $\ast$)}]{format}
+\item[{seconds:(float)}]{seconds}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_a3f2ea6f72f3de68056d8b2a159e4b743}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a66b8ff5a0c4c3073c26122d247956abd}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-on\-Play\-Timer@{pm\-\_\-on\-Play\-Timer}}
+\index{pm\-\_\-on\-Play\-Timer@{pm\-\_\-on\-Play\-Timer}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-on\-Play\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pm\-\_\-on\-Play\-Timer 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_a66b8ff5a0c4c3073c26122d247956abd}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a904166440be2c605407aa2dfd37a8cec}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-perform\-Error\-:@{pm\-\_\-perform\-Error\-:}}
+\index{pm\-\_\-perform\-Error\-:@{pm\-\_\-perform\-Error\-:}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-perform\-Error\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pm\-\_\-perform\-Error\-: 
+\begin{DoxyParamCaption}
+\item[{({\bf T\-S\-E\-Audio\-Stream\-Engine\-Error})}]{error\-Type}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_a904166440be2c605407aa2dfd37a8cec}
+\hypertarget{category_s_e_audio_stream_engine_07_08_ad31ccee072ba39e61a59856ac4bb2c36}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:@{pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:}}
+\index{pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:@{pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-process\-Input\-Buffer\-:queue\-:start\-Time\-:number\-Packet\-Descriptions\-:packet\-Descs\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pm\-\_\-process\-Input\-Buffer\-: 
+\begin{DoxyParamCaption}
+\item[{(Audio\-Queue\-Buffer\-Ref)}]{buffer}
+\item[{queue:(Audio\-Queue\-Ref)}]{queue}
+\item[{startTime:(const Audio\-Time\-Stamp $\ast$)}]{start\-Time}
+\item[{numberPacketDescriptions:(U\-Int32)}]{in\-Number\-Packet\-Descriptions}
+\item[{packetDescs:(const Audio\-Stream\-Packet\-Description $\ast$)}]{in\-Packet\-Descs}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_ad31ccee072ba39e61a59856ac4bb2c36}
+\hypertarget{category_s_e_audio_stream_engine_07_08_ac7baec71cdb25574abf73b975691d624}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-process\-Output\-Buffer\-:queue\-:@{pm\-\_\-process\-Output\-Buffer\-:queue\-:}}
+\index{pm\-\_\-process\-Output\-Buffer\-:queue\-:@{pm\-\_\-process\-Output\-Buffer\-:queue\-:}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-process\-Output\-Buffer\-:queue\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pm\-\_\-process\-Output\-Buffer\-: 
+\begin{DoxyParamCaption}
+\item[{(Audio\-Queue\-Buffer\-Ref)}]{buffer}
+\item[{queue:(Audio\-Queue\-Ref)}]{queue}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_ac7baec71cdb25574abf73b975691d624}
+\hypertarget{category_s_e_audio_stream_engine_07_08_adeb9a1148989f4bea42b99dfc7c24e34}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:@{pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:}}
+\index{pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:@{pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pm\-\_\-read\-Buffer\-Data\-With\-Duration\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) pm\-\_\-read\-Buffer\-Data\-With\-Duration\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-U\-Integer)}]{duration}
+\end{DoxyParamCaption}
+}}\label{category_s_e_audio_stream_engine_07_08_adeb9a1148989f4bea42b99dfc7c24e34}
+
+
+\subsection{Property Documentation}
+\hypertarget{category_s_e_audio_stream_engine_07_08_ac0bed6a9ad4abf1fbaafc01fe2440283}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-audio\-Buffer@{pv\-\_\-audio\-Buffer}}
+\index{pv\-\_\-audio\-Buffer@{pv\-\_\-audio\-Buffer}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-audio\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (Audio\-Queue\-Buffer\-Ref) pv\-\_\-audio\-Buffer\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_ac0bed6a9ad4abf1fbaafc01fe2440283}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a4baace9b0ac0bccb1ab2e87446fb76be}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-audio\-Input\-Queue@{pv\-\_\-audio\-Input\-Queue}}
+\index{pv\-\_\-audio\-Input\-Queue@{pv\-\_\-audio\-Input\-Queue}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-audio\-Input\-Queue}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (Audio\-Queue\-Ref) pv\-\_\-audio\-Input\-Queue\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_a4baace9b0ac0bccb1ab2e87446fb76be}
+\hypertarget{category_s_e_audio_stream_engine_07_08_aeba6c4680df8f38ea1271cfc52e697c5}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-audio\-Output\-Queue@{pv\-\_\-audio\-Output\-Queue}}
+\index{pv\-\_\-audio\-Output\-Queue@{pv\-\_\-audio\-Output\-Queue}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-audio\-Output\-Queue}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (Audio\-Queue\-Ref) pv\-\_\-audio\-Output\-Queue\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_aeba6c4680df8f38ea1271cfc52e697c5}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a553f6f36c7c69e5bcd7a63479b85c523}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-error@{pv\-\_\-error}}
+\index{pv\-\_\-error@{pv\-\_\-error}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Error$\ast$) pv\-\_\-error\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{category_s_e_audio_stream_engine_07_08_a553f6f36c7c69e5bcd7a63479b85c523}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a83ad29af81c705aa2f0f8474540f415e}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-is\-Playing@{pv\-\_\-is\-Playing}}
+\index{pv\-\_\-is\-Playing@{pv\-\_\-is\-Playing}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-is\-Playing}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) pv\-\_\-is\-Playing\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_a83ad29af81c705aa2f0f8474540f415e}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a358e58a2d9db7fd33050b6d3e3c00868}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-play\-Buffer@{pv\-\_\-play\-Buffer}}
+\index{pv\-\_\-play\-Buffer@{pv\-\_\-play\-Buffer}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-play\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Mutable\-Data$\ast$) pv\-\_\-play\-Buffer\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{category_s_e_audio_stream_engine_07_08_a358e58a2d9db7fd33050b6d3e3c00868}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a357f65ae666f5971174ec6a162d76afd}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-play\-Buffer\-Pos@{pv\-\_\-play\-Buffer\-Pos}}
+\index{pv\-\_\-play\-Buffer\-Pos@{pv\-\_\-play\-Buffer\-Pos}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-play\-Buffer\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-U\-Integer) pv\-\_\-play\-Buffer\-Pos\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_a357f65ae666f5971174ec6a162d76afd}
+\hypertarget{category_s_e_audio_stream_engine_07_08_aacc4ea3a3cebb5f53f99f8539e96b233}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-play\-Timer@{pv\-\_\-play\-Timer}}
+\index{pv\-\_\-play\-Timer@{pv\-\_\-play\-Timer}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-play\-Timer}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Timer$\ast$) pv\-\_\-play\-Timer\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{category_s_e_audio_stream_engine_07_08_aacc4ea3a3cebb5f53f99f8539e96b233}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a3248ba3a7ac29c4f865d24d084388ed0}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-position@{pv\-\_\-position}}
+\index{pv\-\_\-position@{pv\-\_\-position}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-U\-Integer) pv\-\_\-position\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_a3248ba3a7ac29c4f865d24d084388ed0}
+\hypertarget{category_s_e_audio_stream_engine_07_08_adbcd5ee6428568c23a4a70a0387fe6bc}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-queue@{pv\-\_\-queue}}
+\index{pv\-\_\-queue@{pv\-\_\-queue}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Operation\-Queue$\ast$) pv\-\_\-queue\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{category_s_e_audio_stream_engine_07_08_adbcd5ee6428568c23a4a70a0387fe6bc}
+\hypertarget{category_s_e_audio_stream_engine_07_08_a9f97a9d34b849921ab25f63422b4b02f}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-state@{pv\-\_\-state}}
+\index{pv\-\_\-state@{pv\-\_\-state}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}-\/ ({\bf T\-S\-E\-Audio\-Stream\-Engine\-State}) pv\-\_\-state\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{category_s_e_audio_stream_engine_07_08_a9f97a9d34b849921ab25f63422b4b02f}
+\hypertarget{category_s_e_audio_stream_engine_07_08_ab9879d1cd039675a837837ccd094b956}{\index{S\-E\-Audio\-Stream\-Engine()@{S\-E\-Audio\-Stream\-Engine()}!pv\-\_\-stream@{pv\-\_\-stream}}
+\index{pv\-\_\-stream@{pv\-\_\-stream}!SEAudioStreamEngine()@{S\-E\-Audio\-Stream\-Engine()}}
+\subsubsection[{pv\-\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}-\/ ({\bf S\-E\-Audio\-Stream}$\ast$) pv\-\_\-stream\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{category_s_e_audio_stream_engine_07_08_ab9879d1cd039675a837837ccd094b956}
+
+
+The documentation for this category was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\hyperlink{_s_e_audio_stream_engine_8m}{S\-E\-Audio\-Stream\-Engine.\-m}\end{DoxyCompactItemize}
