@@ -28,7 +28,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     public static final int MIN_BUFFER_SIZE =
             AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 
-    public static final short BITS_PER_SAMPLE = 8;
+    public static final short BITS_PER_SAMPLE = 16;
 
     public static final int MODE = AudioTrack.MODE_STREAM;
 
