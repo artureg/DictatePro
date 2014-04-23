@@ -21,8 +21,11 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     public static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 
     public static final int SAMPLE_RATE_IN_HZ = 8000;
+
     public static final int CHANNEL_CONFIG_IN = AudioFormat.CHANNEL_IN_MONO;
     public static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
+    public static final int NUM_CHANNELS = 1;
+
     public static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 
     public static final int MIN_BUFFER_SIZE =
@@ -160,6 +163,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
             project.position = project.duration;
         }
 
+        project.position = currentPosition;
         project.updateRecordPositions();
 
         state = State.READY;

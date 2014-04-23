@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wiseapps.davacon.core.se.*;
+import com.wiseapps.davacon.utils.DurationUtils;
 
 import static com.wiseapps.davacon.core.se.SEAudioStreamEngine.*;
 
@@ -149,6 +150,10 @@ public class SoundRecorderActivity extends Activity {
         seekPosition.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser) {
+                    return;
+                }
+
                 if (engine.getState() != State.READY) {
                     return;
                 }
@@ -169,19 +174,16 @@ public class SoundRecorderActivity extends Activity {
     }
 
     private void updateProgress() {
-        updateProgress(0);
+        updateProgress((int) engine.getCurrentTime(), (int) engine.getDuration());
     }
 
-    private void updateProgress(int progress) {
-        int position = (int) engine.getCurrentTime() + progress;
-        int duration = (int) engine.getDuration();
-
-        seekPosition.setProgress(position);
-        seekPosition.setMax(duration);
+    private void updateProgress(int position, int duration) {
+        seekPosition.setProgress((int) (DurationUtils.secondsFromBytes(position) * 10));
+        seekPosition.setMax((int) (DurationUtils.secondsFromBytes(duration) * 10));
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
-                        position, duration));
+                        DurationUtils.secondsFromBytes(position), DurationUtils.secondsFromBytes(duration)));
     }
 
     public void rewind(View view) {
@@ -189,7 +191,7 @@ public class SoundRecorderActivity extends Activity {
             return;
         }
 
-        engine.setCurrentTime(engine.getCurrentTime() - 1);
+        engine.setCurrentTime(engine.getCurrentTime() - DurationUtils.secondsToBytes(1));
         updateProgress();
     }
 
@@ -209,7 +211,7 @@ public class SoundRecorderActivity extends Activity {
             return;
         }
 
-        engine.setCurrentTime(engine.getCurrentTime() + 1);
+        engine.setCurrentTime(engine.getCurrentTime() + DurationUtils.secondsToBytes(1));
         updateProgress();
     }
 
@@ -271,6 +273,9 @@ public class SoundRecorderActivity extends Activity {
     }
 
     private SEPlayerStateListener playerStateListener = new SEPlayerStateListener() {
+        int progress;
+        long currentTime;
+
         @Override
         public void playingStarted() {
             buttonRewind.setImageDrawable(
@@ -291,6 +296,9 @@ public class SoundRecorderActivity extends Activity {
                     getResources().getDrawable(R.drawable.send_0));
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
+
+            this.progress = 0;
+            this.currentTime = engine.getCurrentTime();
         }
 
         @Override
@@ -313,6 +321,8 @@ public class SoundRecorderActivity extends Activity {
                     getResources().getDrawable(R.drawable.send_1));
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
+
+            this.progress = 0;
         }
 
         @Override
@@ -336,7 +346,8 @@ public class SoundRecorderActivity extends Activity {
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
-            updateProgress(progress);
+            this.progress += progress;
+            updateProgress((int) this.currentTime + this.progress, (int) engine.getDuration());
         }
 
         @Override
@@ -359,6 +370,8 @@ public class SoundRecorderActivity extends Activity {
                     getResources().getDrawable(R.drawable.send_1));
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
+
+            this.progress = 0;
         }
 
         @Override
@@ -382,6 +395,7 @@ public class SoundRecorderActivity extends Activity {
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_1));
 
+            this.progress = 0;
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
         }
     };
@@ -430,7 +444,7 @@ public class SoundRecorderActivity extends Activity {
             buttonSave.setImageDrawable(
                     getResources().getDrawable(R.drawable.save_0));
 
-            updateProgress(progress);
+            updateProgress((int) engine.getCurrentTime() + progress, (int) engine.getDuration());
         }
 
         @Override

@@ -97,15 +97,16 @@ class SESoundRecorder {
         }
 
         private void open() {
+            int minBufferSize = 1600;
+
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, MIN_BUFFER_SIZE);
+                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
                 handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
                 return;
             }
 
-//            stream.open(SEAudioStream.Mode.WRITE);
             stream.open(AudioStream.Mode.WRITE);
             handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));
 
@@ -113,12 +114,14 @@ class SESoundRecorder {
         }
 
         private void work() {
+            int minBufferSize = 1600;
+
             OutputStream out = null;
 
             try {
                 out = stream.getOutputStream();
 
-                byte[] data = new byte[MIN_BUFFER_SIZE];
+                byte[] data = new byte[minBufferSize];
                 while(running) {
                     audioRecord.read(data, 0, data.length);
                     out.write(data);
@@ -129,7 +132,7 @@ class SESoundRecorder {
                     stream.updatePosition(data.length);
                     stream.updateDuration(data.length);
 
-                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, data.length));
+                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, minBufferSize));
                 }
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
@@ -150,11 +153,10 @@ class SESoundRecorder {
                 }
             }
 
-//            LoggerFactory.obtainLogger(TAG).d("work# test = " + test);
-            LoggerFactory.obtainLogger(TAG).d("work# record.duration = " +
-                    ((RecordAudioStream) stream).record.duration);
-            LoggerFactory.obtainLogger(TAG).d("work# project.duration = " +
-                    ((RecordAudioStream) stream).record.project.duration);
+//            LoggerFactory.obtainLogger(TAG).d("work# record.duration = " +
+//                    ((RecordAudioStream) stream).record.duration);
+//            LoggerFactory.obtainLogger(TAG).d("work# project.duration = " +
+//                    ((RecordAudioStream) stream).record.project.duration);
         }
 
         private void close() {
