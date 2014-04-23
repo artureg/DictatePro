@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		787342A5190808FE004EEEB7 /* SEKitFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 787342A6190808FE004EEEB7 /* Build configuration list for PBXAggregateTarget "SEKitFramework" */;
+			buildPhases = (
+				787342AB1908091F004EEEB7 /* Run Script */,
+			);
+			dependencies = (
+				787342AA19080910004EEEB7 /* PBXTargetDependency */,
+			);
+			name = SEKitFramework;
+			productName = SEKitFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		780C5DFE19013390006EA58D /* SESpeexACMWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 780C5DFD19013390006EA58D /* SESpeexACMWrapper.mm */; };
 		7810F1D418F7FC4600B22370 /* SEAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D318F7FC4600B22370 /* SEAudioStream.m */; };
@@ -76,6 +91,124 @@
 		7869421C1859AF3500EA2D98 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7869421A1859AF3500EA2D98 /* InfoPlist.strings */; };
 		7869421E1859AF3500EA2D98 /* SoundRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7869421D1859AF3500EA2D98 /* SoundRecorderTests.m */; };
 		786E7D81185B55210091731F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786E7D80185B55210091731F /* AudioToolbox.framework */; };
+		78734244190806EC004EEEB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786941F21859AF3500EA2D98 /* Foundation.framework */; };
+		7873426519080767004EEEB7 /* SEProjectEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */; };
+		7873426619080767004EEEB7 /* SEProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE50F18F81105002746A7 /* SEProject.m */; };
+		7873426719080767004EEEB7 /* SEAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D318F7FC4600B22370 /* SEAudioStream.m */; };
+		7873426819080767004EEEB7 /* SEAudioStreamEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */; };
+		7873426919080767004EEEB7 /* SESpeexACMAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */; };
+		7873426A19080767004EEEB7 /* bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BC18F7F47800D5C0E5 /* bits.c */; };
+		7873426B19080767004EEEB7 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BD18F7F47800D5C0E5 /* buffer.c */; };
+		7873426C19080767004EEEB7 /* cb_search.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BE18F7F47800D5C0E5 /* cb_search.c */; };
+		7873426D19080767004EEEB7 /* exc_10_16_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C318F7F47800D5C0E5 /* exc_10_16_table.c */; };
+		7873426E19080767004EEEB7 /* exc_10_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C418F7F47800D5C0E5 /* exc_10_32_table.c */; };
+		7873426F19080767004EEEB7 /* exc_20_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C518F7F47800D5C0E5 /* exc_20_32_table.c */; };
+		7873427019080767004EEEB7 /* exc_5_256_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C618F7F47800D5C0E5 /* exc_5_256_table.c */; };
+		7873427119080767004EEEB7 /* exc_5_64_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C718F7F47800D5C0E5 /* exc_5_64_table.c */; };
+		7873427219080767004EEEB7 /* exc_8_128_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C818F7F47800D5C0E5 /* exc_8_128_table.c */; };
+		7873427319080767004EEEB7 /* fftwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C918F7F47800D5C0E5 /* fftwrap.c */; };
+		7873427419080767004EEEB7 /* filterbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29CB18F7F47800D5C0E5 /* filterbank.c */; };
+		7873427519080767004EEEB7 /* filters.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29CD18F7F47800D5C0E5 /* filters.c */; };
+		7873427619080767004EEEB7 /* gain_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D718F7F47800D5C0E5 /* gain_table.c */; };
+		7873427719080767004EEEB7 /* gain_table_lbr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D818F7F47800D5C0E5 /* gain_table_lbr.c */; };
+		7873427819080767004EEEB7 /* hexc_10_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D918F7F47800D5C0E5 /* hexc_10_32_table.c */; };
+		7873427919080767004EEEB7 /* hexc_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DA18F7F47800D5C0E5 /* hexc_table.c */; };
+		7873427A19080767004EEEB7 /* high_lsp_tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DB18F7F47800D5C0E5 /* high_lsp_tables.c */; };
+		7873427B19080767004EEEB7 /* jitter.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DC18F7F47800D5C0E5 /* jitter.c */; };
+		7873427C19080767004EEEB7 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DD18F7F47800D5C0E5 /* kiss_fft.c */; };
+		7873427D19080767004EEEB7 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DF18F7F47800D5C0E5 /* kiss_fftr.c */; };
+		7873427E19080767004EEEB7 /* lpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E118F7F47800D5C0E5 /* lpc.c */; };
+		7873427F19080767004EEEB7 /* lsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E418F7F47800D5C0E5 /* lsp.c */; };
+		7873428019080767004EEEB7 /* lsp_tables_nb.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E718F7F47800D5C0E5 /* lsp_tables_nb.c */; };
+		7873428119080767004EEEB7 /* ltp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E818F7F47800D5C0E5 /* ltp.c */; };
+		7873428219080767004EEEB7 /* mdf.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29EE18F7F47800D5C0E5 /* mdf.c */; };
+		7873428319080767004EEEB7 /* modes.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F018F7F47800D5C0E5 /* modes.c */; };
+		7873428419080767004EEEB7 /* modes_wb.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F218F7F47800D5C0E5 /* modes_wb.c */; };
+		7873428519080767004EEEB7 /* nb_celp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F318F7F47800D5C0E5 /* nb_celp.c */; };
+		7873428619080767004EEEB7 /* preprocess.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F618F7F47800D5C0E5 /* preprocess.c */; };
+		7873428719080767004EEEB7 /* quant_lsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F818F7F47800D5C0E5 /* quant_lsp.c */; };
+		7873428819080767004EEEB7 /* resample.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FB18F7F47800D5C0E5 /* resample.c */; };
+		7873428919080767004EEEB7 /* sb_celp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FD18F7F47800D5C0E5 /* sb_celp.c */; };
+		7873428A19080767004EEEB7 /* scal.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FF18F7F47800D5C0E5 /* scal.c */; };
+		7873428B19080767004EEEB7 /* smallft.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0018F7F47800D5C0E5 /* smallft.c */; };
+		7873428C19080767004EEEB7 /* speex.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0218F7F47800D5C0E5 /* speex.c */; };
+		7873428D19080767004EEEB7 /* speex_callbacks.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0318F7F47800D5C0E5 /* speex_callbacks.c */; };
+		7873428E19080767004EEEB7 /* speex_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0418F7F47800D5C0E5 /* speex_header.c */; };
+		7873428F19080767004EEEB7 /* stereo.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0618F7F47800D5C0E5 /* stereo.c */; };
+		7873429019080767004EEEB7 /* vbr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0718F7F47800D5C0E5 /* vbr.c */; };
+		7873429119080767004EEEB7 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0A18F7F47800D5C0E5 /* vq.c */; };
+		7873429219080767004EEEB7 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0F18F7F47800D5C0E5 /* window.c */; };
+		7873429319080767004EEEB7 /* RiffFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A1D18F7F47800D5C0E5 /* RiffFile.cpp */; };
+		7873429419080767004EEEB7 /* SpeexACMConvert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A1F18F7F47800D5C0E5 /* SpeexACMConvert.cpp */; };
+		7873429519080767004EEEB7 /* WaveFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A2118F7F47800D5C0E5 /* WaveFile.cpp */; };
+		7873429619080767004EEEB7 /* WaveSpeexFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A2318F7F47800D5C0E5 /* WaveSpeexFile.cpp */; };
+		7873429719080767004EEEB7 /* SEModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 783D288718F7F35C00D5C0E5 /* SEModel.m */; };
+		7873429819080767004EEEB7 /* SEProjectAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */; };
+		7873429919080767004EEEB7 /* SERecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACA18FBDC2200FF6918 /* SERecord.m */; };
+		7873429A19080767004EEEB7 /* SERecordAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */; };
+		7873429B19080767004EEEB7 /* SESpeexACMWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 780C5DFD19013390006EA58D /* SESpeexACMWrapper.mm */; };
+		7873429D1908077A004EEEB7 /* SEProjectEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 78991AD118FBDC5B00FF6918 /* SEProjectEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7873429E1908077A004EEEB7 /* SEProject.h in Headers */ = {isa = PBXBuildFile; fileRef = 788CE50E18F81105002746A7 /* SEProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7873429F1908077A004EEEB7 /* SEAudioStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7810F1D218F7FC4600B22370 /* SEAudioStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		787342A01908077A004EEEB7 /* SEAudioStreamEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 7810F1D818F800D700B22370 /* SEAudioStreamEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		787342A11908077A004EEEB7 /* SESpeexACMAudioStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 788CE52018F83BF2002746A7 /* SESpeexACMAudioStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		787342F319080FDB004EEEB7 /* SEModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 783D288618F7F35C00D5C0E5 /* SEModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7873430219081863004EEEB7 /* SEProjectEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AD218FBDC5B00FF6918 /* SEProjectEngine.m */; };
+		7873430319081863004EEEB7 /* SEProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE50F18F81105002746A7 /* SEProject.m */; };
+		7873430419081863004EEEB7 /* SEAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D318F7FC4600B22370 /* SEAudioStream.m */; };
+		7873430519081863004EEEB7 /* SEAudioStreamEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810F1D918F800D700B22370 /* SEAudioStreamEngine.m */; };
+		7873430619081863004EEEB7 /* SESpeexACMAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 788CE52118F83BF2002746A7 /* SESpeexACMAudioStream.m */; };
+		7873430719081863004EEEB7 /* SEModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 783D288718F7F35C00D5C0E5 /* SEModel.m */; };
+		7873430819081863004EEEB7 /* SEProjectAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991AC818FBDC2200FF6918 /* SEProjectAudioStream.m */; };
+		7873430919081863004EEEB7 /* SERecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACA18FBDC2200FF6918 /* SERecord.m */; };
+		7873430A19081863004EEEB7 /* SERecordAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 78991ACC18FBDC2200FF6918 /* SERecordAudioStream.m */; };
+		7873430B19081863004EEEB7 /* SESpeexACMWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 780C5DFD19013390006EA58D /* SESpeexACMWrapper.mm */; };
+		7873430C19081AF8004EEEB7 /* RiffFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A1D18F7F47800D5C0E5 /* RiffFile.cpp */; };
+		7873430D19081AF8004EEEB7 /* SpeexACMConvert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A1F18F7F47800D5C0E5 /* SpeexACMConvert.cpp */; };
+		7873430E19081AF8004EEEB7 /* WaveFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A2118F7F47800D5C0E5 /* WaveFile.cpp */; };
+		7873430F19081AF8004EEEB7 /* WaveSpeexFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A2318F7F47800D5C0E5 /* WaveSpeexFile.cpp */; };
+		7873431019081B41004EEEB7 /* bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BC18F7F47800D5C0E5 /* bits.c */; };
+		7873431119081B41004EEEB7 /* cb_search.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29BE18F7F47800D5C0E5 /* cb_search.c */; };
+		7873431219081B41004EEEB7 /* exc_10_16_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C318F7F47800D5C0E5 /* exc_10_16_table.c */; };
+		7873431319081B41004EEEB7 /* exc_10_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C418F7F47800D5C0E5 /* exc_10_32_table.c */; };
+		7873431419081B41004EEEB7 /* exc_20_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C518F7F47800D5C0E5 /* exc_20_32_table.c */; };
+		7873431519081B41004EEEB7 /* exc_5_256_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C618F7F47800D5C0E5 /* exc_5_256_table.c */; };
+		7873431619081B41004EEEB7 /* exc_5_64_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C718F7F47800D5C0E5 /* exc_5_64_table.c */; };
+		7873431719081B41004EEEB7 /* exc_8_128_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C818F7F47800D5C0E5 /* exc_8_128_table.c */; };
+		7873431819081B41004EEEB7 /* fftwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29C918F7F47800D5C0E5 /* fftwrap.c */; };
+		7873431919081B41004EEEB7 /* filterbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29CB18F7F47800D5C0E5 /* filterbank.c */; };
+		7873431A19081B41004EEEB7 /* filters.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29CD18F7F47800D5C0E5 /* filters.c */; };
+		7873431B19081B41004EEEB7 /* gain_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D718F7F47800D5C0E5 /* gain_table.c */; };
+		7873431C19081B41004EEEB7 /* gain_table_lbr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D818F7F47800D5C0E5 /* gain_table_lbr.c */; };
+		7873431D19081B41004EEEB7 /* hexc_10_32_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29D918F7F47800D5C0E5 /* hexc_10_32_table.c */; };
+		7873431E19081B41004EEEB7 /* hexc_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DA18F7F47800D5C0E5 /* hexc_table.c */; };
+		7873431F19081B41004EEEB7 /* high_lsp_tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DB18F7F47800D5C0E5 /* high_lsp_tables.c */; };
+		7873432019081B41004EEEB7 /* jitter.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DC18F7F47800D5C0E5 /* jitter.c */; };
+		7873432119081B41004EEEB7 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DD18F7F47800D5C0E5 /* kiss_fft.c */; };
+		7873432219081B41004EEEB7 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29DF18F7F47800D5C0E5 /* kiss_fftr.c */; };
+		7873432319081B41004EEEB7 /* lpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E118F7F47800D5C0E5 /* lpc.c */; };
+		7873432419081B41004EEEB7 /* lsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E418F7F47800D5C0E5 /* lsp.c */; };
+		7873432519081B41004EEEB7 /* lsp_tables_nb.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E718F7F47800D5C0E5 /* lsp_tables_nb.c */; };
+		7873432619081B41004EEEB7 /* ltp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29E818F7F47800D5C0E5 /* ltp.c */; };
+		7873432719081B41004EEEB7 /* mdf.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29EE18F7F47800D5C0E5 /* mdf.c */; };
+		7873432819081B41004EEEB7 /* modes.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F018F7F47800D5C0E5 /* modes.c */; };
+		7873432919081B41004EEEB7 /* modes_wb.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F218F7F47800D5C0E5 /* modes_wb.c */; };
+		7873432A19081B41004EEEB7 /* nb_celp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F318F7F47800D5C0E5 /* nb_celp.c */; };
+		7873432B19081B41004EEEB7 /* preprocess.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F618F7F47800D5C0E5 /* preprocess.c */; };
+		7873432C19081B41004EEEB7 /* quant_lsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29F818F7F47800D5C0E5 /* quant_lsp.c */; };
+		7873432D19081B41004EEEB7 /* resample.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FB18F7F47800D5C0E5 /* resample.c */; };
+		7873432E19081B41004EEEB7 /* sb_celp.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FD18F7F47800D5C0E5 /* sb_celp.c */; };
+		7873432F19081B41004EEEB7 /* scal.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D29FF18F7F47800D5C0E5 /* scal.c */; };
+		7873433019081B41004EEEB7 /* smallft.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0018F7F47800D5C0E5 /* smallft.c */; };
+		7873433119081B41004EEEB7 /* speex.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0218F7F47800D5C0E5 /* speex.c */; };
+		7873433219081B41004EEEB7 /* speex_callbacks.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0318F7F47800D5C0E5 /* speex_callbacks.c */; };
+		7873433319081B41004EEEB7 /* speex_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0418F7F47800D5C0E5 /* speex_header.c */; };
+		7873433419081B41004EEEB7 /* stereo.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0618F7F47800D5C0E5 /* stereo.c */; };
+		7873433519081B41004EEEB7 /* vbr.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0718F7F47800D5C0E5 /* vbr.c */; };
+		7873433619081B41004EEEB7 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0A18F7F47800D5C0E5 /* vq.c */; };
+		7873433719081B41004EEEB7 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 783D2A0F18F7F47800D5C0E5 /* window.c */; };
+		7873433A19081DF1004EEEB7 /* IBKTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7873433919081DF1004EEEB7 /* IBKTimer.m */; };
+		7873433B19081DF1004EEEB7 /* IBKTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7873433919081DF1004EEEB7 /* IBKTimer.m */; };
 		7876103918F6A58F00F17ACD /* button_pin01_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876101318F6A58F00F17ACD /* button_pin01_0.png */; };
 		7876103A18F6A58F00F17ACD /* button_pin02_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876101418F6A58F00F17ACD /* button_pin02_0.png */; };
 		7876103B18F6A58F00F17ACD /* button_pin03_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876101518F6A58F00F17ACD /* button_pin03_0.png */; };
@@ -147,7 +280,26 @@
 			remoteGlobalIDString = 786941EE1859AF3500EA2D98;
 			remoteInfo = SoundRecorder;
 		};
+		787342A919080910004EEEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 786941E71859AF3500EA2D98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78734242190806EC004EEEB7;
+			remoteInfo = SEKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		78734241190806EC004EEEB7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		780C5DFC19013390006EA58D /* SESpeexACMWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SESpeexACMWrapper.h; sourceTree = "<group>"; };
@@ -291,6 +443,10 @@
 		7869421B1859AF3500EA2D98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7869421D1859AF3500EA2D98 /* SoundRecorderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundRecorderTests.m; sourceTree = "<group>"; };
 		786E7D80185B55210091731F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		78734243190806EC004EEEB7 /* libSEKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSEKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		78734247190806EC004EEEB7 /* SEKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEKit-Prefix.pch"; sourceTree = "<group>"; };
+		7873433819081DF1004EEEB7 /* IBKTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBKTimer.h; sourceTree = "<group>"; };
+		7873433919081DF1004EEEB7 /* IBKTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBKTimer.m; sourceTree = "<group>"; };
 		7876101318F6A58F00F17ACD /* button_pin01_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_pin01_0.png; sourceTree = "<group>"; };
 		7876101418F6A58F00F17ACD /* button_pin02_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_pin02_0.png; sourceTree = "<group>"; };
 		7876101518F6A58F00F17ACD /* button_pin03_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_pin03_0.png; sourceTree = "<group>"; };
@@ -387,6 +543,14 @@
 				786942121859AF3500EA2D98 /* XCTest.framework in Frameworks */,
 				786942141859AF3500EA2D98 /* UIKit.framework in Frameworks */,
 				786942131859AF3500EA2D98 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78734240190806EC004EEEB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78734244190806EC004EEEB7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +771,8 @@
 		783F23F218EB0FA30046520A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7873433819081DF1004EEEB7 /* IBKTimer.h */,
+				7873433919081DF1004EEEB7 /* IBKTimer.m */,
 				7810F1DB18F80F8E00B22370 /* Temp */,
 				783D286C18F7F32900D5C0E5 /* SoundEditor */,
 			);
@@ -710,6 +876,7 @@
 			children = (
 				786941F81859AF3500EA2D98 /* SoundRecorder */,
 				786942171859AF3500EA2D98 /* SoundRecorderTests */,
+				78734245190806EC004EEEB7 /* SEKit */,
 				786941F11859AF3500EA2D98 /* Frameworks */,
 				786941F01859AF3500EA2D98 /* Products */,
 			);
@@ -720,6 +887,7 @@
 			children = (
 				786941EF1859AF3500EA2D98 /* SoundRecorder.app */,
 				786942101859AF3500EA2D98 /* SoundRecorderTests.xctest */,
+				78734243190806EC004EEEB7 /* libSEKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -775,7 +943,39 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		78734245190806EC004EEEB7 /* SEKit */ = {
+			isa = PBXGroup;
+			children = (
+				78734246190806EC004EEEB7 /* Supporting Files */,
+			);
+			path = SEKit;
+			sourceTree = "<group>";
+		};
+		78734246190806EC004EEEB7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				78734247190806EC004EEEB7 /* SEKit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7873429C19080770004EEEB7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7873429D1908077A004EEEB7 /* SEProjectEngine.h in Headers */,
+				7873429E1908077A004EEEB7 /* SEProject.h in Headers */,
+				7873429F1908077A004EEEB7 /* SEAudioStream.h in Headers */,
+				787342F319080FDB004EEEB7 /* SEModel.h in Headers */,
+				787342A01908077A004EEEB7 /* SEAudioStreamEngine.h in Headers */,
+				787342A11908077A004EEEB7 /* SESpeexACMAudioStream.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		786941EE1859AF3500EA2D98 /* SoundRecorder */ = {
@@ -813,6 +1013,25 @@
 			productReference = 786942101859AF3500EA2D98 /* SoundRecorderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		78734242190806EC004EEEB7 /* SEKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78734263190806EC004EEEB7 /* Build configuration list for PBXNativeTarget "SEKit" */;
+			buildPhases = (
+				7873423F190806EC004EEEB7 /* Sources */,
+				78734240190806EC004EEEB7 /* Frameworks */,
+				7873429C19080770004EEEB7 /* Headers */,
+				78734241190806EC004EEEB7 /* CopyFiles */,
+				787342A4190808C3004EEEB7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SEKit;
+			productName = SEKit;
+			productReference = 78734243190806EC004EEEB7 /* libSEKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -843,6 +1062,8 @@
 			targets = (
 				786941EE1859AF3500EA2D98 /* SoundRecorder */,
 				7869420F1859AF3500EA2D98 /* SoundRecorderTests */,
+				78734242190806EC004EEEB7 /* SEKit */,
+				787342A5190808FE004EEEB7 /* SEKitFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -921,6 +1142,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		787342A4190808C3004EEEB7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"";
+		};
+		787342AB1908091F004EEEB7 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=\"SEKit\"\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nxcrun lipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		786941EB1859AF3500EA2D98 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -966,6 +1217,7 @@
 				783D288918F7F35C00D5C0E5 /* SEModel.m in Sources */,
 				783D2A4118F7F47800D5C0E5 /* preprocess.c in Sources */,
 				7810F1E118F80FAB00B22370 /* SRProject.mm in Sources */,
+				7873433A19081DF1004EEEB7 /* IBKTimer.m in Sources */,
 				783D2A2F18F7F47800D5C0E5 /* filterbank.c in Sources */,
 				783D2A5018F7F47800D5C0E5 /* SpeexACMConvert.cpp in Sources */,
 				783D2A3418F7F47800D5C0E5 /* hexc_table.c in Sources */,
@@ -997,7 +1249,124 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7873431019081B41004EEEB7 /* bits.c in Sources */,
+				7873431119081B41004EEEB7 /* cb_search.c in Sources */,
+				7873431219081B41004EEEB7 /* exc_10_16_table.c in Sources */,
+				7873431319081B41004EEEB7 /* exc_10_32_table.c in Sources */,
+				7873431419081B41004EEEB7 /* exc_20_32_table.c in Sources */,
+				7873431519081B41004EEEB7 /* exc_5_256_table.c in Sources */,
+				7873431619081B41004EEEB7 /* exc_5_64_table.c in Sources */,
+				7873431719081B41004EEEB7 /* exc_8_128_table.c in Sources */,
+				7873431819081B41004EEEB7 /* fftwrap.c in Sources */,
+				7873431919081B41004EEEB7 /* filterbank.c in Sources */,
+				7873431A19081B41004EEEB7 /* filters.c in Sources */,
+				7873431B19081B41004EEEB7 /* gain_table.c in Sources */,
+				7873431C19081B41004EEEB7 /* gain_table_lbr.c in Sources */,
+				7873431D19081B41004EEEB7 /* hexc_10_32_table.c in Sources */,
+				7873431E19081B41004EEEB7 /* hexc_table.c in Sources */,
+				7873431F19081B41004EEEB7 /* high_lsp_tables.c in Sources */,
+				7873432019081B41004EEEB7 /* jitter.c in Sources */,
+				7873432119081B41004EEEB7 /* kiss_fft.c in Sources */,
+				7873432219081B41004EEEB7 /* kiss_fftr.c in Sources */,
+				7873432319081B41004EEEB7 /* lpc.c in Sources */,
+				7873433B19081DF1004EEEB7 /* IBKTimer.m in Sources */,
+				7873432419081B41004EEEB7 /* lsp.c in Sources */,
+				7873432519081B41004EEEB7 /* lsp_tables_nb.c in Sources */,
+				7873432619081B41004EEEB7 /* ltp.c in Sources */,
+				7873432719081B41004EEEB7 /* mdf.c in Sources */,
+				7873432819081B41004EEEB7 /* modes.c in Sources */,
+				7873432919081B41004EEEB7 /* modes_wb.c in Sources */,
+				7873432A19081B41004EEEB7 /* nb_celp.c in Sources */,
+				7873432B19081B41004EEEB7 /* preprocess.c in Sources */,
+				7873432C19081B41004EEEB7 /* quant_lsp.c in Sources */,
+				7873432D19081B41004EEEB7 /* resample.c in Sources */,
+				7873432E19081B41004EEEB7 /* sb_celp.c in Sources */,
+				7873432F19081B41004EEEB7 /* scal.c in Sources */,
+				7873433019081B41004EEEB7 /* smallft.c in Sources */,
+				7873433119081B41004EEEB7 /* speex.c in Sources */,
+				7873433219081B41004EEEB7 /* speex_callbacks.c in Sources */,
+				7873433319081B41004EEEB7 /* speex_header.c in Sources */,
+				7873433419081B41004EEEB7 /* stereo.c in Sources */,
+				7873433519081B41004EEEB7 /* vbr.c in Sources */,
+				7873433619081B41004EEEB7 /* vq.c in Sources */,
+				7873433719081B41004EEEB7 /* window.c in Sources */,
+				7873430619081863004EEEB7 /* SESpeexACMAudioStream.m in Sources */,
+				7873430919081863004EEEB7 /* SERecord.m in Sources */,
+				7873430419081863004EEEB7 /* SEAudioStream.m in Sources */,
+				7873430A19081863004EEEB7 /* SERecordAudioStream.m in Sources */,
+				7873430519081863004EEEB7 /* SEAudioStreamEngine.m in Sources */,
+				7873430F19081AF8004EEEB7 /* WaveSpeexFile.cpp in Sources */,
+				7873430D19081AF8004EEEB7 /* SpeexACMConvert.cpp in Sources */,
+				7873430E19081AF8004EEEB7 /* WaveFile.cpp in Sources */,
+				7873430B19081863004EEEB7 /* SESpeexACMWrapper.mm in Sources */,
 				7869421E1859AF3500EA2D98 /* SoundRecorderTests.m in Sources */,
+				7873430219081863004EEEB7 /* SEProjectEngine.m in Sources */,
+				7873430C19081AF8004EEEB7 /* RiffFile.cpp in Sources */,
+				7873430319081863004EEEB7 /* SEProject.m in Sources */,
+				7873430819081863004EEEB7 /* SEProjectAudioStream.m in Sources */,
+				7873430719081863004EEEB7 /* SEModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7873423F190806EC004EEEB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7873426519080767004EEEB7 /* SEProjectEngine.m in Sources */,
+				7873426619080767004EEEB7 /* SEProject.m in Sources */,
+				7873426719080767004EEEB7 /* SEAudioStream.m in Sources */,
+				7873426819080767004EEEB7 /* SEAudioStreamEngine.m in Sources */,
+				7873426919080767004EEEB7 /* SESpeexACMAudioStream.m in Sources */,
+				7873426A19080767004EEEB7 /* bits.c in Sources */,
+				7873426B19080767004EEEB7 /* buffer.c in Sources */,
+				7873426C19080767004EEEB7 /* cb_search.c in Sources */,
+				7873426D19080767004EEEB7 /* exc_10_16_table.c in Sources */,
+				7873426E19080767004EEEB7 /* exc_10_32_table.c in Sources */,
+				7873426F19080767004EEEB7 /* exc_20_32_table.c in Sources */,
+				7873427019080767004EEEB7 /* exc_5_256_table.c in Sources */,
+				7873427119080767004EEEB7 /* exc_5_64_table.c in Sources */,
+				7873427219080767004EEEB7 /* exc_8_128_table.c in Sources */,
+				7873427319080767004EEEB7 /* fftwrap.c in Sources */,
+				7873427419080767004EEEB7 /* filterbank.c in Sources */,
+				7873427519080767004EEEB7 /* filters.c in Sources */,
+				7873427619080767004EEEB7 /* gain_table.c in Sources */,
+				7873427719080767004EEEB7 /* gain_table_lbr.c in Sources */,
+				7873427819080767004EEEB7 /* hexc_10_32_table.c in Sources */,
+				7873427919080767004EEEB7 /* hexc_table.c in Sources */,
+				7873427A19080767004EEEB7 /* high_lsp_tables.c in Sources */,
+				7873427B19080767004EEEB7 /* jitter.c in Sources */,
+				7873427C19080767004EEEB7 /* kiss_fft.c in Sources */,
+				7873427D19080767004EEEB7 /* kiss_fftr.c in Sources */,
+				7873427E19080767004EEEB7 /* lpc.c in Sources */,
+				7873427F19080767004EEEB7 /* lsp.c in Sources */,
+				7873428019080767004EEEB7 /* lsp_tables_nb.c in Sources */,
+				7873428119080767004EEEB7 /* ltp.c in Sources */,
+				7873428219080767004EEEB7 /* mdf.c in Sources */,
+				7873428319080767004EEEB7 /* modes.c in Sources */,
+				7873428419080767004EEEB7 /* modes_wb.c in Sources */,
+				7873428519080767004EEEB7 /* nb_celp.c in Sources */,
+				7873428619080767004EEEB7 /* preprocess.c in Sources */,
+				7873428719080767004EEEB7 /* quant_lsp.c in Sources */,
+				7873428819080767004EEEB7 /* resample.c in Sources */,
+				7873428919080767004EEEB7 /* sb_celp.c in Sources */,
+				7873428A19080767004EEEB7 /* scal.c in Sources */,
+				7873428B19080767004EEEB7 /* smallft.c in Sources */,
+				7873428C19080767004EEEB7 /* speex.c in Sources */,
+				7873428D19080767004EEEB7 /* speex_callbacks.c in Sources */,
+				7873428E19080767004EEEB7 /* speex_header.c in Sources */,
+				7873428F19080767004EEEB7 /* stereo.c in Sources */,
+				7873429019080767004EEEB7 /* vbr.c in Sources */,
+				7873429119080767004EEEB7 /* vq.c in Sources */,
+				7873429219080767004EEEB7 /* window.c in Sources */,
+				7873429319080767004EEEB7 /* RiffFile.cpp in Sources */,
+				7873429419080767004EEEB7 /* SpeexACMConvert.cpp in Sources */,
+				7873429519080767004EEEB7 /* WaveFile.cpp in Sources */,
+				7873429619080767004EEEB7 /* WaveSpeexFile.cpp in Sources */,
+				7873429719080767004EEEB7 /* SEModel.m in Sources */,
+				7873429819080767004EEEB7 /* SEProjectAudioStream.m in Sources */,
+				7873429919080767004EEEB7 /* SERecord.m in Sources */,
+				7873429A19080767004EEEB7 /* SERecordAudioStream.m in Sources */,
+				7873429B19080767004EEEB7 /* SESpeexACMWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,6 +1377,11 @@
 			isa = PBXTargetDependency;
 			target = 786941EE1859AF3500EA2D98 /* SoundRecorder */;
 			targetProxy = 786942151859AF3500EA2D98 /* PBXContainerItemProxy */;
+		};
+		787342AA19080910004EEEB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78734242190806EC004EEEB7 /* SEKit */;
+			targetProxy = 787342A919080910004EEEB7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1114,7 +1488,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0D654A7B-48A1-4D68-8E8E-8622BBA9151F";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/Speex/CSource";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1132,7 +1506,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0D654A7B-48A1-4D68-8E8E-8622BBA9151F";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/Speex/CSource";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1140,6 +1514,7 @@
 		786942251859AF3500EA2D98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundRecorder.app/SoundRecorder";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1162,6 +1537,7 @@
 		786942261859AF3500EA2D98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundRecorder.app/SoundRecorder";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1174,6 +1550,63 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		7873425F190806EC004EEEB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/SEKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SEKit/SEKit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource";
+			};
+			name = Debug;
+		};
+		78734260190806EC004EEEB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/SEKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SEKit/SEKit-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource/speex $(SRCROOT)/Classes/Core/Utils/SoundEditor/Internal/Speex/CSource";
+			};
+			name = Release;
+		};
+		787342A7190808FE004EEEB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		787342A8190808FE004EEEB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1206,6 +1639,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		78734263190806EC004EEEB7 /* Build configuration list for PBXNativeTarget "SEKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7873425F190806EC004EEEB7 /* Debug */,
+				78734260190806EC004EEEB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		787342A6190808FE004EEEB7 /* Build configuration list for PBXAggregateTarget "SEKitFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				787342A7190808FE004EEEB7 /* Debug */,
+				787342A8190808FE004EEEB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

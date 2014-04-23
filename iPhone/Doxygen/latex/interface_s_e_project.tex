@@ -14,17 +14,11 @@ Inheritance diagram for S\-E\-Project\-:\begin{figure}[H]
 \subsection*{Instance Methods}
 \begin{DoxyCompactItemize}
 \item 
-(\hyperlink{interface_s_e_record}{S\-E\-Record} $\ast$) -\/ \hyperlink{interface_s_e_project_adb4519610c7481bf048f235189ff737c}{split\-Record\-In\-Position\-:}
+(instancetype) -\/ \hyperlink{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}{init\-With\-Folder\-:}
 \item 
-(void) -\/ \hyperlink{interface_s_e_project_a215f3b65a6214364b1c91a3e868e326f}{add\-Record\-:}
+(void) -\/ \hyperlink{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}{clear\-Project}
 \item 
-(void) -\/ \hyperlink{interface_s_e_project_a766d033976c34b25c714664a936431c0}{delete\-Record\-:}
-\item 
-(void) -\/ \hyperlink{interface_s_e_project_a6df677b3addadd2b57c7cb476817b3f0}{move\-Record\-:to\-Index\-:}
-\item 
-(void) -\/ \hyperlink{interface_s_e_project_adf1f53d931f669b12dfbabf92e3e90a4}{remove\-All\-Records}
-\item 
-(void) -\/ \hyperlink{interface_s_e_project_ad0dc83a89c70e8a670d2e0eb0381e632}{save\-Project}
+(N\-S\-Error $\ast$) -\/ \hyperlink{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}{save\-Project}
 \item 
 (void) -\/ \hyperlink{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}{save\-Project\-Asynchronously\-With\-Completion\-:}
 \end{DoxyCompactItemize}
@@ -33,91 +27,49 @@ Inheritance diagram for S\-E\-Project\-:\begin{figure}[H]
 \item 
 N\-S\-String $\ast$ \hyperlink{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}{name}
 \item 
-N\-S\-String $\ast$ \hyperlink{interface_s_e_project_a2d54ed4720974d226ab30b8d32ef21dd}{project\-File\-Path}
-\item 
-N\-S\-String $\ast$ \hyperlink{interface_s_e_project_a59726fcb927ff059c83a1ac7b252db0d}{project\-Sounds\-Path}
-\item 
-N\-S\-Array $\ast$ \hyperlink{interface_s_e_project_ac1f0c37f5832b2ba24ac9bf65f0fdcce}{records}
-\item 
-\hyperlink{interface_s_e_audio_stream_player}{S\-E\-Audio\-Stream\-Player} $\ast$ \hyperlink{interface_s_e_project_af35059bb818d498c8a96053818016a26}{audio\-Stream}
-\item 
 B\-O\-O\-L \hyperlink{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}{is\-Changed}
 \end{DoxyCompactItemize}
 
 
 \subsection{Method Documentation}
-\hypertarget{interface_s_e_project_a215f3b65a6214364b1c91a3e868e326f}{\index{S\-E\-Project@{S\-E\-Project}!add\-Record\-:@{add\-Record\-:}}
-\index{add\-Record\-:@{add\-Record\-:}!SEProject@{S\-E\-Project}}
-\subsubsection[{add\-Record\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) add\-Record\-: 
-\begin{DoxyParamCaption}
-\item[{({\bf S\-E\-Record}$\ast$)}]{record}
-\end{DoxyParamCaption}
-}}\label{interface_s_e_project_a215f3b65a6214364b1c91a3e868e326f}
-Add record to project \hypertarget{interface_s_e_project_a766d033976c34b25c714664a936431c0}{\index{S\-E\-Project@{S\-E\-Project}!delete\-Record\-:@{delete\-Record\-:}}
-\index{delete\-Record\-:@{delete\-Record\-:}!SEProject@{S\-E\-Project}}
-\subsubsection[{delete\-Record\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) delete\-Record\-: 
-\begin{DoxyParamCaption}
-\item[{({\bf S\-E\-Record}$\ast$)}]{record}
-\end{DoxyParamCaption}
-}}\label{interface_s_e_project_a766d033976c34b25c714664a936431c0}
-Delete record from project \hypertarget{interface_s_e_project_a6df677b3addadd2b57c7cb476817b3f0}{\index{S\-E\-Project@{S\-E\-Project}!move\-Record\-:to\-Index\-:@{move\-Record\-:to\-Index\-:}}
-\index{move\-Record\-:to\-Index\-:@{move\-Record\-:to\-Index\-:}!SEProject@{S\-E\-Project}}
-\subsubsection[{move\-Record\-:to\-Index\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) move\-Record\-: 
-\begin{DoxyParamCaption}
-\item[{({\bf S\-E\-Record}$\ast$)}]{record}
-\item[{toIndex:(N\-S\-Integer)}]{index}
-\end{DoxyParamCaption}
-}}\label{interface_s_e_project_a6df677b3addadd2b57c7cb476817b3f0}
-Change records order \hypertarget{interface_s_e_project_adf1f53d931f669b12dfbabf92e3e90a4}{\index{S\-E\-Project@{S\-E\-Project}!remove\-All\-Records@{remove\-All\-Records}}
-\index{remove\-All\-Records@{remove\-All\-Records}!SEProject@{S\-E\-Project}}
-\subsubsection[{remove\-All\-Records}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) remove\-All\-Records 
+\hypertarget{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}{\index{S\-E\-Project@{S\-E\-Project}!clear\-Project@{clear\-Project}}
+\index{clear\-Project@{clear\-Project}!SEProject@{S\-E\-Project}}
+\subsubsection[{clear\-Project}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) clear\-Project 
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-}}\label{interface_s_e_project_adf1f53d931f669b12dfbabf92e3e90a4}
-Remove all records from project including all sound that are saved to the project sound folder \hypertarget{interface_s_e_project_ad0dc83a89c70e8a670d2e0eb0381e632}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project@{save\-Project}}
+}}\label{interface_s_e_project_a191586c8f8464149aa101709b3b712b9}
+Remove all data from project \hypertarget{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}{\index{S\-E\-Project@{S\-E\-Project}!init\-With\-Folder\-:@{init\-With\-Folder\-:}}
+\index{init\-With\-Folder\-:@{init\-With\-Folder\-:}!SEProject@{S\-E\-Project}}
+\subsubsection[{init\-With\-Folder\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (instancetype) init\-With\-Folder\-: 
+\begin{DoxyParamCaption}
+\item[{(N\-S\-String$\ast$)}]{folder}
+\end{DoxyParamCaption}
+}}\label{interface_s_e_project_a321757359b849bd9ec36324d3fe128ab}
+Initialize with folder of project \hypertarget{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project@{save\-Project}}
 \index{save\-Project@{save\-Project}!SEProject@{S\-E\-Project}}
-\subsubsection[{save\-Project}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) save\-Project 
+\subsubsection[{save\-Project}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Error $\ast$) save\-Project 
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-}}\label{interface_s_e_project_ad0dc83a89c70e8a670d2e0eb0381e632}
-Save project \hypertarget{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project\-Asynchronously\-With\-Completion\-:@{save\-Project\-Asynchronously\-With\-Completion\-:}}
+}}\label{interface_s_e_project_af1ae48fbd2576ff28449dcedf0dc8f29}
+Build project and save \hypertarget{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}{\index{S\-E\-Project@{S\-E\-Project}!save\-Project\-Asynchronously\-With\-Completion\-:@{save\-Project\-Asynchronously\-With\-Completion\-:}}
 \index{save\-Project\-Asynchronously\-With\-Completion\-:@{save\-Project\-Asynchronously\-With\-Completion\-:}!SEProject@{S\-E\-Project}}
 \subsubsection[{save\-Project\-Asynchronously\-With\-Completion\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) save\-Project\-Asynchronously\-With\-Completion\-: 
 \begin{DoxyParamCaption}
 \item[{(void($^\wedge$)(N\-S\-Error$\ast$ error))}]{completion}
 \end{DoxyParamCaption}
 }}\label{interface_s_e_project_a996a39778f2d176ecf7ffda117703f6c}
-Save project in asynchronously (in another thread) \hypertarget{interface_s_e_project_adb4519610c7481bf048f235189ff737c}{\index{S\-E\-Project@{S\-E\-Project}!split\-Record\-In\-Position\-:@{split\-Record\-In\-Position\-:}}
-\index{split\-Record\-In\-Position\-:@{split\-Record\-In\-Position\-:}!SEProject@{S\-E\-Project}}
-\subsubsection[{split\-Record\-In\-Position\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ ({\bf S\-E\-Record} $\ast$) split\-Record\-In\-Position\-: 
-\begin{DoxyParamCaption}
-\item[{(N\-S\-Time\-Interval)}]{position}
-\end{DoxyParamCaption}
-}}\label{interface_s_e_project_adb4519610c7481bf048f235189ff737c}
-
+Build project and save in asynchronously (in another thread) 
 
 \subsection{Property Documentation}
-\hypertarget{interface_s_e_project_af35059bb818d498c8a96053818016a26}{\index{S\-E\-Project@{S\-E\-Project}!audio\-Stream@{audio\-Stream}}
-\index{audio\-Stream@{audio\-Stream}!SEProject@{S\-E\-Project}}
-\subsubsection[{audio\-Stream}]{\setlength{\rightskip}{0pt plus 5cm}-\/ ({\bf S\-E\-Audio\-Stream\-Player}$\ast$) audio\-Stream\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_project_af35059bb818d498c8a96053818016a26}
-Project audio preview stream \hypertarget{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}{\index{S\-E\-Project@{S\-E\-Project}!is\-Changed@{is\-Changed}}
+\hypertarget{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}{\index{S\-E\-Project@{S\-E\-Project}!is\-Changed@{is\-Changed}}
 \index{is\-Changed@{is\-Changed}!SEProject@{S\-E\-Project}}
 \subsubsection[{is\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) is\-Changed\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_project_a4da84c0c1ef729881956646b15762cc9}
 Check project if it is change (add or remove record affects that) \hypertarget{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}{\index{S\-E\-Project@{S\-E\-Project}!name@{name}}
 \index{name@{name}!SEProject@{S\-E\-Project}}
 \subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-String$\ast$) name\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{interface_s_e_project_adf05552fc2cf324eb3511d3bd1b8a996}
-Project name \hypertarget{interface_s_e_project_a2d54ed4720974d226ab30b8d32ef21dd}{\index{S\-E\-Project@{S\-E\-Project}!project\-File\-Path@{project\-File\-Path}}
-\index{project\-File\-Path@{project\-File\-Path}!SEProject@{S\-E\-Project}}
-\subsubsection[{project\-File\-Path}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-String$\ast$) project\-File\-Path\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}, {\ttfamily [nonatomic]}, {\ttfamily [strong]}}}\label{interface_s_e_project_a2d54ed4720974d226ab30b8d32ef21dd}
-Project file path \hypertarget{interface_s_e_project_a59726fcb927ff059c83a1ac7b252db0d}{\index{S\-E\-Project@{S\-E\-Project}!project\-Sounds\-Path@{project\-Sounds\-Path}}
-\index{project\-Sounds\-Path@{project\-Sounds\-Path}!SEProject@{S\-E\-Project}}
-\subsubsection[{project\-Sounds\-Path}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-String$\ast$) project\-Sounds\-Path\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_project_a59726fcb927ff059c83a1ac7b252db0d}
-Project sounds path \hypertarget{interface_s_e_project_ac1f0c37f5832b2ba24ac9bf65f0fdcce}{\index{S\-E\-Project@{S\-E\-Project}!records@{records}}
-\index{records@{records}!SEProject@{S\-E\-Project}}
-\subsubsection[{records}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Array$\ast$) records\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [nonatomic]}, {\ttfamily [assign]}}}\label{interface_s_e_project_ac1f0c37f5832b2ba24ac9bf65f0fdcce}
-List of records related to this project 
+Project name 
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

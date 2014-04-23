@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -93,18 +93,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:ab184f74429643065a116a8f272bf79b3"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="category_s_e_audio_stream_07_write_08.html#ab184f74429643065a116a8f272bf79b3">writeSamples:</a></td></tr>
-<tr class="separator:ab184f74429643065a116a8f272bf79b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af19a129d2a78172d771f2552dd97f49b"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="category_s_e_audio_stream_07_write_08.html#af19a129d2a78172d771f2552dd97f49b">writeSamples:count:</a></td></tr>
-<tr class="separator:af19a129d2a78172d771f2552dd97f49b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfdf1dbe3671da136d6cdae4fe4256bc"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="category_s_e_audio_stream_07_write_08.html#adfdf1dbe3671da136d6cdae4fe4256bc">adjustToAudioDescription:</a></td></tr>
+<tr class="separator:adfdf1dbe3671da136d6cdae4fe4256bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72236de5f14e8c3494be78f310d4282a"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="category_s_e_audio_stream_07_write_08.html#a72236de5f14e8c3494be78f310d4282a">writeData:</a></td></tr>
+<tr class="separator:a72236de5f14e8c3494be78f310d4282a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Method Documentation</h2>
-<a class="anchor" id="ab184f74429643065a116a8f272bf79b3"></a>
+<a class="anchor" id="adfdf1dbe3671da136d6cdae4fe4256bc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (void) writeSamples: </td>
+          <td class="memname">- (void) adjustToAudioDescription: </td>
+          <td></td>
+          <td class="paramtype">(AudioStreamBasicDescription)&#160;</td>
+          <td class="paramname"><em>aInfo</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set audio info for writing </p>
+
+<p>Extends class <a class="el" href="interface_s_e_audio_stream.html#adfdf1dbe3671da136d6cdae4fe4256bc">SEAudioStream</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a72236de5f14e8c3494be78f310d4282a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) writeData: </td>
           <td></td>
           <td class="paramtype">(NSData *)&#160;</td>
           <td class="paramname"><em>samples</em></td>
@@ -112,38 +131,9 @@ Instance Methods</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Write Samples* using NSData </p>
+<p>Write to the end of the stream using NSData </p>
 
-<p>Extends class <a class="el" href="interface_s_e_audio_stream.html#ab184f74429643065a116a8f272bf79b3">SEAudioStream</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af19a129d2a78172d771f2552dd97f49b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) writeSamples: </td>
-          <td></td>
-          <td class="paramtype">(void *)&#160;</td>
-          <td class="paramname"><em>data</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">count:</td>
-          <td></td>
-          <td class="paramtype">(NSInteger)&#160;</td>
-          <td class="paramname"><em>count</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Write Samples using data </p>
-
-<p>Extends class <a class="el" href="interface_s_e_audio_stream.html#af19a129d2a78172d771f2552dd97f49b">SEAudioStream</a>.</p>
+<p>Extends class <a class="el" href="interface_s_e_audio_stream.html#a72236de5f14e8c3494be78f310d4282a">SEAudioStream</a>.</p>
 
 </div>
 </div>
@@ -153,7 +143,7 @@ Instance Methods</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

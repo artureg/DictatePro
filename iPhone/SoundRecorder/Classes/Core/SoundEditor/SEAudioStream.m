@@ -5,6 +5,8 @@
 
 #import "SEAudioStream.h"
 
+#import <Foundation/Foundation.h>
+
 typedef enum {
     kSEAudioStreamSourceNone        = 0,
     kSEAudioStreamSourceFile        = 1,

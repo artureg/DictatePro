@@ -1,9 +1,13 @@
 var searchData=
 [
-  ['addrecord_3a',['addRecord:',['../interface_s_e_project.html#a215f3b65a6214364b1c91a3e868e326f',1,'SEProject']]],
-  ['audiostreamplayer_3adidupdatewithcurrentposition_3aduration_3a',['audioStreamPlayer:didUpdateWithCurrentPosition:duration:',['../protocol_s_e_audio_stream_player_delegate-p.html#a16a6ec647062ed75001f394ae08a1125',1,'SEAudioStreamPlayerDelegate-p']]],
-  ['audiostreamplayerdidcontinue_3a',['audioStreamPlayerDidContinue:',['../protocol_s_e_audio_stream_player_delegate-p.html#abbf414d9214d2bae34556952792fa8bc',1,'SEAudioStreamPlayerDelegate-p']]],
-  ['audiostreamplayerdidfinishplaying_3astopped_3a',['audioStreamPlayerDidFinishPlaying:stopped:',['../protocol_s_e_audio_stream_player_delegate-p.html#afd0e13575d327b091285b6c7f44792d3',1,'SEAudioStreamPlayerDelegate-p']]],
-  ['audiostreamplayerdidpause_3a',['audioStreamPlayerDidPause:',['../protocol_s_e_audio_stream_player_delegate-p.html#a11ec4e64acd6d9a5bc84a94a314c4335',1,'SEAudioStreamPlayerDelegate-p']]],
-  ['audiostreamplayerdidstartplaying_3a',['audioStreamPlayerDidStartPlaying:',['../protocol_s_e_audio_stream_player_delegate-p.html#a74bb3b4dcd45b0c79616eba1d11fdd02',1,'SEAudioStreamPlayerDelegate-p']]]
+  ['adjusttoaudiodescription_3a',['adjustToAudioDescription:',['../category_s_e_audio_stream_07_write_08.html#adfdf1dbe3671da136d6cdae4fe4256bc',1,'SEAudioStream(Write)::adjustToAudioDescription:()'],['../interface_s_e_audio_stream.html#adfdf1dbe3671da136d6cdae4fe4256bc',1,'SEAudioStream::adjustToAudioDescription:()']]],
+  ['audiostreamengine_3adidoccurerror_3a',['audioStreamEngine:didOccurError:',['../protocol_s_e_audio_stream_engine_delegate-p.html#afbb8aa7876ff176dc2e3bf52343084ce',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidcontinue_3a',['audioStreamEngineDidContinue:',['../protocol_s_e_audio_stream_engine_delegate-p.html#a25a68e34ad837b70cedc6d8485185fe3',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidfinishplaying_3astopped_3a',['audioStreamEngineDidFinishPlaying:stopped:',['../protocol_s_e_audio_stream_engine_delegate-p.html#a824aeca3299956565bfaa84ba4d04f33',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidpause_3a',['audioStreamEngineDidPause:',['../protocol_s_e_audio_stream_engine_delegate-p.html#a1bd5a2cc2a8c641534cbb74a55773fcb',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidstartplaying_3a',['audioStreamEngineDidStartPlaying:',['../protocol_s_e_audio_stream_engine_delegate-p.html#ad028df707bf49e8666b815bde8f40902',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidstartrecording_3a',['audioStreamEngineDidStartRecording:',['../protocol_s_e_audio_stream_engine_delegate-p.html#a192f31070f458201190d97c2e3dbbbee',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginedidstoprecording_3a',['audioStreamEngineDidStopRecording:',['../protocol_s_e_audio_stream_engine_delegate-p.html#ad693afa65ce5cc6560f40b8cf9719606',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamengineplaying_3adidupdatewithcurrenttime_3a',['audioStreamEnginePlaying:didUpdateWithCurrentTime:',['../protocol_s_e_audio_stream_engine_delegate-p.html#af917adce2406d3802da99282c8fc1723',1,'SEAudioStreamEngineDelegate-p']]],
+  ['audiostreamenginerecording_3adidupdatewithcurrenttime_3a',['audioStreamEngineRecording:didUpdateWithCurrentTime:',['../protocol_s_e_audio_stream_engine_delegate-p.html#a75f167807ad628680176d4438aeb840a',1,'SEAudioStreamEngineDelegate-p']]]
 ];

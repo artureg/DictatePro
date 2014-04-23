@@ -4,6 +4,7 @@
 
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <Foundation/Foundation.h>
 
 @protocol SRAudioStreamDelegate;
 

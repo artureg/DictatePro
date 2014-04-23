@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Wise-Apps. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @interface SESpeexACMWrapper : NSObject
 
 @property(nonatomic,readonly) NSTimeInterval duration;

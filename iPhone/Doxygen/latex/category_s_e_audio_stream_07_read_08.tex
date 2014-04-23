@@ -8,49 +8,36 @@
 \subsection*{Instance Methods}
 \begin{DoxyCompactItemize}
 \item 
-(N\-S\-Data $\ast$) -\/ \hyperlink{category_s_e_audio_stream_07_read_08_a8d848d7a388d38fb670eb92e3bf6566d}{read\-Samples\-With\-Count\-:}
+(B\-O\-O\-L) -\/ \hyperlink{category_s_e_audio_stream_07_read_08_a282b3ff513e91b82eb0da34d723dbcd0}{read\-Data\-:position\-:duration\-:}
 \item 
-(N\-S\-Data $\ast$) -\/ \hyperlink{category_s_e_audio_stream_07_read_08_a4501c22126f23cc1cb9ecbd1d7ddda6e}{read\-Samples\-From\-Channel\-:count\-:}
-\item 
-(void) -\/ \hyperlink{category_s_e_audio_stream_07_read_08_ac80704c916ddbac8f8309f3a6a019e80}{read\-Samples\-:count\-:}
+(N\-S\-Time\-Interval) -\/ \hyperlink{category_s_e_audio_stream_07_read_08_a9c310c1951f40e16cfd429be70730b27}{duration\-For\-Buffer\-With\-Size\-:}
 \end{DoxyCompactItemize}
 
 
 \subsection{Method Documentation}
-\hypertarget{category_s_e_audio_stream_07_read_08_ac80704c916ddbac8f8309f3a6a019e80}{\index{S\-E\-Audio\-Stream(\-Read)@{S\-E\-Audio\-Stream(\-Read)}!read\-Samples\-:count\-:@{read\-Samples\-:count\-:}}
-\index{read\-Samples\-:count\-:@{read\-Samples\-:count\-:}!SEAudioStream(Read)@{S\-E\-Audio\-Stream(\-Read)}}
-\subsubsection[{read\-Samples\-:count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) read\-Samples\-: 
+\hypertarget{category_s_e_audio_stream_07_read_08_a9c310c1951f40e16cfd429be70730b27}{\index{S\-E\-Audio\-Stream(\-Read)@{S\-E\-Audio\-Stream(\-Read)}!duration\-For\-Buffer\-With\-Size\-:@{duration\-For\-Buffer\-With\-Size\-:}}
+\index{duration\-For\-Buffer\-With\-Size\-:@{duration\-For\-Buffer\-With\-Size\-:}!SEAudioStream(Read)@{S\-E\-Audio\-Stream(\-Read)}}
+\subsubsection[{duration\-For\-Buffer\-With\-Size\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Time\-Interval) duration\-For\-Buffer\-With\-Size\-: 
 \begin{DoxyParamCaption}
-\item[{(void $\ast$)}]{samples}
-\item[{count:(N\-S\-Integer)}]{count}
+\item[{(N\-S\-U\-Integer)}]{size}
 \end{DoxyParamCaption}
-}}\label{category_s_e_audio_stream_07_read_08_ac80704c916ddbac8f8309f3a6a019e80}
-Read Samples data 
+}}\label{category_s_e_audio_stream_07_read_08_a9c310c1951f40e16cfd429be70730b27}
 
-Extends class \hyperlink{interface_s_e_audio_stream_ac80704c916ddbac8f8309f3a6a019e80}{S\-E\-Audio\-Stream}.
 
-\hypertarget{category_s_e_audio_stream_07_read_08_a4501c22126f23cc1cb9ecbd1d7ddda6e}{\index{S\-E\-Audio\-Stream(\-Read)@{S\-E\-Audio\-Stream(\-Read)}!read\-Samples\-From\-Channel\-:count\-:@{read\-Samples\-From\-Channel\-:count\-:}}
-\index{read\-Samples\-From\-Channel\-:count\-:@{read\-Samples\-From\-Channel\-:count\-:}!SEAudioStream(Read)@{S\-E\-Audio\-Stream(\-Read)}}
-\subsubsection[{read\-Samples\-From\-Channel\-:count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Data$\ast$) read\-Samples\-From\-Channel\-: 
+Extends class \hyperlink{interface_s_e_audio_stream_a9c310c1951f40e16cfd429be70730b27}{S\-E\-Audio\-Stream}.
+
+\hypertarget{category_s_e_audio_stream_07_read_08_a282b3ff513e91b82eb0da34d723dbcd0}{\index{S\-E\-Audio\-Stream(\-Read)@{S\-E\-Audio\-Stream(\-Read)}!read\-Data\-:position\-:duration\-:@{read\-Data\-:position\-:duration\-:}}
+\index{read\-Data\-:position\-:duration\-:@{read\-Data\-:position\-:duration\-:}!SEAudioStream(Read)@{S\-E\-Audio\-Stream(\-Read)}}
+\subsubsection[{read\-Data\-:position\-:duration\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (B\-O\-O\-L) read\-Data\-: 
 \begin{DoxyParamCaption}
-\item[{(N\-S\-Integer)}]{channels}
-\item[{count:(N\-S\-Integer)}]{count}
+\item[{(N\-S\-Mutable\-Data $\ast$)}]{data}
+\item[{position:(N\-S\-U\-Integer)}]{position}
+\item[{duration:(N\-S\-U\-Integer)}]{duration}
 \end{DoxyParamCaption}
-}}\label{category_s_e_audio_stream_07_read_08_a4501c22126f23cc1cb9ecbd1d7ddda6e}
-Read Samples from one channel 
+}}\label{category_s_e_audio_stream_07_read_08_a282b3ff513e91b82eb0da34d723dbcd0}
+Read samples data -\/ mutable data to append with stream samples position -\/ position of sound file in milliseconds duration -\/ duration of reading data in milliseconds 
 
-Extends class \hyperlink{interface_s_e_audio_stream_a4501c22126f23cc1cb9ecbd1d7ddda6e}{S\-E\-Audio\-Stream}.
-
-\hypertarget{category_s_e_audio_stream_07_read_08_a8d848d7a388d38fb670eb92e3bf6566d}{\index{S\-E\-Audio\-Stream(\-Read)@{S\-E\-Audio\-Stream(\-Read)}!read\-Samples\-With\-Count\-:@{read\-Samples\-With\-Count\-:}}
-\index{read\-Samples\-With\-Count\-:@{read\-Samples\-With\-Count\-:}!SEAudioStream(Read)@{S\-E\-Audio\-Stream(\-Read)}}
-\subsubsection[{read\-Samples\-With\-Count\-:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (N\-S\-Data$\ast$) read\-Samples\-With\-Count\-: 
-\begin{DoxyParamCaption}
-\item[{(N\-S\-Integer)}]{count}
-\end{DoxyParamCaption}
-}}\label{category_s_e_audio_stream_07_read_08_a8d848d7a388d38fb670eb92e3bf6566d}
-Read Samples from All Channels 
-
-Extends class \hyperlink{interface_s_e_audio_stream_a8d848d7a388d38fb670eb92e3bf6566d}{S\-E\-Audio\-Stream}.
+Extends class \hyperlink{interface_s_e_audio_stream_a282b3ff513e91b82eb0da34d723dbcd0}{S\-E\-Audio\-Stream}.
 
 
 

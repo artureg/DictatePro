@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,65 +87,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">SEProject.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_s_e_project_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SEProject.h</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  SoundRecorder</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Created by Igor on 11.04.14.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//  Copyright (c) 2014 Wise-Apps. All rights reserved.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<a href="_s_e_project_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//  SEProject.h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SoundRecorder</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Created by Igor Danich igor.danich@wise-apps.com on 11.04.14.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#import &quot;SEModel.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_e_audio_stream_engine_8h.html">SEAudioStreamEngine.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#import &quot;SEModel.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_e_audio_stream_player_8h.html">SEAudioStreamPlayer.h</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_e_record_8h.html">SERecord.h</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="interface_s_e_project.html">   13</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_e_project.html">SEProject</a> : SEModel</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">   16</a></span>&#160;<span class="keyword">@property</span>(nonatomic,strong) NSString* <a class="code" href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">name</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#a2d54ed4720974d226ab30b8d32ef21dd">   19</a></span>&#160;<span class="keyword">@property</span>(nonatomic,strong) NSString* <a class="code" href="interface_s_e_project.html#a2d54ed4720974d226ab30b8d32ef21dd">projectFilePath</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#a59726fcb927ff059c83a1ac7b252db0d">   22</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSString* <a class="code" href="interface_s_e_project.html#a59726fcb927ff059c83a1ac7b252db0d">projectSoundsPath</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#ac1f0c37f5832b2ba24ac9bf65f0fdcce">   25</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) NSArray* <a class="code" href="interface_s_e_project.html#ac1f0c37f5832b2ba24ac9bf65f0fdcce">records</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#af35059bb818d498c8a96053818016a26">   28</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) <a class="code" href="interface_s_e_audio_stream_player.html">SEAudioStreamPlayer</a>* <a class="code" href="interface_s_e_project.html#af35059bb818d498c8a96053818016a26">audioStream</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">   31</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) BOOL <a class="code" href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">isChanged</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/* Split record in time position */</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;- (<a class="code" href="interface_s_e_record.html">SERecord</a>*)splitRecordInPosition:(NSTimeInterval)position;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;- (void)addRecord:(<a class="code" href="interface_s_e_record.html">SERecord</a>*)record;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;- (void)deleteRecord:(<a class="code" href="interface_s_e_record.html">SERecord</a>*)record;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;- (void)moveRecord:(<a class="code" href="interface_s_e_record.html">SERecord</a>*)record toIndex:(NSInteger)index;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;- (void)<a class="code" href="interface_s_e_project.html#adf1f53d931f669b12dfbabf92e3e90a4">removeAllRecords</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;- (void)<a class="code" href="interface_s_e_project.html#ad0dc83a89c70e8a670d2e0eb0381e632">saveProject</a>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (void)saveProjectAsynchronouslyWithCompletion:(<span class="keywordtype">void</span>(^)(NSError* error))completion;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="interface_s_e_project_html_ac1f0c37f5832b2ba24ac9bf65f0fdcce"><div class="ttname"><a href="interface_s_e_project.html#ac1f0c37f5832b2ba24ac9bf65f0fdcce">SEProject::records</a></div><div class="ttdeci">NSArray * records</div><div class="ttdef"><b>Definition:</b> SEProject.h:25</div></div>
-<div class="ttc" id="_s_e_audio_stream_player_8h_html"><div class="ttname"><a href="_s_e_audio_stream_player_8h.html">SEAudioStreamPlayer.h</a></div></div>
-<div class="ttc" id="interface_s_e_project_html"><div class="ttname"><a href="interface_s_e_project.html">SEProject</a></div><div class="ttdef"><b>Definition:</b> SEProject.h:13</div></div>
-<div class="ttc" id="interface_s_e_project_html_adf1f53d931f669b12dfbabf92e3e90a4"><div class="ttname"><a href="interface_s_e_project.html#adf1f53d931f669b12dfbabf92e3e90a4">-[SEProject removeAllRecords]</a></div><div class="ttdeci">void removeAllRecords()</div><div class="ttdef"><b>Definition:</b> SEProject.m:26</div></div>
-<div class="ttc" id="interface_s_e_project_html_a4da84c0c1ef729881956646b15762cc9"><div class="ttname"><a href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">SEProject::isChanged</a></div><div class="ttdeci">BOOL isChanged</div><div class="ttdef"><b>Definition:</b> SEProject.h:31</div></div>
-<div class="ttc" id="interface_s_e_project_html_ad0dc83a89c70e8a670d2e0eb0381e632"><div class="ttname"><a href="interface_s_e_project.html#ad0dc83a89c70e8a670d2e0eb0381e632">-[SEProject saveProject]</a></div><div class="ttdeci">void saveProject()</div><div class="ttdef"><b>Definition:</b> SEProject.m:29</div></div>
-<div class="ttc" id="interface_s_e_project_html_a59726fcb927ff059c83a1ac7b252db0d"><div class="ttname"><a href="interface_s_e_project.html#a59726fcb927ff059c83a1ac7b252db0d">SEProject::projectSoundsPath</a></div><div class="ttdeci">NSString * projectSoundsPath</div><div class="ttdef"><b>Definition:</b> SEProject.h:22</div></div>
-<div class="ttc" id="interface_s_e_project_html_af35059bb818d498c8a96053818016a26"><div class="ttname"><a href="interface_s_e_project.html#af35059bb818d498c8a96053818016a26">SEProject::audioStream</a></div><div class="ttdeci">SEAudioStreamPlayer * audioStream</div><div class="ttdef"><b>Definition:</b> SEProject.h:28</div></div>
-<div class="ttc" id="interface_s_e_project_html_adf05552fc2cf324eb3511d3bd1b8a996"><div class="ttname"><a href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">SEProject::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdef"><b>Definition:</b> SEProject.h:16</div></div>
-<div class="ttc" id="interface_s_e_record_html"><div class="ttname"><a href="interface_s_e_record.html">SERecord</a></div><div class="ttdef"><b>Definition:</b> SERecord.h:19</div></div>
-<div class="ttc" id="interface_s_e_audio_stream_player_html"><div class="ttname"><a href="interface_s_e_audio_stream_player.html">SEAudioStreamPlayer</a></div><div class="ttdef"><b>Definition:</b> SEAudioStreamPlayer.h:14</div></div>
-<div class="ttc" id="interface_s_e_project_html_a2d54ed4720974d226ab30b8d32ef21dd"><div class="ttname"><a href="interface_s_e_project.html#a2d54ed4720974d226ab30b8d32ef21dd">SEProject::projectFilePath</a></div><div class="ttdeci">NSString * projectFilePath</div><div class="ttdef"><b>Definition:</b> SEProject.h:19</div></div>
-<div class="ttc" id="_s_e_record_8h_html"><div class="ttname"><a href="_s_e_record_8h.html">SERecord.h</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="interface_s_e_project.html">    9</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_e_project.html">SEProject</a> : SEModel</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">   12</a></span>&#160;<span class="keyword">@property</span>(nonatomic,strong) NSString* <a class="code" href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">name</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">   15</a></span>&#160;<span class="keyword">@property</span>(nonatomic,readonly) BOOL <a class="code" href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">isChanged</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;- (instancetype)initWithFolder:(NSString*)folder;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;- (void)<a class="code" href="interface_s_e_project.html#a191586c8f8464149aa101709b3b712b9">clearProject</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;- (NSError*)<a class="code" href="interface_s_e_project.html#af1ae48fbd2576ff28449dcedf0dc8f29">saveProject</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;- (void)saveProjectAsynchronouslyWithCompletion:(<span class="keywordtype">void</span>(^)(NSError* error))completion;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="interface_s_e_project_html"><div class="ttname"><a href="interface_s_e_project.html">SEProject</a></div><div class="ttdef"><b>Definition:</b> SEProject.h:9</div></div>
+<div class="ttc" id="interface_s_e_project_html_af1ae48fbd2576ff28449dcedf0dc8f29"><div class="ttname"><a href="interface_s_e_project.html#af1ae48fbd2576ff28449dcedf0dc8f29">-[SEProject saveProject]</a></div><div class="ttdeci">NSError * saveProject()</div><div class="ttdef"><b>Definition:</b> SEProject.m:103</div></div>
+<div class="ttc" id="interface_s_e_project_html_a191586c8f8464149aa101709b3b712b9"><div class="ttname"><a href="interface_s_e_project.html#a191586c8f8464149aa101709b3b712b9">-[SEProject clearProject]</a></div><div class="ttdeci">void clearProject()</div><div class="ttdef"><b>Definition:</b> SEProject.m:97</div></div>
+<div class="ttc" id="interface_s_e_project_html_a4da84c0c1ef729881956646b15762cc9"><div class="ttname"><a href="interface_s_e_project.html#a4da84c0c1ef729881956646b15762cc9">SEProject::isChanged</a></div><div class="ttdeci">BOOL isChanged</div><div class="ttdef"><b>Definition:</b> SEProject.h:15</div></div>
+<div class="ttc" id="interface_s_e_project_html_adf05552fc2cf324eb3511d3bd1b8a996"><div class="ttname"><a href="interface_s_e_project.html#adf05552fc2cf324eb3511d3bd1b8a996">SEProject::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdef"><b>Definition:</b> SEProject.h:12</div></div>
+<div class="ttc" id="_s_e_audio_stream_engine_8h_html"><div class="ttname"><a href="_s_e_audio_stream_engine_8h.html">SEAudioStreamEngine.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 18:11:48 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 23 2014 19:30:57 for Sound Editor by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

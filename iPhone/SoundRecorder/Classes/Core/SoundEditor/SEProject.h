@@ -5,7 +5,6 @@
 
 #import "SEModel.h"
 #import "SEAudioStreamEngine.h"
-#import "SERecord.h"
 
 @interface SEProject : SEModel
 
