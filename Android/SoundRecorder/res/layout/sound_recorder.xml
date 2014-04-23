@@ -1,180 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/ffd6d3ce" >
+                android:background="@color/ffd6d3ce"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" >
-
-        <LinearLayout
+            android:id="@+id/buttons"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageButton
+                    android:id="@+id/rewind"
+                    android:src="@drawable/rewind_selector"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="rewind"/>
 
             <ImageButton
-                android:id="@+id/rewind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="rewind"
-                android:src="@drawable/rewind_selector" />
-
+                    android:id="@+id/play"
+                    android:src="@drawable/button01_1_play_enabled"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="play"/>
             <ImageButton
-                android:id="@+id/play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="play"
-                android:src="@drawable/button01_1_play_enabled" />
-
-            <ImageButton
-                android:id="@+id/forward"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="forward"
-                android:src="@drawable/forward_selector" />
+                    android:id="@+id/forward"
+                    android:src="@drawable/forward_selector"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="forward"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/start"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="start"
-                android:src="@drawable/start_selector" />
-
+                android:layout_height="wrap_content">
             <ImageButton
-                android:id="@+id/record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="record"
-                android:src="@drawable/button02_1_record_disabled" />
-
+                    android:id="@+id/start"
+                    android:src="@drawable/start_selector"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="start"/>
+             <ImageButton
+                    android:id="@+id/record"
+                    android:src="@drawable/button02_1_record_disabled"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="record"/>
             <ImageButton
-                android:id="@+id/end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="end"
-                android:src="@drawable/end_selector" />
+                    android:id="@+id/end"
+                    android:src="@drawable/end_selector"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="end"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/export"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="export"
-                android:src="@drawable/send_1" />
-
+                android:layout_height="wrap_content">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:src="@drawable/button_record02_0" />
-
+                    android:id="@+id/export"
+                    android:src="@drawable/send_1"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="encode"/>
             <ImageButton
-                android:id="@+id/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:onClick="save"
-                android:src="@drawable/save_1" />
+                    android:src="@drawable/button_record02_0"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="delete"/>
+            <ImageButton
+                    android:id="@+id/save"
+                    android:src="@drawable/save_1"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="save"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:src="@drawable/button_pin01_0" />
-
+                android:layout_height="wrap_content">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:src="@drawable/button_pin02_0" />
-
+                    android:src="@drawable/button_pin01_0"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@null"
-                android:src="@drawable/button_pin03_0" />
+                    android:src="@drawable/button_pin02_0"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ImageButton
+                    android:src="@drawable/button_pin03_0"
+                    android:background="@null"
+                    android:layout_margin="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/position_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/scale" >
+            android:id="@+id/position_layout"
+            android:background="@drawable/scale"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <SeekBar
-            android:id="@+id/position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:thumb="@drawable/play_pin_cursor" />
+                android:id="@+id/position"
+                android:thumb="@drawable/play_pin_cursor"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/position_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-    <!-- android:text="@string/process_track_duration" -->
+            android:id="@+id/duration"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/position_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <!--android:text="@string/process_track_duration"-->
 
     <SeekBar
-        android:id="@+id/volume"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:thumb="@drawable/volume_cursor" />
-
+            android:id="@+id/volume"
+            android:thumb="@drawable/volume_cursor"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            />
 </RelativeLayout>
