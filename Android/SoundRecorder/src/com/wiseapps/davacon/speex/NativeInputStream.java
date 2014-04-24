@@ -57,17 +57,26 @@ public class NativeInputStream extends InputStream {
 //		LoggerFactory.obtainLogger(TAG).d("read()  nativeObject" + nativeObject);
 		
 		byte[] bufferT = this.readOne(nativeObject, buffer.length);
-		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
-//		LoggerFactory.obtainLogger(TAG).d("read()   buffer.length =" + buffer.length);
+		if(bufferT.length == 0) {
+			return -1;
+		}
+		
+		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
+//		
+//		LoggerFactory.obtainLogger(TAG).d("read()   bufferT.length =" + bufferT.length);
 //		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
 		
-		return buffer.length;
+		return bufferT.length;
 	}
 	
 	@Override
 	public int read(byte[] buffer, int byteOffset, int byteCount)
 			throws IOException {
+		
+		if (byteOffset < 0 || byteCount < 0 || byteOffset + byteCount > buffer.length) {
+				 throw new ArrayIndexOutOfBoundsException();
+		}
 		
 //		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
 //		
@@ -75,15 +84,24 @@ public class NativeInputStream extends InputStream {
 //		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
 		 
 		byte[] bufferT = this.read(nativeObject, byteOffset, byteCount);
+		
+		if(bufferT.length == 0) {
+			return -1;
+		}
+		
 		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
-//		LoggerFactory.obtainLogger(TAG).d("read(...)   buffer.length =" + buffer.length);
+//		LoggerFactory.obtainLogger(TAG).d("read(...)   bufferT.length =" + bufferT.length);
 //		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(buffer));
 		
-		return buffer.length;
+		return bufferT.length;
 	}
-	
+
 	public long skip(long byteCount) throws IOException {
+		
+		if (byteCount < 0) {
+			throw new IllegalArgumentException ("Can't skip negative bytes: " +  byteCount);
+		}
 		
 		LoggerFactory.obtainLogger(TAG).d("INPUT skip =" + byteCount);
 		skip(nativeObject, byteCount);
