@@ -25,7 +25,7 @@ public class NativeInputStream extends InputStream {
 	private native int close(long nativeID);
 	private native byte[] readOne(long nativeId, int length);
 	private native byte[] read(long nativeId, int offset, int duration);
-//	private native byte[] skip(long nativeId, long byteCount);
+	private native byte[] skip(long nativeId, long byteCount);
 	
 	public NativeInputStream(String filePath, int format) {
 		super();
@@ -47,18 +47,20 @@ public class NativeInputStream extends InputStream {
 
 	@Override
 	public int read() throws IOException {
-		// TODO implement
-		return 0;
+		byte[] bufferT = new byte[1];
+		read(bufferT);
+		return bufferT[0];
 	}
 	
 	@Override
 	public int read(byte[] buffer) throws IOException {
-		LoggerFactory.obtainLogger(TAG).d("read()  nativeObject" + nativeObject);
+//		LoggerFactory.obtainLogger(TAG).d("read()  nativeObject" + nativeObject);
 		
-		buffer = this.readOne(nativeObject, buffer.length);
+		byte[] bufferT = this.readOne(nativeObject, buffer.length);
+		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
-		LoggerFactory.obtainLogger(TAG).d("read()   buffer.length =" + buffer.length);
-		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
+//		LoggerFactory.obtainLogger(TAG).d("read()   buffer.length =" + buffer.length);
+//		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
 		
 		return buffer.length;
 	}
@@ -67,24 +69,24 @@ public class NativeInputStream extends InputStream {
 	public int read(byte[] buffer, int byteOffset, int byteCount)
 			throws IOException {
 		
-		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
+//		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
+//		
+//		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
+//		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
+		 
+		byte[] bufferT = this.read(nativeObject, byteOffset, byteCount);
+		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
-		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
-		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
-		
-		buffer = this.read(nativeObject, byteOffset, byteCount);
-		
-		LoggerFactory.obtainLogger(TAG).d("read(...)   buffer.length =" + buffer.length);
-		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(buffer));
+//		LoggerFactory.obtainLogger(TAG).d("read(...)   buffer.length =" + buffer.length);
+//		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(buffer));
 		
 		return buffer.length;
 	}
 	
 	public long skip(long byteCount) throws IOException {
-
 		
 		LoggerFactory.obtainLogger(TAG).d("INPUT skip =" + byteCount);
-//		skip(nativeObject, byteCount);
+		skip(nativeObject, byteCount);
 		return byteCount;
 
 	};
@@ -98,6 +100,4 @@ public class NativeInputStream extends InputStream {
  	   return sb.toString();
  	}
 	
-	
-
 }
