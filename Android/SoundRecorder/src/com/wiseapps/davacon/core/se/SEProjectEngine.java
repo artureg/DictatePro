@@ -65,7 +65,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         if (player == null) {
             player = new SESoundPlayer(project.getAudioStream());
-            player.addHandler(playerHandler);
+            player.addHandler(playerStateListener);
         }
 
         player.start();
@@ -89,14 +89,6 @@ public class SEProjectEngine extends SEAudioStreamEngine {
      * Stops stream playing
      */
     public void stopPlaying() {
-        if (project == null) {
-            throw new IllegalStateException();
-        }
-
-        if (player != null) {
-            player.stop();
-            player = null;
-        }
     }
 
     /**
@@ -122,7 +114,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 //        project.addRecord(record);
 
         recorder = new SESoundRecorder(record.getAudioStream());
-        recorder.addHandler(recorderHandler);
+        recorder.addHandler(recorderStateListener);
         recorder.start();
     }
 
@@ -151,9 +143,9 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
             state = State.READY;
             if (player != null) {
-                player.removeHandler(playerHandler);
+                player.removeHandler(playerStateListener);
 
-                player.stop();
+                player.pause();
                 player = null;
             }
 
@@ -167,9 +159,9 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
             state = State.READY;
             if (player != null) {
-                player.removeHandler(playerHandler);
+                player.removeHandler(playerStateListener);
 
-                player.stop();
+                player.pause();
                 player = null;
             }
 
@@ -181,9 +173,9 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
         state = State.READY;
         if (player != null) {
-            player.removeHandler(playerHandler);
+            player.removeHandler(playerStateListener);
 
-            player.stop();
+            player.pause();
             player = null;
         }
     }
@@ -226,146 +218,86 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         state = State.READY;
 
         if (player != null) {
-            player.removeHandler(playerHandler);
+            player.removeHandler(playerStateListener);
 
-            player.stop();
+            player.pause();
             player = null;
         }
 
         if (recorder != null) {
-            recorder.removeHandler(recorderHandler);
+            recorder.removeHandler(recorderStateListener);
             recorder.stop();
             recorder = null;
         }
     }
 
-    private Handler recorderHandler = new Handler() {
+    private SESoundRecorderStateListener recorderStateListener = new SESoundRecorderStateListener() {
         @Override
-        public void handleMessage(Message msg) {
-            if (recorderStateListeners == null) {
-                return;
-            }
-
-            switch (msg.what) {
-                case MSG_RECORDING_STARTED: {
-                    for (SERecorderStateListener listener : recorderStateListeners) {
-                        if (listener != null) {
-                            listener.recordingStarted();
-                        }
-                    }
-
-                    state = State.RECORDING_IN_PROGRESS;
-
-                    break;
-                }
-                case MSG_RECORDING_IN_PROGRESS: {
-                    for (SERecorderStateListener listener : recorderStateListeners) {
-                        if (listener != null) {
-                            listener.recordingInProgress(
-                                    msg.obj != null ? (Integer) msg.obj : 0);
-                        }
-                    }
-
-                    state = State.RECORDING_IN_PROGRESS;
-
-                    break;
-                }
-                case MSG_RECORDING_STOPPED: {
-                    for (SERecorderStateListener listener : recorderStateListeners) {
-                        if (listener != null) {
-                            listener.recordingStopped();
-                        }
-                    }
-
-                    state = State.READY;
-
-                    break;
-                }
-                case MSG_RECORDING_ERROR: {
-                    for (SERecorderStateListener listener : recorderStateListeners) {
-                        if (listener != null) {
-                            listener.recordingStopped();
-                        }
-                    }
-
-                    state = State.READY;
-
-                    break;
+        public void onRecordingStarted() {
+            for (SERecorderStateListener listener : recorderStateListeners) {
+                if (listener != null) {
+                    listener.recordingStarted();
                 }
             }
 
-            super.handleMessage(msg);
+            state = State.RECORDING_IN_PROGRESS;
+        }
+
+        @Override
+        public void onRecordingStopped() {
+            for (SERecorderStateListener listener : recorderStateListeners) {
+                if (listener != null) {
+                    listener.recordingStopped();
+                }
+            }
+
+            state = State.READY;
+        }
+
+        @Override
+        public void onRecordingError() {
+            for (SERecorderStateListener listener : recorderStateListeners) {
+                if (listener != null) {
+                    listener.recordingStopped();
+                }
+            }
+
+            state = State.READY;
         }
     };
 
-    private Handler playerHandler = new Handler() {
+    private SESoundPlayerStateListener playerStateListener = new SESoundPlayerStateListener() {
         @Override
-        public void handleMessage(Message msg) {
-            if (playerStateListeners == null) {
-                return;
-            }
-
-            switch (msg.what) {
-                case MSG_PLAYING_STARTED: {
-                    for (SEPlayerStateListener listener : playerStateListeners) {
-                        if (listener != null) {
-                            listener.playingStarted();
-                        }
-                    }
-
-                    state = State.PLAYING_IN_PROGRESS;
-
-                    break;
-                }
-                case MSG_PLAYING_IN_PROGRESS: {
-                    for (SEPlayerStateListener listener : playerStateListeners) {
-                        if (listener != null) {
-                            listener.playingInProgress(msg.obj != null ? (Integer) msg.obj : 0);
-                        }
-                    }
-
-                    state = State.PLAYING_IN_PROGRESS;
-
-                    break;
-                }
-                case MSG_PLAYING_PAUSED: {
-                    for (SEPlayerStateListener listener : playerStateListeners) {
-                        if (listener != null) {
-                            listener.playingPaused();
-                        }
-                    }
-
-                    state = State.READY;
-
-                    break;
-                }
-                case MSG_PLAYING_STOPPED: {
-                    for (SEPlayerStateListener listener : playerStateListeners) {
-                        if (listener != null) {
-                            listener.playingStopped();
-                        }
-                    }
-
-                    state = State.READY;
-
-                    project.position = 0;
-
-                    break;
-                }
-                case MSG_PLAYING_ERROR: {
-                    for (SEPlayerStateListener listener : playerStateListeners) {
-                        if (listener != null) {
-                            listener.onError("Playing failed");
-                        }
-                    }
-
-                    state = State.READY;
-
-                    break;
+        public void onPlayingStarted() {
+            for (SEPlayerStateListener listener : playerStateListeners) {
+                if (listener != null) {
+                    listener.playingStarted();
                 }
             }
 
-            super.handleMessage(msg);
+            state = State.PLAYING_IN_PROGRESS;
+        }
+
+        @Override
+        public void onPlayingPaused() {
+            for (SEPlayerStateListener listener : playerStateListeners) {
+                if (listener != null) {
+                    listener.playingPaused();
+                }
+            }
+
+            state = State.READY;
+        }
+
+        @Override
+        public void onPlayingError() {
+            for (SEPlayerStateListener listener : playerStateListeners) {
+                if (listener != null) {
+                    listener.onError("Playing failed");
+                }
+            }
+
+            state = State.READY;
         }
     };
 }

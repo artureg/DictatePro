@@ -2,14 +2,11 @@ package com.wiseapps.davacon.core.se;
 
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.os.Handler;
-import android.os.Message;
 import com.wiseapps.davacon.logging.LoggerFactory;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
 
@@ -21,20 +18,15 @@ import static com.wiseapps.davacon.core.se.SEProjectEngine.*;
 class SESoundRecorder {
     private static final String TAG = SESoundRecorder.class.getSimpleName();
 
-    static final int MSG_RECORDING_STARTED = 0;
-    static final int MSG_RECORDING_IN_PROGRESS = 1;
-    static final int MSG_RECORDING_STOPPED = 2;
-    static final int MSG_RECORDING_ERROR = 3;
+    private static final int MIN_BUFFER_SIZE = 1600;
+    private static final int MULT = 4;
 
     private RecordingThread thread;
 
-//    private final SEAudioStream stream;
     private final AudioStream stream;
-    private List<Handler> handlers = new ArrayList<Handler>();
 
-//    SESoundRecorder(SEAudioStream stream) {
-//        this.stream = stream;
-//    }
+    private List<SESoundRecorderStateListener> listeners = new ArrayList<SESoundRecorderStateListener>();
+
     SESoundRecorder(AudioStream stream) {
         this.stream = stream;
     }
@@ -48,35 +40,35 @@ class SESoundRecorder {
         thread.stopRecording();
     }
 
-    void addHandler(Handler handler) {
-        handlers.add(handler);
+    void addHandler(SESoundRecorderStateListener listener) {
+        listeners.add(listener);
     }
 
-    void removeHandler(Handler handler) {
-        handlers.remove(handler);
+    void removeHandler(SESoundRecorderStateListener listener) {
+        listeners.remove(listener);
     }
 
     private void sendMsgStarted() {
-        for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));
-        }
-    }
-
-    private void sendMsgInProgress(Object obj) {
-        for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, obj));
+        for (SESoundRecorderStateListener listener : listeners) {
+            if (listener != null) {
+                listener.onRecordingStarted();
+            }
         }
     }
 
     private void sendMsgStopped() {
-        for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STOPPED));
+        for (SESoundRecorderStateListener listener : listeners) {
+            if (listener != null) {
+                listener.onRecordingStopped();
+            }
         }
     }
 
     private void sendMsgError() {
-        for (Handler handler : handlers) {
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
+        for (SESoundRecorderStateListener listener : listeners) {
+            if (listener != null) {
+                listener.onRecordingError();
+            }
         }
     }
 
@@ -97,24 +89,24 @@ class SESoundRecorder {
         }
 
         private void open() {
-            int minBufferSize = 1600;
+            int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                     SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
-                handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
+                sendMsgError();
                 return;
             }
 
             stream.open(AudioStream.Mode.WRITE);
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STARTED));
+            sendMsgStarted();
 
             audioRecord.startRecording();
         }
 
         private void work() {
-            int minBufferSize = 1600;
+            int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             OutputStream out = null;
 
@@ -131,14 +123,14 @@ class SESoundRecorder {
 
                     stream.updatePosition(data.length);
                     stream.updateDuration(data.length);
-
-                    handler.sendMessage(handler.obtainMessage(MSG_RECORDING_IN_PROGRESS, data.length));
                 }
+
+                sendMsgStopped();
             } catch (Exception e) {
                 LoggerFactory.obtainLogger(TAG).
                         e(e.getMessage(), e);
 
-                handler.sendMessage(handler.obtainMessage(MSG_RECORDING_ERROR));
+                sendMsgError();
             } finally {
                 stream.finalizePosition();
                 stream.finalizeDuration();
@@ -155,11 +147,6 @@ class SESoundRecorder {
                     }
                 }
             }
-
-//            LoggerFactory.obtainLogger(TAG).d("work# record.duration = " +
-//                    ((RecordAudioStream) stream).record.duration);
-//            LoggerFactory.obtainLogger(TAG).d("work# project.duration = " +
-//                    ((RecordAudioStream) stream).record.project.duration);
         }
 
         private void close() {
@@ -167,36 +154,17 @@ class SESoundRecorder {
 
             audioRecord.stop();
             audioRecord.release();
-
-            handler.sendMessage(handler.obtainMessage(MSG_RECORDING_STOPPED));
         }
+
 
         private void stopRecording() {
             running = false;
         }
+    }
 
-        private Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch(msg.what) {
-                    case MSG_RECORDING_STARTED: {
-                        sendMsgStarted();
-                        break;
-                    }
-                    case MSG_RECORDING_IN_PROGRESS: {
-                        sendMsgInProgress(msg.obj);
-                        break;
-                    }
-                    case MSG_RECORDING_STOPPED: {
-                        sendMsgStopped();
-                        break;
-                    }
-                    case MSG_RECORDING_ERROR: {
-                        sendMsgError();
-                        break;
-                    }
-                }
-            }
-        };
+    interface SESoundRecorderStateListener {
+        void onRecordingStarted();
+        void onRecordingStopped();
+        void onRecordingError();
     }
 }
