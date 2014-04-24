@@ -44,19 +44,19 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     InputStream getInputStream() throws Exception {
-//        int format = 0;
-//        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
+        int format = 0;
+        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
 
-        return mockGetInputStream();
+//        return mockGetInputStream();
     }
 
     @Override
     OutputStream getOutputStream() throws Exception{
-//        int format = 0;
-//        return SpeexWrapper.getOutputStream(record.soundPath, format,
-//                SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
+        int format = 0;
+        return SpeexWrapper.getOutputStream(record.soundPath, format,
+                SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
 
-        return mockGetOutputStream();
+//        return mockGetOutputStream();
     }
 
 //    private void mockClose() {
@@ -226,19 +226,27 @@ public class RecordAudioStream extends AudioStream {
         @Override
         public int read(byte[] b, int off, int len) throws IOException {
             if (isReachedEnd) return -1;
-
-            int result = in.read(b, off, len);
-            if (result != -1) {
-                readBytes += result;
-
-                if (limit != 0 && readBytes > limit) {
-                    b = cutPackage(b);
-                    result = b.length;
-                }
-            }
-
-//            System.out.println(" read off, len result = " + result);
-            return result;
+            
+            LoggerFactory.obtainLogger(TAG).d("AAA off=" + off + " len=" + len);
+            LoggerFactory.obtainLogger(TAG).d("AAA limit=" + limit + " skiped=" + skiped);
+            
+            return read(b);
+            
+//            int result = in.read(b, off, len);
+//            
+//            LoggerFactory.obtainLogger(TAG).d("AAA result=" + result);
+//            
+//            if (result != -1) {
+//                readBytes += result;
+//
+//                if (limit != 0 && readBytes > limit) {
+//                    b = cutPackage(b);
+//                    result = b.length;
+//                }
+//            }
+//
+////            System.out.println(" read off, len result = " + result);
+            //return result;
         }
 
         private byte[] cutPackage(byte[] data) {
