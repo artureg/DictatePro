@@ -56,7 +56,7 @@
                     android:onClick="start"/>
              <ImageButton
                     android:id="@+id/record"
-                    android:src="@drawable/button02_1_record_disabled"
+                    android:src="@drawable/button02_2_record_enabled"
                     android:background="@null"
                     android:layout_margin="3dp"
                     android:layout_width="wrap_content"

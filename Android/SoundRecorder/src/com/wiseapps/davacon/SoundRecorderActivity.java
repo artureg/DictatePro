@@ -287,14 +287,14 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_0));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.button07_0_forward_disabled));
 
             buttonStart.setImageDrawable(
                     getResources().getDrawable(R.drawable.button05_0_start_disabled));
             buttonPlay.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button01_2));
+                    getResources().getDrawable(R.drawable.button03_1));
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
@@ -312,7 +312,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.rewind_selector));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.forward_selector));
 
@@ -336,14 +336,14 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_0));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.button07_0_forward_disabled));
 
             buttonStart.setImageDrawable(
                     getResources().getDrawable(R.drawable.button05_0_start_disabled));
             buttonPlay.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button01_2));
+                    getResources().getDrawable(R.drawable.button03_1));
             buttonEnd.setImageDrawable(
                     getResources().getDrawable(R.drawable.button08_0_end_disabled));
 
@@ -366,7 +366,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.rewind_selector));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.forward_selector));
 
@@ -390,7 +390,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.rewind_selector));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.forward_selector));
 
@@ -417,7 +417,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
+                    getResources().getDrawable(R.drawable.button04_2));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.button07_0_forward_disabled));
 
@@ -439,7 +439,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.button06_0_rewind_disabled));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
+                    getResources().getDrawable(R.drawable.button04_2));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.button07_0_forward_disabled));
 
@@ -463,7 +463,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.rewind_selector));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.forward_selector));
 
@@ -485,7 +485,7 @@ public class SoundRecorderActivity extends Activity {
             buttonRewind.setImageDrawable(
                     getResources().getDrawable(R.drawable.rewind_selector));
             buttonRecord.setImageDrawable(
-                    getResources().getDrawable(R.drawable.button02_1_record_disabled));
+                    getResources().getDrawable(R.drawable.button02_2_record_enabled));
             buttonForward.setImageDrawable(
                     getResources().getDrawable(R.drawable.forward_selector));
 
