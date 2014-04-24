@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.wiseapps.davacon.core.se.*;
 
 import java.io.*;
+import java.util.concurrent.Semaphore;
 
 /**
  * @author varya.bzhezinskaya@wise-apps.com
@@ -13,13 +14,29 @@ import java.io.*;
  */
 public class SoundRecorderTest extends ActivityInstrumentationTestCase2 {
 
+    private Semaphore semaphore;
+
     public SoundRecorderTest() {
         super(SoundRecorderActivity.class);
     }
 
     public void testPlay() throws Exception {
         SoundRecorderActivity activity = (SoundRecorderActivity) getActivity();
+        activity.getEngine().addPlayerStateListener(new SEPlayerStateAdapter() {
+            @Override
+            public void playingPaused() {
+                semaphore.release();
+            }
+        });
+
+        semaphore = new Semaphore(0);
         activity.play(activity.findViewById(R.id.play));
+        semaphore.acquire();
+
+        long currentTime = activity.getEngine().getCurrentTime();
+        long duration = activity.getEngine().getDuration();
+
+        assertTrue(currentTime == duration);
     }
 
     public void testRecord() {
