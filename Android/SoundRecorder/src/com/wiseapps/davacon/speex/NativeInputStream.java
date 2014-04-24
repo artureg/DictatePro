@@ -63,9 +63,9 @@ public class NativeInputStream extends InputStream {
 		}
 		
 		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
-//		
-//		LoggerFactory.obtainLogger(TAG).d("read()   bufferT.length =" + bufferT.length);
-//		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
+		
+		LoggerFactory.obtainLogger(TAG).d("read()   bufferT.length =" + bufferT.length);
+		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
 		
 		return bufferT.length;
 	}
@@ -80,8 +80,8 @@ public class NativeInputStream extends InputStream {
 		
 //		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
 //		
-//		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
-//		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
+		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
+		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
 		 
 		byte[] bufferT = this.read(nativeObject, byteOffset, byteCount);
 		
@@ -91,8 +91,8 @@ public class NativeInputStream extends InputStream {
 		
 		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
-//		LoggerFactory.obtainLogger(TAG).d("read(...)   bufferT.length =" + bufferT.length);
-//		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(buffer));
+		LoggerFactory.obtainLogger(TAG).d("read(...)   bufferT.length =" + bufferT.length);
+		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(bufferT));
 		
 		return bufferT.length;
 	}
