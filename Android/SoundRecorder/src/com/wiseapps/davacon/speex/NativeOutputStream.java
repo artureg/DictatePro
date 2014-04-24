@@ -3,11 +3,15 @@ package com.wiseapps.davacon.speex;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.wiseapps.davacon.logging.LoggerFactory;
+
 /**
  * OutputStream wrapper for native methods
  * @author Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 public class NativeOutputStream extends OutputStream {
+	
+	private static final String TAG = NativeOutputStream.class.getSimpleName();
 
 	static {
         System.loadLibrary("SpeexLib");
@@ -18,15 +22,15 @@ public class NativeOutputStream extends OutputStream {
 	private int format;
 	
 	private native long open(String filePath, int format, int sampleRate, int bitsPerSample, int channel);
-	private native long close(long nativeID, int format);
-	private native int write(long nativeID, byte[] data, int format);
+	private native long close(long nativeID);
+	private native int write(long nativeID, byte[] data);
 	
 	public NativeOutputStream(String filePath, int format) {
 		super();
 		this.filePath = filePath;
 		this.format = format;
 		
-		nativeObject = open(filePath, format, 8000, 16, 1); // FIXME 
+		nativeObject = open(filePath, format, 8000, 16, 1); 
 	}
 	
 	public NativeOutputStream(String filePath, int format, int sampleRate, int bitsPerSample, int channel) {
@@ -39,7 +43,8 @@ public class NativeOutputStream extends OutputStream {
 	
 	@Override
 	public void close() throws IOException {
-		this.close(nativeObject, format);
+		LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
+		this.close(nativeObject);
 		super.close();
 	}
 
@@ -47,7 +52,7 @@ public class NativeOutputStream extends OutputStream {
 	public void write(int oneByte) throws IOException {
 		
 		byte[] buf = new byte[]{(byte)oneByte};
-		int	result = this.write(nativeObject, buf, format);
+		int	result = this.write(nativeObject, buf);
 		if(result == -1) {
 			throw new IOException("Error occurred during writing");
 		}
@@ -57,7 +62,7 @@ public class NativeOutputStream extends OutputStream {
 	@Override
 	public void write(byte[] buffer) throws IOException {
 		
-		int	result = this.write(nativeObject, buffer, format);
+		int	result = this.write(nativeObject, buffer);
 		if(result == -1) {
 			throw new IOException("Error occurred during writing");
 		}
@@ -73,7 +78,7 @@ public class NativeOutputStream extends OutputStream {
 		
 		byte[] buf = new byte[count];
 		System.arraycopy(buffer, offset, buf, 0, count);
-		int	result = this.write(nativeObject, buffer, format);
+		int	result = this.write(nativeObject, buffer);
 		if(result == -1) {
 			throw new IOException("Error occurred during writing");
 		}

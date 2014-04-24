@@ -5,13 +5,13 @@ import java.io.InputStream;
 
 import com.wiseapps.davacon.logging.LoggerFactory;
 
-import android.util.Log;
-
 /**
  * InputStream wrapper for native methods
  * @author Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 public class NativeInputStream extends InputStream {
+	
+	private static final String TAG = NativeInputStream.class.getSimpleName();
 	
 	static {
         System.loadLibrary("SpeexLib");
@@ -22,8 +22,10 @@ public class NativeInputStream extends InputStream {
 	private int format;
 	
 	private native long open(String filePath, int format);
-	private native int close(long nativeID, int format);
-	private native byte[] read(long nativeId, int offset, int duration, int format);
+	private native int close(long nativeID);
+	private native byte[] readOne(long nativeId, int length);
+	private native byte[] read(long nativeId, int offset, int duration);
+//	private native byte[] skip(long nativeId, long byteCount);
 	
 	public NativeInputStream(String filePath, int format) {
 		super();
@@ -32,14 +34,14 @@ public class NativeInputStream extends InputStream {
 		
 		nativeObject = open(filePath, format);
 		
-		Log.e("InputStream open id ", nativeObject + "");
-		Log.e("InputStream open filePath ", filePath);
+		LoggerFactory.obtainLogger(TAG).d("open " + nativeObject);
+		
 	}
 	
 	@Override
 	public void close() throws IOException {
-		Log.e("InputStream close id ", "" + nativeObject);
-		this.close(nativeObject, format);
+		LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
+		this.close(nativeObject);
 		super.close();
 	}
 
@@ -51,25 +53,41 @@ public class NativeInputStream extends InputStream {
 	
 	@Override
 	public int read(byte[] buffer) throws IOException {
-		// TODO implement
-		return 0;
+		LoggerFactory.obtainLogger(TAG).d("read()  nativeObject" + nativeObject);
+		
+		buffer = this.readOne(nativeObject, buffer.length);
+		
+		LoggerFactory.obtainLogger(TAG).d("read()   buffer.length =" + buffer.length);
+		LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(buffer));
+		
+		return buffer.length;
 	}
 	
 	@Override
 	public int read(byte[] buffer, int byteOffset, int byteCount)
 			throws IOException {
 		
-		Log.e("InputStream reade !!! nativeObject ", "" + nativeObject);
-		Log.e("InputStream reade !!! byteOffset ", "" + byteOffset);
-		Log.e("InputStream reade !!! byteCount ", "" + byteCount);
+		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
 		
-		buffer = this.read(nativeObject, byteOffset, byteCount, format);
+		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
+		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
 		
-		LoggerFactory.obtainLogger("hhh").
-        d("===" +  bytArrayToHex(buffer));
+		buffer = this.read(nativeObject, byteOffset, byteCount);
+		
+		LoggerFactory.obtainLogger(TAG).d("read(...)   buffer.length =" + buffer.length);
+		LoggerFactory.obtainLogger(TAG).d("read(...)  = bytes =" + bytArrayToHex(buffer));
 		
 		return buffer.length;
 	}
+	
+	public long skip(long byteCount) throws IOException {
+
+		
+		LoggerFactory.obtainLogger(TAG).d("INPUT skip =" + byteCount);
+//		skip(nativeObject, byteCount);
+		return byteCount;
+
+	};
 	
 	String bytArrayToHex(byte[] a) {
  	   StringBuilder sb = new StringBuilder();
@@ -79,5 +97,7 @@ public class NativeInputStream extends InputStream {
  	   }
  	   return sb.toString();
  	}
+	
+	
 
 }
