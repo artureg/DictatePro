@@ -179,9 +179,9 @@ public class RecordAudioStream extends AudioStream {
         @Override
         public int read() throws IOException {
             if (limit != 0 && readBytes == limit) return -1;
-
+            
             int result = in.read();
-
+            
             if (result != -1) {
                 readBytes++;
 //                LoggerFactory.obtainLogger(TAG).
@@ -203,6 +203,7 @@ public class RecordAudioStream extends AudioStream {
             }
 
             int result = in.read(b);
+            
             if (result != -1) {
                 readBytes += result;
 //                LoggerFactory.obtainLogger(TAG).
@@ -227,10 +228,10 @@ public class RecordAudioStream extends AudioStream {
         public int read(byte[] b, int off, int len) throws IOException {
             if (isReachedEnd) return -1;
             
-            LoggerFactory.obtainLogger(TAG).d("AAA off=" + off + " len=" + len);
-            LoggerFactory.obtainLogger(TAG).d("AAA limit=" + limit + " skiped=" + skiped);
+//            LoggerFactory.obtainLogger(TAG).d("AAA off=" + off + " len=" + len);
+//            LoggerFactory.obtainLogger(TAG).d("AAA limit=" + limit + " skiped=" + skiped);
             
-            return read(b);
+            return read(b);  // FIXME
             
 //            int result = in.read(b, off, len);
 //            

@@ -3,6 +3,7 @@ package com.wiseapps.davacon.core.se;
 import android.media.AudioTrack;
 import android.os.Handler;
 import android.os.Message;
+
 import com.wiseapps.davacon.logging.LoggerFactory;
 
 import java.io.InputStream;
@@ -108,7 +109,7 @@ class SESoundPlayer {
         }
 
         private void open() {
-            int minBufferSize = 1600;
+            int minBufferSize = 1600*4;
 
             audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
                     minBufferSize, MODE);
@@ -125,7 +126,7 @@ class SESoundPlayer {
         }
 
         private void work() {
-            int minBufferSize = 1600;
+            int minBufferSize = 1600*4;
 
             InputStream in = null;
 
@@ -135,8 +136,13 @@ class SESoundPlayer {
                 in = stream.getInputStream();
 
                 byte data[] = new byte[minBufferSize];
-                while(running && (in.read(data) != -1)) {
-                    audioTrack.write(data, 0, data.length);
+                
+                int len = 0;
+                while(running && ((len = in.read(data)) != -1)) {
+                	
+                	//LoggerFactory.obtainLogger(TAG).d("read()  = bytes =" + bytArrayToHex(data));
+                	
+                	audioTrack.write(data, 0, len);
 
                     LoggerFactory.obtainLogger(TAG).
                             d("run# played " + data.length);
