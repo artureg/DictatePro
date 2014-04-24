@@ -24,10 +24,10 @@ public class SEProject {
     private List<SERecord> records = new ArrayList<SERecord>();
 
     // project duration in bytes
-    long duration;
+    public long duration;
 
     // project current position in bytes
-    long position;
+    public long position;
 
     public SEProject(Context context) {
         this.context = context;
@@ -40,7 +40,7 @@ public class SEProject {
         return new ProjectAudioStream(this);
     }
 
-    List<SERecord> getRecords() {
+    public List<SERecord> getRecords() {
         return records;
     }
 

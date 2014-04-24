@@ -597,4 +597,8 @@ public class SoundRecorderActivity extends Activity {
                     audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
         }
     }
+
+    public SEProject getProject() {
+        return project;
+    }
 }
