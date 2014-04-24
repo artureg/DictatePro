@@ -62,6 +62,9 @@ public class NativeOutputStream extends OutputStream {
 	@Override
 	public void write(byte[] buffer) throws IOException {
 		
+		
+		//LoggerFactory.obtainLogger(TAG).d("write()  = bytes =" + bytArrayToHex(buffer));
+		
 		int	result = this.write(nativeObject, buffer);
 		if(result == -1) {
 			throw new IOException("Error occurred during writing");
@@ -76,6 +79,9 @@ public class NativeOutputStream extends OutputStream {
 			throw new IllegalArgumentException("Illegal argumant - count");
 		}
 		
+//		LoggerFactory.obtainLogger(TAG).d("INPUT offset =" + offset);
+//		LoggerFactory.obtainLogger(TAG).d("INPUT count =" + count);
+		
 		byte[] buf = new byte[count];
 		System.arraycopy(buffer, offset, buf, 0, count);
 		int	result = this.write(nativeObject, buffer);
@@ -84,5 +90,14 @@ public class NativeOutputStream extends OutputStream {
 		}
 		
 	}
+	
+	String bytArrayToHex(byte[] a) {
+ 	   StringBuilder sb = new StringBuilder();
+ 	   for(byte b: a) {
+ 	      sb.append(String.format("%02x", b&0xff));
+ 	      sb.append(" ");
+ 	   }
+ 	   return sb.toString();
+ 	}
 
 }
