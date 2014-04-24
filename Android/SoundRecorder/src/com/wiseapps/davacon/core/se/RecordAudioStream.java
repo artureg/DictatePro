@@ -228,26 +228,26 @@ public class RecordAudioStream extends AudioStream {
         public int read(byte[] b, int off, int len) throws IOException {
             if (isReachedEnd) return -1;
             
-//            LoggerFactory.obtainLogger(TAG).d("AAA off=" + off + " len=" + len);
-//            LoggerFactory.obtainLogger(TAG).d("AAA limit=" + limit + " skiped=" + skiped);
+            LoggerFactory.obtainLogger(TAG).d("SSS off=" + off + " len=" + len);
+            LoggerFactory.obtainLogger(TAG).d("SSS limit=" + limit + " skiped=" + skiped);
             
-            return read(b);  // FIXME
+//            return read(b);  // FIXME
             
-//            int result = in.read(b, off, len);
-//            
-//            LoggerFactory.obtainLogger(TAG).d("AAA result=" + result);
-//            
-//            if (result != -1) {
-//                readBytes += result;
-//
-//                if (limit != 0 && readBytes > limit) {
-//                    b = cutPackage(b);
-//                    result = b.length;
-//                }
-//            }
-//
-////            System.out.println(" read off, len result = " + result);
-            //return result;
+            int result = in.read(b, off, len);
+            
+            LoggerFactory.obtainLogger(TAG).d("SSS result=" + result);
+            
+            if (result != -1) {
+                readBytes += result;
+
+                if (limit != 0 && readBytes > limit) {
+                    b = cutPackage(b);
+                    result = b.length;
+                }
+            }
+
+//            System.out.println(" read off, len result = " + result);
+            return result;
         }
 
         private byte[] cutPackage(byte[] data) {
