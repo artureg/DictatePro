@@ -13,8 +13,11 @@ typedef enum {
 /**  Audio File Description */
 @property(nonatomic,readonly) AudioStreamBasicDescription audioDescription;
 
-/** Audio Duration* */
+/** Audio Duration in seconds */
 @property(nonatomic,readonly) NSTimeInterval duration;
+
+/** Audio Duration in milliseconds */
+@property(nonatomic,readonly) NSUInteger durationInMilliSeconds;
 
 /** Source URL */
 @property(nonatomic,readonly) NSURL* URL;
@@ -80,6 +83,6 @@ typedef enum {
  */
 - (BOOL)readData:(NSMutableData*)data position:(NSUInteger)position duration:(NSUInteger)duration;
 
-- (NSTimeInterval)durationForBufferWithSize:(NSUInteger)size;
+- (NSUInteger)durationInMilliSecondsForBufferWithSize:(NSUInteger)size;
 
 @end

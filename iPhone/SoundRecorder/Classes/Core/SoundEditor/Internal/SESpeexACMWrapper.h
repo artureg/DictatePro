@@ -10,7 +10,8 @@
 
 @interface SESpeexACMWrapper : NSObject
 
-@property(nonatomic,readonly) NSTimeInterval duration;
+@property(nonatomic,readonly) NSTimeInterval    duration;
+@property(nonatomic,readonly) NSUInteger        sampleRate;
 
 /** Open for reading */
 - (BOOL)openRead:(NSString*)filePath;
@@ -31,13 +32,11 @@
 /** Size of 1 packet for writing */
 - (NSUInteger)expectedPacketSize;
 
-- (BOOL)encodeFileWithPath:(NSString*)filePath;
-
 /** Write packets to file */
 - (BOOL)writeData:(NSData*)data;
 
 /** Write packets from file */
-- (void)readData:(NSMutableData*)data position:(NSTimeInterval)position duration:(NSUInteger)duration;
+- (void)readData:(NSMutableData*)data position:(NSUInteger)position duration:(NSUInteger)duration;
 - (NSTimeInterval)durationForBufferWithSize:(NSUInteger)size;
 
 @end

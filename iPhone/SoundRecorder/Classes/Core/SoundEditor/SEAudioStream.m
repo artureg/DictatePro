@@ -161,16 +161,20 @@ static void SEASPacketsProc(
 }
 
 - (NSTimeInterval)duration {
+    return self.durationInMilliSeconds/1000.0f;
+}
+
+- (NSUInteger)durationInMilliSeconds {
     switch (self.pv_type) {
         case kSEAudioStreamSourceNone: {
-            return [self pm_dataDuration];
+            return [self pm_dataDuration]*1000.0f;
         }break;
         case kSEAudioStreamSourceFile:case kSEAudioStreamSourceURL: {
             double bytesPerSecond = self.audioDescription.mBytesPerFrame*self.audioDescription.mSampleRate/self.audioDescription.mChannelsPerFrame;
-            return (double)self.pv_dataLength/bytesPerSecond;
+            return 1000.0f*self.pv_dataLength/bytesPerSecond;
         }break;
         case kSEAudioStreamSourceOtherStream: {
-            return self.pv_otherAudioStream.duration;
+            return self.pv_otherAudioStream.durationInMilliSeconds;
         }break;
         default:
             return 0;
@@ -241,6 +245,8 @@ static void SEASPacketsProc(
                     self.pv_data = [NSMutableData data];
                     return YES;
                 }break;
+                case kSEAudioStreamSourceOtherStream:
+                    return [self.pv_otherAudioStream openWithMode:mode];
                 default:
                     return NO;
             }
@@ -272,6 +278,8 @@ static void SEASPacketsProc(
                     }
                     return YES;
                 }break;
+                case kSEAudioStreamSourceOtherStream:
+                    return [self.pv_otherAudioStream openWithMode:mode];
                 default:
                     return NO;
             }
@@ -295,6 +303,7 @@ static void SEASPacketsProc(
         [self pm_performError:kSEAudioStreamCantWriteStream];
         return NO;
     }
+    [self.pv_otherAudioStream close];
     self.pv_data = nil;
     self.pv_mode = kSEAudioStreamModeUnknown;
     return YES;
@@ -400,8 +409,8 @@ static void SEASPacketsProc(
     return YES;
 }
 
-- (NSTimeInterval)durationForBufferWithSize:(NSUInteger)size {
-    return (float)size/(self.audioDescription.mSampleRate*self.audioDescription.mBytesPerPacket);
+- (NSUInteger)durationInMilliSecondsForBufferWithSize:(NSUInteger)size {
+    return 1000.0f*(float)size/(self.audioDescription.mSampleRate*self.audioDescription.mBytesPerPacket);
 }
 
 #pragma mark - Export
@@ -410,6 +419,9 @@ static void SEASPacketsProc(
     if (self.mode != kSEAudioStreamModeRead) {
         [self close];
         [self openWithMode:kSEAudioStreamModeRead];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
     }
     SEAudioStream* stream = [[[self class] alloc] initWithContentsOfFile:filePath];
     if (![stream openWithMode:kSEAudioStreamModeWrite]) {

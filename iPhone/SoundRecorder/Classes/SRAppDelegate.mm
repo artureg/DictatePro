@@ -25,23 +25,19 @@
 
 @implementation SRAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    SEAudioStream* stream = [[SEAudioStream alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"1" ofType:@"wav"]];
-//    self.pv_engine = [[SEAudioStreamEngine alloc] initWithStream:stream];
-//    [self.pv_engine startPlaying];
-//    return YES;
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     SRProjectViewController* ctrl = [[SRProjectViewController alloc] initWithNibName:@"SRProjectViewController" bundle:nil];
     
 //    SRPlayerViewController* ctrl = [[SRPlayerViewController alloc] initWithNibName:@"SRPlayerViewController" bundle:nil];
-//    ctrl.filePath = [[NSBundle mainBundle] pathForResource:@"rec_spx.wav" ofType:nil];
+//    ctrl.filePath = [[NSBundle mainBundle] pathForResource:@"WBQ=1" ofType:@"wav"];
     
 //    WaveSpeexFile* file = new WaveSpeexFile();
-    
-//    NSString* test = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"test_spx.wav"];
-//    NSString* spx = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"spx.wav"];
-//    
-//    file->openRead([spx cStringUsingEncoding:NSASCIIStringEncoding]);
-//    file->decodeToWavFile([test cStringUsingEncoding:NSASCIIStringEncoding]);
+//    NSString* spx = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1123.wav"];
+//    file->openWrite([spx cStringUsingEncoding:NSASCIIStringEncoding]);
+//    file->setupInfo(8000, 2, 8);
+//    short data[16000];
+//    int size;
+//    file->decodeToData(0, 0.02f, (short*)data, &size);
 //    file->close();
     
     
@@ -54,7 +50,7 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication*)application {
 }
 

@@ -192,10 +192,10 @@ void SEAudioStreamEngineInputBufferCallBack(
             userInfo:nil
             repeats:YES];
     } else {
-        if (self.pv_stream.mode != kSEAudioStreamModeUnknown) {
+        if (self.pv_stream.mode == kSEAudioStreamModeWrite) {
             [self.pv_stream close];
         }
-        if (![self.pv_stream openWithMode:kSEAudioStreamModeRead]) {
+        if ((self.pv_stream.mode != kSEAudioStreamModeRead)&&(![self.pv_stream openWithMode:kSEAudioStreamModeRead])) {
             [self pm_performError:kSEAudioStreamEngineErrorCantPlay];
             return;
         }
@@ -330,7 +330,6 @@ void SEAudioStreamEngineInputBufferCallBack(
     self.pv_playTimer = nil;
     AudioQueueDispose(self.pv_audioOutputQueue, true);
     self.pv_audioOutputQueue = NULL;
-    [self.pv_stream close];
     self.pv_state = kSEAudioStreamEngineStateReady;
     
     self.pv_playBuffer = nil;
@@ -346,7 +345,7 @@ void SEAudioStreamEngineInputBufferCallBack(
     }
     NSMutableData* data = [NSMutableData data];
     if ([self.pv_stream readData:data position:self.pv_playBufferPos duration:duration]) {
-        self.pv_playBufferPos += [self.pv_stream durationForBufferWithSize:[data length]]*1000.0f;
+        self.pv_playBufferPos += [self.pv_stream durationInMilliSecondsForBufferWithSize:[data length]];
         [self.pv_playBuffer appendData:data];
     }
 }

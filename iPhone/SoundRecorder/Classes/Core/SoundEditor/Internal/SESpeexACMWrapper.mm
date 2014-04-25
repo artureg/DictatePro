@@ -29,6 +29,10 @@
     return pv_speex->getDuration();
 }
 
+- (NSUInteger)sampleRate {
+    return pv_speex->getFMTInfo().sampleRate;
+}
+
 - (BOOL)openRead:(NSString*)filePath {
     return pv_speex->openRead([filePath cStringUsingEncoding:NSASCIIStringEncoding]);
 }
@@ -49,17 +53,13 @@
     return pv_speex->expectedPacketSize();
 }
 
-- (BOOL)encodeFileWithPath:(NSString*)filePath {
-    return pv_speex->encodeWavFile([filePath cStringUsingEncoding:NSASCIIStringEncoding], 10);
-}
-
 - (BOOL)writeData:(NSData*)data {
     NSUInteger numberOfPackets = [data length]/[self expectedPacketSize];
     bool e = pv_speex->encodeWavData([data bytes], numberOfPackets);
     return e;
 }
 
-- (void)readData:(NSMutableData*)data position:(NSTimeInterval)position duration:(NSUInteger)duration {
+- (void)readData:(NSMutableData*)data position:(NSUInteger)position duration:(NSUInteger)duration {
     short cData[128000];
     int size;
     pv_speex->decodeToData(position, duration, cData, &size);
