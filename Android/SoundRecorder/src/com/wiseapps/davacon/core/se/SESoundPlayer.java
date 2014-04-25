@@ -112,7 +112,7 @@ class SESoundPlayer {
 //        	int minBufferSize = MIN_BUFFER_SIZE * MULT;
         	int minBufferSize;
         	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
-        		minBufferSize = MIN_BUFFER_SIZE * 6;
+        		minBufferSize = MIN_BUFFER_SIZE * 12;
         	} else {
         		minBufferSize = MIN_BUFFER_SIZE * MULT;
         	}
@@ -129,7 +129,7 @@ class SESoundPlayer {
         private void work() {
         	int minBufferSize;
         	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
-        		minBufferSize = MIN_BUFFER_SIZE * 6;
+        		minBufferSize = MIN_BUFFER_SIZE * 12;
         	} else {
         		minBufferSize = MIN_BUFFER_SIZE * MULT;
         	}
