@@ -176,24 +176,33 @@ public class SoundRecorderActivity extends Activity {
             }
         });
 
-        updateProgress();
+        updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+        updateTextPosition(engine.getCurrentTime(), engine.getDuration());
     }
 
-    private void updateProgress() {
-        updateProgress(DurationUtils.secondsFromBytes(engine.getCurrentTime()),
-                DurationUtils.secondsFromBytes(engine.getDuration()));
+    private void updateSeekPosition(long position, long duration) {
+        seekPosition.setProgress((int) position);
+
+        switch(engine.getState()) {
+            case PLAYING_IN_PROGRESS: {
+                seekPosition.setMax((int) duration);
+                break;
+            }
+            case RECORDING_IN_PROGRESS: {
+                seekPosition.setMax(Math.max((int) duration, (int) DurationUtils.secondsToBytes(18)));
+                break;
+            }
+        }
+//        seekPosition.setMax((int) duration);
     }
 
-    private void updateProgress(double position, double duration) {
-        LoggerFactory.obtainLogger(TAG).d("updateProgress# position = " + position +
-                ", duration = " + duration);
-
-        seekPosition.setProgress((int) position * 10);
-        seekPosition.setMax((int) duration * 10);
+    private void updateTextPosition(long position, long duration) {
+        double dP = DurationUtils.secondsFromBytes(position);
+        double dD = DurationUtils.secondsFromBytes(duration);
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
-                        new DecimalFormat("#.#").format(position), new DecimalFormat("#.#").format(duration)));
+                        new DecimalFormat("0.0").format(dP), new DecimalFormat("0.0").format(dD)));
     }
 
     public void rewind(View view) {
@@ -202,7 +211,9 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(engine.getCurrentTime() - DurationUtils.secondsToBytes(1));
-        updateProgress();
+
+        updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+        updateTextPosition(engine.getCurrentTime(), engine.getDuration());
     }
 
     public void record(View view) {
@@ -222,7 +233,9 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(engine.getCurrentTime() + DurationUtils.secondsToBytes(1));
-        updateProgress();
+
+        updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+        updateTextPosition(engine.getCurrentTime(), engine.getDuration());
     }
 
     public void start(View view) {
@@ -231,7 +244,9 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(Long.MIN_VALUE);
-        updateProgress();
+
+        updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+        updateTextPosition(engine.getCurrentTime(), engine.getDuration());
     }
 
     public void play(View view) {
@@ -251,7 +266,9 @@ public class SoundRecorderActivity extends Activity {
         }
 
         engine.setCurrentTime(Long.MAX_VALUE);
-        updateProgress();
+
+        updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+        updateTextPosition(engine.getCurrentTime(), engine.getDuration());
     }
 
     public void encode(View view) {
@@ -308,9 +325,16 @@ public class SoundRecorderActivity extends Activity {
                     buttonSave.setImageDrawable(
                             getResources().getDrawable(R.drawable.save_0));
 
-                    progressHandler = new ProgressHandler(false, DurationUtils.secondsFromBytes(engine.getCurrentTime()),
-                            DurationUtils.secondsFromBytes(engine.getDuration()));
-                    progressHandler.sendMessage(progressHandler.obtainMessage(MSG_PROGRESS_UPDATE));
+                    LoggerFactory.obtainLogger(TAG).d("playingStarted# engine.getCurrentTime = " +
+                            engine.getCurrentTime());
+
+                    textPositionHandler =
+                            new TextPositionHandler(engine.getCurrentTime(), engine.getDuration());
+                    textPositionHandler.sendMessage(textPositionHandler.obtainMessage(MSG_PROGRESS_UPDATE));
+
+                    seekPositionHandler =
+                            new SeekPositionHandler(engine.getCurrentTime(), engine.getDuration());
+                    seekPositionHandler.sendMessage(seekPositionHandler.obtainMessage(MSG_PROGRESS_UPDATE));
                 }
             });
         }
@@ -339,8 +363,15 @@ public class SoundRecorderActivity extends Activity {
                     buttonSave.setImageDrawable(
                             getResources().getDrawable(R.drawable.save_1));
 
-                    progressHandler.removeMessages(MSG_PROGRESS_UPDATE);
-                    progressHandler = null;
+                    if (textPositionHandler != null) {
+                        textPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        textPositionHandler = null;
+                    }
+
+                    if (seekPositionHandler != null) {
+                        seekPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        seekPositionHandler = null;
+                    }
                 }
             });
         }
@@ -371,8 +402,15 @@ public class SoundRecorderActivity extends Activity {
 
                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
 
-                    progressHandler.removeMessages(MSG_PROGRESS_UPDATE);
-                    progressHandler = null;
+                    if (textPositionHandler != null) {
+                        textPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        textPositionHandler = null;
+                    }
+
+                    if (seekPositionHandler != null) {
+                        seekPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        seekPositionHandler = null;
+                    }
                 }
             });
         }
@@ -403,9 +441,13 @@ public class SoundRecorderActivity extends Activity {
                     buttonSave.setImageDrawable(
                             getResources().getDrawable(R.drawable.save_0));
 
-                    progressHandler = new ProgressHandler(true, DurationUtils.secondsFromBytes(engine.getCurrentTime()),
-                            DurationUtils.secondsFromBytes(engine.getDuration()));
-                    progressHandler.sendMessage(progressHandler.obtainMessage(MSG_PROGRESS_UPDATE));
+                    textPositionHandler =
+                            new TextPositionHandler(engine.getCurrentTime(), engine.getDuration());
+                    textPositionHandler.sendMessage(textPositionHandler.obtainMessage(MSG_PROGRESS_UPDATE));
+
+                    seekPositionHandler =
+                            new SeekPositionHandler(engine.getCurrentTime(), engine.getDuration());
+                    seekPositionHandler.sendMessage(seekPositionHandler.obtainMessage(MSG_PROGRESS_UPDATE));
                 }
             });
         }
@@ -434,8 +476,15 @@ public class SoundRecorderActivity extends Activity {
                     buttonSave.setImageDrawable(
                             getResources().getDrawable(R.drawable.save_1));
 
-                    progressHandler.removeMessages(MSG_PROGRESS_UPDATE);
-                    progressHandler = null;
+                    if (textPositionHandler != null) {
+                        textPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        textPositionHandler = null;
+                    }
+
+                    if (seekPositionHandler != null) {
+                        seekPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        seekPositionHandler = null;
+                    }
                 }
             });
         }
@@ -466,8 +515,15 @@ public class SoundRecorderActivity extends Activity {
 
                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
 
-                    progressHandler.removeMessages(MSG_PROGRESS_UPDATE);
-                    progressHandler = null;
+                    if (textPositionHandler != null) {
+                        textPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        textPositionHandler = null;
+                    }
+
+                    if (seekPositionHandler != null) {
+                        seekPositionHandler.removeMessages(MSG_PROGRESS_UPDATE);
+                        seekPositionHandler = null;
+                    }
                 }
             });
         }
@@ -500,7 +556,8 @@ public class SoundRecorderActivity extends Activity {
                 dialog = null;
             }
 
-            updateProgress();
+            updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+            updateTextPosition(engine.getCurrentTime(), engine.getDuration());
 
             Toast.makeText(getContext(),
                     aBoolean ? "Project saved successfully!" : "Saving project failed...",
@@ -543,7 +600,8 @@ public class SoundRecorderActivity extends Activity {
             destroyEngine();
             initEngine();
 
-            updateProgress();
+            updateSeekPosition(engine.getCurrentTime(), engine.getDuration());
+            updateTextPosition(engine.getCurrentTime(), engine.getDuration());
 
             Toast.makeText(getContext(),
                     aBoolean ? "Project deleted successfully!" : "Deletion of project failed...",
@@ -566,16 +624,51 @@ public class SoundRecorderActivity extends Activity {
         }
     }
 
-    private ProgressHandler progressHandler;
-    private class ProgressHandler extends Handler {
-        private final boolean recording;
+//    private ProgressHandler progressHandler;
+//    private class ProgressHandler extends Handler {
+//        private double position;
+//        private double duration;
+//
+//        private ProgressHandler(double position, double duration) {
+//            this.position = position;
+//            this.duration = duration;
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch(msg.what) {
+//                case MSG_PROGRESS_UPDATE: {
+//                    updateProgress(position, duration);
+//
+//                    updateSeekPosition(position, duration);
+//                    updateTextPosition(position, duration);
+//
+//                    switch(engine.getState()) {
+//                        case PLAYING_IN_PROGRESS: {
+//                            position += 0.1;
+//                            break;
+//                        }
+//                        case RECORDING_IN_PROGRESS: {
+//                            position += 0.1;
+//                            duration += 0.1;
+//                            break;
+//                        }
+//                    }
+//
+//                    sendMessageDelayed(obtainMessage(MSG_PROGRESS_UPDATE), 100);
+//
+//                    break;
+//                }
+//            }
+//        }
+//    }
 
-        private double position;
-        private double duration;
+    private TextPositionHandler textPositionHandler;
+    private class TextPositionHandler extends Handler {
+        private long position;
+        private long duration;
 
-        private ProgressHandler(boolean recording, double position, double duration) {
-            this.recording = recording;
-
+        private TextPositionHandler(long position, long duration) {
             this.position = position;
             this.duration = duration;
         }
@@ -584,15 +677,71 @@ public class SoundRecorderActivity extends Activity {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case MSG_PROGRESS_UPDATE: {
-                    updateProgress(position, recording ? Math.max(duration, 30) : duration);
+                    LoggerFactory.obtainLogger(TAG).
+                            d("TextPositionHandler.MSG_PROGRESS_UPDATE# position = " + position +
+                                    ", duration = " + duration);
+                    updateTextPosition(position, duration);
 
-                    position += 0.1;
-                    duration += recording ? 0.1 : 0;
+                    switch(engine.getState()) {
+                        case PLAYING_IN_PROGRESS: {
+                            position += DurationUtils.secondsToBytes(0.1);
+                            break;
+                        }
+                        case RECORDING_IN_PROGRESS: {
+                            position += DurationUtils.secondsToBytes(0.1);
+                            duration += DurationUtils.secondsToBytes(0.1);
+                            break;
+                        }
+                    }
+
                     sendMessageDelayed(obtainMessage(MSG_PROGRESS_UPDATE), 100);
 
                     break;
                 }
             }
+
+            super.handleMessage(msg);
+        }
+    }
+
+    private SeekPositionHandler seekPositionHandler;
+    private class SeekPositionHandler extends Handler {
+        private long position;
+        private long duration;
+
+        private SeekPositionHandler(long position, long duration) {
+            this.position = position;
+            this.duration = duration;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case MSG_PROGRESS_UPDATE: {
+                    LoggerFactory.obtainLogger(TAG).
+                            d("TextPositionHandler.MSG_PROGRESS_UPDATE# position = " + position +
+                                    ", duration = " + duration);
+                    updateSeekPosition(position, duration);
+
+                    switch(engine.getState()) {
+                        case PLAYING_IN_PROGRESS: {
+                            position += DurationUtils.secondsToBytes(0.01);
+                            break;
+                        }
+                        case RECORDING_IN_PROGRESS: {
+                            position += DurationUtils.secondsToBytes(0.01);
+                            duration += DurationUtils.secondsToBytes(0.01);
+                            break;
+                        }
+                    }
+
+                    sendMessageDelayed(obtainMessage(MSG_PROGRESS_UPDATE), 10);
+
+                    break;
+                }
+            }
+
+            super.handleMessage(msg);
         }
     }
 
