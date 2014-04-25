@@ -39,7 +39,7 @@
         case kSEAudioStreamModeRead: {
             e = [self.pv_wrapper openRead:file];
             AudioStreamBasicDescription aInfo;
-            aInfo.mSampleRate = 16000;
+            aInfo.mSampleRate = self.pv_wrapper.sampleRate;
             aInfo.mChannelsPerFrame = 1;
             aInfo.mFramesPerPacket = 1;
             aInfo.mBitsPerChannel = 16;
@@ -80,7 +80,7 @@
 - (void)adjustToAudioDescription:(AudioStreamBasicDescription)aInfo {
     [super adjustToAudioDescription:aInfo];
     if (self.mode == kSEAudioStreamModeWrite) {
-        [self.pv_wrapper adjustToSampleRate:aInfo.mSampleRate bytesPerSample:aInfo.mBytesPerFrame quality:5];
+        [self.pv_wrapper adjustToSampleRate:aInfo.mSampleRate bytesPerSample:aInfo.mBytesPerFrame quality:10];
     }
 }
 
@@ -111,7 +111,7 @@
     if (self.otherStream) {
         return [self.otherStream readData:data position:position duration:duration];
     } else {
-        [self.pv_wrapper readData:data position:position/1000.0f duration:duration/1000.0f];
+        [self.pv_wrapper readData:data position:position duration:duration];
         return YES;
     }
 }

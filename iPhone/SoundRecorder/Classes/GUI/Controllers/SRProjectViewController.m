@@ -192,6 +192,7 @@
             player.filePath = file;
             [self.navigationController pushViewController:player animated:YES];
         }
+        [speex close];
     }];
 }
 

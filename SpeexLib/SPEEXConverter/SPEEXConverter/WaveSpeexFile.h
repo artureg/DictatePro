@@ -35,6 +35,19 @@ struct WaveSpeexFileInfo {
     char            homepage[32];           // "\tCodec homepage www.openacm.org\0" size=32
 };
 
+struct SpeexCodingInfo {
+    int     quality;
+    int     enh;
+    int     mode;
+    int     subMode;
+    int     frameSize;
+    int     framesPerPacket;
+    int     vbr;
+    int     complexity;
+    int     plc_tunning;
+    int     highpass;
+};;
+
 class WaveSpeexFile : WaveFile {
 public:
     WaveSpeexFile();
@@ -61,20 +74,17 @@ public:
     // Encoding
     unsigned int expectedPacketSize();
     bool encodeWavData(const void* data, int numberOfPackets);
-    bool encodeWavFile(const char* filePath, short quality);
     
     // Decoding
-    bool decodeToData(double offsetSeconds, double durationSeconds, short* data, int* size);
-    bool decodeToWavFile(const char* filePath);
+    bool decodeToData(int offsetMilliSeconds, int durationMilliSeconds, void* data, int* size);
 
 private:
     WaveSpeexFileInfo   p_spxInfo;
     double              p_duration;
-    int                 p_quality;
-    int                 p_mode;
     
     void*               p_writeState;
     void*               p_readState;
     int                 p_bytesPerSample;
+    SpeexCodingInfo     p_coding;
     bool writeHeader();
 };

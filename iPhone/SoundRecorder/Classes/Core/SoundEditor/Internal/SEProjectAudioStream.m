@@ -24,7 +24,7 @@
         aInfo.mBytesPerFrame = 2;
         aInfo.mBytesPerPacket =  2;
         aInfo.mFormatID = kAudioFormatLinearPCM;
-        aInfo.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger|kLinearPCMFormatFlagIsPacked;
+        aInfo.mFormatFlags = kAudioFormatFlagsNativeEndian|kLinearPCMFormatFlagIsSignedInteger|kLinearPCMFormatFlagIsPacked;
         [self adjustToAudioDescription:aInfo];
     }
     return self;
@@ -34,10 +34,10 @@
     return self.pv_project;
 }
 
-- (NSTimeInterval)duration {
-    NSTimeInterval duration = 0;
+- (NSUInteger)durationInMilliSeconds {
+    NSUInteger duration = 0;
     for (SERecord* record in self.pv_project.records) {
-        duration += record.audioStream.duration;
+        duration += record.audioStream.durationInMilliSeconds;
     }
     return duration;
 }
@@ -68,9 +68,6 @@
             eDuration -= lDuration;
         }
         pos += record.audioStream.duration*1000;
-    }
-    if ([data length] == 0) {
-        NSLog(@"");
     }
     return YES;
 }

@@ -30,11 +30,11 @@
     return self.pv_record;
 }
 
-- (NSTimeInterval)duration {
+- (NSUInteger)durationInMilliSeconds {
     if (self.mode == kSEAudioStreamModeWrite) {
-        return [super duration];
+        return [super durationInMilliSeconds];
     } else {
-        return self.pv_record.soundRange.duration/1000.0f;
+        return self.pv_record.soundRange.duration;
     }
 }
 
