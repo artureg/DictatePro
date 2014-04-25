@@ -34,6 +34,14 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     public static final short BITS_PER_SAMPLE = 16;
 
     public static final int MODE = AudioTrack.MODE_STREAM;
+   
+    public static final int FILE_FORMAT_WAV = 0;
+    public static final int FILE_FORMAT_SPEEX = 1;
+    
+    /**
+     * FILE_FORMAT_WAV - wav, FILE_FORMAT_SPEEX - speex
+     */
+    public static final int FILE_FORMAT = FILE_FORMAT_SPEEX;
 
     private final Context context;
 

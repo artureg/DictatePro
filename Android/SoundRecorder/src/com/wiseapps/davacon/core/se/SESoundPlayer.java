@@ -3,6 +3,7 @@ package com.wiseapps.davacon.core.se;
 import android.media.AudioTrack;
 
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.speex.NativeInputStream;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -89,32 +90,66 @@ class SESoundPlayer {
         }
 
         private void open() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+//            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+//            audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
+//                    minBufferSize, MODE);
+//           
+//            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
+//                sendMsgError();
+//                return;
+//            }
 
-            audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
-                    minBufferSize, MODE);
-
-            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
-                sendMsgError();
-                return;
-            }
-
+            if(!openAudioTrack(SAMPLE_RATE_IN_HZ)) return;
+            
             stream.open(AudioStream.Mode.READ);
             sendMsgStarted();
 
             audioTrack.play();
         }
+        
+        private boolean openAudioTrack(int sampleRate) {
+        	
+//        	int minBufferSize = MIN_BUFFER_SIZE * MULT;
+        	int minBufferSize;
+        	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
+        		minBufferSize = MIN_BUFFER_SIZE * 6;
+        	} else {
+        		minBufferSize = MIN_BUFFER_SIZE * MULT;
+        	}
+        	audioTrack = new AudioTrack(STREAM_TYPE, (int)sampleRate, CHANNEL_CONFIG_OUT, AUDIO_FORMAT, minBufferSize, MODE);
+            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
+                sendMsgError();
+                return false;
+            }
+
+            audioTrack.play();
+            return true;
+        }
 
         private void work() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+        	int minBufferSize;
+        	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
+        		minBufferSize = MIN_BUFFER_SIZE * 6;
+        	} else {
+        		minBufferSize = MIN_BUFFER_SIZE * MULT;
+        	}
 
             InputStream in = null;
 
             try {
                 in = stream.getInputStream();
+                
+                int sampleRate = NativeInputStream.getSampleRate();
+                if(sampleRate != SAMPLE_RATE_IN_HZ) {
+                	if(!openAudioTrack(sampleRate)) {
+                		return;
+                	}
+                }
 
                 byte data[] = new byte[minBufferSize];
 
+                long time = System.currentTimeMillis();
+                long time_max = 0;
                 int len = 0;
                 while(running && ((len = in.read(data)) != -1)) {
                 	audioTrack.write(data, 0, len);
@@ -124,7 +159,19 @@ class SESoundPlayer {
 
                     stream.updatePosition(data.length);
                     stream.updateDuration(data.length);
+                    
+                    long time_cur = System.currentTimeMillis();
+                    LoggerFactory.obtainLogger(TAG).
+                    d("PLAYE read TIME SPENT =  " + (time_cur - time));
+                    if((time_cur - time) > time_max) {
+                    	time_max = time_cur - time;
+                    }
+                    
                 }
+                
+                LoggerFactory.obtainLogger(TAG).
+                d("PLAYE read TIME MAX SPENT =  " + time_max);
+                
 
                 sendMsgPaused();
             } catch (Exception e) {

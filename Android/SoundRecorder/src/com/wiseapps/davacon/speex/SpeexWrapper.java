@@ -51,16 +51,16 @@ public class SpeexWrapper {
 //     */
 //    native public static double getDuration(String filePath, int format);
 //
-    /**
-     * Reads data from the file starting from offset to (offset + duration).
-     *
-     * @param filePath path to the file to read data from
-     * @param offset offset in seconds to start reading the data from
-     * @param duration duration in seconds of the data
-     * @param format file format
-     * @return data
-     */
-    native public static byte[] read(String filePath, double offset, double duration, int format);
+//    /**
+//     * Reads data from the file starting from offset to (offset + duration).
+//     *
+//     * @param filePath path to the file to read data from
+//     * @param offset offset in seconds to start reading the data from
+//     * @param duration duration in seconds of the data
+//     * @param format file format
+//     * @return data
+//     */
+//    native public static byte[] read(String filePath, double offset, double duration, int format);
 //
 //    /**
 //     * Writes data to the end of the file.
@@ -156,23 +156,23 @@ public class SpeexWrapper {
 ////        return MockSpeexWrapper.write(filePath, data, format);
 ////    }
 ////
-////    /**
-////     * Encodes .wav file into RIFF/SPEEX
-////     *
-////     * @param wavFilePathStr name of the source .wav file
-////     * @param compressedFilePathStr name of the dest RIFF/SPEEX file
-////     * @return error code or 0 if success
-////     */
-////    public static int encode(String wavFilePathStr, String compressedFilePathStr);
-////
-////    /**
-////     * Decodes RIFF/SPEEX file to .wav
-////     *
-////     * @param compressedFilePathStr name of the source RIFF/SPEEX file
-////     * @param wavFilePathStr name of the dest .wav file
-////     * @return error code or 0 if success
-////     */
-////    public static int decode(String compressedFilePathStr, String wavFilePathStr);
+    /**
+     * Encodes .wav file into RIFF/SPEEX
+     *
+     * @param wavFilePathStr name of the source .wav file
+     * @param compressedFilePathStr name of the dest RIFF/SPEEX file
+     * @return error code or 0 if success
+     */
+    public static native int encode(String wavFilePathStr, String compressedFilePathStr);
+
+    /**
+     * Decodes RIFF/SPEEX file to .wav
+     *
+     * @param compressedFilePathStr name of the source RIFF/SPEEX file
+     * @param wavFilePathStr name of the dest .wav file
+     * @return error code or 0 if success
+     */
+    public static native int decode(String compressedFilePathStr, String wavFilePathStr);
 ////
 ////    /**
 ////     * For testing purposes only, adds two digits.
