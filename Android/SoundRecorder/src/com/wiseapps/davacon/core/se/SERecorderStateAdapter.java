@@ -7,18 +7,18 @@ package com.wiseapps.davacon.core.se;
  */
 public class SERecorderStateAdapter implements SERecorderStateListener {
     @Override
-    public void recordingStarted() {
+    public void recordingStarted(int position, int duration) {
     }
 
     @Override
-    public void recordingInProgress(int progress) {
+    public void recordingInProgress(int position, int duration) {
     }
 
     @Override
-    public void recordingStopped() {
+    public void recordingStopped(int position, int duration) {
     }
 
     @Override
-    public void onError(String errorMessage) {
+    public void onError(int position, int duration, String errorMessage) {
     }
 }

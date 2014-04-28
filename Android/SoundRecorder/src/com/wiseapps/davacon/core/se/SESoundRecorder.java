@@ -3,6 +3,7 @@ package com.wiseapps.davacon.core.se;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import com.wiseapps.davacon.logging.LoggerFactory;
+import com.wiseapps.davacon.utils.DurationUtils;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -21,14 +22,19 @@ class SESoundRecorder {
     private static final int MIN_BUFFER_SIZE = 1600;
     private static final int MULT = 4;
 
+    private int position, duration;
+
     private RecordingThread thread;
 
     private final AudioStream stream;
 
     private List<SESoundRecorderStateListener> listeners = new ArrayList<SESoundRecorderStateListener>();
 
-    SESoundRecorder(AudioStream stream) {
+    SESoundRecorder(AudioStream stream, int position, int duration) {
         this.stream = stream;
+
+        this.position = position;
+        this.duration = duration;
     }
 
     void start() {
@@ -51,7 +57,15 @@ class SESoundRecorder {
     private void sendMsgStarted() {
         for (SESoundRecorderStateListener listener : listeners) {
             if (listener != null) {
-                listener.onRecordingStarted();
+                listener.onRecordingStarted(position, duration);
+            }
+        }
+    }
+
+    private void sendMsgInProgress() {
+        for (SESoundRecorderStateListener listener : listeners) {
+            if (listener != null) {
+                listener.onRecordingInProgress(position, duration);
             }
         }
     }
@@ -59,7 +73,7 @@ class SESoundRecorder {
     private void sendMsgStopped() {
         for (SESoundRecorderStateListener listener : listeners) {
             if (listener != null) {
-                listener.onRecordingStopped();
+                listener.onRecordingStopped(position, duration);
             }
         }
     }
@@ -67,7 +81,7 @@ class SESoundRecorder {
     private void sendMsgError() {
         for (SESoundRecorderStateListener listener : listeners) {
             if (listener != null) {
-                listener.onRecordingError();
+                listener.onRecordingError(position, duration);
             }
         }
     }
@@ -89,10 +103,33 @@ class SESoundRecorder {
         }
 
         private void open() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+            int minBufferSize = MIN_BUFFER_SIZE;
 
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                     SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
+            audioRecord.setPositionNotificationPeriod((int) (SAMPLE_RATE_IN_HZ * 0.1)); // notify each 0.1 second
+            audioRecord.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
+                @Override
+                public void onMarkerReached(AudioRecord recorder) {
+                }
+
+                @Override
+                public void onPeriodicNotification(AudioRecord recorder) {
+                    long delta = DurationUtils.secondsToBytes(0.1);
+
+                    stream.updatePosition(delta);
+                    stream.updateDuration(delta);
+
+                    position += delta;
+                    duration += delta;
+
+                    sendMsgInProgress();
+
+                    LoggerFactory.obtainLogger(TAG).
+                            d("onPeriodicNotification# position = " + position +
+                                    ", duration = " + duration);
+                }
+            });
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
                 sendMsgError();
@@ -106,7 +143,8 @@ class SESoundRecorder {
         }
 
         private void work() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+//            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+            int minBufferSize = MIN_BUFFER_SIZE;
 
             OutputStream out = null;
 
@@ -117,12 +155,6 @@ class SESoundRecorder {
                 while(running) {
                     audioRecord.read(data, 0, data.length);
                     out.write(data);
-
-                    LoggerFactory.obtainLogger(TAG).
-                            d("run# recorded " + data.length);
-
-                    stream.updatePosition(data.length);
-                    stream.updateDuration(data.length);
                 }
 
                 sendMsgStopped();
@@ -135,8 +167,6 @@ class SESoundRecorder {
                 stream.finalizePosition();
                 stream.finalizeDuration();
 
-                LoggerFactory.obtainLogger(TAG).
-                        d("work# finally");
                 if (out != null) {
                     try {
                         out.flush();
@@ -163,8 +193,9 @@ class SESoundRecorder {
     }
 
     interface SESoundRecorderStateListener {
-        void onRecordingStarted();
-        void onRecordingStopped();
-        void onRecordingError();
+        void onRecordingStarted(int position, int duration);
+        void onRecordingInProgress(int position, int duration);
+        void onRecordingStopped(int position, int duration);
+        void onRecordingError(int position, int duration);
     }
 }
