@@ -1,0 +1,73 @@
+\hypertarget{_s_e_audio_stream_8m}{\section{/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\-S\-E\-Audio\-Stream.m File Reference}
+\label{_s_e_audio_stream_8m}\index{/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\-S\-E\-Audio\-Stream.\-m@{/\-Users/igor/\-Develop/\-Develop\-Git/\-Davacon/i\-Phone/\-Sound\-Recorder/\-Classes/\-Core/\-Sound\-Editor/\-S\-E\-Audio\-Stream.\-m}}
+}
+{\ttfamily \#import \char`\"{}S\-E\-Audio\-Stream.\-h\char`\"{}}\\*
+{\ttfamily \#import $<$Foundation/\-Foundation.\-h$>$}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2}{T\-S\-E\-Audio\-Stream\-Source\-Type} \{ \hyperlink{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2aa854c97744ab62ac11c0a12412480412}{k\-S\-E\-Audio\-Stream\-Source\-None} = 0, 
+\hyperlink{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7aaf3a6de994acea1caf0ddf95361d9a}{k\-S\-E\-Audio\-Stream\-Source\-File} = 1, 
+\hyperlink{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7e1e18f599104be65c66c013d01c2ba3}{k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L} = 2, 
+\hyperlink{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a0bf0a190a5a1bfaf82c6859f85d9b550}{k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream} = 3
+ \}
+\item 
+enum \hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5}{T\-S\-E\-Audio\-Stream\-Status\-Type} \{ \\*
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a7523e8b07bb85ef711ec3397d701bb3f}{k\-S\-E\-Audio\-Stream\-Success}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5aba0d1c477318e1bc6077bd4cb48954cc}{k\-S\-E\-Audio\-Stream\-Unknown\-Mode}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a0996008d4ae13645f06493158758f49c}{k\-S\-E\-Audio\-Stream\-Close\-Before\-Open}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a50339c46812153194b350f917d390d39}{k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream}, 
+\\*
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a4c1af24757bd34a507dfceb0ea60e52e}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae0d63e5a19d43f996d8fe2b62cd3526a}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a5207cde5b859ac2af6e219ba15be66e9}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode}, 
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae867e35b909843143c47ec0f064f4a46}{k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode}, 
+\\*
+\hyperlink{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a25a9ea12e256d9edc3cd75b5f277e0cd}{k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2}{\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!T\-S\-E\-Audio\-Stream\-Source\-Type@{T\-S\-E\-Audio\-Stream\-Source\-Type}}
+\index{T\-S\-E\-Audio\-Stream\-Source\-Type@{T\-S\-E\-Audio\-Stream\-Source\-Type}!SEAudioStream.m@{S\-E\-Audio\-Stream.\-m}}
+\subsubsection[{T\-S\-E\-Audio\-Stream\-Source\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf T\-S\-E\-Audio\-Stream\-Source\-Type}}}\label{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{k\-S\-E\-Audio\-Stream\-Source\-None@{k\-S\-E\-Audio\-Stream\-Source\-None}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Source\-None@{k\-S\-E\-Audio\-Stream\-Source\-None}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2aa854c97744ab62ac11c0a12412480412}{k\-S\-E\-Audio\-Stream\-Source\-None}\label{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2aa854c97744ab62ac11c0a12412480412}
+}]\index{k\-S\-E\-Audio\-Stream\-Source\-File@{k\-S\-E\-Audio\-Stream\-Source\-File}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Source\-File@{k\-S\-E\-Audio\-Stream\-Source\-File}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7aaf3a6de994acea1caf0ddf95361d9a}{k\-S\-E\-Audio\-Stream\-Source\-File}\label{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7aaf3a6de994acea1caf0ddf95361d9a}
+}]\index{k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L@{k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L@{k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7e1e18f599104be65c66c013d01c2ba3}{k\-S\-E\-Audio\-Stream\-Source\-U\-R\-L}\label{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a7e1e18f599104be65c66c013d01c2ba3}
+}]\index{k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream@{k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream@{k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a0bf0a190a5a1bfaf82c6859f85d9b550}{k\-S\-E\-Audio\-Stream\-Source\-Other\-Stream}\label{_s_e_audio_stream_8m_ab23d772523cd805a49196d237af16aa2a0bf0a190a5a1bfaf82c6859f85d9b550}
+}]\end{description}
+\end{Desc}
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5}{\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!T\-S\-E\-Audio\-Stream\-Status\-Type@{T\-S\-E\-Audio\-Stream\-Status\-Type}}
+\index{T\-S\-E\-Audio\-Stream\-Status\-Type@{T\-S\-E\-Audio\-Stream\-Status\-Type}!SEAudioStream.m@{S\-E\-Audio\-Stream.\-m}}
+\subsubsection[{T\-S\-E\-Audio\-Stream\-Status\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf T\-S\-E\-Audio\-Stream\-Status\-Type}}}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{k\-S\-E\-Audio\-Stream\-Success@{k\-S\-E\-Audio\-Stream\-Success}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Success@{k\-S\-E\-Audio\-Stream\-Success}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a7523e8b07bb85ef711ec3397d701bb3f}{k\-S\-E\-Audio\-Stream\-Success}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a7523e8b07bb85ef711ec3397d701bb3f}
+}]\index{k\-S\-E\-Audio\-Stream\-Unknown\-Mode@{k\-S\-E\-Audio\-Stream\-Unknown\-Mode}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Unknown\-Mode@{k\-S\-E\-Audio\-Stream\-Unknown\-Mode}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5aba0d1c477318e1bc6077bd4cb48954cc}{k\-S\-E\-Audio\-Stream\-Unknown\-Mode}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5aba0d1c477318e1bc6077bd4cb48954cc}
+}]\index{k\-S\-E\-Audio\-Stream\-Close\-Before\-Open@{k\-S\-E\-Audio\-Stream\-Close\-Before\-Open}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Close\-Before\-Open@{k\-S\-E\-Audio\-Stream\-Close\-Before\-Open}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a0996008d4ae13645f06493158758f49c}{k\-S\-E\-Audio\-Stream\-Close\-Before\-Open}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a0996008d4ae13645f06493158758f49c}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream@{k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream@{k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a50339c46812153194b350f917d390d39}{k\-S\-E\-Audio\-Stream\-Cant\-Open\-Stream}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a50339c46812153194b350f917d390d39}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a4c1af24757bd34a507dfceb0ea60e52e}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-Description}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a4c1af24757bd34a507dfceb0ea60e52e}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae0d63e5a19d43f996d8fe2b62cd3526a}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-Audio\-File}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae0d63e5a19d43f996d8fe2b62cd3526a}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode@{k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a5207cde5b859ac2af6e219ba15be66e9}{k\-S\-E\-Audio\-Stream\-Cant\-Read\-With\-Current\-Mode}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a5207cde5b859ac2af6e219ba15be66e9}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode@{k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode@{k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae867e35b909843143c47ec0f064f4a46}{k\-S\-E\-Audio\-Stream\-Cant\-Write\-With\-Current\-Mode}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5ae867e35b909843143c47ec0f064f4a46}
+}]\index{k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream@{k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream}!S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}}\index{S\-E\-Audio\-Stream.\-m@{S\-E\-Audio\-Stream.\-m}!k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream@{k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream}}\item[{\em 
+\hypertarget{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a25a9ea12e256d9edc3cd75b5f277e0cd}{k\-S\-E\-Audio\-Stream\-Cant\-Write\-Stream}\label{_s_e_audio_stream_8m_ac186b974a8cde69566a9c2f651db79f5a25a9ea12e256d9edc3cd75b5f277e0cd}
+}]\end{description}
+\end{Desc}

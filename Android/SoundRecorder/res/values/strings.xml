@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sound Recorder</string>
+
+    <string name="main_clear_all">Clear All</string>
+    <string name="main_duration">%1$s / %2$s</string>
+
+    <string name="track_duration">Duration: %1$s</string>
+
+    <string name="process_track_duration">%1$s / %2$s</string>
+
+    <string name="prompt_recording_failed">Recording failed</string>
+    <string name="prompt_player_preparation_failed">Playing preparation failed</string>
+    <string name="prompt_split_failed">Split failed</string>
+    <string name="prompt_concat_failed">Playing failed</string>
+
+    <string name="prompt_file_deleted">File deleted successfully</string>
+
+    <string name="prompt_file_speex_not_found">Initial speex file to decode not found!</string>
+
+    <string name="prompt_file_encoding_failed">File encoding failed!</string>
+    <string name="prompt_file_encoded_successfully">File encoded successfully! Please see %1$s</string>
+
+    <string name="prompt_file_decoding_failed">File decoding failed!</string>
+    <string name="prompt_file_decoded_successfully">File decoded successfully! Please see %1$s</string>
+
+    <string name="menu_encode">Encode</string>
+    <string name="menu_decode">Decode</string>
+
+    <string name="project_save_in_progress">Project save in progress&#8230;</string>
+    <string name="project_deletion_in_progress">Project deletion in progress&#8230;</string>
+</resources>
