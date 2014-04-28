@@ -12,29 +12,27 @@ public interface SEPlayerStateListener {
     /**
      * Notifies that playback has started.
      */
-    void playingStarted();
+    void playingStarted(int position, int duration);
 
     /**
      * Notifies that playback has been paused.
      */
-    void playingPaused();
+    void playingPaused(int position, int duration);
 
     /**
      * Notifies that playback is in progress.
-     *
-     * @param progress playback progress in bytes
      */
-    void playingInProgress(int progress);
+    void playingInProgress(int position, int duration);
 
     /**
      * Notifies that playback has stopped.
      */
-    void playingStopped();
+    void playingStopped(int position, int duration);
 
     /**
      * Notifies that during playback some kind of error has occured.
      *
      * @param errorMessage error message
      */
-    void onError(String errorMessage);
+    void onError(int position, int duration, String errorMessage);
 }

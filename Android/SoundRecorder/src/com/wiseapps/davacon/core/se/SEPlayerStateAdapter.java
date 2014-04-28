@@ -7,22 +7,22 @@ package com.wiseapps.davacon.core.se;
  */
 public class SEPlayerStateAdapter implements SEPlayerStateListener {
     @Override
-    public void playingStarted() {
+    public void playingStarted(int position, int duration) {
     }
 
     @Override
-    public void playingPaused() {
+    public void playingPaused(int position, int duration) {
     }
 
     @Override
-    public void playingInProgress(int progress) {
+    public void playingInProgress(int position, int duration) {
     }
 
     @Override
-    public void playingStopped() {
+    public void playingStopped(int position, int duration) {
     }
 
     @Override
-    public void onError(String errorMessage) {
+    public void onError(int position, int duration, String errorMessage) {
     }
 }

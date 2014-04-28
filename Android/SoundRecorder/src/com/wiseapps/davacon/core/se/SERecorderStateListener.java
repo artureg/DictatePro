@@ -12,24 +12,22 @@ public interface SERecorderStateListener {
     /**
      * Notifies that recording has started.
      */
-    void recordingStarted();
+    void recordingStarted(int position, int duration);
 
     /**
      * Notifies that recording is in progress.
-     *
-     * @param progress recording progress in bytes
      */
-    void recordingInProgress(int progress);
+    void recordingInProgress(int position, int duration);
 
     /**
      * Notifies that recording has stopped.
      */
-    void recordingStopped();
+    void recordingStopped(int position, int duration);
 
     /**
      * Notifies that during recording some kind of error has occured.
      *
      * @param errorMessage error message
      */
-    void onError(String errorMessage);
+    void onError(int position, int duration, String errorMessage);
 }

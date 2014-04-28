@@ -4,6 +4,7 @@ import android.media.AudioTrack;
 
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.speex.NativeInputStream;
+import com.wiseapps.davacon.utils.DurationUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,14 +23,19 @@ class SESoundPlayer {
     private static final int MIN_BUFFER_SIZE = 1600;
     private static final int MULT = 4;
 
+    private int position, duration;
+
     private PlayingThread thread;
 
     private final AudioStream stream;
 
     private List<SESoundPlayerStateListener> listeners = new ArrayList<SESoundPlayerStateListener>();
 
-    SESoundPlayer(AudioStream stream) {
+    SESoundPlayer(AudioStream stream, int position, int duration) {
         this.stream = stream;
+
+        this.position = position;
+        this.duration = duration;
     }
 
     void start() {
@@ -52,7 +58,15 @@ class SESoundPlayer {
     private void sendMsgStarted() {
         for (SESoundPlayerStateListener listener : listeners) {
             if (listener != null) {
-                listener.onPlayingStarted();
+                listener.onPlayingStarted(position, duration);
+            }
+        }
+    }
+
+    private void sendMsgInProgress() {
+        for (SESoundPlayerStateListener listener : listeners) {
+            if (listener != null) {
+                listener.onPlayingInProgress(position, duration);
             }
         }
     }
@@ -60,7 +74,7 @@ class SESoundPlayer {
     private void sendMsgPaused() {
         for (SESoundPlayerStateListener listener : listeners) {
             if (listener != null) {
-                listener.onPlayingPaused();
+                listener.onPlayingPaused(position, duration);
             }
         }
     }
@@ -68,7 +82,7 @@ class SESoundPlayer {
     private void sendMsgError() {
         for (SESoundPlayerStateListener listener : listeners) {
             if (listener != null) {
-                listener.onPlayingError();
+                listener.onPlayingError(position, duration);
             }
         }
     }
@@ -90,40 +104,42 @@ class SESoundPlayer {
         }
 
         private void open() {
-//            int minBufferSize = MIN_BUFFER_SIZE * MULT;
-//            audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT,
-//                    minBufferSize, MODE);
-//           
-//            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
-//                sendMsgError();
-//                return;
-//            }
+            int minBufferSize = MIN_BUFFER_SIZE;
 
-            if(!openAudioTrack(SAMPLE_RATE_IN_HZ)) return;
+            audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT, minBufferSize, MODE);
+            audioTrack.setPositionNotificationPeriod((int)(SAMPLE_RATE_IN_HZ * 0.1));   // notify each 0.1 second
+            audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
+                @Override
+                public void onMarkerReached(AudioTrack track) {
+                }
             
+                @Override
+                public void onPeriodicNotification(AudioTrack track) {
+                    long delta = DurationUtils.secondsToBytes(0.1);
+
+                    stream.updatePosition(delta);
+//                    stream.updateDuration(delta);
+        
+                    position += delta;
+//                    duration += delta;
+        	
+                    sendMsgInProgress();
+
+                    LoggerFactory.obtainLogger(TAG).
+                            d("onPeriodicNotification# position = " + position +
+                                    ", duration = " + duration);
+        	}
+            });
+
+            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
+                sendMsgError();
+                return;
+            }
+
             stream.open(AudioStream.Mode.READ);
             sendMsgStarted();
 
             audioTrack.play();
-        }
-        
-        private boolean openAudioTrack(int sampleRate) {
-        	
-//        	int minBufferSize = MIN_BUFFER_SIZE * MULT;
-        	int minBufferSize;
-        	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
-        		minBufferSize = MIN_BUFFER_SIZE * 12;
-        	} else {
-        		minBufferSize = MIN_BUFFER_SIZE * MULT;
-        	}
-        	audioTrack = new AudioTrack(STREAM_TYPE, (int)sampleRate, CHANNEL_CONFIG_OUT, AUDIO_FORMAT, minBufferSize, MODE);
-            if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
-                sendMsgError();
-                return false;
-            }
-
-            audioTrack.play();
-            return true;
         }
 
         private void work() {
@@ -135,48 +151,28 @@ class SESoundPlayer {
         	}
 
             InputStream in = null;
-
             try {
                 in = stream.getInputStream();
                 
-                int sampleRate = NativeInputStream.getSampleRate();
-                if(sampleRate != SAMPLE_RATE_IN_HZ) {
-                	if(!openAudioTrack(sampleRate)) {
-                		return;
-                	}
-                }
+//                // TODO move this to the open method - DO NOT initialize audiotrack twice!!!
+//                int sampleRate = NativeInputStream.getSampleRate();
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("work# native sampleRate is " + sampleRate);
+////                if(sampleRate != SAMPLE_RATE_IN_HZ) {
+////                	if(!openAudioTrack(sampleRate)) {
+////                		return;
+////                	}
+////                }
 
                 byte data[] = new byte[minBufferSize];
 
-                long time = System.currentTimeMillis();
-                long time_max = 0;
-                int len = 0;
+                int len;
                 while(running && ((len = in.read(data)) != -1)) {
                 	audioTrack.write(data, 0, len);
-
-                    LoggerFactory.obtainLogger(TAG).
-                            d("run# played " + data.length);
-
-                    stream.updatePosition(data.length);
-                    stream.updateDuration(data.length);
-                    
-                    long time_cur = System.currentTimeMillis();
-                    LoggerFactory.obtainLogger(TAG).
-                    d("PLAYE read TIME SPENT =  " + (time_cur - time));
-                    if((time_cur - time) > time_max) {
-                    	time_max = time_cur - time;
-                    }
-                    
                 }
                 
-                LoggerFactory.obtainLogger(TAG).
-                d("PLAYE read TIME MAX SPENT =  " + time_max);
-                
-
                 sendMsgPaused();
             } catch (Exception e) {
-                LoggerFactory.obtainLogger(TAG).
-                        d("work# catch");
                 LoggerFactory.obtainLogger(TAG).
                         e(e.getMessage(), e);
 
@@ -185,8 +181,6 @@ class SESoundPlayer {
                 stream.finalizePosition();
                 stream.finalizeDuration();
 
-                LoggerFactory.obtainLogger(TAG).
-                        d("work# finally");
                 if (in != null) {
                     try {
                         in.close();
@@ -211,8 +205,9 @@ class SESoundPlayer {
     }
 
     interface SESoundPlayerStateListener {
-        void onPlayingStarted();
-        void onPlayingPaused();
-        void onPlayingError();
+        void onPlayingStarted(int position, int duration);
+        void onPlayingInProgress(int position, int duration);
+        void onPlayingPaused(int position, int duration);
+        void onPlayingError(int position, int duration);
     }
 }

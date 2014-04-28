@@ -72,7 +72,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         if (player == null) {
-            player = new SESoundPlayer(project.getAudioStream());
+            int position = (int) getCurrentTime();
+            int duration = (int) getDuration();
+
+            player = new SESoundPlayer(project.getAudioStream(), position, duration);
             player.addHandler(playerStateListener);
         }
 
@@ -121,7 +124,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         project.splitRecord(record);
 //        project.addRecord(record);
 
-        recorder = new SESoundRecorder(record.getAudioStream());
+        int position = (int) getCurrentTime();
+        int duration = (int) getDuration();
+
+        recorder = new SESoundRecorder(record.getAudioStream(), position, duration);
         recorder.addHandler(recorderStateListener);
         recorder.start();
     }
@@ -241,10 +247,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     private SESoundRecorderStateListener recorderStateListener = new SESoundRecorderStateListener() {
         @Override
-        public void onRecordingStarted() {
+        public void onRecordingStarted(int position, int duration) {
             for (SERecorderStateListener listener : recorderStateListeners) {
                 if (listener != null) {
-                    listener.recordingStarted();
+                    listener.recordingStarted(position, duration);
                 }
             }
 
@@ -252,10 +258,21 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         @Override
-        public void onRecordingStopped() {
+        public void onRecordingInProgress(int position, int duration) {
             for (SERecorderStateListener listener : recorderStateListeners) {
                 if (listener != null) {
-                    listener.recordingStopped();
+                    listener.recordingInProgress(position, duration);
+                }
+            }
+
+//            state = State.RECORDING_IN_PROGRESS;
+        }
+
+        @Override
+        public void onRecordingStopped(int position, int duration) {
+            for (SERecorderStateListener listener : recorderStateListeners) {
+                if (listener != null) {
+                    listener.recordingStopped(position, duration);
                 }
             }
 
@@ -263,10 +280,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         @Override
-        public void onRecordingError() {
+        public void onRecordingError(int position, int duration) {
             for (SERecorderStateListener listener : recorderStateListeners) {
                 if (listener != null) {
-                    listener.recordingStopped();
+                    listener.onError(position, duration, "Recording failed!");
                 }
             }
 
@@ -276,10 +293,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     private SESoundPlayerStateListener playerStateListener = new SESoundPlayerStateListener() {
         @Override
-        public void onPlayingStarted() {
+        public void onPlayingStarted(int position, int duration) {
             for (SEPlayerStateListener listener : playerStateListeners) {
                 if (listener != null) {
-                    listener.playingStarted();
+                    listener.playingStarted(position, duration);
                 }
             }
 
@@ -287,10 +304,21 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         @Override
-        public void onPlayingPaused() {
+        public void onPlayingInProgress(int position, int duration) {
             for (SEPlayerStateListener listener : playerStateListeners) {
                 if (listener != null) {
-                    listener.playingPaused();
+                    listener.playingInProgress(position, duration);
+                }
+            }
+
+//            state = State.PLAYING_IN_PROGRESS;
+        }
+
+        @Override
+        public void onPlayingPaused(int position, int duration) {
+            for (SEPlayerStateListener listener : playerStateListeners) {
+                if (listener != null) {
+                    listener.playingPaused(position, duration);
                 }
             }
 
@@ -298,10 +326,10 @@ public class SEProjectEngine extends SEAudioStreamEngine {
         }
 
         @Override
-        public void onPlayingError() {
+        public void onPlayingError(int position, int duration) {
             for (SEPlayerStateListener listener : playerStateListeners) {
                 if (listener != null) {
-                    listener.onError("Playing failed");
+                    listener.onError(position, duration, "Playing failed!");
                 }
             }
 

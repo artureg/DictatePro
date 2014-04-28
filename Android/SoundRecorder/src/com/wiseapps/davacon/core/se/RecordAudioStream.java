@@ -31,10 +31,10 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     void close() {
-        File file = new File(record.soundPath);
-        LoggerFactory.obtainLogger(TAG).
-                d("work# file.length = " + file.length());
-
+//        File file = new File(record.soundPath);
+//        LoggerFactory.obtainLogger(TAG).
+//                d("work# file.length = " + file.length());
+//
 //        mockClose();
     }
 
