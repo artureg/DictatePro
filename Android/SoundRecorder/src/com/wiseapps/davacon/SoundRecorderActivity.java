@@ -54,6 +54,7 @@ public class SoundRecorderActivity extends Activity {
 
         setContentView(R.layout.sound_recorder);
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         receiver = new MediaButtonReceiver();
         registerReceiver(receiver,
@@ -130,11 +131,11 @@ public class SoundRecorderActivity extends Activity {
         textDuration = (TextView) findViewById(R.id.duration);
 
         seekVolume = (SeekBar) findViewById(R.id.volume);
-        seekVolume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+        seekVolume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
         seekVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, AudioManager.FLAG_PLAY_SOUND);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
             }
 
             @Override
@@ -145,7 +146,7 @@ public class SoundRecorderActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        seekVolume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
+        seekVolume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
 
         seekPosition = (SeekBar) findViewById(R.id.position);
         seekPosition.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -560,7 +561,7 @@ public class SoundRecorderActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             seekVolume.setProgress(
-                    audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM));
+                    audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
         }
     }
 
