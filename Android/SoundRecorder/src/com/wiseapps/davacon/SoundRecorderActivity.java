@@ -249,7 +249,7 @@ public class SoundRecorderActivity extends Activity {
     public void play(View view) {
         if (engine.getState() == State.READY) {
             if (engine.getCurrentTime() >= engine.getDuration()) {
-                return;
+                start(view);
             }
 
             engine.startPlaying();
