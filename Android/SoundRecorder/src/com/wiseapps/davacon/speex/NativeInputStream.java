@@ -121,13 +121,13 @@ public class NativeInputStream extends InputStream {
 
 	};
 	
-	private static String bytArrayToHex(byte[] a) {
- 	   StringBuilder sb = new StringBuilder();
- 	   for(byte b: a) {
- 	      sb.append(String.format("%02x", b&0xff));
- 	      sb.append(" ");
- 	   }
- 	   return sb.toString();
- 	}
+//	private static String bytArrayToHex(byte[] a) {
+// 	   StringBuilder sb = new StringBuilder();
+// 	   for(byte b: a) {
+// 	      sb.append(String.format("%02x", b&0xff));
+// 	      sb.append(" ");
+// 	   }
+// 	   return sb.toString();
+// 	}
 	
 }
