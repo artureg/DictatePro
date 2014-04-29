@@ -45,8 +45,11 @@ public class RecordAudioStream extends AudioStream {
     @Override
     InputStream getInputStream() throws Exception {
         int format = FILE_FORMAT;
-        return new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
-
+        RecordFilterInputStream rfin = new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
+        rfin.skip(record.start + record.position);
+        rfin.setLimit(record.duration);
+        return rfin;
+        
         //return mockGetInputStream();
     }
 
