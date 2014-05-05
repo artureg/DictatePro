@@ -103,7 +103,7 @@ class SESoundRecorder {
         }
 
         private void open() {
-            int minBufferSize = MIN_BUFFER_SIZE;
+            int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                     SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
@@ -143,8 +143,7 @@ class SESoundRecorder {
         }
 
         private void work() {
-//            int minBufferSize = MIN_BUFFER_SIZE * MULT;
-            int minBufferSize = MIN_BUFFER_SIZE;
+            int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             OutputStream out = null;
 
@@ -185,7 +184,6 @@ class SESoundRecorder {
             audioRecord.stop();
             audioRecord.release();
         }
-
 
         private void stopRecording() {
             running = false;
