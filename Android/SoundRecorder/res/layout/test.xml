@@ -18,9 +18,10 @@
 
         <SeekBar
                 android:id="@+id/position"
-                android:thumb="@drawable/play_pin_cursor"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:thumb="@drawable/play_red_cursor"
+                android:progressDrawable="@drawable/playback_bg"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

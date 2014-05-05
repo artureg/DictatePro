@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ffd6d3ce">#ffd6d3ce</color>
+
+    <color name="ffda2823">#ffda2823</color>
+    <color name="ff9b1818">#ff9b1818</color>
+
+    <color name="ff2d9f2c">#ff2d9f2c</color>
+    <color name="ff166e19">#ff166e19</color>
 </resources>
