@@ -188,13 +188,6 @@ public class SoundRecorderActivity extends Activity {
     }
 
     private void updatePositionSeekBar(long position, long duration) {
-        LoggerFactory.obtainLogger(TAG).
-                d("updatePositionSeekBar# seekPosition.getThumbOffset = " + seekPosition.getThumbOffset());
-
-        ViewGroup.LayoutParams params = seekPosition.getLayoutParams();
-        LoggerFactory.obtainLogger(TAG).
-                d("updatePositionSeekBar# params.width = " + params.width);
-
         switch (engine.getState()) {
             case READY: {
                 seekPosition.setProgressDrawable(
@@ -304,12 +297,12 @@ public class SoundRecorderActivity extends Activity {
 
     public void play(View view) {
         if (engine.getState() == State.READY) {
-//            if (engine.getCurrentTime() >= engine.getDuration()) {
-//                engine.setCurrentTime(Long.MIN_VALUE);
-//
-//                updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-//                updatePositionText(engine.getCurrentTime(), engine.getDuration());
-//            }
+            if (engine.getCurrentTime() >= engine.getDuration()) {
+                engine.setCurrentTime(Long.MIN_VALUE);
+
+                updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
+                updatePositionText(engine.getCurrentTime(), engine.getDuration());
+            }
 
             engine.startPlaying();
             updateStatePlayingInProgress();
