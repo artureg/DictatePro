@@ -5,18 +5,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
+import android.media.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import com.wiseapps.davacon.core.se.AudioStream;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -342,6 +342,116 @@ public class TestActivity extends Activity {
             }
         }
     }
+
+//    private class TestSoundRcorder {
+//        private RecordingThread thread;
+//
+//        private class RecordingThread extends Thread {
+//            private boolean running;
+//
+//            private AudioRecord audioRecord;
+//
+//            private RecordingThread(boolean running) {
+//                this.running = running;
+//            }
+//
+//            @Override
+//            public void run() {
+//                open();
+//                work();
+//                close();
+//            }
+//
+//            private void open() {
+//                int minBufferSize = MIN_BUFFER_SIZE;
+//
+//                audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+//                        SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
+//                audioRecord.setPositionNotificationPeriod((int) (SAMPLE_RATE_IN_HZ * 0.1)); // notify each 0.1 second
+//                audioRecord.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
+//                    @Override
+//                    public void onMarkerReached(AudioRecord recorder) {
+//                    }
+//
+//                    @Override
+//                    public void onPeriodicNotification(AudioRecord recorder) {
+//                        long delta = DurationUtils.secondsToBytes(0.1);
+//
+//                        stream.updatePosition(delta);
+//                        stream.updateDuration(delta);
+//
+//                        position += delta;
+//                        duration += delta;
+//
+//                        sendMsgInProgress();
+//
+//                        LoggerFactory.obtainLogger(TAG).
+//                                d("onPeriodicNotification# position = " + position +
+//                                        ", duration = " + duration);
+//                    }
+//                });
+//
+//                if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
+//                    sendMsgError();
+//                    return;
+//                }
+//
+//                stream.open(AudioStream.Mode.WRITE);
+//                sendMsgStarted();
+//
+//                audioRecord.startRecording();
+//            }
+//
+//            private void work() {
+////            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+//                int minBufferSize = MIN_BUFFER_SIZE;
+//
+//                OutputStream out = null;
+//
+//                try {
+//                    out = stream.getOutputStream();
+//
+//                    byte[] data = new byte[minBufferSize];
+//                    while(running) {
+//                        audioRecord.read(data, 0, data.length);
+//                        out.write(data);
+//                    }
+//
+//                    sendMsgStopped();
+//                } catch (Exception e) {
+//                    LoggerFactory.obtainLogger(TAG).
+//                            e(e.getMessage(), e);
+//
+//                    sendMsgError();
+//                } finally {
+//                    stream.finalizePosition();
+//                    stream.finalizeDuration();
+//
+//                    if (out != null) {
+//                        try {
+//                            out.flush();
+//                            out.close();
+//                        } catch (Exception e) {
+//                            LoggerFactory.obtainLogger(TAG).
+//                                    e(e.getMessage(), e);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            private void close() {
+//                stream.close();
+//
+//                audioRecord.stop();
+//                audioRecord.release();
+//            }
+//
+//
+//            private void stopRecording() {
+//                running = false;
+//            }
+//        }
+//    }
 
     interface SESoundPlayerStateListener {
         void onPlayingStarted();

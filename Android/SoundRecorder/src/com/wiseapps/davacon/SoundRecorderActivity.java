@@ -10,10 +10,8 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.wiseapps.davacon.core.se.*;
 import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
@@ -41,6 +39,9 @@ public class SoundRecorderActivity extends Activity {
     private TextView textDuration;
 
     private SeekBar seekVolume;
+
+    private long currentTime;
+    private long duration;
     private SeekBar seekPosition;
 
     private ProgressDialog dialog;
@@ -187,8 +188,61 @@ public class SoundRecorderActivity extends Activity {
     }
 
     private void updatePositionSeekBar(long position, long duration) {
+        LoggerFactory.obtainLogger(TAG).
+                d("updatePositionSeekBar# seekPosition.getThumbOffset = " + seekPosition.getThumbOffset());
+
+        ViewGroup.LayoutParams params = seekPosition.getLayoutParams();
+        LoggerFactory.obtainLogger(TAG).
+                d("updatePositionSeekBar# params.width = " + params.width);
+
+        switch (engine.getState()) {
+            case READY: {
+                seekPosition.setProgressDrawable(
+                        getResources().getDrawable(R.drawable.playback_bg));
+                seekPosition.setThumb(seekPosition.getProgress() != 0 ?
+                        getResources().getDrawable(R.drawable.play_red_cursor) : null);
+
+                seekPosition.setProgress((int) position);
+                seekPosition.setSecondaryProgress(0);
+
+                break;
+            }
+            case PLAYING_IN_PROGRESS: {
+                seekPosition.setProgressDrawable(
+                        getResources().getDrawable(R.drawable.playback_bg));
+                seekPosition.setThumb(null);
+
+                seekPosition.setProgress((int) position);
+                seekPosition.setSecondaryProgress(0);
+
+                break;
+            }
+            case RECORDING_IN_PROGRESS: {
+                seekPosition.setProgressDrawable(
+                        getResources().getDrawable(R.drawable.record_bg));
+                seekPosition.setThumb(null);
+
+                seekPosition.setSecondaryProgress((int) currentTime);
         seekPosition.setProgress((int) position);
-                seekPosition.setMax((int) duration);
+
+                break;
+            }
+        }
+
+        long secondInBytes = DurationUtils.secondsToBytes(1);
+        long ddd = duration / secondInBytes;
+        if (duration / secondInBytes < 2 * 60) {
+            this.duration = 2 * 60 * secondInBytes;
+            seekPosition.setMax((int) this.duration);
+        } else {
+            if (duration / secondInBytes < 10 * 60) {
+                this.duration = 10 * 60 * secondInBytes;
+                seekPosition.setMax((int) this.duration);
+            } else {
+                this.duration = this.duration * 2;
+                seekPosition.setMax((int) (this.duration));
+            }
+        }
     }
 
     private void updatePositionText(long position, long duration) {
@@ -213,6 +267,8 @@ public class SoundRecorderActivity extends Activity {
 
     public void record(View view) {
         if (engine.getState() == State.READY) {
+            currentTime = engine.getCurrentTime();
+
             engine.startRecording();
             updateStateRecordingInProgress();
             return;
@@ -248,9 +304,12 @@ public class SoundRecorderActivity extends Activity {
 
     public void play(View view) {
         if (engine.getState() == State.READY) {
-            if (engine.getCurrentTime() >= engine.getDuration()) {
-                start(view);
-            }
+//            if (engine.getCurrentTime() >= engine.getDuration()) {
+//                engine.setCurrentTime(Long.MIN_VALUE);
+//
+//                updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
+//                updatePositionText(engine.getCurrentTime(), engine.getDuration());
+//            }
 
             engine.startPlaying();
             updateStatePlayingInProgress();

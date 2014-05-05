@@ -129,6 +129,8 @@
     <RelativeLayout
             android:id="@+id/position_layout"
             android:background="@drawable/scale"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -139,10 +141,12 @@
 
         <SeekBar
                 android:id="@+id/position"
-                android:thumb="@drawable/play_pin_cursor"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_centerInParent="true"
+                android:thumb="@null"
+                android:padding="0dp"
+                android:minHeight="5dp"
+                android:maxHeight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
@@ -161,10 +165,14 @@
     <SeekBar
             android:id="@+id/volume"
             android:thumb="@drawable/volume_cursor"
-            android:layout_marginBottom="40dp"
+            android:thumbOffset="4dp"
+            android:progressDrawable="@drawable/volume_bg"
+            android:minWidth="127dp"
+            android:maxWidth="127dp"
+            android:layout_marginBottom="45dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             />
 </RelativeLayout>

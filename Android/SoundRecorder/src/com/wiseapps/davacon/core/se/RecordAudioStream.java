@@ -50,7 +50,7 @@ public class RecordAudioStream extends AudioStream {
         rfin.setLimit(record.duration);
         return rfin;
         
-        //return mockGetInputStream();
+//        return mockGetInputStream();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class RecordAudioStream extends AudioStream {
         return SpeexWrapper.getOutputStream(record.soundPath, format,
                 SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
 
-       // return mockGetOutputStream();
+//       return mockGetOutputStream();
     }
 
 //    private void mockClose() {
