@@ -25,7 +25,7 @@ public class NativeInputStream extends InputStream {
 	private native long open(String filePath, int format);
 	private native int close(long nativeID);
 	private native long getSampleRate(long nativeId);
-	private native byte[] readOne(long nativeId, int length);
+//	private native byte[] readOne(long nativeId, int length);
 	private native byte[] read(long nativeId, int offset, int duration);
 	private native byte[] skip(long nativeId, long byteCount);
 	
@@ -68,7 +68,7 @@ public class NativeInputStream extends InputStream {
 	public int read(byte[] buffer) throws IOException {
 //		LoggerFactory.obtainLogger(TAG).d("read()  nativeObject" + nativeObject);
 		
-		byte[] bufferT = this.readOne(nativeObject, buffer.length);
+		byte[] bufferT = this.read(nativeObject, 0, buffer.length);
 		
 		if(bufferT.length == 0) {
 			return -1;
@@ -121,13 +121,13 @@ public class NativeInputStream extends InputStream {
 
 	};
 	
-	private static String bytArrayToHex(byte[] a) {
- 	   StringBuilder sb = new StringBuilder();
- 	   for(byte b: a) {
- 	      sb.append(String.format("%02x", b&0xff));
- 	      sb.append(" ");
- 	   }
- 	   return sb.toString();
- 	}
+//	private static String bytArrayToHex(byte[] a) {
+// 	   StringBuilder sb = new StringBuilder();
+// 	   for(byte b: a) {
+// 	      sb.append(String.format("%02x", b&0xff));
+// 	      sb.append(" ");
+// 	   }
+// 	   return sb.toString();
+// 	}
 	
 }
