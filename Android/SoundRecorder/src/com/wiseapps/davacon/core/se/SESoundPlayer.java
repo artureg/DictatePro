@@ -34,8 +34,11 @@ class SESoundPlayer {
     SESoundPlayer(AudioStream stream, int position, int duration) {
         this.stream = stream;
 
-        this.position = position;
-        this.duration = duration;
+//        this.position = position;
+//        this.duration = duration;
+
+        this.position = 0;
+        this.duration = 0;
     }
 
     void start() {

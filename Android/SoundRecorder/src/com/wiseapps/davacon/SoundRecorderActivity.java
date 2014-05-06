@@ -10,7 +10,6 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import com.wiseapps.davacon.core.se.*;
 import com.wiseapps.davacon.logging.LoggerFactory;
@@ -40,9 +39,13 @@ public class SoundRecorderActivity extends Activity {
 
     private SeekBar seekVolume;
 
-    private long currentTime;
-    private long duration;
-    private SeekBar seekPosition;
+    // absolute values to hold history
+    private long position, duration;
+
+    // value to hold progress maximum
+    private long max;
+
+    private SeekBar playbackPos, recordingPos;
 
     private ProgressDialog dialog;
 
@@ -149,13 +152,20 @@ public class SoundRecorderActivity extends Activity {
         });
         seekVolume.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
 
-        seekPosition = (SeekBar) findViewById(R.id.position);
-        seekPosition.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        recordingPos = (SeekBar) findViewById(R.id.recording);
+
+        playbackPos = (SeekBar) findViewById(R.id.playback);
+        playbackPos.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 LoggerFactory.obtainLogger(TAG).
                         d("onProgressChanged# progress = " + progress +
                                 ", currentTime = " + engine.getCurrentTime());
+
+                if (seekBar.getThumb() != null) {
+                    LoggerFactory.obtainLogger(TAG).
+                            d("onProgressChanged# seekBar.getThumb().getBounds().centerX() = " + seekBar.getThumb().getBounds().centerX());
+                }
 
                 if (!fromUser) {
                     return;
@@ -165,7 +175,6 @@ public class SoundRecorderActivity extends Activity {
                     return;
                 }
 
-//                engine.setCurrentTime(DurationUtils.secondsToBytes((double) progress / 10));
                 engine.setCurrentTime(progress);
 
                 textDuration.setText(
@@ -183,64 +192,81 @@ public class SoundRecorderActivity extends Activity {
             }
         });
 
-        updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-        updatePositionText(engine.getCurrentTime(), engine.getDuration());
+        position = engine.getCurrentTime();
+        duration = engine.getDuration();
+
+        updatePositionSeekBar(0, 0);
+        updatePositionText(0, 0);
     }
 
+    // position and duration are relative units!
     private void updatePositionSeekBar(long position, long duration) {
+        long secondInBytes = DurationUtils.secondsToBytes(1);
+        if ((this.duration + duration) / secondInBytes < 2 * 60) {
+            this.max = 2 * 60 * secondInBytes;
+
+            playbackPos.setMax((int) this.max);
+            recordingPos.setMax((int) this.max);
+        } else {
+            if ((this.duration + duration) / secondInBytes < 10 * 60) {
+                this.max = 10 * 60 * secondInBytes;
+
+                playbackPos.setMax((int) this.max);
+                recordingPos.setMax((int) this.max);
+            } else {
+                this.max = this.max * 2;
+
+                playbackPos.setMax((int) (this.max));
+                recordingPos.setMax((int) this.max);
+            }
+        }
+
         switch (engine.getState()) {
             case READY: {
-                seekPosition.setProgressDrawable(
-                        getResources().getDrawable(R.drawable.playback_bg));
-                seekPosition.setThumb(seekPosition.getProgress() != 0 ?
-                        getResources().getDrawable(R.drawable.play_red_cursor) : null);
+                recordingPos.setVisibility(View.GONE);
 
-                seekPosition.setProgress((int) position);
-                seekPosition.setSecondaryProgress(0);
+                playbackPos.setThumb(
+                        getResources().getDrawable(R.drawable.play_red_cursor));
+                playbackPos.setProgress((int) (this.position + position));
+                playbackPos.setSecondaryProgress((int) (this.duration + duration));
 
                 break;
             }
             case PLAYING_IN_PROGRESS: {
-                seekPosition.setProgressDrawable(
-                        getResources().getDrawable(R.drawable.playback_bg));
-                seekPosition.setThumb(null);
+                recordingPos.setVisibility(View.GONE);
 
-                seekPosition.setProgress((int) position);
-                seekPosition.setSecondaryProgress(0);
+                playbackPos.setThumb(
+                        getResources().getDrawable(R.drawable.play_red_cursor));
+                playbackPos.setProgress((int) (this.position + position));
+                playbackPos.setSecondaryProgress((int) (this.duration + duration));
+
+                playbackPos.setThumb(getResources().getDrawable(R.drawable.play_red_cursor));
 
                 break;
             }
             case RECORDING_IN_PROGRESS: {
-                seekPosition.setProgressDrawable(
-                        getResources().getDrawable(R.drawable.record_bg));
-                seekPosition.setThumb(null);
+                if (recordingPos.getVisibility() == View.GONE) {
+                    recordingPos.setProgress((int) (this.position + position));
+                    recordingPos.setVisibility(View.VISIBLE);
+                }
 
-                seekPosition.setSecondaryProgress((int) currentTime);
-        seekPosition.setProgress((int) position);
+                recordingPos.setSecondaryProgress((int) (this.position + position));
+                LoggerFactory.obtainLogger(TAG).
+                        d("updatePositionSeekBar# recordingPos.progress = " + recordingPos.getProgress() +                                ", recordingPos.secondaryProgress = " + recordingPos.getSecondaryProgress());
+
+                playbackPos.setThumb(null);
+                playbackPos.setProgress((int) (this.position + position));
+                playbackPos.setSecondaryProgress((int) (this.duration + duration));
 
                 break;
             }
         }
-
-        long secondInBytes = DurationUtils.secondsToBytes(1);
-        long ddd = duration / secondInBytes;
-        if (duration / secondInBytes < 2 * 60) {
-            this.duration = 2 * 60 * secondInBytes;
-            seekPosition.setMax((int) this.duration);
-        } else {
-            if (duration / secondInBytes < 10 * 60) {
-                this.duration = 10 * 60 * secondInBytes;
-                seekPosition.setMax((int) this.duration);
-            } else {
-                this.duration = this.duration * 2;
-                seekPosition.setMax((int) (this.duration));
-            }
-        }
     }
 
+    // position and duration are relative units!
     private void updatePositionText(long position, long duration) {
-        double dP = DurationUtils.secondsFromBytes(position);
-        double dD = DurationUtils.secondsFromBytes(duration);
+        double dP = DurationUtils.secondsFromBytes(this.position + position);
+        double dD = DurationUtils.secondsFromBytes(this.duration + duration);
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
@@ -254,13 +280,17 @@ public class SoundRecorderActivity extends Activity {
 
         engine.setCurrentTime(engine.getCurrentTime() - DurationUtils.secondsToBytes(1));
 
-        updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-        updatePositionText(engine.getCurrentTime(), engine.getDuration());
+        position = engine.getCurrentTime();
+        duration = engine.getDuration();
+
+        updatePositionSeekBar(0, 0);
+        updatePositionText(0, 0);
     }
 
     public void record(View view) {
         if (engine.getState() == State.READY) {
-            currentTime = engine.getCurrentTime();
+            position = engine.getCurrentTime();
+            duration = engine.getDuration();
 
             engine.startRecording();
             updateStateRecordingInProgress();
@@ -280,8 +310,11 @@ public class SoundRecorderActivity extends Activity {
 
         engine.setCurrentTime(engine.getCurrentTime() + DurationUtils.secondsToBytes(1));
 
-        updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-        updatePositionText(engine.getCurrentTime(), engine.getDuration());
+        position = engine.getCurrentTime();
+        duration = engine.getDuration();
+
+        updatePositionSeekBar(0, 0);
+        updatePositionText(0, 0);
     }
 
     public void start(View view) {
@@ -291,17 +324,26 @@ public class SoundRecorderActivity extends Activity {
 
         engine.setCurrentTime(Long.MIN_VALUE);
 
-        updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-        updatePositionText(engine.getCurrentTime(), engine.getDuration());
+        position = engine.getCurrentTime();
+        duration = engine.getDuration();
+
+        updatePositionSeekBar(0, 0);
+        updatePositionText(0, 0);
     }
 
     public void play(View view) {
         if (engine.getState() == State.READY) {
+            position = engine.getCurrentTime();
+            duration = engine.getDuration();
+
             if (engine.getCurrentTime() >= engine.getDuration()) {
                 engine.setCurrentTime(Long.MIN_VALUE);
 
-                updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-                updatePositionText(engine.getCurrentTime(), engine.getDuration());
+                position = engine.getCurrentTime();
+                duration = engine.getDuration();
+
+                updatePositionSeekBar(0, 0);
+                updatePositionText(0, 0);
             }
 
             engine.startPlaying();
@@ -322,8 +364,11 @@ public class SoundRecorderActivity extends Activity {
 
         engine.setCurrentTime(Long.MAX_VALUE);
 
-        updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-        updatePositionText(engine.getCurrentTime(), engine.getDuration());
+        position = engine.getCurrentTime();
+        duration = engine.getDuration();
+
+        updatePositionSeekBar(0, 0);
+        updatePositionText(0, 0);
     }
 
     public void encode(View view) {
@@ -549,8 +594,11 @@ public class SoundRecorderActivity extends Activity {
                 dialog = null;
             }
 
-            updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-            updatePositionText(engine.getCurrentTime(), engine.getDuration());
+            position = engine.getCurrentTime();
+            duration = engine.getDuration();
+
+            updatePositionSeekBar(0, 0);
+            updatePositionText(0, 0);
 
             Toast.makeText(getContext(),
                     aBoolean ? "Project saved successfully!" : "Saving project failed...",
@@ -593,8 +641,11 @@ public class SoundRecorderActivity extends Activity {
             destroyEngine();
             initEngine();
 
-            updatePositionSeekBar(engine.getCurrentTime(), engine.getDuration());
-            updatePositionText(engine.getCurrentTime(), engine.getDuration());
+            position = engine.getCurrentTime();
+            duration = engine.getDuration();
+
+            updatePositionSeekBar(0, 0);
+            updatePositionText(0, 0);
 
             Toast.makeText(getContext(),
                     aBoolean ? "Project deleted successfully!" : "Deletion of project failed...",

@@ -6,9 +6,8 @@
             <solid android:color="@android:color/transparent"/>
         </shape>
     </item>
-    <item android:id="@android:id/progress">
+    <item android:id="@android:id/secondaryProgress">
         <clip>
-            <!--<nine-patch android:src="@drawable/play_red_line"/>-->
             <shape>
                 <corners android:radius="2dip" />
                 <gradient
@@ -19,9 +18,8 @@
             </shape>
         </clip>
     </item>
-    <item android:id="@android:id/secondaryProgress">
+    <item android:id="@android:id/progress">
         <clip>
-            <!--<nine-patch android:src="@drawable/play_green_line"/>-->
             <shape>
                 <corners android:radius="2dip" />
                 <gradient
