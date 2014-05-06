@@ -140,7 +140,8 @@
             android:layout_height="wrap_content">
 
         <SeekBar
-                android:id="@+id/position"
+                android:id="@+id/playback"
+                android:progressDrawable="@drawable/playback_bg"
                 android:thumb="@null"
                 android:padding="0dp"
                 android:minHeight="5dp"
@@ -149,6 +150,32 @@
                 android:layout_alignParentLeft="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        <SeekBar
+                android:id="@+id/recording"
+                android:progressDrawable="@drawable/record_bg"
+                android:thumb="@null"
+                android:padding="0dp"
+                android:minHeight="5dp"
+                android:maxHeight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        <!--android:progressDrawable="@drawable/record_bg"-->
+
+        <!--<ProgressBar android:id="@+id/recording"-->
+                     <!--android:progressDrawable="@drawable/record_bg"-->
+                     <!--android:padding="0dp"-->
+                     <!--android:minHeight="5dp"-->
+                     <!--android:maxHeight="5dp"-->
+                     <!--android:layout_centerVertical="true"-->
+                     <!--android:layout_alignParentLeft="true"-->
+                     <!--android:layout_width="match_parent"-->
+                     <!--android:layout_height="wrap_content"-->
+                     <!--android:visibility="gone"-->
+                <!--/>-->
     </RelativeLayout>
 
     <TextView
