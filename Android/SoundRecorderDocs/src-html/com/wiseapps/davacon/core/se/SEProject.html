@@ -27,10 +27,10 @@
 <FONT color="green">024</FONT>        private List&lt;SERecord&gt; records = new ArrayList&lt;SERecord&gt;();<a name="line.24"></a>
 <FONT color="green">025</FONT>    <a name="line.25"></a>
 <FONT color="green">026</FONT>        // project duration in bytes<a name="line.26"></a>
-<FONT color="green">027</FONT>        long duration;<a name="line.27"></a>
+<FONT color="green">027</FONT>        public long duration;<a name="line.27"></a>
 <FONT color="green">028</FONT>    <a name="line.28"></a>
 <FONT color="green">029</FONT>        // project current position in bytes<a name="line.29"></a>
-<FONT color="green">030</FONT>        long position;<a name="line.30"></a>
+<FONT color="green">030</FONT>        public long position;<a name="line.30"></a>
 <FONT color="green">031</FONT>    <a name="line.31"></a>
 <FONT color="green">032</FONT>        public SEProject(Context context) {<a name="line.32"></a>
 <FONT color="green">033</FONT>            this.context = context;<a name="line.33"></a>
@@ -43,7 +43,7 @@
 <FONT color="green">040</FONT>            return new ProjectAudioStream(this);<a name="line.40"></a>
 <FONT color="green">041</FONT>        }<a name="line.41"></a>
 <FONT color="green">042</FONT>    <a name="line.42"></a>
-<FONT color="green">043</FONT>        List&lt;SERecord&gt; getRecords() {<a name="line.43"></a>
+<FONT color="green">043</FONT>        public List&lt;SERecord&gt; getRecords() {<a name="line.43"></a>
 <FONT color="green">044</FONT>            return records;<a name="line.44"></a>
 <FONT color="green">045</FONT>        }<a name="line.45"></a>
 <FONT color="green">046</FONT>    <a name="line.46"></a>

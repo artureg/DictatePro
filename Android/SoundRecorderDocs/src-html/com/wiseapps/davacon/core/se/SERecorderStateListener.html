@@ -15,27 +15,25 @@
 <FONT color="green">012</FONT>        /**<a name="line.12"></a>
 <FONT color="green">013</FONT>         * Notifies that recording has started.<a name="line.13"></a>
 <FONT color="green">014</FONT>         */<a name="line.14"></a>
-<FONT color="green">015</FONT>        void recordingStarted();<a name="line.15"></a>
+<FONT color="green">015</FONT>        void recordingStarted(int position, int duration);<a name="line.15"></a>
 <FONT color="green">016</FONT>    <a name="line.16"></a>
 <FONT color="green">017</FONT>        /**<a name="line.17"></a>
 <FONT color="green">018</FONT>         * Notifies that recording is in progress.<a name="line.18"></a>
-<FONT color="green">019</FONT>         *<a name="line.19"></a>
-<FONT color="green">020</FONT>         * @param progress recording progress in bytes<a name="line.20"></a>
-<FONT color="green">021</FONT>         */<a name="line.21"></a>
-<FONT color="green">022</FONT>        void recordingInProgress(int progress);<a name="line.22"></a>
-<FONT color="green">023</FONT>    <a name="line.23"></a>
-<FONT color="green">024</FONT>        /**<a name="line.24"></a>
-<FONT color="green">025</FONT>         * Notifies that recording has stopped.<a name="line.25"></a>
-<FONT color="green">026</FONT>         */<a name="line.26"></a>
-<FONT color="green">027</FONT>        void recordingStopped();<a name="line.27"></a>
-<FONT color="green">028</FONT>    <a name="line.28"></a>
-<FONT color="green">029</FONT>        /**<a name="line.29"></a>
-<FONT color="green">030</FONT>         * Notifies that during recording some kind of error has occured.<a name="line.30"></a>
-<FONT color="green">031</FONT>         *<a name="line.31"></a>
-<FONT color="green">032</FONT>         * @param errorMessage error message<a name="line.32"></a>
-<FONT color="green">033</FONT>         */<a name="line.33"></a>
-<FONT color="green">034</FONT>        void onError(String errorMessage);<a name="line.34"></a>
-<FONT color="green">035</FONT>    }<a name="line.35"></a>
+<FONT color="green">019</FONT>         */<a name="line.19"></a>
+<FONT color="green">020</FONT>        void recordingInProgress(int position, int duration);<a name="line.20"></a>
+<FONT color="green">021</FONT>    <a name="line.21"></a>
+<FONT color="green">022</FONT>        /**<a name="line.22"></a>
+<FONT color="green">023</FONT>         * Notifies that recording has stopped.<a name="line.23"></a>
+<FONT color="green">024</FONT>         */<a name="line.24"></a>
+<FONT color="green">025</FONT>        void recordingStopped(int position, int duration);<a name="line.25"></a>
+<FONT color="green">026</FONT>    <a name="line.26"></a>
+<FONT color="green">027</FONT>        /**<a name="line.27"></a>
+<FONT color="green">028</FONT>         * Notifies that during recording some kind of error has occured.<a name="line.28"></a>
+<FONT color="green">029</FONT>         *<a name="line.29"></a>
+<FONT color="green">030</FONT>         * @param errorMessage error message<a name="line.30"></a>
+<FONT color="green">031</FONT>         */<a name="line.31"></a>
+<FONT color="green">032</FONT>        void onError(int position, int duration, String errorMessage);<a name="line.32"></a>
+<FONT color="green">033</FONT>    }<a name="line.33"></a>
 
 
 
