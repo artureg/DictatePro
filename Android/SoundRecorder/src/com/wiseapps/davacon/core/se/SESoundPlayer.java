@@ -128,9 +128,9 @@ class SESoundPlayer {
         	
                     sendMsgInProgress();
 
-                    LoggerFactory.obtainLogger(TAG).
-                            d("onPeriodicNotification# position = " + position +
-                                    ", duration = " + duration);
+//                    LoggerFactory.obtainLogger(TAG).
+//                            d("onPeriodicNotification# position = " + position +
+//                                    ", duration = " + duration);
         	}
             });
 
