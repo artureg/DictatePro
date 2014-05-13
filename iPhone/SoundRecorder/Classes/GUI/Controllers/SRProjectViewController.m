@@ -227,6 +227,7 @@
 - (IBAction)pm_onClear:(id)sender {
     [self.pv_engine.project clearProject];
     self.pv_engine.currentTime = 0;
+    [self.pv_trackSlider clear];
     [self pm_updateTrackSlider];
 }
 

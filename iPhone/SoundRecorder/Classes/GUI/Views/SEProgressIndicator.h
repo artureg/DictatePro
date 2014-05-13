@@ -11,4 +11,5 @@
 @property(nonatomic,assign) NSTimeInterval  duration;
 @property(nonatomic,assign) NSTimeInterval  recordingDuration;
 @property(nonatomic,readonly) BOOL          isTracking;
+- (void)clear;
 @end

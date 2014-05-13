@@ -13,7 +13,6 @@
 @property(nonatomic,strong) UIImageView*    pv_progressView;
 @property(nonatomic,strong) UIImageView*    pv_recordingView;
 @property(nonatomic,strong) UIImageView*    pv_trackView;
-@property(nonatomic,strong) UIImageView*    pv_trackRecordView;
 @property(nonatomic,assign) BOOL            pv_isDragging;
 - (void)pm_init;
 - (void)pm_updateLayout;
@@ -24,24 +23,23 @@
 
 - (void)pm_init {
     self.pv_progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play_green-line.png"]];
+    self.pv_progressView.frame = CGRectZero;
     self.pv_progressView.contentMode = UIViewContentModeScaleToFill;
     self.pv_progressView.layer.cornerRadius = 2;
     self.pv_progressView.backgroundColor = [UIColor greenColor];
     [self addSubview:self.pv_progressView];
     
     self.pv_recordingView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play_red-line.png"]];
+    self.pv_recordingView.frame = CGRectZero;
     self.pv_recordingView.contentMode = UIViewContentModeScaleToFill;
     self.pv_recordingView.layer.cornerRadius = 2;
     self.pv_recordingView.backgroundColor = [UIColor redColor];
     [self addSubview:self.pv_recordingView];
     
-    self.pv_trackView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play_pin-cursor.png"]];
+    self.pv_trackView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play_red-cursor.png"]];
     self.pv_trackView.frame = CGRectMake(0, 0, self.pv_trackView.frame.size.width/2, self.pv_trackView.frame.size.height/2);
     [self addSubview:self.pv_trackView];
-    
-    self.pv_trackRecordView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play_red-cursor.png"]];
-    self.pv_trackRecordView.frame = CGRectMake(0, 0, self.pv_trackRecordView.frame.size.width/4, self.pv_trackRecordView.frame.size.height/4);
-    [self addSubview:self.pv_trackRecordView];
+    self.pv_trackView.center = CGPointMake(0, self.frame.size.height/2);
     
     UILongPressGestureRecognizer* gest = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pm_onDrag:)];
     gest.minimumPressDuration = 0.01f;
@@ -88,24 +86,25 @@
     return self.pv_isDragging;
 }
 
+- (void)clear {
+    self.pv_duration = 0;
+    [self pm_updateLayout];
+}
+
 - (void)pm_updateLayout {
-    if (self.duration > self.pv_duration) {
-        if (self.duration <= 10) {
-            self.pv_duration = 10;
-        } else if ((self.duration > 10)&&(self.duration <= 30)) {
-            self.pv_duration = 30;
-        } else if ((self.duration > 30)&&(self.duration <= 60)) {
-            self.pv_duration = 60;
-        } else if ((self.duration > 60)&&(self.duration <= 120)) {
+    if (self.duration >= self.pv_duration) {
+        if (self.duration <= 120) {
             self.pv_duration = 120;
-        } else if ((self.duration > 120)&&(self.duration <= 300)) {
-            self.pv_duration = 300;
-        } else if ((self.duration > 300)&&(self.duration <= 600)) {
+        } else if ((self.duration > 120)&&(self.duration <= 600)) {
             self.pv_duration = 600;
-        } else if ((self.duration > 600)&&(self.duration <= 1800)) {
-            self.pv_duration = 1800;
+        } else if ((self.duration > 600)&&(self.duration <= 1200)) {
+            self.pv_duration = 1200;
+        } else if ((self.duration > 1200)&&(self.duration <= 2400)) {
+            self.pv_duration = 2400;
+        } else if ((self.duration > 2400)&&(self.duration <= 4800)) {
+            self.pv_duration = 4800;
         } else {
-            self.pv_duration = 3600;
+            self.pv_duration = self.duration;
         }
     }
     self.pv_progressView.frame = CGRectMake(
@@ -120,12 +119,14 @@
         self.recordingDuration*self.frame.size.width/self.pv_duration,
         self.frame.size.height/4
     );
-    self.pv_trackRecordView.hidden = (self.recordingDuration == 0);
-    self.pv_trackView.center = CGPointMake(self.value*self.frame.size.width/self.pv_duration, self.frame.size.height/2 - 5);
-    self.pv_trackRecordView.center = CGPointMake((self.value + self.recordingDuration)*self.frame.size.width/self.pv_duration, self.frame.size.height/2 + 5);
+    self.pv_trackView.hidden = (self.recordingDuration > 0);
+    self.pv_trackView.center = CGPointMake(self.value*self.frame.size.width/self.pv_duration, self.frame.size.height/2);
 }
 
 - (void)pm_onDrag:(UILongPressGestureRecognizer*)press {
+    if (self.pv_duration == 0) {
+        return;
+    }
     CGPoint pos = [press locationInView:self];
     NSTimeInterval value = self.pv_duration*pos.x/self.frame.size.width;
     if (value > self.duration) {
@@ -140,11 +141,11 @@
             self.userInteractionEnabled = NO;
         }break;
         case UIGestureRecognizerStateChanged: {
-            self.pv_trackView.center = CGPointMake(value*self.frame.size.width/self.pv_duration, self.frame.size.height/2 - 5);
+            self.pv_trackView.center = CGPointMake(value*self.frame.size.width/self.pv_duration, self.frame.size.height/2);
         }break;
         case UIGestureRecognizerStateCancelled:case UIGestureRecognizerStateEnded:case UIGestureRecognizerStateFailed: {
             self.value = value;
-            self.pv_trackView.center = CGPointMake(value*self.frame.size.width/self.pv_duration, self.frame.size.height/2 - 5);
+            self.pv_trackView.center = CGPointMake(value*self.frame.size.width/self.pv_duration, self.frame.size.height/2);
             self.pv_isDragging = NO;
             self.userInteractionEnabled = YES;
             [self sendActionsForControlEvents:UIControlEventValueChanged];
