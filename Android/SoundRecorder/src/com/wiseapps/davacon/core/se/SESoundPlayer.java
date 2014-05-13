@@ -147,7 +147,7 @@ class SESoundPlayer {
 
         private void work() {
         	int minBufferSize;
-        	if(FILE_FORMAT == FILE_FORMAT_SPEEX) {
+        	if(SEProjectEngine.fileFormat == FILE_FORMAT_SPEEX) {
         		minBufferSize = MIN_BUFFER_SIZE * 12;
         	} else {
         		minBufferSize = MIN_BUFFER_SIZE * MULT;
