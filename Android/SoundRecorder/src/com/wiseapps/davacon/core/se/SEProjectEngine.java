@@ -41,7 +41,7 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     /**
      * FILE_FORMAT_WAV - wav, FILE_FORMAT_SPEEX - speex
      */
-    public static final int FILE_FORMAT = FILE_FORMAT_WAV;
+    public static int fileFormat = FILE_FORMAT_SPEEX;
 
     private final Context context;
 

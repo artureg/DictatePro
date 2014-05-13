@@ -29,4 +29,7 @@
 
     <string name="project_save_in_progress">Project save in progress&#8230;</string>
     <string name="project_deletion_in_progress">Project deletion in progress&#8230;</string>
+
+    <string name="pcm">Working with PCM</string>
+    <string name="speex">Working with SPEEX</string>
 </resources>

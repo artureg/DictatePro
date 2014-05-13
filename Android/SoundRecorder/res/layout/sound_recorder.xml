@@ -163,19 +163,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
-        <!--android:progressDrawable="@drawable/record_bg"-->
-
-        <!--<ProgressBar android:id="@+id/recording"-->
-                     <!--android:progressDrawable="@drawable/record_bg"-->
-                     <!--android:padding="0dp"-->
-                     <!--android:minHeight="5dp"-->
-                     <!--android:maxHeight="5dp"-->
-                     <!--android:layout_centerVertical="true"-->
-                     <!--android:layout_alignParentLeft="true"-->
-                     <!--android:layout_width="match_parent"-->
-                     <!--android:layout_height="wrap_content"-->
-                     <!--android:visibility="gone"-->
-                <!--/>-->
     </RelativeLayout>
 
     <TextView
@@ -187,7 +174,6 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    <!--android:text="@string/process_track_duration"-->
 
     <SeekBar
             android:id="@+id/volume"
@@ -196,10 +182,21 @@
             android:progressDrawable="@drawable/volume_bg"
             android:minWidth="127dp"
             android:maxWidth="127dp"
-            android:layout_marginBottom="45dp"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/buttons"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             />
+
+    <TextView
+            android:id="@+id/format_prompt"
+            android:textSize="13sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <!--android:text="@string/pcm"-->
 </RelativeLayout>

@@ -44,7 +44,7 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     InputStream getInputStream() throws Exception {
-        int format = FILE_FORMAT;
+        int format = SEProjectEngine.fileFormat;
         RecordFilterInputStream rfin = new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
         rfin.skip(record.start + record.position);
         rfin.setLimit(record.duration);
@@ -55,7 +55,7 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     OutputStream getOutputStream() throws Exception{
-        int format = FILE_FORMAT;
+        int format = SEProjectEngine.fileFormat;
         return SpeexWrapper.getOutputStream(record.soundPath, format,
                 SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
 

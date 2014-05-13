@@ -35,7 +35,7 @@ public class SoundRecorderActivity extends Activity {
             buttonStart, buttonPlay, buttonEnd,
             buttonExport, buttonSave;
 
-    private TextView textDuration;
+    private TextView textDuration, formatPrompt;
 
     private SeekBar seekVolume;
 
@@ -135,6 +135,9 @@ public class SoundRecorderActivity extends Activity {
         buttonSave = (ImageButton) findViewById(R.id.save);
 
         textDuration = (TextView) findViewById(R.id.duration);
+
+        formatPrompt = (TextView) findViewById(R.id.format_prompt);
+        updateFormatPrompt();
 
         seekVolume = (SeekBar) findViewById(R.id.volume);
         seekVolume.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
@@ -282,6 +285,14 @@ public class SoundRecorderActivity extends Activity {
                         new DecimalFormat("0.0").format(dP), new DecimalFormat("0.0").format(dD)));
     }
 
+    private void updateFormatPrompt() {
+        if (((SEProjectEngine) engine).fileFormat == SEProjectEngine.FILE_FORMAT_WAV) {
+            formatPrompt.setText(getResources().getString(R.string.pcm));
+        } else {
+            formatPrompt.setText(getResources().getString(R.string.speex));
+        }
+    }
+
     public void rewind(View view) {
         if (engine.getState() != State.READY) {
             return;
@@ -385,7 +396,13 @@ public class SoundRecorderActivity extends Activity {
             return;
         }
 
-        new EncodeProjectTask().execute();
+        if (((SEProjectEngine) engine).fileFormat == SEProjectEngine.FILE_FORMAT_WAV) {
+            ((SEProjectEngine) engine).fileFormat = SEProjectEngine.FILE_FORMAT_SPEEX;
+        } else {
+            ((SEProjectEngine) engine).fileFormat = SEProjectEngine.FILE_FORMAT_WAV;
+        }
+
+        updateFormatPrompt();
     }
 
     public void delete(View view) {
@@ -662,12 +679,12 @@ public class SoundRecorderActivity extends Activity {
         }
     }
 
-    private class EncodeProjectTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return null;
-        }
-    }
+//    private class EncodeProjectTask extends AsyncTask<Void, Void, Boolean> {
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            return null;
+//        }
+//    }
 
     private class MediaButtonReceiver extends BroadcastReceiver {
         @Override
