@@ -14,9 +14,12 @@
 
 #import "SESpeexACMAudioStream.h"
 
+#import "SEProgressIndicator.h"
+#import "SEVolumeIndicator.h"
+
 @interface SRProjectViewController()<SEAudioStreamEngineDelegate>
-@property(nonatomic,weak) IBOutlet UISlider*                pv_trackSlider;
-@property(nonatomic,weak) IBOutlet UISlider*                pv_volumeSlider;
+@property(nonatomic,weak) IBOutlet SEProgressIndicator*     pv_trackSlider;
+@property(nonatomic,weak) IBOutlet SEVolumeIndicator*       pv_volumeSlider;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollLeft;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollRight;
 @property(nonatomic,weak) IBOutlet UIButton*                pv_scrollToStart;
@@ -60,8 +63,10 @@
             self.pv_statusLbl.text = @"Playing...";
             self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_engine.currentTime, self.pv_engine.duration];
             if (!self.pv_trackSlider.isTracking) {
-                self.pv_trackSlider.value = self.pv_engine.currentTime/self.pv_engine.duration;
+                self.pv_trackSlider.value = self.pv_engine.currentTime;
             }
+            self.pv_trackSlider.duration = self.pv_engine.duration;
+            self.pv_trackSlider.recordingDuration = 0;
             self.pv_scrollLeft.enabled = NO;
             self.pv_scrollRight.enabled = NO;
             self.pv_scrollToEnd.enabled = NO;
@@ -79,7 +84,9 @@
                 self.pv_engine.currentTime,
                 self.pv_engine.recordingDuration,
                 self.pv_engine.duration];
-            self.pv_trackSlider.value = self.pv_engine.currentTime/self.pv_engine.duration;
+            self.pv_trackSlider.value = self.pv_engine.currentTime;
+            self.pv_trackSlider.duration = self.pv_engine.duration;
+            self.pv_trackSlider.recordingDuration = self.pv_engine.recordingDuration;
             self.pv_scrollLeft.enabled = NO;
             self.pv_scrollRight.enabled = NO;
             self.pv_scrollToEnd.enabled = NO;
@@ -93,7 +100,9 @@
                 [self.pv_indicator stopAnimating];
             }
             self.pv_timeLbl.text = [NSString stringWithFormat:@"%3.1f / %3.1f", self.pv_engine.currentTime, self.pv_engine.duration];
-            self.pv_trackSlider.value = self.pv_engine.currentTime/self.pv_engine.duration;
+            self.pv_trackSlider.value = self.pv_engine.currentTime;
+            self.pv_trackSlider.duration = self.pv_engine.duration;
+            self.pv_trackSlider.recordingDuration = 0;
             self.pv_statusLbl.text = @"Ready";
             self.pv_playBtn.enabled = (self.pv_engine.duration > 0);
             self.pv_scrollLeft.enabled = (self.pv_engine.duration > 0);
@@ -112,8 +121,8 @@
     self.pv_engine = [[SEProjectEngine alloc] initWithProject:[[SEProject alloc] initWithFolder:documentsFolderPath()]];
     self.pv_engine.delegate = self;
     
-    [self.pv_trackSlider setThumbImage:[UIImage imageNamed:@"play_pin-cursor.png"] forState:UIControlStateNormal];
-    [self.pv_volumeSlider setThumbImage:[UIImage imageNamed:@"volume-cursor.png"] forState:UIControlStateNormal];
+    [self.pv_trackSlider addTarget:self action:@selector(pm_onTrackSlider:) forControlEvents:UIControlEventValueChanged];
+    [self.pv_volumeSlider addTarget:self action:@selector(pm_onVolumeSlider:) forControlEvents:UIControlEventValueChanged];
     
     self.pv_trackSlider.value = 0;
     self.pv_statusLbl.text = nil;
@@ -123,7 +132,7 @@
 }
 
 - (IBAction)pm_onTrackSlider:(id)sender {
-    self.pv_engine.currentTime = self.pv_trackSlider.value*self.pv_engine.duration;
+    self.pv_engine.currentTime = self.pv_trackSlider.value;
     [self pm_updateTrackSlider];
 }
 
