@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -20,8 +20,8 @@
                 <outlet property="pv_statusLbl" destination="gqm-K1-GRc" id="laz-X9-WA6"/>
                 <outlet property="pv_stopRecordBtn" destination="W1x-hY-C0D" id="GcL-bg-TNS"/>
                 <outlet property="pv_timeLbl" destination="Vrw-2n-OAt" id="sL2-nn-3g2"/>
-                <outlet property="pv_trackSlider" destination="8Yq-3a-82b" id="QQa-bW-ooA"/>
-                <outlet property="pv_volumeSlider" destination="d0y-EK-uVR" id="wNL-gh-W1V"/>
+                <outlet property="pv_trackSlider" destination="OJf-iF-uBu" id="zcx-qg-uEC"/>
+                <outlet property="pv_volumeSlider" destination="dEQ-5e-MTY" id="xeY-pc-GHh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -138,21 +138,6 @@
                         <action selector="pm_onSave:" destination="-1" eventType="touchUpInside" id="dfb-GO-NkB"/>
                     </connections>
                 </button>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="d0y-EK-uVR">
-                    <rect key="frame" x="101" y="430" width="118" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <connections>
-                        <action selector="pm_onVolumeSlider:" destination="-1" eventType="valueChanged" id="SGM-38-Xy7"/>
-                    </connections>
-                </slider>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" id="8Yq-3a-82b">
-                    <rect key="frame" x="44" y="51" width="234" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="minimumTrackTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <action selector="pm_onTrackSlider:" destination="-1" eventType="valueChanged" id="uSy-VO-hUg"/>
-                    </connections>
-                </slider>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bco-Xq-GSL">
                     <rect key="frame" x="56" y="321" width="64" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -201,6 +186,16 @@
                     <rect key="frame" x="39" y="126" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
+                <view contentMode="scaleToFill" id="OJf-iF-uBu" customClass="SEProgressIndicator">
+                    <rect key="frame" x="39" y="53" width="242" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="dEQ-5e-MTY" customClass="SEVolumeIndicator">
+                    <rect key="frame" x="112" y="444" width="96" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

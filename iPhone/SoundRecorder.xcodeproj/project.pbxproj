@@ -74,6 +74,14 @@
 		783F241118EB0FA30046520A /* SRAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783F240118EB0FA30046520A /* SRAppDelegate.mm */; };
 		783F241218EB0FA30046520A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 783F240318EB0FA30046520A /* InfoPlist.strings */; };
 		783F241718EB0FA30046520A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 783F240A18EB0FA30046520A /* Images.xcassets */; };
+		785297741922053600FCD0EF /* SEProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 785297731922053600FCD0EF /* SEProgressIndicator.m */; };
+		7852977A1922054B00FCD0EF /* play_green-line.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297751922054B00FCD0EF /* play_green-line.png */; };
+		7852977B1922054B00FCD0EF /* play_red-cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297761922054B00FCD0EF /* play_red-cursor.png */; };
+		7852977C1922054B00FCD0EF /* play_red-line.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297771922054B00FCD0EF /* play_red-line.png */; };
+		7852977D1922054B00FCD0EF /* volume_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297781922054B00FCD0EF /* volume_0.png */; };
+		7852977E1922054B00FCD0EF /* volume_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297791922054B00FCD0EF /* volume_1.png */; };
+		785297811922076D00FCD0EF /* SEVolumeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 785297801922076D00FCD0EF /* SEVolumeIndicator.m */; };
+		785297831922103200FCD0EF /* volume-cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 785297821922103200FCD0EF /* volume-cursor.png */; };
 		786941F31859AF3500EA2D98 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786941F21859AF3500EA2D98 /* Foundation.framework */; };
 		786941F51859AF3500EA2D98 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786941F41859AF3500EA2D98 /* CoreGraphics.framework */; };
 		786941F71859AF3500EA2D98 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786941F61859AF3500EA2D98 /* UIKit.framework */; };
@@ -226,7 +234,6 @@
 		7876105B18F6A58F00F17ACD /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876103518F6A58F00F17ACD /* stop.png */; };
 		7876105C18F6A58F00F17ACD /* volume_0.9.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876103618F6A58F00F17ACD /* volume_0.9.png */; };
 		7876105D18F6A58F00F17ACD /* volume_1.9.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876103718F6A58F00F17ACD /* volume_1.9.png */; };
-		7876105E18F6A58F00F17ACD /* volume_cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876103818F6A58F00F17ACD /* volume_cursor.png */; };
 		7876106218F6A78600F17ACD /* play_pin-cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876105F18F6A78600F17ACD /* play_pin-cursor.png */; };
 		7876106318F6A78600F17ACD /* rec_red-cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876106018F6A78600F17ACD /* rec_red-cursor.png */; };
 		7876106418F6A78600F17ACD /* stop_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876106118F6A78600F17ACD /* stop_blue.png */; };
@@ -410,6 +417,16 @@
 		783F240118EB0FA30046520A /* SRAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 2; path = SRAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		783F240418EB0FA30046520A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		783F240A18EB0FA30046520A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		785297721922053600FCD0EF /* SEProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEProgressIndicator.h; sourceTree = "<group>"; };
+		785297731922053600FCD0EF /* SEProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEProgressIndicator.m; sourceTree = "<group>"; };
+		785297751922054B00FCD0EF /* play_green-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_green-line.png"; sourceTree = "<group>"; };
+		785297761922054B00FCD0EF /* play_red-cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_red-cursor.png"; sourceTree = "<group>"; };
+		785297771922054B00FCD0EF /* play_red-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_red-line.png"; sourceTree = "<group>"; };
+		785297781922054B00FCD0EF /* volume_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume_0.png; sourceTree = "<group>"; };
+		785297791922054B00FCD0EF /* volume_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume_1.png; sourceTree = "<group>"; };
+		7852977F1922076D00FCD0EF /* SEVolumeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEVolumeIndicator.h; sourceTree = "<group>"; };
+		785297801922076D00FCD0EF /* SEVolumeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEVolumeIndicator.m; sourceTree = "<group>"; };
+		785297821922103200FCD0EF /* volume-cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-cursor.png"; sourceTree = "<group>"; };
 		786941EF1859AF3500EA2D98 /* SoundRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		786941F21859AF3500EA2D98 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		786941F41859AF3500EA2D98 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -464,7 +481,6 @@
 		7876103518F6A58F00F17ACD /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		7876103618F6A58F00F17ACD /* volume_0.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume_0.9.png; sourceTree = "<group>"; };
 		7876103718F6A58F00F17ACD /* volume_1.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume_1.9.png; sourceTree = "<group>"; };
-		7876103818F6A58F00F17ACD /* volume_cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = volume_cursor.png; sourceTree = "<group>"; };
 		7876105F18F6A78600F17ACD /* play_pin-cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_pin-cursor.png"; sourceTree = "<group>"; };
 		7876106018F6A78600F17ACD /* rec_red-cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rec_red-cursor.png"; sourceTree = "<group>"; };
 		7876106118F6A78600F17ACD /* stop_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop_blue.png; sourceTree = "<group>"; };
@@ -589,13 +605,6 @@
 				788CE50C18F8101C002746A7 /* SRSound.m */,
 			);
 			path = Temp;
-			sourceTree = "<group>";
-		};
-		7835601818EBEC9900A65447 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		783D286C18F7F32900D5C0E5 /* SoundEditor */ = {
@@ -785,7 +794,7 @@
 		783F23F818EB0FA30046520A /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				7835601818EBEC9900A65447 /* Views */,
+				785297711922053600FCD0EF /* Views */,
 				783F23F918EB0FA30046520A /* Controllers */,
 			);
 			path = GUI;
@@ -833,6 +842,11 @@
 		783F240518EB0FA30046520A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				785297751922054B00FCD0EF /* play_green-line.png */,
+				785297761922054B00FCD0EF /* play_red-cursor.png */,
+				785297771922054B00FCD0EF /* play_red-line.png */,
+				785297781922054B00FCD0EF /* volume_0.png */,
+				785297791922054B00FCD0EF /* volume_1.png */,
 				7876106918F6AB2300F17ACD /* save.png */,
 				7876106A18F6AB2300F17ACD /* save_disabled.png */,
 				7876106518F6AAFD00F17ACD /* send.png */,
@@ -877,9 +891,20 @@
 				7876103518F6A58F00F17ACD /* stop.png */,
 				7876103618F6A58F00F17ACD /* volume_0.9.png */,
 				7876103718F6A58F00F17ACD /* volume_1.9.png */,
-				7876103818F6A58F00F17ACD /* volume_cursor.png */,
+				785297821922103200FCD0EF /* volume-cursor.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		785297711922053600FCD0EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				785297721922053600FCD0EF /* SEProgressIndicator.h */,
+				785297731922053600FCD0EF /* SEProgressIndicator.m */,
+				7852977F1922076D00FCD0EF /* SEVolumeIndicator.h */,
+				785297801922076D00FCD0EF /* SEVolumeIndicator.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		786941E61859AF3500EA2D98 = {
@@ -1093,6 +1118,7 @@
 				7876104718F6A58F00F17ACD /* ic_action_accept.png in Resources */,
 				7876104E18F6A58F00F17ACD /* ic_action_play.png in Resources */,
 				7876104218F6A58F00F17ACD /* button05_1.png in Resources */,
+				785297831922103200FCD0EF /* volume-cursor.png in Resources */,
 				783D2A5518F7F51C00D5C0E5 /* 1397141803000.wav in Resources */,
 				7876103F18F6A58F00F17ACD /* button02_1.png in Resources */,
 				7876104818F6A58F00F17ACD /* ic_action_edit.png in Resources */,
@@ -1111,6 +1137,8 @@
 				783F241218EB0FA30046520A /* InfoPlist.strings in Resources */,
 				789CBDB818F2A14D0091D85A /* rec_spx.wav in Resources */,
 				78AAC5C21909BA8E00272A75 /* UWBQ=1.wav in Resources */,
+				7852977C1922054B00FCD0EF /* play_red-line.png in Resources */,
+				7852977E1922054B00FCD0EF /* volume_1.png in Resources */,
 				7876105018F6A58F00F17ACD /* ic_action_split.png in Resources */,
 				78AAC5B91909B6F600272A75 /* 123.wav in Resources */,
 				7876106418F6A78600F17ACD /* stop_blue.png in Resources */,
@@ -1119,6 +1147,7 @@
 				7876105818F6A58F00F17ACD /* save_0.png in Resources */,
 				7876105218F6A58F00F17ACD /* ic_launcher.png in Resources */,
 				7876105418F6A58F00F17ACD /* list_item_bg.9.png in Resources */,
+				7852977B1922054B00FCD0EF /* play_red-cursor.png in Resources */,
 				7876104B18F6A58F00F17ACD /* ic_action_new.png in Resources */,
 				7876105A18F6A58F00F17ACD /* send_0.png in Resources */,
 				7876104D18F6A58F00F17ACD /* ic_action_pause.png in Resources */,
@@ -1126,7 +1155,9 @@
 				7876104518F6A58F00F17ACD /* button08_1.png in Resources */,
 				7876105C18F6A58F00F17ACD /* volume_0.9.png in Resources */,
 				7876104A18F6A58F00F17ACD /* ic_action_mic.png in Resources */,
+				7852977A1922054B00FCD0EF /* play_green-line.png in Resources */,
 				789CBDB918F2A14D0091D85A /* rec.wav in Resources */,
+				7852977D1922054B00FCD0EF /* volume_0.png in Resources */,
 				7876105D18F6A58F00F17ACD /* volume_1.9.png in Resources */,
 				7876104618F6A58F00F17ACD /* header.9.png in Resources */,
 				7876104018F6A58F00F17ACD /* button02_2.png in Resources */,
@@ -1135,7 +1166,6 @@
 				7876105718F6A58F00F17ACD /* record.png in Resources */,
 				7876104318F6A58F00F17ACD /* button06_1.png in Resources */,
 				789AADE418F3FB63008ECF92 /* rec1.wav in Resources */,
-				7876105E18F6A58F00F17ACD /* volume_cursor.png in Resources */,
 				7876106818F6AAFD00F17ACD /* send_disabled.png in Resources */,
 				7876105318F6A58F00F17ACD /* list_header.9.png in Resources */,
 				7876104418F6A58F00F17ACD /* button07_1.png in Resources */,
@@ -1231,6 +1261,7 @@
 				783D2A2A18F7F47800D5C0E5 /* exc_20_32_table.c in Sources */,
 				783D2A5218F7F47800D5C0E5 /* WaveSpeexFile.cpp in Sources */,
 				783D2A3518F7F47800D5C0E5 /* high_lsp_tables.c in Sources */,
+				785297811922076D00FCD0EF /* SEVolumeIndicator.m in Sources */,
 				783D2A4D18F7F47800D5C0E5 /* window.c in Sources */,
 				783D288918F7F35C00D5C0E5 /* SEModel.m in Sources */,
 				7810F1E118F80FAB00B22370 /* SRProject.mm in Sources */,
@@ -1254,6 +1285,7 @@
 				788F8A6B190AE546006E8AF1 /* filterbank.c in Sources */,
 				783D2A2918F7F47800D5C0E5 /* exc_10_32_table.c in Sources */,
 				783D2A2D18F7F47800D5C0E5 /* exc_8_128_table.c in Sources */,
+				785297741922053600FCD0EF /* SEProgressIndicator.m in Sources */,
 				783D2A3218F7F47800D5C0E5 /* gain_table_lbr.c in Sources */,
 				783D2A3A18F7F47800D5C0E5 /* lsp.c in Sources */,
 				783D2A2818F7F47800D5C0E5 /* exc_10_16_table.c in Sources */,
