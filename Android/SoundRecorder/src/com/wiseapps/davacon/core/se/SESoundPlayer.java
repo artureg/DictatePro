@@ -146,12 +146,8 @@ class SESoundPlayer {
         }
 
         private void work() {
-        	int minBufferSize;
-        	if(SEProjectEngine.fileFormat == FILE_FORMAT_SPEEX) {
-        		minBufferSize = MIN_BUFFER_SIZE * 12;
-        	} else {
-        		minBufferSize = MIN_BUFFER_SIZE * MULT;
-        	}
+        	
+        	int minBufferSize = getMinBufferSize() ;
 
             InputStream in = null;
             try {
@@ -205,6 +201,16 @@ class SESoundPlayer {
         void pausePlaying() {
             running = false;
         }
+    }
+    
+    public static int getMinBufferSize() {
+    	
+    	if(SEProjectEngine.fileFormat == FILE_FORMAT_SPEEX) {
+    		return MIN_BUFFER_SIZE * 12;
+    	} else {
+    		return MIN_BUFFER_SIZE * MULT;
+    	}
+    	
     }
 
     interface SESoundPlayerStateListener {
