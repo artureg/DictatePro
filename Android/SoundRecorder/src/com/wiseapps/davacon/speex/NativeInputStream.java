@@ -101,6 +101,10 @@ public class NativeInputStream extends InputStream {
 			return -1;
 		}
 		
+		if(buffer.length < bufferT.length) {
+				throw new IllegalArgumentException ("The buffer size is too small, min expected size = " +  bufferT.length);
+		}
+		
 		System.arraycopy(bufferT, 0, buffer, 0, bufferT.length);
 		
 //		LoggerFactory.obtainLogger(TAG).d("read(...)   bufferT.length =" + bufferT.length);

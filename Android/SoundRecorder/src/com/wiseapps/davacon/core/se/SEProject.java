@@ -184,7 +184,7 @@ public class SEProject {
 
             long duration = 0;
 
-            byte data[] = new byte[MIN_BUFFER_SIZE];
+            byte data[] = new byte[SESoundPlayer.getMinBufferSize()];
             while (in.read(data) != -1) {
                 out.write(data);
                 duration += data.length;
