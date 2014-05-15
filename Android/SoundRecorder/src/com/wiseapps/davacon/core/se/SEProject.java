@@ -192,7 +192,9 @@ public class SEProject {
                 duration += length; // data.length;
             }
 
-            record.duration = length; // data.length;
+            if(duration == 0) return false;
+            
+            record.duration = duration;
 
             SDCardUtils.deleteRecords(this);
 

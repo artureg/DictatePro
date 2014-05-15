@@ -36,10 +36,8 @@ public class NativeInputStream extends InputStream {
 		
 		nativeObject = open(filePath, format);
 //		LoggerFactory.obtainLogger(TAG).d("open " + nativeObject);
-		
-	//	sampleRate = (int)getSampleRate(nativeObject);	
-		//LoggerFactory.obtainLogger(TAG).d("!!! sampleRate =  " + sampleRate);
-		
+		sampleRate = (int)getSampleRate(nativeObject);	
+//	 	LoggerFactory.obtainLogger(TAG).d("!!! sampleRate =  " + sampleRate);
 	}
 	
 	@Override
@@ -90,8 +88,7 @@ public class NativeInputStream extends InputStream {
 				 throw new ArrayIndexOutOfBoundsException();
 		}
 		
-//		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);
-//		
+//		LoggerFactory.obtainLogger(TAG).d("read(...)  nativeObject" + nativeObject);		
 //		LoggerFactory.obtainLogger(TAG).d("read(...)  byteOffset = " + byteOffset);
 //		LoggerFactory.obtainLogger(TAG).d("read(...)   byteCount =" + byteCount);
 		 

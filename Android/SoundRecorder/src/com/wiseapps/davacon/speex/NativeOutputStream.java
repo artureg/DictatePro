@@ -43,7 +43,7 @@ public class NativeOutputStream extends OutputStream {
 	
 	@Override
 	public void close() throws IOException {
-		LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
+//		LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
 		this.close(nativeObject);
 		super.close();
 	}
@@ -90,13 +90,13 @@ public class NativeOutputStream extends OutputStream {
 		
 	}
 	
-	String bytArrayToHex(byte[] a) {
- 	   StringBuilder sb = new StringBuilder();
- 	   for(byte b: a) {
- 	      sb.append(String.format("%02x", b&0xff));
- 	      sb.append(" ");
- 	   }
- 	   return sb.toString();
- 	}
+//	String bytArrayToHex(byte[] a) {
+// 	   StringBuilder sb = new StringBuilder();
+// 	   for(byte b: a) {
+// 	      sb.append(String.format("%02x", b&0xff));
+// 	      sb.append(" ");
+// 	   }
+// 	   return sb.toString();
+// 	}
 
 }
