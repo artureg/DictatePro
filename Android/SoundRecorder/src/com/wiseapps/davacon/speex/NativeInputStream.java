@@ -35,16 +35,16 @@ public class NativeInputStream extends InputStream {
 		this.format = format;
 		
 		nativeObject = open(filePath, format);
-		//LoggerFactory.obtainLogger(TAG).d("open " + nativeObject);
+//		LoggerFactory.obtainLogger(TAG).d("open " + nativeObject);
 		
-		sampleRate = (int)getSampleRate(nativeObject);	
+	//	sampleRate = (int)getSampleRate(nativeObject);	
 		//LoggerFactory.obtainLogger(TAG).d("!!! sampleRate =  " + sampleRate);
 		
 	}
 	
 	@Override
 	public void close() throws IOException {
-		//LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
+//		LoggerFactory.obtainLogger(TAG).d("close " + nativeObject);
 		this.close(nativeObject);
 		super.close();
 	}

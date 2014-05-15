@@ -60,8 +60,7 @@ public class NativeOutputStream extends OutputStream {
 	}
 
 	@Override
-	public void write(byte[] buffer) throws IOException {
-		
+	public void write(byte[] buffer) throws IOException {	
 		
 		//LoggerFactory.obtainLogger(TAG).d("write()  = bytes =" + bytArrayToHex(buffer));
 		
@@ -79,12 +78,12 @@ public class NativeOutputStream extends OutputStream {
 			throw new IllegalArgumentException("Illegal argumant - count");
 		}
 		
-//		LoggerFactory.obtainLogger(TAG).d("INPUT offset =" + offset);
+//		LoggerFactory.obtainLogger(TAG).d("INPUT !!!!!!!!!!!!!!!!!!!!!!!!!!!!! offset =" + offset);
 //		LoggerFactory.obtainLogger(TAG).d("INPUT count =" + count);
 		
 		byte[] buf = new byte[count];
 		System.arraycopy(buffer, offset, buf, 0, count);
-		int	result = this.write(nativeObject, buffer);
+		int	result = this.write(nativeObject, buf);
 		if(result == -1) {
 			throw new IOException("Error occurred during writing");
 		}
