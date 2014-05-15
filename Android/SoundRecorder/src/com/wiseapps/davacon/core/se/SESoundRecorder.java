@@ -108,7 +108,7 @@ class SESoundRecorder {
         private void open() {
             int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
-            audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+            audioRecord = new AudioRecord(MediaRecorder.AudioSource.VOICE_COMMUNICATION,
                     SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
             audioRecord.setPositionNotificationPeriod((int) (SAMPLE_RATE_IN_HZ * 0.1)); // notify each 0.1 second
             audioRecord.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
