@@ -109,8 +109,8 @@ class SESoundPlayer {
         private void open() {
             int minBufferSize = MIN_BUFFER_SIZE;
 
-            audioTrack = new AudioTrack(STREAM_TYPE, SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_OUT, AUDIO_FORMAT, minBufferSize, MODE);
-            audioTrack.setPositionNotificationPeriod((int)(SAMPLE_RATE_IN_HZ * 0.1));   // notify each 0.1 second
+            audioTrack = new AudioTrack(STREAM_TYPE, SEProjectEngine.sampleRate, CHANNEL_CONFIG_OUT, AUDIO_FORMAT, minBufferSize, MODE);
+            audioTrack.setPositionNotificationPeriod((int)(SEProjectEngine.sampleRate * 0.1));   // notify each 0.1 second
             audioTrack.setPlaybackPositionUpdateListener(new AudioTrack.OnPlaybackPositionUpdateListener() {
                 @Override
                 public void onMarkerReached(AudioTrack track) {

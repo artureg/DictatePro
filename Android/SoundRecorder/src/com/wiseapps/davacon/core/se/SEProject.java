@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.wiseapps.davacon.core.se.SEProjectEngine.MIN_BUFFER_SIZE;
-
 /**
  * @author varya.bzhezinskaya@wise-apps.com
  *         Date: 4/14/14
