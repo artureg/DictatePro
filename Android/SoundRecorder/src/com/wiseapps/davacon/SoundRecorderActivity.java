@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.wiseapps.davacon.core.se.*;
-import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 
 import java.text.DecimalFormat;
@@ -290,6 +289,10 @@ public class SoundRecorderActivity extends Activity {
     private void updatePositionText(long position, long duration) {
         double dP = DurationUtils.secondsFromBytes(this.position + position);
         double dD = DurationUtils.secondsFromBytes(this.duration + duration);
+
+        if (dP > dD) {
+            dP = dD;
+        }
 
         textDuration.setText(
                 String.format(getResources().getString(R.string.process_track_duration),
