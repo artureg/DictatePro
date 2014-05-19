@@ -127,10 +127,6 @@ class SESoundRecorder {
                     duration += delta;
 
                     sendMsgInProgress();
-
-//                    LoggerFactory.obtainLogger(TAG).
-//                            d("onPeriodicNotification# position = " + position +
-//                                    ", duration = " + duration);
                 }
             });
 

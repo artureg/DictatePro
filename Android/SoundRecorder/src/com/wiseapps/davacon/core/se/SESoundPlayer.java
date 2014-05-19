@@ -152,16 +152,6 @@ class SESoundPlayer {
             InputStream in = null;
             try {
                 in = stream.getInputStream();
-                
-//                // TODO move this to the open method - DO NOT initialize audiotrack twice!!!
-//                int sampleRate = NativeInputStream.getSampleRate();
-//                LoggerFactory.obtainLogger(TAG).
-//                        d("work# native sampleRate is " + sampleRate);
-////                if(sampleRate != SAMPLE_RATE_IN_HZ) {
-////                	if(!openAudioTrack(sampleRate)) {
-////                		return;
-////                	}
-////                }
 
                 byte data[] = new byte[minBufferSize];
 

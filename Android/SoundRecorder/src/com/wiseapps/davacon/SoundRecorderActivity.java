@@ -45,8 +45,6 @@ public class SoundRecorderActivity extends Activity {
     // value to hold progress maximum
     private long max;
 
-    private int count = 0;
-
     private SeekBar playbackPos, recordingPos;
 
     private ProgressDialog dialog;
@@ -108,8 +106,6 @@ public class SoundRecorderActivity extends Activity {
         outState.putLong("position", position);
         outState.putLong("duration", duration);
         outState.putLong("max", max);
-
-        outState.putInt("count", count);
     }
 
     @Override
@@ -119,8 +115,6 @@ public class SoundRecorderActivity extends Activity {
         position = savedInstanceState.getLong("position");
         duration = savedInstanceState.getLong("duration");
         max = savedInstanceState.getLong("max");
-
-        count = savedInstanceState.getInt("count");
     }
 
     private void initData() {
@@ -186,9 +180,9 @@ public class SoundRecorderActivity extends Activity {
         playbackPos.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                LoggerFactory.obtainLogger(TAG).
-                        d("onProgressChanged# progress = " + progress +
-                                ", duration = " + engine.getDuration() + ", currentTime = " + engine.getCurrentTime());
+//                LoggerFactory.obtainLogger(TAG).
+//                        d("onProgressChanged# progress = " + progress +
+//                                ", duration = " + engine.getDuration() + ", currentTime = " + engine.getCurrentTime());
 
                 if (!fromUser) {
                     return;
@@ -242,12 +236,9 @@ public class SoundRecorderActivity extends Activity {
 
                 playbackPos.setMax((int) this.max);
                 recordingPos.setMax((int) this.max);
-
-                // just in case the next time the above condition is false
-                this.max = this.max * 2;
             } else {
-                if (++count * secondInBytes >= this.max * 2) {
-                this.max = this.max * 2;
+                if (playbackPos.getProgress() >= this.max) {
+                    this.max = this.max * 2;
                 }
 
                 playbackPos.setMax((int) (this.max));
@@ -279,10 +270,6 @@ public class SoundRecorderActivity extends Activity {
                 break;
             }
             case RECORDING_IN_PROGRESS: {
-//                LoggerFactory.obtainLogger(TAG).
-//                        d("updatePositionSeekBar# this.position = " + this.position + ", this.duration = " + this.duration +
-//                                ", position = " + position + ", duration = " + duration + ", max = " + max + ", count = " + count);
-
                 if (recordingPos.getVisibility() == View.GONE) {
                     recordingPos.setProgress((int) (this.position + position));
                     recordingPos.setVisibility(View.VISIBLE);
