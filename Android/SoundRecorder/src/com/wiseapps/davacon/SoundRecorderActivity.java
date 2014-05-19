@@ -165,12 +165,7 @@ public class SoundRecorderActivity extends Activity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 LoggerFactory.obtainLogger(TAG).
                         d("onProgressChanged# progress = " + progress +
-                                ", currentTime = " + engine.getCurrentTime());
-
-                if (seekBar.getThumb() != null) {
-                    LoggerFactory.obtainLogger(TAG).
-                            d("onProgressChanged# seekBar.getThumb().getBounds().centerX() = " + seekBar.getThumb().getBounds().centerX());
-                }
+                                ", duration = " + engine.getDuration() + ", currentTime = " + engine.getCurrentTime());
 
                 if (!fromUser) {
                     return;
@@ -180,12 +175,18 @@ public class SoundRecorderActivity extends Activity {
                     return;
                 }
 
-                engine.setCurrentTime(progress);
+                if (progress > engine.getDuration()) {
+                    progress = (int) engine.getDuration();
+                }
+
+                seekBar.setProgress(progress);
 
                 textDuration.setText(
                         String.format(getResources().getString(R.string.process_track_duration),
                                 DurationUtils.secondsFromBytes(engine.getCurrentTime()),
                                 DurationUtils.secondsFromBytes(engine.getDuration())));
+
+                engine.setCurrentTime(progress);
             }
 
             @Override
