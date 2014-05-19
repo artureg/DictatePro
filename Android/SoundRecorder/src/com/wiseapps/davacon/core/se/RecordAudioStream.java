@@ -47,7 +47,7 @@ public class RecordAudioStream extends AudioStream {
         int format = SEProjectEngine.fileFormat;
         RecordFilterInputStream rfin = new RecordFilterInputStream(SpeexWrapper.getInputStream(record.soundPath, format));
         rfin.skip(record.start + record.position);
-        rfin.setLimit(record.duration);
+        rfin.setLimit(record.start, record.duration);
         return rfin;
         
 //        return mockGetInputStream();
@@ -97,7 +97,7 @@ public class RecordAudioStream extends AudioStream {
                 new RecordFilterInputStream(new FileInputStream(file));
 
         rfin.skip(record.start + record.position);
-        rfin.setLimit(record.duration);
+        rfin.setLimit(record.start, record.duration);
 
         mockIn = rfin;
         return mockIn;
@@ -158,9 +158,10 @@ public class RecordAudioStream extends AudioStream {
             long result = in.skip(n);
 
             readBytes += result;
-            if (limit != 0) {
-                limit = limit - skiped + result;
-            }
+//            if (limit != 0) {
+//                limit = limit - skiped + result;
+//                
+//            }
             skiped = result;
 
             LoggerFactory.obtainLogger(TAG).
@@ -172,11 +173,12 @@ public class RecordAudioStream extends AudioStream {
          * @param n
          * @throws IOException
          */
-        public void setLimit(long n) throws IOException {
-            limit = n + skiped;
+        public void setLimit(long start, long n) throws IOException {
+
+            limit = start + n;
 
             LoggerFactory.obtainLogger(TAG).
-                    d("setLimit# " + getDescription() + "limit = " + limit);
+                    d("setLimit# " + getDescription() + "limit = " + limit + "start = " + start);
         }
 
         @Override
