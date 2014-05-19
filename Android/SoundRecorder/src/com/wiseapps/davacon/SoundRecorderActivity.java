@@ -101,6 +101,28 @@ public class SoundRecorderActivity extends Activity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong("position", position);
+        outState.putLong("duration", duration);
+        outState.putLong("max", max);
+
+        outState.putInt("count", count);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        position = savedInstanceState.getLong("position");
+        duration = savedInstanceState.getLong("duration");
+        max = savedInstanceState.getLong("max");
+
+        count = savedInstanceState.getInt("count");
+    }
+
     private void initData() {
         project = new SEProject(getContext());
 
@@ -113,6 +135,7 @@ public class SoundRecorderActivity extends Activity {
 
     private void initEngine() {
         engine = new SEProjectEngine(getContext(), project);
+
         engine.addPlayerStateListener(playerStateListener);
         engine.addRecorderStateListener(recorderStateListener);
     }

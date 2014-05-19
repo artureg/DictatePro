@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.*;
 import android.os.Handler;
 import android.os.Message;
+import com.wiseapps.davacon.logging.LoggerFactory;
 
 import static com.wiseapps.davacon.core.se.SESoundRecorder.*;
 import static com.wiseapps.davacon.core.se.SESoundPlayer.*;
@@ -20,16 +21,15 @@ public class SEProjectEngine extends SEAudioStreamEngine {
 
     public static final int STREAM_TYPE = AudioManager.STREAM_MUSIC;
 
-    public static final int SAMPLE_RATE_IN_HZ = 8000;
+    private static final int SAMPLE_RATE_IN_HZ_32000 = 32000;
+    private static final int SAMPLE_RATE_IN_HZ_16000 = 16000;
+    private static final int SAMPLE_RATE_IN_HZ_8000 = 8000;
 
     public static final int CHANNEL_CONFIG_IN = AudioFormat.CHANNEL_IN_MONO;
     public static final int CHANNEL_CONFIG_OUT = AudioFormat.CHANNEL_OUT_MONO;
     public static final int NUM_CHANNELS = 1;
 
     public static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
-
-    public static final int MIN_BUFFER_SIZE =
-            AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT);
 
     public static final short BITS_PER_SAMPLE = 16;
 
@@ -50,12 +50,32 @@ public class SEProjectEngine extends SEAudioStreamEngine {
     private SESoundRecorder recorder;
     private SESoundPlayer player;
 
+    public static int sampleRate;
+
     public SEProjectEngine(Context context, final SEProject project) {
         super();
 
         this.context = context;
 
         this.project = project;
+
+        // define sample rate
+        int minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ_32000,
+                CHANNEL_CONFIG_IN, AudioFormat.ENCODING_PCM_16BIT);
+        if (minBufferSize > 0) {
+            sampleRate = SAMPLE_RATE_IN_HZ_32000;
+        } else {
+            minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ_16000,
+                    CHANNEL_CONFIG_IN, AudioFormat.ENCODING_PCM_16BIT);
+            if (minBufferSize > 0) {
+                sampleRate = SAMPLE_RATE_IN_HZ_16000;
+                return;
+            } else {
+                sampleRate = SAMPLE_RATE_IN_HZ_8000;
+            }
+        }
+
+        LoggerFactory.obtainLogger(TAG).d("SEProjectEngine# sampleRate is set to " + sampleRate);
     }
 
     /**

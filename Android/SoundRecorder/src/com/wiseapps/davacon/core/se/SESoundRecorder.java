@@ -109,8 +109,8 @@ class SESoundRecorder {
             int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                    SAMPLE_RATE_IN_HZ, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
-            audioRecord.setPositionNotificationPeriod((int) (SAMPLE_RATE_IN_HZ * 0.1)); // notify each 0.1 second
+                    SEProjectEngine.sampleRate, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
+            audioRecord.setPositionNotificationPeriod((int) (SEProjectEngine.sampleRate * 0.1)); // notify each 0.1 second
             audioRecord.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
                 @Override
                 public void onMarkerReached(AudioRecord recorder) {

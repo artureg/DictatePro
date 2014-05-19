@@ -57,7 +57,7 @@ public class RecordAudioStream extends AudioStream {
     OutputStream getOutputStream() throws Exception{
         int format = SEProjectEngine.fileFormat;
         return SpeexWrapper.getOutputStream(record.soundPath, format,
-                SAMPLE_RATE_IN_HZ, BITS_PER_SAMPLE, 1);
+                SEProjectEngine.sampleRate, BITS_PER_SAMPLE, 1);
 
 //       return mockGetOutputStream();
     }
