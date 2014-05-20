@@ -25,18 +25,22 @@ int NativeInputStream::open(const char *file_path, int _format) {
 	if (format == 0) {
 		wavFile = new WaveFile();
 
-		if (!wavFile->openRead(file_path)) {
+		if (!wavFile->openRead(file_path) || wavFile->getFMTInfo().audioFormat != 1) {
 			wavFile->close();
+			//LOGD("!!!!!!! JJJJJJJJ  !!!!!!!!!!!");
 			return -1;
 		}
-	} else if (format == 1) {
+		//LOGD("RTRTRT wav = %d", wavFile->getFMTInfo().audioFormat);
+
+	} else if (format == 1 ) {
 
 		speexFile = new WaveSpeexFile();
 
-		if (!speexFile->openRead(file_path)) {
+		if (!speexFile->openRead(file_path) || speexFile->getFMTInfo().audioFormat != 41225) {
 			speexFile->close();
 			return -1;
 		}
+	//	LOGD("RTRTRT SPEEX = %d", speexFile->getFMTInfo().audioFormat);
 
 	} else {
 		return -1;

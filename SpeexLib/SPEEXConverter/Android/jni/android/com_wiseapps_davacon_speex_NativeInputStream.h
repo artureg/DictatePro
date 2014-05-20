@@ -42,8 +42,8 @@ jint JNI(getSampleRate)
  * Class:  com_wiseapps_davacon_speex_NativeInputStream
  * Method: read
  */
-jbyteArray JNI(readOne)
-(JNIEnv *, jclass, jlong nativeId, jint length);
+//jbyteArray JNI(readOne)
+//(JNIEnv *, jclass, jlong nativeId, jint length);
 
 /**
  * Class:  com_wiseapps_davacon_speex_NativeInputStream

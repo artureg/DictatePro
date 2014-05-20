@@ -26,21 +26,22 @@ jlong JNI(open)
 	NativeOutputStream* stream = new NativeOutputStream();
 	int result = stream->open(filePathChar, (int)format, (int)sample_rate, (int)bits_per_sample, (int)channel);
 
-	if(result == -1) return -1;
-
-	nativeId = (jlong)(intptr_t) stream;
+	if(result != -1) {
+		nativeId = (jlong)(intptr_t) stream;
+	}
 
 	//LOGD("open output stream = %d", nativeId);
 	env->ReleaseStringUTFChars(filePath, filePathChar);
 
 	return nativeId;
-
 }
 
 jint JNI(close)
 (JNIEnv *env, jclass, jlong nativeId) {
 
 	//LOGD("close output stream = %d", nativeId);
+
+	if(nativeId == -1) return -1;
 
 	NativeOutputStream* stream;
 	stream = (NativeOutputStream*)nativeId;
@@ -58,6 +59,8 @@ jint JNI(write)
 (JNIEnv *env, jclass, jlong nativeId, jbyteArray byteArray) {
 
 	//LOGD("write AAAAAAAA");
+
+	if(nativeId == -1) return -1;
 
 	jsize len = env->GetArrayLength(byteArray);
 	jbyte* data = (jbyte *) malloc(len);
@@ -83,7 +86,4 @@ jint JNI(write)
 	free(data);
 
 	return result;
-
 }
-
-

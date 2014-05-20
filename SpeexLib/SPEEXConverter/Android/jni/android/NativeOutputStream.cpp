@@ -45,7 +45,7 @@ int NativeOutputStream::open(const char *file_path, int _format, int _sample_rat
 
 	} else if (format == 1) {
 
-		//LOGD("-write speex OPEN SPEEX");
+//		LOGD("-write speex OPEN SPEEX");
 
 		speexFile = new WaveSpeexFile();
 
@@ -146,7 +146,7 @@ int NativeOutputStream::write(char *data, int length) {
 
 		speexFile->encodeWavData(bytesForWrite, coundPkg);
 
-	//	LOGD("-write speex pkg writed");
+//		LOGD("-write speex pkg writed");
 
 		char newLeftByte[bufferStorageLength - lengthForWrite];
 		for (int i = lengthForWrite; i < bufferStorageLength; i++) {
