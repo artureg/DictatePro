@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.wiseapps.davacon.core.se.*;
+import com.wiseapps.davacon.logging.LoggerFactory;
 import com.wiseapps.davacon.utils.DurationUtils;
 
 import java.text.DecimalFormat;

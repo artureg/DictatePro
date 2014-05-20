@@ -28,16 +28,18 @@ class SESoundRecorder {
 
     private final AudioStream stream;
 
+    private AudioRecord audioRecord;
+    private int minBufferSize;
+
     private List<SESoundRecorderStateListener> listeners = new ArrayList<SESoundRecorderStateListener>();
 
     SESoundRecorder(AudioStream stream, int position, int duration) {
         this.stream = stream;
 
-//        this.position = position;
-//        this.duration = duration;
-
         this.position = 0;
         this.duration = 0;
+
+        minBufferSize = MIN_BUFFER_SIZE * MULT;
     }
 
     void start() {
@@ -92,8 +94,6 @@ class SESoundRecorder {
     private class RecordingThread extends Thread {
         private boolean running;
 
-        private AudioRecord audioRecord;
-
         private RecordingThread(boolean running) {
             this.running = running;
         }
@@ -106,7 +106,10 @@ class SESoundRecorder {
         }
 
         private void open() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
+            if (audioRecord != null && audioRecord.getState() == AudioRecord.STATE_INITIALIZED) {
+                LoggerFactory.obtainLogger(TAG).d("open# audioRecord is already initialized, returning...");
+                return;
+            }
 
             audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                     SEProjectEngine.sampleRate, CHANNEL_CONFIG_IN, AUDIO_FORMAT, minBufferSize);
@@ -120,9 +123,6 @@ class SESoundRecorder {
                 public void onPeriodicNotification(AudioRecord recorder) {
                     long delta = DurationUtils.secondsToBytes(0.1);
 
-                    stream.updatePosition(delta);
-                    stream.updateDuration(delta);
-
                     position += delta;
                     duration += delta;
 
@@ -132,17 +132,16 @@ class SESoundRecorder {
 
             if (audioRecord.getState() != AudioRecord.STATE_INITIALIZED) {
                 sendMsgError();
-                return;
             }
 
+            LoggerFactory.obtainLogger(TAG).d("open# audioRecord is successfully initialized!");
+        }
+
+        private void work() {
             stream.open(AudioStream.Mode.WRITE);
             sendMsgStarted();
 
             audioRecord.startRecording();
-        }
-
-        private void work() {
-            int minBufferSize = MIN_BUFFER_SIZE * MULT;
 
             OutputStream out = null;
 
@@ -153,6 +152,11 @@ class SESoundRecorder {
                 while(running) {
                     audioRecord.read(data, 0, data.length);
                     out.write(data);
+
+                    stream.updatePosition(data.length);
+                    stream.updateDuration(data.length);
+
+                    LoggerFactory.obtainLogger(TAG).d("work# recorded data.length = " + data.length);
                 }
 
                 sendMsgStopped();
@@ -181,7 +185,7 @@ class SESoundRecorder {
             stream.close();
 
             audioRecord.stop();
-            audioRecord.release();
+//            audioRecord.release();
         }
 
         private void stopRecording() {

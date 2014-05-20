@@ -265,6 +265,9 @@ public class SEProject {
 
             if (i == index) {
                 record.position = record.duration - (duration - position);
+                LoggerFactory.obtainLogger(TAG).
+                        d("finalizePosition# " + record.soundPath +
+                                "{" + position + ", " + duration + "}");
             }
 
             ++i;
