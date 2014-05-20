@@ -127,10 +127,16 @@ public class RecordAudioStream extends AudioStream {
 
     @Override
     void finalizePosition() {
+        LoggerFactory.obtainLogger(TAG).
+                d("finalizePosition# record.position = " + record.position +
+                        ", record.project.position = " + record.project.position);
     }
 
     @Override
     void finalizeDuration() {
+        LoggerFactory.obtainLogger(TAG).
+                d("finalizeDuration# record.duration = " + record.duration +
+                        ", record.project.duration = " + record.project.duration);
     }
 
     @Override

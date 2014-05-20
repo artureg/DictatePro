@@ -1,5 +1,7 @@
 package com.wiseapps.davacon.core.se;
 
+import com.wiseapps.davacon.logging.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +14,7 @@ import java.util.*;
  *         Time: 9:13 PM
  */
 public class ProjectAudioStream extends AudioStream {
+    private static final String TAG = ProjectAudioStream.class.getSimpleName();
 
     private final SEProject project;
 
@@ -68,6 +71,8 @@ public class ProjectAudioStream extends AudioStream {
     @Override
     void finalizePosition() {
         project.updateRecordPositions();
+        LoggerFactory.obtainLogger(TAG).
+                d("finalizePosition# project.position = " + project.position);
     }
 
     @Override
