@@ -29,8 +29,6 @@ class SESoundPlayer {
 
     private final AudioStream stream;
 
-    private AudioTrack audioTrack;
-
     private List<SESoundPlayerStateListener> listeners = new ArrayList<SESoundPlayerStateListener>();
 
     SESoundPlayer(AudioStream stream, int position, int duration) {
@@ -92,6 +90,8 @@ class SESoundPlayer {
     private class PlayingThread extends Thread {
         private boolean running;
 
+        private AudioTrack audioTrack;
+
         private PlayingThread(boolean running) {
             this.running = running;
         }
@@ -104,10 +104,10 @@ class SESoundPlayer {
         }
 
         private void open() {
-            if (audioTrack != null && audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
-                LoggerFactory.obtainLogger(TAG).d("open# audioTrack is already initialized, returning...");
-                return;
-            }
+//            if (audioTrack != null && audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
+//                LoggerFactory.obtainLogger(TAG).d("open# audioTrack is already initialized, returning...");
+//                return;
+//            }
 
             int minBufferSize = MIN_BUFFER_SIZE;
 
@@ -122,6 +122,8 @@ class SESoundPlayer {
                 public void onPeriodicNotification(AudioTrack track) {
                     long delta = DurationUtils.secondsToBytes(0.1);
 
+                    stream.updatePosition(delta);
+
                     position += delta;
         	
                     sendMsgInProgress();
@@ -130,17 +132,18 @@ class SESoundPlayer {
 
             if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
                 sendMsgError();
+                return;
             }
 
-            LoggerFactory.obtainLogger(TAG).d("open# audioTrack is successfully initialized!");
-        }
-
-        private void work() {
             stream.open(AudioStream.Mode.READ);
             sendMsgStarted();
 
             audioTrack.play();
-        	
+
+//            LoggerFactory.obtainLogger(TAG).d("open# audioTrack is successfully initialized!");
+        }
+
+        private void work() {
         	int minBufferSize = getMinBufferSize() ;
 
             InputStream in = null;
@@ -153,9 +156,9 @@ class SESoundPlayer {
                 while(running && ((len = in.read(data)) != -1)) {
                 	audioTrack.write(data, 0, len);
 
-                    stream.updatePosition(data.length);
-
-                    LoggerFactory.obtainLogger(TAG).d("work# played data.length = " + data.length);
+//                    stream.updatePosition(data.length);
+//
+//                    LoggerFactory.obtainLogger(TAG).d("work# played data.length = " + data.length);
                 }
                 
                 sendMsgPaused();
@@ -182,17 +185,17 @@ class SESoundPlayer {
         private void close() {
             stream.close();
 
-            audioTrack.pause();
+//            audioTrack.pause();
+//
+//            long delta = DurationUtils.secondsToBytes(0.1);
+//            position += delta;
+//
+//            sendMsgInProgress();
+//
+////            audioTrack.flush();
 
-            long delta = DurationUtils.secondsToBytes(0.1);
-            position += delta;
-
-            sendMsgInProgress();
-
-//            audioTrack.flush();
-
-//            audioTrack.stop();
-//            audioTrack.release();
+            audioTrack.stop();
+            audioTrack.release();
         }
 
         void pausePlaying() {
