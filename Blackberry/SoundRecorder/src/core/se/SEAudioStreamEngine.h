@@ -1,74 +1,83 @@
 /*
  * SEAudioStreamEngine.h
  *
- *  Created on: 16.04.2014
+ *  Created on: 21.05.2014
  *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
 #ifndef SEAUDIOSTREAMENGINE_H_
 #define SEAUDIOSTREAMENGINE_H_
 
-#include <QObject>
+#include <qobject.h>
+#include "SEAudioStream.h"
 
-// States
-#define READY 0
-#define PLAYING_IN_PROGRESS 1
-#define RECORDING_IN_PROGRESS 2
-
-// Events
-#define PLAYING_STARTED 3
-#define PLAYING_PAUSED 4
-#define PLAYING_IN_PROGRESS 5
-#define PLAYING_STOPPED 6
-#define RECORDING_STARTED 7
-#define RECORDING_IN_PROGRESS 8
-#define RECORDING_STOPPED 9
-#define OPERATION_ERROR 10
-
-namespace bb {
-namespace cascades {
-
-class SEAudioStreamEngine : public QObject {
+class SEAudioStreamEngine: public QObject {
 
 	Q_OBJECT
 
-private:
-	int state;
-
 public:
+
+	typedef enum {
+		stateNotReady,
+		stateReady,
+		statePlaying,
+		statePaused,
+		stateRecording,
+	} SEAudioStreamEngineState;
+
 	SEAudioStreamEngine();
 	virtual ~SEAudioStreamEngine();
 
-	void notifyPlayerStateChanged(int event);
-	void notifyRecorderStateChanged(int event);
+	/** current state*/
+	SEAudioStreamEngineState state;
 
-	int getState();
+	/** audio stream*/
+	SEAudioStream *audioStream;
 
-signals:
-	void playerStateChanged(int event);
-	void recorderStateChanged(int event);
+	/** start player*/
+	virtual void startPlaying();
 
-protected:
+	/** stop player*/
+	virtual void stopPlaying();
 
-    virtual void startPlaying();
+	/** start recorder*/
+	virtual void startRecording();
 
-    virtual void pausePlaying();
+	/** stop recorder*/
+	virtual void stopRecording();
 
-    virtual void stopPlaying();
+	/** set position*/
+	virtual void setPosition(unsigned int position);
 
-    virtual void startRecording();
+	/** Current Time of audio track */
+	unsigned int currentTimeInMillisecond;
 
-    virtual void stopRecording();
+	/** Track duration */
+	unsigned int durationInMillisecond;
 
-    /**
-     * @param currentTime current time in seconds
-     */
-    virtual void setCurrentTime(double currentTime);
+Q_SIGNALS:
 
-    virtual double getCurrentTime();
+	/** signal is raised when the recorder progress has been changed */
+	void signalRecordingInProgress(unsigned int position, unsigned int duration);
+
+	/** signal is raised when the recorder has been started */
+	void signalRecordingStarted(unsigned int position, unsigned int duration);
+
+	/** signal is raised when the recorder has been stopped */
+	void signalRecordingStopped(unsigned int position, unsigned int duration);
+
+	/** signal is raised when the player progress has been changed */
+	void signalPlayingInProgress(unsigned int position, unsigned int duration);
+
+	/** signal is raised when the player has been started */
+	void signalPlayingStarted(unsigned int position, unsigned int duration);
+
+	/** signal is raised when the player has been stopped */
+	void signalPlayingStopped(unsigned int position, unsigned int duration);
+
+	/** signal is raised when an error has been occurred */
+	void signalError(unsigned int position, unsigned int duration, QString errorMessage);
 
 };
 
-} /* namespace cascades */
-} /* namespace bb */
 #endif /* SEAUDIOSTREAMENGINE_H_ */

@@ -7,55 +7,52 @@
 
 #include "SEProject.h"
 
-namespace bb {
-namespace cascades {
-
-} /* namespace cascades */
-} /* namespace bb */
-
-bb::cascades::SEProject::SEProject():
+SEProject::SEProject():
 		changed(false) {}
 
-bb::cascades::SEProject::~SEProject() {}
+SEProject::~SEProject() {}
 
-QString bb::cascades::SEProject::getProjectPath() {
+char SEProject::getProjectPath() {
 	return projectPath;
 }
 
-SEAudioStream bb::cascades::SEProject::getAudioStream() {
+//SEAudioStream SEProject::getAudioStream() {
+//	SEProjectAudioStream stream;
+//	//stream.initWithRecord(this);
+//
+//	return stream;
+//}
 
-}
-
-QList<SERecord> bb::cascades::SEProject::getRecords() {
+QList<SERecord> SEProject::getRecords() {
 	return records;
 }
 
-void bb::cascades::SEProject::addRecord(SERecord record) {
+void SEProject::addRecord(SERecord &record) {
 	records.append(record);
 }
 
-void bb::cascades::SEProject::moveRecord(SERecord record, int index) {
-
-}
-
-void bb::cascades::SEProject::removeRecord(SERecord record) {
-	records.removeOne(record);
-}
-
-void bb::cascades::SEProject::removeAllRecords() {
-	records.clear();
-}
-
-bool bb::cascades::SEProject::isChanged() {
-	return changed;
-}
-
-bool bb::cascades::SEProject::save() {
-
-	return false;
-}
-
-bool bb::cascades::SEProject::saveAsync() {
-
-	return false;
-}
+//void SEProject::moveRecord(SERecord record, int index) {
+//
+//}
+//
+//void SEProject::removeRecord(SERecord record) {
+//	records.removeOne(record);
+//}
+//
+//void SEProject::removeAllRecords() {
+//	records.clear();
+//}
+//
+//bool SEProject::isChanged() {
+//	return changed;
+//}
+//
+//bool SEProject::save() {
+//
+//	return false;
+//}
+//
+//bool SEProject::saveAsync() {
+//
+//	return false;
+//}

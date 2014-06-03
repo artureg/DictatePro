@@ -1,10 +1,3 @@
-//
-//  WaveFile.cpp
-//
-//  Created on: 3/19/14.
-//  Author: Igor Danich <igor.danich@wise-apps.com>
-//
-
 #include "WaveFile.h"
 
 // constants for the canonical WAVE format
@@ -41,11 +34,11 @@ bool WaveFile::openRead(const char *filePath) {
         try {
             fread(&p_fmtInfo, sizeof(WaveFMTInfo), 1, p_riffFile->filep());
             p_riffFile->pop();
-
+            
 			if (!p_riffFile->push("data")) {
 				throw p_error = "Couldn't Find Data Chunk";
             }
-
+            
 			p_dataSize = p_riffFile->chunkSize();
 		} catch (...) {
 			throw p_error;
@@ -107,8 +100,8 @@ unsigned long WaveFile::getNumberOfFrames() {
     return getNumberOfSamples()/p_fmtInfo.numberOfChannels;
 }
 
-unsigned long WaveFile::getDuration() {
-    return getNumberOfSamples() / (p_fmtInfo.sampleRate / 1000);
+double WaveFile::getDuration() {
+    return (double)getNumberOfSamples()/(double)p_fmtInfo.sampleRate;
 }
 
 unsigned long WaveFile::getDataSize() {
@@ -142,7 +135,7 @@ void WaveFile::showFMTInfo() {
     printf("Bytes per Sample    : %hu\n", p_fmtInfo.bytesPerSample);
     printf("Bits per Sample     : %hu\n", p_fmtInfo.bitsPerSample);
     printf("Number of Samples   : %lu\n", getNumberOfSamples());
-    printf("Duration            : %lu\n", getDuration());
+    printf("Duration            : %f\n", getDuration());
     printf("\n");
 }
 
@@ -150,7 +143,7 @@ void WaveFile::setupInfo(int sampleRate, short bitsPerSample, short channels) {
     p_fmtInfo.audioFormat = 1;
     p_fmtInfo.numberOfChannels = channels;
     p_fmtInfo.sampleRate = sampleRate;
-    p_fmtInfo.bytesPerSample = bitsPerSample >> 3;
+    p_fmtInfo.bytesPerSample = bitsPerSample >> 1;
     p_fmtInfo.bytesPerSecond = sampleRate*p_fmtInfo.bytesPerSample;
     p_fmtInfo.bitsPerSample = bitsPerSample;
     writeHeader();
@@ -206,11 +199,11 @@ bool WaveFile::writeHeader() {
     if (fseek(p_writeFile, 0, SEEK_SET) != 0) {
 		return false;
     }
-
+    
 	// write the file header
 	unsigned long wholeLength = kWaveHeaderLength + p_dataSize;
 	unsigned long chunkLength = kFMTChunkLength;
-
+    
 	if ((fputs("RIFF", p_writeFile) == EOF)
 		||(fwrite(&wholeLength, sizeof(wholeLength), 1, p_writeFile) != 1)
 		||(fputs("WAVE", p_writeFile) == EOF)
@@ -230,9 +223,9 @@ bool WaveFile::writeRaw(char* buffer, size_t numBytes) {
 		p_error = "Couldn't write samples";
 		return false;
 	}
-
+    
     p_dataSize += numBytes;
-
+    
     return true;
 }
 
@@ -241,7 +234,7 @@ bool WaveFile::writeSample(unsigned char &sample) {
 		p_error = "Sample size mismatch";
 		return false;
 	}
-
+    
 	return writeRaw((char*)&sample), sizeof(unsigned char);
 }
 

@@ -1,7 +1,7 @@
 /*
  * SEProjectAudioStream.h
  *
- *  Created on: 16.04.2014
+ *  Created on: 20.05.2014
  *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
@@ -9,32 +9,24 @@
 #define SEPROJECTAUDIOSTREAM_H_
 
 #include "SEAudioStream.h"
+#include "SEProject.h"
 
-namespace bb {
-namespace cascades {
-
-/**
- * Inherited from the SEAudioStream class concrete representation of an audio stream
- */
 class SEProjectAudioStream: public SEAudioStream {
 
-	Q_OBJECT
-
 private:
-	SEProject project;
-	QList<SERecord> records;
-
-protected:
-	SEProjectAudioStream initialize(QList<SERecord> records);
+	SEProject *project;
 
 public:
-	SEProjectAudioStream(SEProject project);
+
+	SEProjectAudioStream();
 	virtual ~SEProjectAudioStream();
+
+	void initWithProject(SEProject &_project);
 
 	/**
 	 * Opens the stream
 	 */
-	void open(int mode);
+    bool open(SEAudioStreamMode mode);
 
 	/**
 	 * Closes the stream
@@ -44,26 +36,24 @@ public:
 	/**
 	 * Clears the stream
 	 */
-	void clear();
+	bool clear();
 
 	/**
 	 * Writes the data to the end of the stream
+	 *
 	 * @param data data to be appended
 	 */
-	 void write(char* data[]);
+	bool write(char *data);
 
 	/**
 	 * Reads data from the stream
+	 *
 	 * @param data data to be read
 	 * @param position position to start reading from
 	 * @param duration duration of the data to be read
 	 */
-	void read(char* data[], double position, double duration) ;
-
-	int getMode();
+	unsigned int read(char *data, unsigned int position, unsigned int duration);
 
 };
 
-} /* namespace cascades */
-} /* namespace bb */
 #endif /* SEPROJECTAUDIOSTREAM_H_ */

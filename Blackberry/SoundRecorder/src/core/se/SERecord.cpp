@@ -2,32 +2,32 @@
  * SERecord.cpp
  *
  *  Created on: 16.04.2014
- *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
+ *      Author: Timofey Kovalenko (timothy.kovalenko@wise-apps.com)
  */
 
 #include "SERecord.h"
 
-namespace bb {
-namespace cascades {
+SERecord::SERecord():soundUrl("") {
+	soundRange.start = 0;
+	soundRange.duration = 0;
+    m_audio_stream = NULL;
 
-SERecord::SERecord() {
-}
 
-SERecord::SERecord(double start, double duration,
-		String soundPath) {
-	this.start = start;
-	this.duration = duration;
-	this.soundPath = soundPath;
 }
 
 SERecord::~SERecord() {
+    free(m_audio_stream);
 }
 
-SEAudioStream SERecord::getAudioStream(SEProject project) {
-	return new SERecordAudioStream(project);
+SERecordAudioStream* SERecord::audioStream() {
+
+//	SERecordAudioStream stream;
+//	stream.initWithRecord(this);
+//	m_audio_stream = stream;
+    if(m_audio_stream == NULL) {
+        m_audio_stream = new SERecordAudioStream();
+        //m_audio_stream->initWithRecord(this);
+    }
+    m_audio_stream->initWithRecord(this);
+    return m_audio_stream;
 }
-
-} /* namespace cascades */
-} /* namespace bb */
-
-

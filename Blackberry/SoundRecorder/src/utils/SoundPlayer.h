@@ -11,12 +11,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <mm/renderer.h>
+#include <sys/asoundlib.h>
 
 #include <bb/multimedia/MediaPlayer>
 
 #define CONTEXT_NAME "wise-apps-player"
 #define AUDIO_OUT "audio:default"
 #define INPUT_TYPE "track"
+
+#define SUCCESS  0
+#define FAILURE -1
 
 class SoundPlayer : public QObject {
 
@@ -27,6 +31,7 @@ private:
 	mmr_connection_t *connection;
 	mmr_context_t *context;
 	bb::multimedia::MediaPlayer *mp;
+
 
 
 public:
@@ -40,6 +45,8 @@ public:
     void setPosition(long time);
     long getPosition();
     long getDuration();
+
+
 
 signals:
     void finished();
