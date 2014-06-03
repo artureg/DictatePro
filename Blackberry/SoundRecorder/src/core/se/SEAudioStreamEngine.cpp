@@ -1,52 +1,37 @@
 /*
  * SEAudioStreamEngine.cpp
  *
- *  Created on: 16.04.2014
+ *  Created on: 21.05.2014
  *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
 #include "SEAudioStreamEngine.h"
+#include "utils/Loger.h"
 
-namespace bb {
-namespace cascades {
-
-SEAudioStreamEngine::SEAudioStreamEngine() {}
+SEAudioStreamEngine::SEAudioStreamEngine() :
+											state(stateNotReady),
+											currentTimeInMillisecond(0),
+											durationInMillisecond(0)
+{}
 
 SEAudioStreamEngine::~SEAudioStreamEngine() {}
 
 void SEAudioStreamEngine::startPlaying() {
-}
-
-void SEAudioStreamEngine::pausePlaying() {
+	Loger::Debug(typeid(this).name(), "startPlaying");
 }
 
 void SEAudioStreamEngine::stopPlaying() {
+	Loger::Debug(typeid(this).name(), "stopPlaying");
 }
 
 void SEAudioStreamEngine::startRecording() {
+	Loger::Debug(typeid(this).name(), "startRecording");
 }
 
 void SEAudioStreamEngine::stopRecording() {
+	Loger::Debug(typeid(this).name(), "stopRecording");
 }
 
-void SEAudioStreamEngine::setCurrentTime(double currentTime) {
+void SEAudioStreamEngine::setPosition(unsigned int position) {
+	Loger::Debug(typeid(this).name(), "setPosition");
 }
-
-int SEAudioStreamEngine::getState() {
-}
-
-double SEAudioStreamEngine::getCurrentTime() {
-}
-
-void SEAudioStreamEngine::notifyPlayerStateChanged(int event) {
-
-	emit playerStateChanged(event);
-}
-
-void SEAudioStreamEngine::notifyRecorderStateChanged(int event) {
-
-	emit recorderStateChanged(event);
-}
-
-} /* namespace cascades */
-} /* namespace bb */

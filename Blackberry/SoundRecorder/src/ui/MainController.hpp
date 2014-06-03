@@ -8,8 +8,9 @@
 #ifndef MainController_HPP_
 #define MainController_HPP_
 
-#include "StatusEventHandler.h"
-#include "SoundPlayer.h"
+#include "utils/StatusEventHandler.h"
+#include "utils/SoundPlayer.h"
+#include "core/se/SEProjectEngine.h"
 
 #include <QObject>
 #include <QTimer>
@@ -30,9 +31,9 @@ class QTranslator;
  */
 class MainController : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
-    // PROGRESS BAR
+   // PROGRESS BAR
 
    // Makes the minimum of the progress indicator available to the UI
    Q_PROPERTY(int progressMinimum READ progressMinimum NOTIFY progressRangeChanged)
@@ -57,17 +58,21 @@ class MainController : public QObject
 
 
    // Buttons
-   Q_PROPERTY(bool isEnablePlayButton READ isEnablePlayButton NOTIFY buttonsStatesChanged)
-   Q_PROPERTY(bool isEnableRecordButton READ isEnableRecordButton NOTIFY buttonsStatesChanged)
-   Q_PROPERTY(bool isCheckedPlayButton READ isCheckedPlayButton NOTIFY buttonsStatesChanged)
-   Q_PROPERTY(bool isCheckedRecordButton READ isCheckedRecordButton NOTIFY buttonsStatesChanged)
-   Q_PROPERTY(bool isEnableSDButton READ isEnableSDButton NOTIFY buttonsStatesChanged)
+
+  // Q_PROPERTY(QString playButtonImage READ playButtonImage NOTIFY signalButtonsStatesChanged)
+
+   Q_PROPERTY(bool isEnablePlayButton READ isEnablePlayButton NOTIFY signalButtonsStatesChanged)
+   Q_PROPERTY(bool isEnableRecordButton READ isEnableRecordButton NOTIFY signalButtonsStatesChanged)
+   Q_PROPERTY(bool isCheckedPlayButton READ isCheckedPlayButton NOTIFY signalButtonsStatesChanged)
+   Q_PROPERTY(bool isCheckedRecordButton READ isCheckedRecordButton NOTIFY signalButtonsStatesChanged)
+   Q_PROPERTY(bool isEnableSDButton READ isEnableSDButton NOTIFY signalButtonsStatesChanged)
 
 private:
 
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
 
+    SEProjectEngine *projectEngine;
 
     StatusEventHandler *statusEventHandler;
     SoundPlayer *soundPlayer;
@@ -84,6 +89,8 @@ private:
 	// The current progress value
 	int m_progressValue;
 
+
+	bool testT;
 
 	// SLIDER Volume
 
@@ -156,6 +163,34 @@ public Q_SLOTS:
 	void audioStatusUpdateHandler();
 
 
+	// Project engine
+
+	/** the recorder progress has been changed */
+	void onRecordingInProgress(unsigned int position, unsigned int duration);
+
+	/** the recorder has been started */
+	void onRecordingStarted(unsigned int position, unsigned int duration);
+
+	/** the recorder has been stopped */
+	void onRecordingStopped(unsigned int position, unsigned int duration);
+
+	/** he player progress has been changed */
+	void onPlayingInProgress(unsigned int position, unsigned int duration);
+
+	/** the player has been started */
+	void onPlayingStarted(unsigned int position, unsigned int duration);
+
+	/** the player has been stopped */
+	void onPlayingStopped(unsigned int position, unsigned int duration);
+
+	/** an error has been occurred */
+	void onError(unsigned int position, unsigned int duration, QString errorMessage);
+
+	// end project engine
+
+
+
+
 Q_SIGNALS:
 	// The change notification signal of the property
 
@@ -168,8 +203,7 @@ Q_SIGNALS:
 	void volumeValueChanged();
 
 	// Buttons
-	void buttonsStatesChanged();
-
+	void signalButtonsStatesChanged();
 
 private Q_SLOTS:
 
@@ -181,8 +215,11 @@ private Q_SLOTS:
 
 	// SLIDER Volume
 
+
 	void volumeRangeChanged(int minimum, int maximum);
 	void volumeValueChanged(int value);
+
+
 
 };
 

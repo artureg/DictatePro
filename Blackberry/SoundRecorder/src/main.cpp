@@ -11,6 +11,8 @@
 
 #include <Qt/qdeclarativedebug.h>
 
+#include "src/core/SPEEXConverter/WaveSpeexFile.h"
+
 #define BLAKCBERRY_x86
 
 using namespace bb::cascades;
@@ -24,6 +26,12 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 {
     Application app(argc, argv);
     qInstallMsgHandler(myMessageOutput);
+
+
+    WaveSpeexFile* file = new WaveSpeexFile();
+
+    WaveFile* file1 = new WaveFile();
+
 
     /** Create the Application UI object, this is where the main.qml file
      is loaded and the application scene is set.

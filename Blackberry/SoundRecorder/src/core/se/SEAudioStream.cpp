@@ -6,26 +6,41 @@
  */
 
 #include "SEAudioStream.h"
+#include "utils/Loger.h"
 
-namespace bb {
-namespace cascades {
+SEAudioStream::SEAudioStream() : mode(modeUnknown),
+                                 format(formatUnknown),
+                                 currentPositionMills(0),
+                                 startPositionInMiils(0),
+                                 durationInMills(0){}
 
-} /* namespace cascades */
-} /* namespace bb */
+SEAudioStream::~SEAudioStream() {}
 
-bb::cascades::SEAudioStream::SEAudioStream() {}
+//int SEAudioStream::getMode() {
+//	Loger::Debug(typeid(this).name(), "getMode");
+//	return mode;
+//}
 
-bb::cascades::SEAudioStream::~SEAudioStream() {}
+bool SEAudioStream::open(SEAudioStreamMode mode) {
+	Loger::Debug(typeid(this).name(), "open");
+	return false;
+}
 
-void bb::cascades::SEAudioStream::open(int mode) {}
+void SEAudioStream::close() {
+	Loger::Debug(typeid(this).name(), "close");
+}
 
-void bb::cascades::SEAudioStream::close() {}
+bool SEAudioStream::clear() {
+	Loger::Debug(typeid(this).name(), "clear");
+	return false;
+}
 
-void bb::cascades::SEAudioStream::clear() {}
+bool SEAudioStream::write(char *data) {
+	Loger::Debug(typeid(this).name(), "write");
+	return false;
+}
 
-void bb::cascades::SEAudioStream::write(char data[]) {}
-
-void bb::cascades::SEAudioStream::read(char data[], double position,
-		double duration) {}
-
-int bb::cascades::SEAudioStream::getMode() {}
+unsigned int SEAudioStream::read(char *data, unsigned int position, unsigned int duration) {
+	Loger::Debug(typeid(this).name(), "read");
+	return 0;
+}

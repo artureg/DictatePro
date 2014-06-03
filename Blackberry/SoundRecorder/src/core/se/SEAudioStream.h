@@ -9,30 +9,49 @@
 #define SEAUDIOSTREAM_H_
 
 #include <QObject>
-
-#define READ  0
-#define WRITE 1
-
-namespace bb {
-namespace cascades {
+#include <bb/cascades/Application>
 
 /**
  * Representation of a stream
  */
-class SEAudioStream : public QObject {
+class SEAudioStream  { //  public QObject
 
-	Q_OBJECT
+//	Q_OBJECT
 
 public:
 
-	int mode;
+typedef enum {
+	modeRead,
+	modeWrite,
+	modeUnknown
+} SEAudioStreamMode;
+
+typedef enum {
+    formatWav,
+    formatSpeex,
+    formatUnknown
+} SEAudioFormat;
+
+
+protected:
+    unsigned int currentPositionMills;
+    unsigned int startPositionInMiils;
+    unsigned int durationInMills;
+    char *pathFile;
+
+public:
+
+    SEAudioStreamMode mode;
+
+    SEAudioFormat format;
+
 	SEAudioStream();
 	virtual ~SEAudioStream();
 
 	/**
 	 * Opens the stream
 	 */
-	virtual void open(int mode);
+    virtual bool open(SEAudioStreamMode mode);
 
 	/**
 	 * Closes the stream
@@ -42,14 +61,14 @@ public:
 	/**
 	 * Clears the stream
 	 */
-	virtual void clear();
+	virtual bool clear();
 
 	/**
 	 * Writes the data to the end of the stream
 	 *
 	 * @param data data to be appended
 	 */
-	virtual void write(char data[]);
+	virtual bool write(char *data);
 
 	/**
 	 * Reads data from the stream
@@ -58,11 +77,8 @@ public:
 	 * @param position position to start reading from
 	 * @param duration duration of the data to be read
 	 */
-	virtual void read(char data[], double position, double duration) ;
+	virtual unsigned int read(char *data, unsigned int position, unsigned int duration);
 
-	int getMode();
 };
 
-} /* namespace cascades */
-} /* namespace bb */
 #endif /* SEAUDIOSTREAM_H_ */

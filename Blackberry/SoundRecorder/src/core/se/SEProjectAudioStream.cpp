@@ -1,66 +1,60 @@
 /*
  * SEProjectAudioStream.cpp
  *
- *  Created on: 16.04.2014
+ *  Created on: 20.05.2014
  *      Author: Timofey Kovalenko <timothy.kovalenko@wise-apps.com>
  */
 
 #include "SEProjectAudioStream.h"
 
-namespace bb {
-namespace cascades {
+SEProjectAudioStream::SEProjectAudioStream() {}
 
-SEProjectAudioStream::SEProjectAudioStream(SEProject project) {
-	this.project = project;
+SEProjectAudioStream::~SEProjectAudioStream() {}
+
+void SEProjectAudioStream::initWithProject(SEProject &_project) {
+	project = &_project;
 }
 
-SEProjectAudioStream::~SEProjectAudioStream() {
+bool SEProjectAudioStream::open(SEAudioStreamMode _mode) {
+	mode = _mode;
+	return false;
 }
 
-SEProjectAudioStream SEProjectAudioStream::initialize(
-		QList<SERecord> records) {
-	this.records = records;
-	return this;
+void SEProjectAudioStream::close() {}
+
+bool SEProjectAudioStream::clear() {
+	return false;
 }
 
-void SEProjectAudioStream::open(int mode) {
-	this->mode = mode;
+bool SEProjectAudioStream::write(char *data) {
+
+	return false;
 }
 
-void SEProjectAudioStream::close() {
+unsigned int SEProjectAudioStream::read(char *data, unsigned int position, unsigned int duration) {
+
+    unsigned int pos = 0;
+    unsigned int dur = duration;
+     unsigned int size;
+    QList<SERecord> records = project->getRecords();
+    for (int i; i < records.size(); i++) {
+        SERecord record = records[i];
+        if (record.audioStream()->mode != modeRead) {
+            record.audioStream()->clear();
+            record.audioStream()->open(modeRead);
+        }
+        if (dur <= 0) {
+            break;
+        }
+        unsigned int recordDuration = record.soundRange.duration;
+        if (pos + recordDuration > position) {
+            unsigned int lPos = position - pos;
+            unsigned int lDuration = (dur > recordDuration) ? recordDuration:dur;
+            size = record.audioStream()->read(data, lPos, lDuration);
+            dur -= lDuration;
+        }
+        pos += record.audioStream.duration;
+    }
+
+    return size;
 }
-
-void SEProjectAudioStream::clear() {
-	 records.clear();
-}
-
-void SEProjectAudioStream::write(char* data[]) {
-}
-
-void SEProjectAudioStream::read(char* data[], double position,
-		double duration) {
-
-	 if (records == NULL) {
-		return;
-	}
-	char* data[];
-	SEAudioStream stream;
-	for (SERecord record : records) {
-		stream = record.getAudioStream(project);
-		stream.open(Mode.READ);
-
-		if (true) {
-			stream.read(data, position, duration);
-		}
-	}
-
-}
-
-int SEProjectAudioStream::getMode() {
-	return mode;
-}
-
-} /* namespace cascades */
-} /* namespace bb */
-
-

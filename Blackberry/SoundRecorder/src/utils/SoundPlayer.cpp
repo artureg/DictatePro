@@ -81,3 +81,13 @@ long SoundPlayer::getDuration() {
 	return mp->duration();
 }
 
+
+
+
+
+
+
+
+
+
+

@@ -8,63 +8,44 @@
 #ifndef SEPROJECTENGINE_H_
 #define SEPROJECTENGINE_H_
 
-#include <qobject.h>
+//#include <qobject.h>
 
-#define SAMPLE_RATE_IN_HZ 8000;
-#define CHANNEL_CONFIG 1;
-#define AUDIO_FORMAT 16;
+#include "SEAudioStreamEngine.h"
+#include "SEProject.h"
+#include "SESoundPlayer.h"
+#include "SESoundRecorder.h"
 
-namespace bb {
-namespace cascades {
+class SEProjectEngine: public SEAudioStreamEngine {
 
-class SEProjectEngine: public SEProjectAudioStream {
 	Q_OBJECT
 
 public:
-	SEProjectEngine(SEProject project);
+
+	SEProjectEngine();
 	virtual ~SEProjectEngine();
 
-private:
-	SEProject project;
+	void initWithProject(SEProject &project);
 
-public:
-	/**
-	 * Plays the stream.
-	 * Playing is stream-based. In case the stream is encoded to format we can't play as is,
-	 * it is decoded with the native library method.
-	 */
 	void startPlaying();
-
-	/**
-	 * Pauses stream playing
-	 */
-	void pausePlaying();
-
-	/**
-	 * Stops stream playing
-	 */
 	void stopPlaying();
-
-	/**
-	 * Starts recording.
-	 * Recording is stream-based. In case the stream should be recorder in some specified format,
-	 * it is encoded with the native library method.
-	 */
 	void startRecording();
-
-	/**
-	 * Stops recording
-	 */
 	void stopRecording();
+	void setPosition(unsigned int position);
 
-	@Override
-	public void setCurrentTime(double currentTime);
+private:
+	SEProject* project;
+	SESoundPlayer *soundPlayer;
+	SESoundRecorder *soundRecorder;
 
-	@Override
-	public double getCurrentTime();
+public Q_SLOTS:
+	void slotError(char *msg);
+	void slotStoped();
+	void slotStarted();
+	void slotPositionChanged(unsigned int position);
+Q_SIGNALS:
+	void signalStop();
+	void signalChangePosition(unsigned int position);
 
 };
 
-} /* namespace cascades */
-} /* namespace bb */
 #endif /* SEPROJECTENGINE_H_ */

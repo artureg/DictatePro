@@ -1,8 +1,9 @@
 //
 //  WaveSpeexFile.h
+//  SPEEXConverter
 //
-//  Created on: 3/20/14.
-//  Author: Igor Danich <igor.danich@wise-apps.com>
+//  Created by Igor on 3/20/14.
+//  Copyright (c) 2014 Igor. All rights reserved.
 //
 
 #ifndef __SPEEXConverter__WaveSpeexFile__
@@ -34,31 +35,56 @@ struct WaveSpeexFileInfo {
     char            homepage[32];           // "\tCodec homepage www.openacm.org\0" size=32
 };
 
+struct SpeexCodingInfo {
+    int     quality;
+    int     enh;
+    int     mode;
+    int     subMode;
+    int     frameSize;
+    int     framesPerPacket;
+    int     vbr;
+    int     complexity;
+    int     plc_tunning;
+    int     highpass;
+};;
+
 class WaveSpeexFile : WaveFile {
 public:
     WaveSpeexFile();
-
+    
     // Get Last Error
     const char* getError() {return p_error;}
-
+    
     // Open For Reading
     bool openRead(const char* filePath);
-
+    
     // Open For Writing
     bool openWrite(const char* filePath);
-
+    
     // Close File
     void close();
-
+    
     // Info
+    WaveFMTInfo& getFMTInfo();
+    double getDuration();
     void showInfo();
-
+    void setupInfo(int sampleRate, int bytesPerSample, int quality);
+    double getDurationForBufferSize(unsigned long);
+    
     // Encoding
-    bool encodeWavFile(const char* filePath, short quality = 10);
-    bool decodeToWavFile(const char* filePath);
+    unsigned int expectedPacketSize();
+    bool encodeWavData(const void* data, int numberOfPackets);
+    
+    // Decoding
+    bool decodeToData(int offsetMilliSeconds, int durationMilliSeconds, void* data, int* size);
 
 private:
-    WaveSpeexFileInfo p_spxInfo;
-
+    WaveSpeexFileInfo   p_spxInfo;
+    double              p_duration;
+    
+    void*               p_writeState;
+    void*               p_readState;
+    int                 p_bytesPerSample;
+    SpeexCodingInfo     p_coding;
     bool writeHeader();
 };
