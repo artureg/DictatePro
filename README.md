@@ -10,8 +10,8 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-1) Get the latest code from the repository
-2) Setup lates SDKs for Android(Latest), IOS(XCODE with iOS SDK >=5 ), BlackBerry SDK 10.3 API LEVEL,
-3) No need to additional configuration
-4) Compile with your favourite IDE or command tool
-5) Upload to device or emulator
+* Get the latest code from the repository
+* Setup lates SDKs for Android(Latest), IOS(XCODE with iOS SDK >=5 ), BlackBerry SDK 10.3 API LEVEL,
+* No need to additional configuration
+* Compile with your favourite IDE or command tool
+* Upload to device or emulator
