@@ -35,7 +35,7 @@ Page {
                 toValue: _mainController.progressMaximum()
                 value: _mainController.progressValue()
                 onImmediateValueChanged: {
-                    _mainController.progressValueChanged(immediateValue);
+                    console.debug("The slider value is " + sliderPlayer.value);
                 }
             }
         } // end of progress bar container
@@ -233,8 +233,6 @@ Page {
                 value: 22 //_mainController.volumeValue
                 
                 onImmediateValueChanged: {
-                    // Output the immediateValue to the console
-                    console.debug("The slider value is " + immediateValue)
                 }
 
             }

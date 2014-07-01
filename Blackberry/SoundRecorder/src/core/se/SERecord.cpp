@@ -8,8 +8,8 @@
 #include "SERecord.h"
 
 SERecord::SERecord():soundUrl("") {
-	soundRange.start = 0;
-	soundRange.duration = 0;
+    soundRange.start = 0;
+    soundRange.duration = 0;
     m_audio_stream = NULL;
 
 
