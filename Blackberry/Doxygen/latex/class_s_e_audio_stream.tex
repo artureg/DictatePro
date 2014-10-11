@@ -1,0 +1,72 @@
+\hypertarget{class_s_e_audio_stream}{\section{S\+E\+Audio\+Stream Class Reference}
+\label{class_s_e_audio_stream}\index{S\+E\+Audio\+Stream@{S\+E\+Audio\+Stream}}
+}
+Inheritance diagram for S\+E\+Audio\+Stream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_s_e_audio_stream}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_s_e_audio_stream_ad4400267e4d64428f82f5b774e64d89d}{{\bfseries S\+E\+Audio\+Stream} (Q\+String path, Q\+Object $\ast$parent=0)}\label{class_s_e_audio_stream_ad4400267e4d64428f82f5b774e64d89d}
+
+\item 
+\hypertarget{class_s_e_audio_stream_acb2cd924f6e33ef742f30a750e0708f3}{Q\+String {\bfseries get\+Path} ()}\label{class_s_e_audio_stream_acb2cd924f6e33ef742f30a750e0708f3}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a64f1a25545197281d9f556e9371511e2}{virtual long {\bfseries get\+Duration} ()}\label{class_s_e_audio_stream_a64f1a25545197281d9f556e9371511e2}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a73cbe0d712b86dac39028cd0967474f3}{virtual void {\bfseries set\+Description} (\hyperlink{struct_t_s_e_audio_stream_desc}{T\+S\+E\+Audio\+Stream\+Desc} desc)}\label{class_s_e_audio_stream_a73cbe0d712b86dac39028cd0967474f3}
+
+\item 
+\hypertarget{class_s_e_audio_stream_af6cb98f0366c35353b6e6c7b2d0ffe24}{\hyperlink{struct_t_s_e_audio_stream_desc}{T\+S\+E\+Audio\+Stream\+Desc} {\bfseries get\+Description} ()}\label{class_s_e_audio_stream_af6cb98f0366c35353b6e6c7b2d0ffe24}
+
+\item 
+\hypertarget{class_s_e_audio_stream_ac1234e9c052d73def9f6a8b71516ec01}{T\+S\+E\+Audio\+Stream\+Mode {\bfseries get\+Mode} ()}\label{class_s_e_audio_stream_ac1234e9c052d73def9f6a8b71516ec01}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a270d3f5b03562d1284fbe74060a6b32e}{virtual bool {\bfseries open} (T\+S\+E\+Audio\+Stream\+Mode mode)}\label{class_s_e_audio_stream_a270d3f5b03562d1284fbe74060a6b32e}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a8c4af367964e8be4817df12989f06d40}{virtual void {\bfseries close} ()}\label{class_s_e_audio_stream_a8c4af367964e8be4817df12989f06d40}
+
+\item 
+\hypertarget{class_s_e_audio_stream_ab9c31f1004bbdf45ec8caee753ee127e}{virtual bool {\bfseries read\+Data} (Q\+Byte\+Array \&byte\+Array, long position, long duration)}\label{class_s_e_audio_stream_ab9c31f1004bbdf45ec8caee753ee127e}
+
+\item 
+\hypertarget{class_s_e_audio_stream_aecda3096d9dca88eca934a2a555ad0ff}{virtual bool {\bfseries write\+Data} (Q\+Byte\+Array \&byte\+Array)}\label{class_s_e_audio_stream_aecda3096d9dca88eca934a2a555ad0ff}
+
+\item 
+\hypertarget{class_s_e_audio_stream_ae8d33acef5174c832e229c61d1c5d75d}{bool {\bfseries export\+To\+Audio\+Stream} (\hyperlink{class_s_e_audio_stream}{S\+E\+Audio\+Stream} $\ast$audio\+Stream)}\label{class_s_e_audio_stream_ae8d33acef5174c832e229c61d1c5d75d}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_s_e_audio_stream_a9e6533e1ca6a98463a208a6a668b0fcc}{void {\bfseries reload\+Desc} ()}\label{class_s_e_audio_stream_a9e6533e1ca6a98463a208a6a668b0fcc}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_s_e_audio_stream_aa0b683207a891441919b456b52ecc9af}{Q\+String {\bfseries path}}\label{class_s_e_audio_stream_aa0b683207a891441919b456b52ecc9af}
+
+\item 
+\hypertarget{class_s_e_audio_stream_afde89d08f02ae01b1e9be3905942fb31}{T\+S\+E\+Audio\+Stream\+Mode {\bfseries mode}}\label{class_s_e_audio_stream_afde89d08f02ae01b1e9be3905942fb31}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a0c7455be26d6addadbeed52c78cf1d68}{Wave\+File $\ast$ {\bfseries file}}\label{class_s_e_audio_stream_a0c7455be26d6addadbeed52c78cf1d68}
+
+\item 
+\hypertarget{class_s_e_audio_stream_a689abf52d876db852fa8c28c3fbaec12}{\hyperlink{struct_t_s_e_audio_stream_desc}{T\+S\+E\+Audio\+Stream\+Desc} {\bfseries desc}}\label{class_s_e_audio_stream_a689abf52d876db852fa8c28c3fbaec12}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/igor/\+Develop/\+Devacon/\+Blackberry/\+Sound\+Editor/src/\+Core/S\+E\+Audio\+Stream.\+h\item 
+/\+Users/igor/\+Develop/\+Devacon/\+Blackberry/\+Sound\+Editor/src/\+Core/S\+E\+Audio\+Stream.\+cpp\end{DoxyCompactItemize}
