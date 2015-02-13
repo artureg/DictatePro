@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* DEVACON project for recorder
+* project for recorder
 * Version 1.0
 
 
